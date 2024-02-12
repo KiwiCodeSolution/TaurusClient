@@ -1,8 +1,13 @@
+import MetaData from "../../components/MetaData";
+
 const Actions = () => {
   return (
-    <section>
-      <img src="" alt="" className="w-full h-[416px] object-cover" />
-    </section>
+    <>
+      <MetaData>Акції ресторану</MetaData>
+      <section>
+        <img src="" alt="" className="w-full h-[416px] object-cover" />
+      </section>
+    </>
   );
 };
 

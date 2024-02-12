@@ -9,6 +9,7 @@ export default {
         "base-orange": "#F7A033",
         "base-brown": "#7E664D",
         "base-back": "#0C0C09",
+        "lite-yellow": "#ECDDC6",
       },
       fontFamily: {},
       backgroundImage: {

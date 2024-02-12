@@ -84,8 +84,41 @@
   margin: 0 auto;
 }
 
-.footer {
+.border_custom {
   border-top: 1px;
   border-style: solid;
   border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
+}
+.border_overlay {
+  border: 1px;
+  border-style: solid;
+  border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
+}
+
+.line {
+  background: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%);
+}
+
+.icon {
+  stroke: #fff;
+}
+
+.phoneContactList_button:hover .icon {
+  stroke: #ffd698;
+}
+
+.phoneContactList_link .icon {
+  stroke: #ffd698;
+}
+
+.social_link:hover .icon,
+.location:hover .icon {
+  stroke: #ffd698;
+}
+
+.nav_link:hover .line::before,
+.nav_link:hover .line::after {
+  transform: translateX(0);
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }

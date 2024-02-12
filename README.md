@@ -1,8 +1,17 @@
-# React + Vite
+# README.md
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# TaurusSoul Ресторан
 
-Currently, two official plugins are available:
+Цей проект є веб-сайтом для ресторану TaurusSoul. Він розроблений за допомогою Vite, React, Tailwind CSS і React Router DOM.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Огляд проекту
+
+Цей веб-сайт містить наступні сторінки:
+
+- **Головна**: Опис ресторану та його особливості.
+- **Меню**: Розділи на основні страви, десерти та напої.
+- **Акції**: Інформація про поточні акції та знижки.
+- **Послуги**: Перелік додаткових послуг, які надає ресторан.
+- **Забронювати**: Форма для забронювання столиків.
+- **Контакти**: Контактна інформація ресторану.
+- **АдмінПанель**: Робота із замовленнями, наковнення контентом, адміністрування меню і т.д..
