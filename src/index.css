@@ -39,7 +39,7 @@
     display: inline-block;
 
     padding: 0;
-    border: 0;
+
     outline: none;
     margin: 0;
 
@@ -119,6 +119,19 @@
 .nav_link:hover .line::before,
 .nav_link:hover .line::after {
   transform: translateX(0);
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.icon-up {
+  fill: #ecddc6;
+}
+
+button:hover .icon-up {
+  fill: #ffd698;
+  stroke: #ffd698;
+  transform: fill;
+  transform: stroke;
   transition-duration: 250ms;
   transition-timing-function: ease;
 }

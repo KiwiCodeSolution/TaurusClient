@@ -10,7 +10,7 @@ const ITEMS = [
 const SocIcons = ({ section, className }) => {
   return (
     <>
-      <div className={`flex ${section === "home" ? "flex-col gap-y-4" : ""} ${className}`}>
+      <div className={`flex ${section === "home" ? "flex-col gap-y-4" : "gap-x-4"} ${className}`}>
         {ITEMS.map(({ id, name, Icon, link }) => (
           <a key={id + name} href={link} className="social_link" target="_blank">
             <Icon />
@@ -22,7 +22,7 @@ const SocIcons = ({ section, className }) => {
 };
 
 SocIcons.propTypes = {
-  section: PropTypes.string.isRequired,
+  section: PropTypes.string,
   className: PropTypes.string,
 };
 

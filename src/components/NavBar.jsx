@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 const ITEMS = [
@@ -8,9 +9,9 @@ const ITEMS = [
   { id: "5", name: "Контакти", link: "/contacts" },
 ];
 
-const NavBar = () => {
+const NavBar = ({ sectionType }) => {
   return (
-    <nav className="flex gap-x-6">
+    <nav className={`flex text-base ${sectionType === "footer" ? "flex-col gap-y-3" : "gap-x-6"}`}>
       {ITEMS.map((el) => (
         <NavLink
           to={el.link}
@@ -22,6 +23,10 @@ const NavBar = () => {
       ))}
     </nav>
   );
+};
+
+NavBar.propTypes = {
+  sectionType: PropTypes.string,
 };
 
 export default NavBar;

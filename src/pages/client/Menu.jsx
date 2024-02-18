@@ -1,16 +1,17 @@
+import MenuItem from "../../components/MenuItem";
 import MetaData from "../../components/MetaData";
-import PhoneContactList from "../../components/PhoneContactList";
 
 const Menu = () => {
   return (
     <>
       <MetaData>Меню ресторану</MetaData>
 
-      <section className="relative w-full h-full">
+      <main className="relative w-full">
         <img src="/images/menu/menu.jpg" alt="" className="w-full h-[416px] object-cover" />
-
-        <PhoneContactList />
-      </section>
+        <section className="wrapper w-full">
+          <MenuItem />
+        </section>
+      </main>
     </>
   );
 };

@@ -10,6 +10,7 @@ export default {
         "base-brown": "#7E664D",
         "base-back": "#0C0C09",
         "lite-yellow": "#ECDDC6",
+        "button-bg": "#181817",
       },
       fontFamily: {},
       backgroundImage: {
