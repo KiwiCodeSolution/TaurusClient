@@ -12,6 +12,11 @@ export default {
         "lite-yellow": "#ECDDC6",
         "button-bg": "#181817",
       },
+      fontSize: {
+        14: ["14px", "20px"],
+        16: ["16px", "24px"],
+        18: ["18px", "20px"],
+      },
       fontFamily: {},
       backgroundImage: {
         hero: "url('images/hero.jpg')",

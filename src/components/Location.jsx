@@ -9,14 +9,18 @@ const Location = ({ section, className }) => {
         href="https://maps.app.goo.gl/rEBJVohGT41p9Ufb9"
         target="_blank"
         className={`${
-          section === "home" ? "rotate-90 hover:underline gap-x-3" : "gap-x-[6px]"
+          section === "home"
+            ? "rotate-90 hover:underline gap-x-3"
+            : section === "contacts"
+            ? "gap-x-[6px] items-center w-[200px]"
+            : "gap-x-[6px]"
         } ${className} flex not-italic hover:text-base-yellow hover:cursor-pointer location`}
       >
         {section === "home" ? (
           <LocationIcon section={"home"} />
         ) : (
           <div className="w-6 pt-1">
-            <LocationIcon />
+            <LocationIcon section={section} />
           </div>
         )}
 

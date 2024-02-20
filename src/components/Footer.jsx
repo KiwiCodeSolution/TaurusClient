@@ -23,7 +23,7 @@ const Footer = () => {
           <li className="w-[186px] flex flex-col gap-y-[29px]">
             <p className="w-full">Слідкуйте за нами в соціальних мережах</p>
             <SocIcons />
-            <Button style={"transparent"}>Зв’язатись</Button>
+            <Button style={"transparent"}>Зв&apos;язатись</Button>
           </li>
           <li>
             <Button style={"round"}>

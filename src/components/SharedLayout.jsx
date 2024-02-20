@@ -24,13 +24,12 @@ export const SharedLayout = () => {
 
   return (
     <div className="relative" id="header">
-      <header className="flex px-[82px] gap-x-[142px] items-center justify-between text-base fixed top-0 left-0 w-full h-[104px] z-10">
+      <header className="flex px-[82px] gap-x-[142px] items-center justify-between text-base absolute top-0 left-0 w-full h-[104px] z-10">
         <Logo />
         <NavBar />
 
         <div className="flex gap-x-5">
-          {/* <button onClick={openModal}>tel</button> */}
-          <Button style={"transparent"} clickFn={openModal}>
+          <Button style={"transparent"} clickFn={openModal} btnClass={"mr-[48px]"}>
             {number}
           </Button>
         </div>
@@ -38,7 +37,7 @@ export const SharedLayout = () => {
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
-      <div className="w-full h-[104px] fixed top-0 left-0 bg-gradient-to-b from-[#090705] to-[rgb(11,8,3,0)]" />
+      <div className="w-full h-[104px] absolute top-0 left-0 bg-gradient-to-b from-[#090705] to-[rgb(11,8,3,0)]" />
       {isOpen && <PhoneContactList clickFn={closeModal} contactNumber={number} />}
       {!isHomePage && <Footer />}
     </div>

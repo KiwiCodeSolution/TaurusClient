@@ -89,6 +89,7 @@
   border-style: solid;
   border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
 }
+
 .border_overlay {
   border: 1px;
   border-style: solid;
@@ -112,7 +113,7 @@
 }
 
 .social_link:hover .icon,
-.location:hover .icon {
+.location:hover .location_icon {
   stroke: #ffd698;
 }
 
@@ -134,4 +135,8 @@ button:hover .icon-up {
   transform: stroke;
   transition-duration: 250ms;
   transition-timing-function: ease;
+}
+
+.contact_item:hover .contact_icon {
+  fill: #ffd698;
 }
