@@ -104,11 +104,15 @@
   stroke: #fff;
 }
 
-.phoneContactList_button:hover .icon {
+.phoneContactList_link .icon {
   stroke: #ffd698;
 }
 
-.phoneContactList_link .icon {
+.cross {
+  stroke: #ecddc6;
+}
+
+.form_button:hover .cross {
   stroke: #ffd698;
 }
 
@@ -128,6 +132,14 @@
   fill: #ecddc6;
 }
 
+.icon_down {
+  stroke: #7e664d;
+}
+
+.select_persons:hover .icon_down {
+  stroke: #ffd698;
+}
+
 button:hover .icon-up {
   fill: #ffd698;
   stroke: #ffd698;
@@ -139,4 +151,18 @@ button:hover .icon-up {
 
 .contact_item:hover .contact_icon {
   fill: #ffd698;
+}
+
+.select_persons span {
+  width: 0;
+  height: 0;
+}
+
+.react-datepicker__header.react-datepicker__header--time.react-datepicker__header--time--only,
+.react-datepicker-time__header {
+  display: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -100%;
 }

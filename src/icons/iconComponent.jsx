@@ -106,21 +106,16 @@ export const ArrowUp = () => (
   </svg>
 );
 
-export const ArrowDown = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
-    <g clipPath="url(#clip0_323_2568)">
-      <rect width="16" height="16" fill="white" fillOpacity="0.01" />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M4.14645 6.14547C4.34171 5.95021 4.65829 5.95021 4.85355 6.14547L8 9.29192L11.1464 6.14547C11.3417 5.95021 11.6583 5.95021 11.8536 6.14547C12.0488 6.34073 12.0488 6.65731 11.8536 6.85258L8.42426 10.2819C8.18995 10.5162 7.81005 10.5162 7.57574 10.2819L4.14645 6.85258C3.95118 6.65731 3.95118 6.34073 4.14645 6.14547Z"
-      />
-    </g>
-    <defs>
-      <clipPath id="clip0_323_2568">
-        <rect width="16" height="16" />
-      </clipPath>
-    </defs>
+export const ArrowDown = ({ className }) => (
+  <svg
+    width="12"
+    height="7"
+    viewBox="0 0 12 7"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`icon_down ${className}`}
+  >
+    <path d="M1 0.999999L6 6L11 1" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -189,7 +184,14 @@ export const Clock = ({ section }) => (
 );
 
 export const Cross = ({ className }) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`${className} cross`}
+  >
     <path d="M7 7L17 17M7 17L17 7" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
