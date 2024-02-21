@@ -35,7 +35,7 @@ const TextField = ({ control, name, defaultValue, placeholder, onReset, type, st
         </>
       )}
 
-      <button type="button" className="absolute right-0">
+      <button type="button" className="absolute right-0" onClick={() => onReset({ name })}>
         {/* <Cross className={`${fieldState.error ? "stroke-pink" : "stroke-lavender"}`} /> */} reset
       </button>
       {fieldState.error && (

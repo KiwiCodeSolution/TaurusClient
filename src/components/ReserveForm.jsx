@@ -50,7 +50,12 @@ const ReserveForm = () => {
     // formState: { errors },
   } = useForm({
     mode: "onChange",
-    defaultValues: {},
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
   });
 
   const onSubmit = (data) => {
