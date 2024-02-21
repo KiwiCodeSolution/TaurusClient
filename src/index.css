@@ -9,8 +9,8 @@
     background-color: #0c0c09;
   }
 
-  label {
-    cursor: pointer;
+  input {
+    cursor: text;
   }
 
   p,
