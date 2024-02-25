@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { ArrowDown } from "../../../icons/iconComponent";
-import { baseStyleLabel } from "./TextField";
+import { baseStyleInput, baseStyleLabel } from "./TextField";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import uk from "date-fns/locale/uk";
 
@@ -77,6 +77,7 @@ const DateTimeField = ({ name, control, placeholder, style, type, label }) => {
                 dateFormat="H:mm"
                 className="w-full rounded-md outline-none bg-base-back text-lite-yellow text-opacity-40 pl-[2px]"
               />
+              <input type="time" min="09:00" max="18:00" step="900" className={`${baseStyleInput}`} />
             </div>
           )}
         />

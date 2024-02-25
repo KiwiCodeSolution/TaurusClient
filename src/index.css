@@ -166,3 +166,45 @@ button:hover .icon-up {
   position: absolute;
   top: -100%;
 }
+
+.numInput.flatpickr-hour,
+.numInput.flatpickr-minute {
+  background-color: #0c0c09;
+  color: #ffd698;
+}
+
+input:hover.numInput.flatpickr-hour,
+input:hover.numInput.flatpickr-minute {
+  background-color: #f7a033;
+  color: #0c0c09;
+}
+
+input:focus.numInput.flatpickr-hour,
+input:focus.numInput.flatpickr-minute {
+  background-color: #ffd698;
+  color: #0c0c09;
+}
+
+.flatpickr-calendar {
+  width: 196px;
+}
+
+.flatpickr-calendar.hasTime .flatpickr-time {
+  border: 1px solid #ffd698;
+}
+
+.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm {
+  background-color: #0c0c09;
+  color: #ffd698;
+}
+
+.flatpickr-time .numInputWrapper span.arrowUp:after,
+.flatpickr-time .numInputWrapper span.arrowDown:after {
+  border-bottom-color: #0c0c09;
+}
+
+.flatpickr-time .numInputWrapper span.arrowUp,
+.flatpickr-time .numInputWrapper span.arrowDown {
+  background-color: #ffd698;
+}

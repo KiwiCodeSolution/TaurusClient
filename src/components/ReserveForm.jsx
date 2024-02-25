@@ -3,6 +3,7 @@ import TextField from "./UI/form/TextField";
 import Button from "./UI/Button";
 import SelectField from "./UI/form/SelectField";
 import DateTimeField from "./UI/form/DateTimeField";
+import TimeField from "./UI/form/TimeField";
 
 const TEXT_FIELDS = [
   {
@@ -172,6 +173,10 @@ const ReserveForm = () => {
             label={label}
           />
         ))}
+
+        <TimeField name="time" control={control} />
+
+        {/* <TimeField control={control} name="time" /> */}
       </div>
 
       <Button style={"orange"} btnClass="order-10 mt-10 text-center text-18 font-medium" type="submit">
