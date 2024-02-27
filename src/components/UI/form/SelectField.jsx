@@ -92,7 +92,7 @@ SelectField.displayName = { name };
 
 SelectField.propTypes = {
   options: PropTypes.array.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.object,
   onChange: PropTypes.func,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

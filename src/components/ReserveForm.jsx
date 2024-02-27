@@ -3,7 +3,6 @@ import TextField from "./UI/form/TextField";
 import Button from "./UI/Button";
 import SelectField from "./UI/form/SelectField";
 import DateTimeField from "./UI/form/DateTimeField";
-import TimeField from "./UI/form/TimeField";
 
 const TEXT_FIELDS = [
   {
@@ -41,27 +40,6 @@ const TEXT_FIELDS = [
     placeholder: "Введіть текст",
     type: "textarea",
     style: "order-5",
-  },
-];
-
-const DATE_TIME_FIELDS = [
-  {
-    id: "6",
-    name: "date",
-    label: "Дата",
-    defaultValue: "",
-    placeholder: "Оберіть дату",
-    type: "date",
-    style: "",
-  },
-  {
-    id: "7",
-    name: "time",
-    label: "Час",
-    defaultValue: "",
-    placeholder: "Оберіть час",
-    type: "time",
-    style: "",
   },
 ];
 
@@ -142,7 +120,7 @@ const ReserveForm = () => {
       ))}
 
       <div className="w-full h-[53px] flex justify-between order-4">
-        {/* ------------------ selects --------------- */}
+        {/* ------------------ persons --------------- */}
         <Controller
           name="quantity"
           control={control}
@@ -162,21 +140,7 @@ const ReserveForm = () => {
         />
 
         {/* ------------------ date & time --------------- */}
-        {DATE_TIME_FIELDS.map(({ id, name, placeholder, style, type, label }) => (
-          <DateTimeField
-            name={name}
-            control={control}
-            placeholder={placeholder}
-            style={style}
-            key={id + name}
-            type={type}
-            label={label}
-          />
-        ))}
-
-        <TimeField name="time" control={control} />
-
-        {/* <TimeField control={control} name="time" /> */}
+        <DateTimeField control={control} />
       </div>
 
       <Button style={"orange"} btnClass="order-10 mt-10 text-center text-18 font-medium" type="submit">
