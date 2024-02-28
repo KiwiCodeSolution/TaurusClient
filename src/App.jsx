@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/client/Home";
 import NotFound from "./pages/client/NotFound";
 import Services from "./pages/client/Services";
-import Actions from "./pages/client/Actions";
+import Promo from "./pages/client/Promo";
 import Contacts from "./pages/client/Contacts";
 import Reserve from "./pages/client/Reserve";
 import Menu from "./pages/client/Menu";
@@ -16,7 +16,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="menu" element={<Menu />} />
         <Route path="services" element={<Services />} />
-        <Route path="actions" element={<Actions />} />
+        <Route path="promo" element={<Promo />} />
         <Route path="reserve" element={<Reserve />} />
         <Route path="contacts" element={<Contacts />} />
       </Route>

@@ -15,7 +15,7 @@ const MenuItem = () => {
   }
 
   return (
-    <div className="w-[831px] flex gap-x-14 mx-auto items-center">
+    <article className="w-[831px] flex gap-x-14 mx-auto items-center">
       <ul className="flex flex-col text-lite-yellow w-[813px] overflow-hidden">
         <li className="text-lg uppercase">ПАСТА З ВЕГАНСЬКИМИ БОЛАМИ</li>
         <li className="text-sm flex justify-between">
@@ -44,7 +44,7 @@ const MenuItem = () => {
           <Plus />
         </Button>
       </div>
-    </div>
+    </article>
   );
 };
 

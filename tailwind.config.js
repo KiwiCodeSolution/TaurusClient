@@ -16,6 +16,7 @@ export default {
         14: ["14px", "20px"],
         16: ["16px", "24px"],
         18: ["18px", "20px"],
+        24: ["24px", "23.5px"],
       },
       fontFamily: {},
       backgroundImage: {
