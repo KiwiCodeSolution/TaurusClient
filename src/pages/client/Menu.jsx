@@ -19,7 +19,7 @@ const Menu = () => {
 
       <main className="relative w-full">
         <img src="/images/menu/menu.jpg" alt="" className="w-full h-[416px] object-cover" />
-        <section className="wrapper w-full">
+        <section className="wrapper w-full section-wrapper">
           <MenuItem />
         </section>
       </main>

@@ -62,6 +62,12 @@ const SelectField = forwardRef(({ options, value, onChange, name, placeholder, s
       color: "#ECDDC6",
       opacity: 0.4, // змініть на бажаний колір тексту
     }),
+    placeholder: (styles) => ({
+      ...styles,
+      color: "#ECDDC6", // колір тексту плейсхолдера
+      fontSize: "16px",
+      opacity: 0.4,
+    }),
   };
 
   return (

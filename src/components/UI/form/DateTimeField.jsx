@@ -1,10 +1,10 @@
 import { Controller } from "react-hook-form";
 import DatePicker from "react-datepicker";
-import moment from "moment";
+// import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { baseStyleInput, baseStyleLabel } from "./TextField";
+import { baseStyleLabel } from "./TextField";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import uk from "date-fns/locale/uk";
 import SelectField from "./SelectField";
@@ -16,7 +16,7 @@ const DateTimeField = ({ control, style }) => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [isCalendarOpen, setCalendarOpen] = useState(false);
 
-  const currentDate = selectedDay.getDate();
+  // const currentDate = selectedDay.getDate();
 
   console.log(selectedTime);
 

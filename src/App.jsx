@@ -8,6 +8,7 @@ import Contacts from "./pages/client/Contacts";
 import Reserve from "./pages/client/Reserve";
 import Menu from "./pages/client/Menu";
 import { SharedLayout } from "./components/SharedLayout";
+import Delivery from "./pages/client/Delivery";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="services" element={<Services />} />
         <Route path="promo" element={<Promo />} />
         <Route path="reserve" element={<Reserve />} />
+        <Route path="delivery" element={<Delivery />} />
         <Route path="contacts" element={<Contacts />} />
       </Route>
 

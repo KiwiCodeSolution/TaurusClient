@@ -7,25 +7,25 @@ import Location from "../../components/Location";
 import SocIcons from "../../components/SocIcons";
 
 const ITEMS = [
-  { id: 1, title: "їжа", image: "/images/home/food.jpg", alt: "загальне зображення їжі", link: "/menu" },
   {
-    id: 2,
-    title: "замовити",
+    id: 1,
+    title: "доставка",
     image: "/images/home/order.png",
     alt: "зображення однієї зі страв, яку можн азамовити",
     link: "/reserve",
   },
+  { id: 2, title: "меню", image: "/images/home/food.jpg", alt: "загальне зображення їжі", link: "/menu" },
   {
     id: 3,
-    title: "напої",
-    image: "/images/home/beverages.png",
+    title: "забронювати",
+    image: "/images/home/reserve.png",
     alt: "зображення напоїв, що подають у ресторані",
     link: "/menu",
   },
 ];
 
 const Home = () => {
-  const [currentImage, setCurrentImage] = useState(1);
+  const [currentImage, setCurrentImage] = useState(2);
 
   return (
     <>

@@ -208,3 +208,7 @@ input:focus.numInput.flatpickr-minute {
 .flatpickr-time .numInputWrapper span.arrowDown {
   background-color: #ffd698;
 }
+
+.section-wrapper {
+  min-height: calc(100vh - 416px - 374px);
+}

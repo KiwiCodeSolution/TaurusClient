@@ -6,7 +6,8 @@ const ITEMS = [
   { id: "2", name: "Послуги", link: "/services" },
   { id: "3", name: "Акції", link: "/promo" },
   { id: "4", name: "Забронювати", link: "/reserve" },
-  { id: "5", name: "Контакти", link: "/contacts" },
+  { id: "5", name: "Доставка", link: "/delivery" },
+  { id: "56", name: "Контакти", link: "/contacts" },
 ];
 
 const NavBar = ({ sectionType }) => {

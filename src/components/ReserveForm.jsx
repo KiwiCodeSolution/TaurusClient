@@ -143,7 +143,15 @@ const ReserveForm = () => {
         <DateTimeField control={control} />
       </div>
 
-      <Button style={"orange"} btnClass="order-10 mt-10 text-center text-18 font-medium" type="submit">
+      {/* ------------------ text --------------- */}
+      <div className="flex flex-col gap-y-[19px] order-8">
+        <p className="text-14 text-base-brown">
+          <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для заповнення
+        </p>
+        <p className="text-14 text-base-brown">погоджуюсь на обробку персональних даних </p>
+      </div>
+
+      <Button style={"orange"} btnClass="order-10 mt-6 text-center text-18 font-medium" type="submit">
         Забронювати
       </Button>
     </form>

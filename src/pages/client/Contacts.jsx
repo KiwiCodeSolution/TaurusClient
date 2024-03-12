@@ -6,7 +6,7 @@ const Contacts = () => {
   return (
     <>
       <MetaData>Контакти ресторану</MetaData>
-      <section>
+      <section className="section-wrapper">
         <img src="/images/contacts/contacts.png" alt="" className="w-full h-[416px] object-cover" />
         <div className="w-full mx-auto wrapper">
           <TitlePage>Контакти</TitlePage>
