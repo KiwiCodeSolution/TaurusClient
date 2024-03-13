@@ -7,7 +7,7 @@ const Delivery = () => {
     <>
       <MetaData>Доставка</MetaData>
       <section className="section-wrapper">
-        <img src="" alt="" className="w-full h-[416px] object-cover" />
+        <img src="" alt="" className="w-full h-[416px] object-cover  border-b-[0.5px] border-base-brown" />
         <div className="w-full mx-auto wrapper">
           <TitlePage>Доставка</TitlePage>
         </div>

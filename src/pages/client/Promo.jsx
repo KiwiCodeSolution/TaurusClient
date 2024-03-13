@@ -41,7 +41,7 @@ const Promo = () => {
     <>
       <MetaData>Акції ресторану</MetaData>
       <section>
-        <img src="" alt="" className="w-full h-[416px] object-cover" />
+        <img src="" alt="" className="w-full h-[416px] object-cover border-b-[0.5px] border-base-brown" />
         <div className="w-full mx-auto wrapper">
           <TitlePage>Акції</TitlePage>
 

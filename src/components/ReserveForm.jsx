@@ -3,6 +3,7 @@ import TextField from "./UI/form/TextField";
 import Button from "./UI/Button";
 import SelectField from "./UI/form/SelectField";
 import DateTimeField from "./UI/form/DateTimeField";
+import ChexboxField from "./UI/form/ChexboxField";
 
 const TEXT_FIELDS = [
   {
@@ -63,7 +64,6 @@ const ReserveForm = () => {
     // reset,
     resetField,
     // setError,
-    formState: { errors },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -71,7 +71,8 @@ const ReserveForm = () => {
       email: "",
       phone: "",
       message: "",
-      quantity: { value: "1", label: "1 особа" },
+      quantity: null,
+      date: new Date(),
     },
   });
 
@@ -102,7 +103,7 @@ const ReserveForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-[542px] h-fit px-[22px] flex flex-col gap-y-4 mb-16 mx-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-[542px] h-fit px-[22px] flex flex-col gap-y-4 mb-16 mx-auto ">
       {/* ------------------ inputs --------------- */}
 
       {TEXT_FIELDS.map(({ id, name, defaultValue, placeholder, type, style, label }) => (
@@ -119,7 +120,7 @@ const ReserveForm = () => {
         />
       ))}
 
-      <div className="w-full h-[53px] flex justify-between order-4">
+      <div className="w-full flex justify-between order-4">
         {/* ------------------ persons --------------- */}
         <Controller
           name="quantity"
@@ -128,13 +129,14 @@ const ReserveForm = () => {
             <>
               <SelectField
                 {...field}
+                control={control} // Додайте цей рядок
                 options={options}
+                name="quantity"
                 isSearchable={true}
                 placeholder="Кількість осіб"
                 style={"order-6"}
                 label="Кількість людей"
               />
-              {errors.selectedOption && <p>{errors.selectedOption.message}</p>}
             </>
           )}
         />
@@ -148,7 +150,19 @@ const ReserveForm = () => {
         <p className="text-14 text-base-brown">
           <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для заповнення
         </p>
-        <p className="text-14 text-base-brown">погоджуюсь на обробку персональних даних </p>
+        <Controller
+          name="agreement"
+          control={control}
+          render={({ field }) => (
+            <ChexboxField
+              {...field}
+              control={control}
+              label={"погоджуюсь на обробку персональних даних"}
+              name={"agreement"}
+            />
+          )}
+        />
+        {/* <p className="text-14 text-base-brown">погоджуюсь на обробку персональних даних </p> */}
       </div>
 
       <Button style={"orange"} btnClass="order-10 mt-6 text-center text-18 font-medium" type="submit">

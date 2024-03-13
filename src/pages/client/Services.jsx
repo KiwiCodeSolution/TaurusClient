@@ -9,7 +9,11 @@ const Services = () => {
     <>
       <MetaData>Послуги ресторану</MetaData>
       <section>
-        <img src="/images/menu/services.jpg" alt="" className="w-full h-[416px] object-cover" />
+        <img
+          src="/images/menu/services.jpg"
+          alt=""
+          className="w-full h-[416px] object-cover border-b-[0.5px] border-base-brown"
+        />
         <div className="w-full mx-auto wrapper">
           <TitlePage>Послуги</TitlePage>
           <div className="grid grid-cols-3 gap-y-12 gap-x-3">
