@@ -90,6 +90,12 @@
   border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
 }
 
+.border_menu {
+  border-bottom: 1px;
+  border-style: solid;
+  border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
+}
+
 .border_overlay {
   border: 1px;
   border-style: solid;

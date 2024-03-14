@@ -1,4 +1,5 @@
 import ContactList from "../../components/ContactList";
+import Form from "../../components/Form";
 import MetaData from "../../components/MetaData";
 import TitlePage from "../../components/TitlePage";
 
@@ -24,6 +25,15 @@ const Contacts = () => {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
+        <div className="w-full min-h-[578px] py-16 mx-auto wrapper">
+          <div className="w-[1116px] flex gap-x-6 mx-auto">
+            <img src="/images/contacts/form.png" alt="" className="w-[546px] h-[552px] object-cover" />
+            <div className="w-[546px]">
+              <h3 className="w-full text-[27px] uppercase text-center text-lite-yellow">Зв’яжіться з нами</h3>
+              <Form namePage={"contacts"} />
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );

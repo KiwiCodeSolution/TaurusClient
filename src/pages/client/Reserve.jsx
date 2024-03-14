@@ -1,5 +1,5 @@
 import MetaData from "../../components/MetaData";
-import ReserveForm from "../../components/ReserveForm";
+import Form from "../../components/Form";
 import TitlePage from "../../components/TitlePage";
 
 const Reserve = () => {
@@ -15,7 +15,7 @@ const Reserve = () => {
         <div className="w-full mx-auto wrapper">
           <TitlePage>Забронювати</TitlePage>
 
-          <ReserveForm />
+          <Form namePage={"reserve"} />
         </div>
       </section>
     </>

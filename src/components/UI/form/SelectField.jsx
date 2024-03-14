@@ -7,7 +7,7 @@ import { baseStyleLabel } from "./TextField";
 import { ArrowDown } from "../../../icons/iconComponent";
 
 const SelectField = forwardRef(
-  ({ control, options, value, onChange, name, placeholder, style, fontSizePlaceholder, label }, ref) => {
+  ({ control, options, value, onChange, name, placeholder, style, fontSizePlaceholder, label, namePage }, ref) => {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
 
     const { fieldState } = useController({
@@ -81,7 +81,7 @@ const SelectField = forwardRef(
 
     return (
       <div
-        className={`w-[166px] h-[59px] flex flex-col border-b-[0.5px] ${
+        className={`${namePage === "order" ? "w-[241px]" : "w-[166px]"} h-[59px] flex flex-col border-b-[0.5px] ${
           fieldState.error ? "border-base-orange" : "border-base-brown"
         }  relative ${style}`}
       >
@@ -126,6 +126,7 @@ SelectField.propTypes = {
   placeholder: PropTypes.string.isRequired,
   style: PropTypes.string,
   fontSizePlaceholder: PropTypes.string,
+  namePage: PropTypes.string,
 };
 
 export default SelectField;

@@ -10,7 +10,7 @@ import uk from "date-fns/locale/uk";
 import SelectField from "./SelectField";
 import { ArrowDown } from "../../../icons/iconComponent";
 
-const DateTimeField = ({ control }) => {
+const DateTimeField = ({ control, namePage }) => {
   //локалізація для каледаря, інакше виводить інформацію англійською
   registerLocale("uk", uk);
   setDefaultLocale("uk");
@@ -73,7 +73,9 @@ const DateTimeField = ({ control }) => {
         control={control}
         render={({ field }) => (
           <div
-            className={`w-[118px] h-[59px] border-b-[0.5px] border-base-brown flex flex-col gap-y-2 relative date-picker`}
+            className={`${
+              namePage === "order" ? "w-[241px]" : "w-[118px]"
+            } h-[59px] border-b-[0.5px] border-base-brown flex flex-col gap-y-2 relative date-picker`}
           >
             <label htmlFor="date" className={`${baseStyleLabel} date`}>
               Дата <span className="text-base-orange">*</span>
@@ -127,6 +129,7 @@ const DateTimeField = ({ control }) => {
                 setSelectedTime(selectedOption); // Зберегти обраний час у стані
               }}
               fontSizePlaceholder={time.length === 0 ? "11px" : ""}
+              namePage={namePage}
             />
           </>
         )}
@@ -137,6 +140,7 @@ const DateTimeField = ({ control }) => {
 
 DateTimeField.propTypes = {
   control: PropTypes.object.isRequired,
+  namePage: PropTypes.string,
 };
 
 export default DateTimeField;
