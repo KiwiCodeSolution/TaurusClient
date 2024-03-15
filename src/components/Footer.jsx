@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowUp } from "../icons/iconComponent";
 import ContactList from "./ContactList";
 import NavBar from "./NavBar";
@@ -5,8 +6,12 @@ import SocIcons from "./SocIcons";
 import Button from "./UI/Button";
 import Logo from "./UI/Logo";
 import logoKiwiCode from "/images/LogoKiwiCode.png";
+import Overlay from "./UI/modal/Overlay";
+import Form from "./Form";
 
 const Footer = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <footer className="w-full">
       <section className="wrapper py-10 border_custom">
@@ -23,7 +28,9 @@ const Footer = () => {
           <li className="w-[186px] flex flex-col gap-y-[29px]">
             <p className="w-full">Слідкуйте за нами в соціальних мережах</p>
             <SocIcons />
-            <Button style={"transparent"}>Зв&apos;язатись</Button>
+            <Button style={"transparent"} clickFn={() => setIsModalOpen(true)}>
+              Зв&apos;язатись
+            </Button>
           </li>
           <li>
             <Button style={"round"}>
@@ -55,6 +62,12 @@ const Footer = () => {
             className="absolute top-0 left-0 w-[90px] h-[52px]"
           />
         </div>
+
+        {isModalOpen && (
+          <Overlay clickFn={() => setIsModalOpen(false)} componentName={"footer"}>
+            <Form namePage="contacts" />
+          </Overlay>
+        )}
       </section>
     </footer>
   );

@@ -1,4 +1,6 @@
+import { ToastContainer, Bounce } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/client/Home";
 import NotFound from "./pages/client/NotFound";
@@ -12,19 +14,21 @@ import Delivery from "./pages/client/Delivery";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<Home />} />
-        <Route path="menu" element={<Menu />} />
-        <Route path="services" element={<Services />} />
-        <Route path="promo" element={<Promo />} />
-        <Route path="reserve" element={<Reserve />} />
-        <Route path="delivery" element={<Delivery />} />
-        <Route path="contacts" element={<Contacts />} />
-      </Route>
-
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="services" element={<Services />} />
+          <Route path="promo" element={<Promo />} />
+          <Route path="reserve" element={<Reserve />} />
+          <Route path="delivery" element={<Delivery />} />
+          <Route path="contacts" element={<Contacts />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <ToastContainer transition={Bounce} />
+    </>
   );
 }
 

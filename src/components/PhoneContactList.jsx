@@ -12,8 +12,12 @@ const ITEMS = [
 
 const PhoneContactList = ({ clickFn }) => {
   return (
-    <Overlay clickFn={clickFn}>
-      <div className="w-[352px] p-10 bg-base-back absolute top-1/2 left-2/4 -translate-x-1/2 -translate-y-1/2 z-100 border_overlay mx-auto flex flex-col ">
+    <Overlay
+      clickFn={clickFn}
+      componentName={"PhoneContactList"}
+      stylesPopUp={"w-[352px] border_overlay flex flex-col"}
+    >
+      <>
         <h4 className="text-xl uppercase leading-[30px] text-center text-lite-yellow mb-4">
           Оберіть зручний спосіб зв’язку з нами
         </h4>
@@ -32,10 +36,7 @@ const PhoneContactList = ({ clickFn }) => {
             </a>
           ))}
         </div>
-        <button className="phoneContactList_button" onClick={clickFn}>
-          <icons.Cross className={"absolute top-[16px] right-[16px] icon"} />
-        </button>
-      </div>
+      </>
     </Overlay>
   );
 };

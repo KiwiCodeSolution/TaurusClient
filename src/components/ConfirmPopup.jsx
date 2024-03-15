@@ -1,16 +1,12 @@
 import PropTypes from "prop-types";
 import Overlay from "./UI/modal/Overlay";
-import Button from "./UI/Button";
 
 const ConfirmPopup = ({ clickFn }) => {
   return (
-    <Overlay clickFn={clickFn}>
+    <Overlay clickFn={clickFn} stylesPopUp={"w-[572px] h-[319px] flex flex-col items-strt"} status={"confirm"}>
       <p className="uppercase text-center text-xl mb-10">дякуємо</p>
       <p className="text-center mb-4">Ваша заявка на бронювання столику прийнята. </p>
       <p className="text-center mb-10">Наш менеджер зв’яжеться з Вами найближчим часом для підтвержження бронювання.</p>
-      <Button style={"orange"} clickFn={clickFn}>
-        Закрити
-      </Button>
     </Overlay>
   );
 };

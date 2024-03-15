@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import useScrollBlock from "../../../hooks/useScrollBlock";
+import Button from "../Button";
+import { Cross } from "../../../icons/iconComponent";
 
 const modalRoot = document.querySelector("#modal-root");
 
-const Overlay = ({ children, clickFn }) => {
+const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName, status }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
 
   function closeModal() {
@@ -37,14 +39,23 @@ const Overlay = ({ children, clickFn }) => {
 
   return createPortal(
     <div
-      className="fixed inset-0 w-full h-screen bg-[rgb(0,0,0,0.35)] z-[100] top-0 backdrop-blur"
+      className={`${stylesOverlay} fixed inset-0 w-full h-screen bg-[rgb(0,0,0,0.35)] z-[100] top-0 backdrop-blur`}
       onClick={handleOverlayClick}
     >
-      <div className="w-[572px] h-[319px] p-10 text-16 text-lite-yellow bg-base-back border border-base-brown absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <button onClick={closeModal} className="absolute top-2 right-2 bg-slate-600">
-          Close
+      <div
+        className={`p-10 text-16 text-lite-yellow bg-base-back border border-base-brown absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100 ${stylesPopUp}`}
+      >
+        <button className="phoneContactList_button" onClick={closeModal}>
+          <Cross className={"absolute top-[16px] right-[16px] icon"} />
         </button>
         {children}
+        {componentName !== "PhoneContactList" && status === "confirm" && (
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <Button style={"orange"} onClick={closeModal}>
+              Закрити
+            </Button>
+          </div>
+        )}
       </div>
     </div>,
     modalRoot
@@ -54,7 +65,10 @@ const Overlay = ({ children, clickFn }) => {
 Overlay.propTypes = {
   children: PropTypes.node.isRequired,
   clickFn: PropTypes.func.isRequired,
-  overlayClass: PropTypes.string,
+  stylesOverlay: PropTypes.string,
+  stylesPopUp: PropTypes.string,
+  componentName: PropTypes.string,
+  status: PropTypes.string,
   type: PropTypes.string,
 };
 

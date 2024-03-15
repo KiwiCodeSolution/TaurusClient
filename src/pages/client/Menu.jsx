@@ -1,9 +1,11 @@
 import categoryStore from "../../store/filter";
 import MetaData from "../../components/MetaData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import * as icons from "../../icons/iconComponent";
 import CategoriesList from "../../components/CategoriesList";
+import { createDish, getDishes } from "../../API/dishes";
+import Button from "../../components/UI/Button";
 
 const ICONS = [
   { id: "1", Icon: icons.Menu, topCategoryName: "dishes", title: "основне меню" },
@@ -12,6 +14,22 @@ const ICONS = [
 ];
 
 const Menu = () => {
+  useEffect(() => {
+    getDishes();
+  }, []);
+
+  const dishTest = {
+    _id: "65f48751c4fdb09a3720cdcf",
+    category: "qqqq13",
+    name: "test8",
+    discount_price: 823,
+    price: 800,
+    unit: "g",
+    available: false,
+    description: "lalalala",
+    favourite: true,
+  };
+
   const [currentTopCategory, setCurrentTopCategory] = useState("dishes");
   const [currentTopTitle, setCurrentTopTitle] = useState("основне меню");
 
@@ -19,6 +37,11 @@ const Menu = () => {
     setCurrentTopCategory(topCategoryName);
     setCurrentTopTitle(title);
     categoryStore.setTopCategory(topCategoryName);
+  }
+
+  function create(dish) {
+    createDish(dish);
+    console.log("creating.....");
   }
 
   return (
@@ -63,6 +86,9 @@ const Menu = () => {
           <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">{currentTopTitle}</h3>
 
           <CategoriesList />
+          <Button style={"orange"} clickFn={() => create(dishTest)}>
+            Create
+          </Button>
         </section>
       </main>
     </>

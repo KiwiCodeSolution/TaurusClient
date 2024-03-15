@@ -61,7 +61,7 @@ const options = [
 ];
 
 const Form = ({ namePage }) => {
-  const [isModalOpen, setIsModalOpen] = useState(!false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({});
 
   const {
@@ -191,9 +191,16 @@ const Form = ({ namePage }) => {
         </div>
 
         <Button style={"orange"} btnClass="order-10 mt-6 text-center text-18 font-medium" type="submit">
-          Забронювати
+          {namePage === "reserve"
+            ? "Забронювати"
+            : namePage === "contacts"
+            ? "Відправити"
+            : namePage === "order"
+            ? "Підтвердити замолення"
+            : "Відправити"}
         </Button>
       </form>
+
       {isModalOpen && <ConfirmPopup data={formData} clickFn={() => setIsModalOpen(false)} />}
     </>
   );

@@ -48,9 +48,9 @@ const DateTimeField = ({ control, namePage }) => {
     const timeArray = [];
 
     if (selectedTime && todayFormatted === daySelectedFormatted && currentTimeFormatted._d > maxTime._d) {
-      console.log("alarm!");
+      //повертаємо пустий масив. у цьому разі далі по коду спрацьовують перевірки та нотифікашки.
+
       return [];
-      //потрібно викликати нотіфікашку про те, що сьогодні замовити замовлення вже неможна.
     }
 
     while (startTime < endTime) {
