@@ -5,6 +5,8 @@ import Button from "./UI/Button";
 import SelectField from "./UI/form/SelectField";
 import DateTimeField from "./UI/form/DateTimeField";
 import ChexboxField from "./UI/form/ChexboxField";
+import { useState } from "react";
+import ConfirmPopup from "./ConfirmPopup";
 
 const TEXT_FIELDS = [
   {
@@ -59,10 +61,13 @@ const options = [
 ];
 
 const Form = ({ namePage }) => {
+  const [isModalOpen, setIsModalOpen] = useState(!false);
+  const [formData, setFormData] = useState({});
+
   const {
     control,
     handleSubmit,
-    // reset,
+    reset,
     resetField,
     // setError,
   } = useForm({
@@ -79,6 +84,8 @@ const Form = ({ namePage }) => {
 
   const onSubmit = (data) => {
     console.log(data);
+    setFormData(data);
+    setIsModalOpen(true);
     // if (!data.selectedOption) {
     //   setError("selectedOption", {
     //     type: "manual",
@@ -96,7 +103,7 @@ const Form = ({ namePage }) => {
     //очищуємо не тільки всі інпути, але й кастомний селект. прямо вказавши, що саме потрібно очистити
 
     // reset({ selectedOption: "" });
-    // reset();
+    reset();
   };
 
   const handleReset = (fieldName) => {
@@ -114,78 +121,81 @@ const Form = ({ namePage }) => {
       : "";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={formStyle}>
-      {/* ------------------ inputs --------------- */}
-      {namePage === "order" && (
-        <h3 className="w-full text-[27px] uppercase text-center text-lite-yellow mb-6">ОФормлення замовлення</h3>
-      )}
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className={formStyle}>
+        {/* ------------------ inputs --------------- */}
+        {namePage === "order" && (
+          <h3 className="w-full text-[27px] uppercase text-center text-lite-yellow mb-6">ОФормлення замовлення</h3>
+        )}
 
-      {TEXT_FIELDS.map(({ id, name, defaultValue, placeholder, type, style, label }) => (
-        <TextField
-          control={control}
-          name={name}
-          key={id}
-          defaultValue={defaultValue}
-          placeholder={placeholder}
-          label={label}
-          onReset={() => handleReset(name)}
-          type={type}
-          style={style}
-        />
-      ))}
+        {TEXT_FIELDS.map(({ id, name, defaultValue, placeholder, type, style, label }) => (
+          <TextField
+            control={control}
+            name={name}
+            key={id}
+            defaultValue={defaultValue}
+            placeholder={placeholder}
+            label={label}
+            onReset={() => handleReset(name)}
+            type={type}
+            style={style}
+          />
+        ))}
 
-      {namePage !== "contacts" && (
-        <div className="w-full flex justify-between order-4">
-          {/* ------------------ persons --------------- */}
-          {namePage === "reserve" && (
-            <Controller
-              name="quantity"
-              control={control}
-              render={({ field }) => (
-                <>
-                  <SelectField
-                    {...field}
-                    control={control} // Додайте цей рядок
-                    options={options}
-                    name="quantity"
-                    isSearchable={true}
-                    placeholder="Кількість осіб"
-                    style={"order-6"}
-                    label="Кількість людей"
-                  />
-                </>
-              )}
-            />
-          )}
+        {namePage !== "contacts" && (
+          <div className="w-full flex justify-between order-4">
+            {/* ------------------ persons --------------- */}
+            {namePage === "reserve" && (
+              <Controller
+                name="quantity"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <SelectField
+                      {...field}
+                      control={control} // Додайте цей рядок
+                      options={options}
+                      name="quantity"
+                      isSearchable={true}
+                      placeholder="Кількість осіб"
+                      style={"order-6"}
+                      label="Кількість людей"
+                    />
+                  </>
+                )}
+              />
+            )}
 
-          {/* ------------------ date & time --------------- */}
-          <DateTimeField control={control} namePage={namePage} />
+            {/* ------------------ date & time --------------- */}
+            <DateTimeField control={control} namePage={namePage} />
+          </div>
+        )}
+
+        {/* ------------------ text --------------- */}
+        <div className="flex flex-col gap-y-[19px] order-8">
+          <p className="text-14 text-base-brown">
+            <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для заповнення
+          </p>
+          <Controller
+            name="agreement"
+            control={control}
+            render={({ field }) => (
+              <ChexboxField
+                {...field}
+                control={control}
+                label={"погоджуюсь на обробку персональних даних"}
+                name={"agreement"}
+              />
+            )}
+          />
         </div>
-      )}
 
-      {/* ------------------ text --------------- */}
-      <div className="flex flex-col gap-y-[19px] order-8">
-        <p className="text-14 text-base-brown">
-          <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для заповнення
-        </p>
-        <Controller
-          name="agreement"
-          control={control}
-          render={({ field }) => (
-            <ChexboxField
-              {...field}
-              control={control}
-              label={"погоджуюсь на обробку персональних даних"}
-              name={"agreement"}
-            />
-          )}
-        />
-      </div>
-
-      <Button style={"orange"} btnClass="order-10 mt-6 text-center text-18 font-medium" type="submit">
-        Забронювати
-      </Button>
-    </form>
+        <Button style={"orange"} btnClass="order-10 mt-6 text-center text-18 font-medium" type="submit">
+          Забронювати
+        </Button>
+      </form>
+      {isModalOpen && <ConfirmPopup data={formData} clickFn={() => setIsModalOpen(false)} />}
+    </>
   );
 };
 

@@ -19,6 +19,8 @@ export default () => {
     body.style.overflow = "hidden";
     body.style.paddingRight = `${bodyPaddingRight + scrollBarWidth}px`;
 
+    console.log(scrollBarWidth);
+
     scrollBlocked.current = true;
   };
 

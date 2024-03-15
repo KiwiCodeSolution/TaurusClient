@@ -16,7 +16,7 @@ const MenuItem = () => {
 
   return (
     <article className="w-[831px] flex gap-x-14 mx-auto items-center">
-      <ul className="flex flex-col text-lite-yellow w-[813px] overflow-hidden">
+      <ul className="flex flex-col text-lite-yellow w-[546px] overflow-hidden">
         <li className="text-lg uppercase">ПАСТА З ВЕГАНСЬКИМИ БОЛАМИ</li>
         <li className="text-sm flex justify-between">
           <p className="w-fit relative">

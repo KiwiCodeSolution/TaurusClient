@@ -1,21 +1,24 @@
+import categoryStore from "../../store/filter";
 import MetaData from "../../components/MetaData";
 import { useState } from "react";
 
 import * as icons from "../../icons/iconComponent";
+import CategoriesList from "../../components/CategoriesList";
 
 const ICONS = [
-  { id: "1", Icon: icons.Menu, category: "dishes", title: "основне меню" },
-  { id: "2", Icon: icons.Desserts, category: "desserts", title: "десерти" },
-  { id: "3", Icon: icons.Drinks, category: "drinks", title: "напої" },
+  { id: "1", Icon: icons.Menu, topCategoryName: "dishes", title: "основне меню" },
+  { id: "2", Icon: icons.Desserts, topCategoryName: "desserts", title: "десерти" },
+  { id: "3", Icon: icons.Drinks, topCategoryName: "drinks", title: "напої" },
 ];
 
 const Menu = () => {
-  const [currentCategory, setCurrentCategory] = useState("dishes");
-  const [currentTitle, setCurrentTitle] = useState("основне меню");
+  const [currentTopCategory, setCurrentTopCategory] = useState("dishes");
+  const [currentTopTitle, setCurrentTopTitle] = useState("основне меню");
 
-  function handleCahngeCategory(category, title) {
-    setCurrentCategory(category);
-    setCurrentTitle(title);
+  function handleCahngeCategory(topCategoryName, title) {
+    setCurrentTopCategory(topCategoryName);
+    setCurrentTopTitle(title);
+    categoryStore.setTopCategory(topCategoryName);
   }
 
   return (
@@ -25,9 +28,9 @@ const Menu = () => {
       <main className="relative w-full">
         <img
           src={
-            currentCategory === "dishes"
+            currentTopCategory === "dishes"
               ? "/images/menu/dishes.jpg"
-              : currentCategory === "desserts"
+              : currentTopCategory === "desserts"
               ? "/images/menu/desserts.jpg"
               : "/images/menu/drinks.jpg"
           }
@@ -41,20 +44,25 @@ const Menu = () => {
               <h2 className="text-[53px] text-lite-yellow uppercase">Меню</h2>
             </li>
             <li className="w-[736px] flex gap-x-14 mx-auto border_menu pb-10">
-              {ICONS.map(({ id, Icon, category, title }) => (
+              {ICONS.map(({ id, Icon, topCategoryName, title }) => (
                 <button
-                  key={id + category}
-                  className="w-[208px] h-[208px] flex flex-col items-center justify-center text-lite-yellow hover:text-base-orange menu-list"
-                  onClick={() => handleCahngeCategory(category, title)}
-                  onMouseEnter={() => handleCahngeCategory(category, title)}
+                  key={id + topCategoryName}
+                  className="w-[208px] h-[208px] flex flex-col items-center justify-between text-lite-yellow hover:text-base-orange menu-list py-[29px]"
+                  onClick={() => handleCahngeCategory(topCategoryName, title)}
+                  // onMouseEnter={() => handleCahngeCategory(topCategoryName, title)}
                 >
-                  <Icon />
-                  <p className="text-xl uppercase mx-auto mt-8">{title}</p>
+                  <div className="w-[112px] h-[112px] flex pb-6 items-end justify-center">
+                    <Icon />
+                  </div>
+
+                  <p className="text-xl uppercase mx-auto">{title}</p>
                 </button>
               ))}
             </li>
           </ul>
-          <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">{currentTitle}</h3>
+          <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">{currentTopTitle}</h3>
+
+          <CategoriesList />
         </section>
       </main>
     </>
