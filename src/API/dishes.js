@@ -16,7 +16,7 @@ const options = {
 export const getDishes = async () => {
   try {
     const result = await axios.get(`${baseServerURL}product`);
-    console.log(result.data);
+
     return result;
   } catch (error) {
     return { error: error.message };

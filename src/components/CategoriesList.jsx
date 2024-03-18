@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { observer } from "mobx-react-lite";
 import categoryStore from "../store/filter";
+import dishesStore from "../store/dishes";
+
 import data from "../datas/categories.json";
 import { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
@@ -15,6 +17,12 @@ const CategoriesList = observer(() => {
         : "тістечка"
     );
   }, [categoryStore.topCategory]);
+
+  useEffect(() => {
+    dishesStore.getDishesAction();
+  }, []);
+
+  const dishes = dishesStore.dishes;
 
   const [currentCategory, setCurrentCategory] = useState(categoryStore.category);
   const menuItems = data.filter((el) => el.topCategory === categoryStore.topCategory);
@@ -55,8 +63,12 @@ const CategoriesList = observer(() => {
             <p className="text-14 text-lite-yellow">Назва</p>
             <p className="text-14 text-lite-yellow">Ціна</p>
           </div>
-          <MenuItem />
+          {dishes.map((item) => (
+            <MenuItem key={item._id} item={item} />
+          ))}
         </div>
+
+        <div>Total:</div>
       </div>
     </div>
   );

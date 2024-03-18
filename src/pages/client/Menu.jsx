@@ -1,4 +1,6 @@
+import { observer } from "mobx-react-lite";
 import categoryStore from "../../store/filter";
+
 import MetaData from "../../components/MetaData";
 import { useEffect, useState } from "react";
 
@@ -13,7 +15,7 @@ const ICONS = [
   { id: "3", Icon: icons.Drinks, topCategoryName: "drinks", title: "напої" },
 ];
 
-const Menu = () => {
+const Menu = observer(() => {
   useEffect(() => {
     getDishes();
   }, []);
@@ -93,6 +95,6 @@ const Menu = () => {
       </main>
     </>
   );
-};
+});
 
 export default Menu;
