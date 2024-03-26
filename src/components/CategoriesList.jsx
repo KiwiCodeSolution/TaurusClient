@@ -6,6 +6,7 @@ import dishesStore from "../store/dishes";
 import data from "../datas/categories.json";
 import { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
+import TotalPrice from "./TotalPrice";
 
 const CategoriesList = observer(() => {
   useEffect(() => {
@@ -24,6 +25,10 @@ const CategoriesList = observer(() => {
 
   const dishes = dishesStore.dishes;
 
+  // const isEmpty = products?.length === 0;
+
+  // const totalSum = products.reduce((acc, product) => acc + product.item.price * product.quantity, 0);
+
   const [currentCategory, setCurrentCategory] = useState(categoryStore.category);
   const menuItems = data.filter((el) => el.topCategory === categoryStore.topCategory);
   const subMenuItemsDrinks = menuItems[0].subCategory ? menuItems.find((el) => el.category === currentCategory) : null;
@@ -40,7 +45,6 @@ const CategoriesList = observer(() => {
           ))}
         </div>
       )}
-
       <div className="w-full flex gap-x-[46px]">
         {/* бічне меню із розділами */}
         <div className="w-[273px] flex flex-col gap-y-2 pt-7">
@@ -63,13 +67,14 @@ const CategoriesList = observer(() => {
             <p className="text-14 text-lite-yellow">Назва</p>
             <p className="text-14 text-lite-yellow">Ціна</p>
           </div>
-          {dishes.map((item) => (
-            <MenuItem key={item._id} item={item} />
-          ))}
+          <div className="flex flex-col gap-y-4">
+            {dishes.map((item) => (
+              <MenuItem key={item._id} item={item} />
+            ))}
+          </div>
         </div>
-
-        <div>Total:</div>
       </div>
+      <TotalPrice />
     </div>
   );
 });

@@ -8,7 +8,7 @@ import { Cross } from "../../../icons/iconComponent";
 
 const modalRoot = document.querySelector("#modal-root");
 
-const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName, status }) => {
+const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName, status, type }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
 
   function closeModal() {
@@ -51,8 +51,12 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName,
         {children}
         {componentName !== "PhoneContactList" && status === "confirm" && (
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-            <Button style={"orange"} onClick={closeModal}>
-              Закрити
+            <Button
+              style={"orange"}
+              onClick={closeModal}
+              btnClass={type === "cart" ? "text-18 font-medium text-base-back" : ""}
+            >
+              {type === "cart" ? "Оформити замолення" : "Закрити"}
             </Button>
           </div>
         )}

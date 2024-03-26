@@ -19,7 +19,7 @@ const MenuItem = observer(({ item }) => {
   };
 
   return (
-    <article className="w-[831px] flex gap-x-14 mx-auto items-center">
+    <article className="w-[831px] flex gap-x-14 mx-auto items-center justify-between">
       <ul className="flex flex-col text-lite-yellow w-[546px] overflow-hidden">
         <li className="text-lg uppercase">{name}</li>
         <li className="text-sm flex justify-between">

@@ -22,22 +22,18 @@ class Order {
     makePersistable(this, { name: "order", properties: ["order"] });
   }
 
-  // checkProductInCart(productToAdd) {
-  //   const foundProduct = this.order.items.find(({ product }) => product.id === productToAdd.id);
-
-  //   return foundProduct ? true : false;
-  // }
-
   addToCart = (dish) => {
     const foundDish = this.order.items.find(({ item }) => item._id === dish._id);
 
     if (foundDish) {
       foundDish.quantity += 1;
+      this.totalPrice();
+
+      return;
     }
 
     this.order.items.push({ item: dish, quantity: 1 });
-    this.total = this.totalPrice();
-    console.log("Order", this.total);
+    this.totalPrice();
   };
 
   currentDish(dishtId) {
@@ -46,14 +42,14 @@ class Order {
     return foundDish;
   }
 
-  removeProduct(productId) {
-    const productIndex = this.order.items.findIndex(({ product }) => product.id === productId);
+  removeDish(dishtId) {
+    const dishIndex = this.order.items.findIndex(({ item }) => item._id === dishtId);
 
-    if (productIndex === -1) {
+    if (dishIndex === -1) {
       return;
     }
 
-    this.order.items.splice(productIndex, 1);
+    this.order.items.splice(dishIndex, 1);
   }
 
   updateQuantity(productId, newQuantity) {
@@ -78,8 +74,8 @@ class Order {
     }
 
     this.items[productIndex].quantity -= 1;
-    this.total = this.order.items.reduce((total, { item, quantity }) => total + item.price * quantity, 0);
-    // console.log(this.total);
+
+    this.totalPrice();
   }
 
   quantityDish(productId) {
@@ -92,7 +88,7 @@ class Order {
   }
 
   get totalQuantity() {
-    return this.order.items.reduce((total, product) => total + product.quantity, 0);
+    return this.order.items.reduce((total, { item, quantity }) => total + item.price * quantity, 0);
   }
 
   totalPrice() {
@@ -100,8 +96,7 @@ class Order {
       return 0;
     }
     const total = this.order.items.reduce((total, { item, quantity }) => total + item.price * quantity, 0);
-    this.total = total;
-    console.log(total);
+    this.order.total = total; // оновлення значення total безпосередньо в order
     return total;
   }
 

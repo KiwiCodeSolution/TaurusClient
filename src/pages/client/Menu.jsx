@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 
 import * as icons from "../../icons/iconComponent";
 import CategoriesList from "../../components/CategoriesList";
-import { createDish, getDishes } from "../../API/dishes";
+import { getDishes } from "../../API/dishes";
 import Button from "../../components/UI/Button";
+
+import CartPopup from "../../components/CartPopup";
 
 const ICONS = [
   { id: "1", Icon: icons.Menu, topCategoryName: "dishes", title: "основне меню" },
@@ -20,30 +22,14 @@ const Menu = observer(() => {
     getDishes();
   }, []);
 
-  const dishTest = {
-    _id: "65f48751c4fdb09a3720cdcf",
-    category: "qqqq13",
-    name: "test8",
-    discount_price: 823,
-    price: 800,
-    unit: "g",
-    available: false,
-    description: "lalalala",
-    favourite: true,
-  };
-
   const [currentTopCategory, setCurrentTopCategory] = useState("dishes");
   const [currentTopTitle, setCurrentTopTitle] = useState("основне меню");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleCahngeCategory(topCategoryName, title) {
     setCurrentTopCategory(topCategoryName);
     setCurrentTopTitle(title);
     categoryStore.setTopCategory(topCategoryName);
-  }
-
-  function create(dish) {
-    createDish(dish);
-    console.log("creating.....");
   }
 
   return (
@@ -88,10 +74,13 @@ const Menu = observer(() => {
           <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">{currentTopTitle}</h3>
 
           <CategoriesList />
-          <Button style={"orange"} clickFn={() => create(dishTest)}>
-            Create
-          </Button>
+          <div className="w-full flex justify-center mt-10">
+            <Button style={"orange"} btnClass={"text-18 font-medium"} clickFn={() => setIsModalOpen(true)}>
+              Замовити
+            </Button>
+          </div>
         </section>
+        {isModalOpen && <CartPopup clickFn={() => setIsModalOpen(false)} />}
       </main>
     </>
   );

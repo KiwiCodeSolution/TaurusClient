@@ -251,3 +251,11 @@ button:hover .icon-up {
   background-color: #f7a033;
   color: #0c0c09;
 }
+
+.trash svg {
+  fill: #ecddc6;
+}
+
+.trash:hover svg {
+  fill: #f7a033;
+}
