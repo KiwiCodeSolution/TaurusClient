@@ -259,3 +259,43 @@ button:hover .icon-up {
 .trash:hover svg {
   fill: #f7a033;
 }
+
+
+.text-not_found{
+  width: 100%;
+  text-align: center;
+  font-size: 166px;
+  font-weight: 700;
+  line-height: 1.5;
+  background:  url("/images/text_not_found.jpg");
+  background-position:   center;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  
+}
+
+.heading {
+  position: relative;
+  display: inline-block; /* Дозволяє елементу розтягуватися відповідно до його вмісту */
+}
+
+.heading img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.heading .text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/text_not_found.jpg'); /* Задаємо картинку, яка буде використовуватися в якості тексту */
+  color: transparent; /* Робимо текст прозорим */
+  -webkit-background-clip: text; /* Вказуємо, що фонове зображення має обрізатися згідно з контуром тексту */
+  background-clip: text;
+}
