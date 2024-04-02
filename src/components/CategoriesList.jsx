@@ -7,8 +7,9 @@ import data from "../datas/categories.json";
 import { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import TotalPrice from "./TotalPrice";
+import MenuDeliveriItem from "./MenuDeliveriItem";
 
-const CategoriesList = observer(() => {
+const CategoriesList = observer(({ page }) => {
   useEffect(() => {
     setCurrentCategory(
       categoryStore.topCategory === "dishes"
@@ -30,15 +31,15 @@ const CategoriesList = observer(() => {
   // const totalSum = products.reduce((acc, product) => acc + product.item.price * product.quantity, 0);
 
   const [currentCategory, setCurrentCategory] = useState(categoryStore.category);
-  const menuItems = data.filter((el) => el.topCategory === categoryStore.topCategory);
-  const subMenuItemsDrinks = menuItems[0].subCategory ? menuItems.find((el) => el.category === currentCategory) : null;
+  const menuItems = data.filter(el => el.topCategory === categoryStore.topCategory);
+  const subMenuItemsDrinks = menuItems[0].subCategory ? menuItems.find(el => el.category === currentCategory) : null;
 
   return (
     <div className="w-[1116px] mx-auto">
       {/* блок для субкатегорій, є у категорії напоїв */}
       {categoryStore.topCategory === "drinks" && subMenuItemsDrinks && (
         <div className="w-[735px] flex gap-x-4 justify-between mx-auto">
-          {subMenuItemsDrinks.subCategory.map((el) => (
+          {subMenuItemsDrinks.subCategory.map(el => (
             <button key={el} onClick={() => categoryStore.setSubCategory(el)}>
               {el}
             </button>
@@ -48,12 +49,12 @@ const CategoriesList = observer(() => {
       <div className="w-full flex gap-x-[46px]">
         {/* бічне меню із розділами */}
         <div className="w-[273px] flex flex-col gap-y-2 pt-7">
-          {menuItems.map((el) => (
+          {menuItems.map(el => (
             <button
               key={el.id}
               onClick={() => setCurrentCategory(el.category)}
               className={`w-full py-[14px] px-2 text-18 uppercase ${
-                el.category === currentCategory ? "text-base-orange bg-button-bg" : "text-lite-yellow"
+                el.category === currentCategory ? "text-base-orange bg-dark-btn-bg" : "text-lite-yellow"
               }  hover:text-base-orange`}
             >
               {el.category}
@@ -63,18 +64,22 @@ const CategoriesList = observer(() => {
 
         {/* центральний блок із переліком страв*/}
         <div className="">
-          <div className="w-[546px] flex justify-between mr-auto items-center pb-[14px]">
+          <div
+            className={`${
+              page === "order" ? "w-[546px]" : "w-full"
+            } flex justify-between mr-auto items-center pb-[14px]`}
+          >
             <p className="text-14 text-lite-yellow">Назва</p>
             <p className="text-14 text-lite-yellow">Ціна</p>
           </div>
           <div className="flex flex-col gap-y-4">
-            {dishes.map((item) => (
-              <MenuItem key={item._id} item={item} />
-            ))}
+            {page === "order"
+              ? dishes.map(item => <MenuDeliveriItem key={item._id} item={item} />)
+              : dishes.map(item => <MenuItem key={item._id} item={item} />)}
           </div>
         </div>
       </div>
-      <TotalPrice />
+      {page === "order" && <TotalPrice />}
     </div>
   );
 });

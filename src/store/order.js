@@ -6,6 +6,7 @@ class Order {
     items: [], // { item, quantity }
     order_number: null,
     total: 0,
+    delivery: false,
   };
 
   constructor() {
@@ -13,6 +14,7 @@ class Order {
       order: observable,
       addToCart: action,
       totalPrice: action,
+      deliveryOption:action,
       decreaseQuantity: action,
       items: computed,
       totalQuantity: computed,
@@ -109,6 +111,10 @@ class Order {
       order_number: null,
       total: 0,
     };
+  }
+
+  deliveryOption(option) {
+    return this.order.delivery = option
   }
 
   // placeOrderAction = async (customerData) => {

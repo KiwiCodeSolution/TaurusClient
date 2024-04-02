@@ -53,7 +53,7 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName,
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
             <Button
               style={"orange"}
-              onClick={closeModal}
+              clickFn={closeModal}
               btnClass={type === "cart" ? "text-18 font-medium text-base-back" : ""}
             >
               {type === "cart" ? "Оформити замолення" : "Закрити"}

@@ -8,12 +8,16 @@ import Logo from "./UI/Logo";
 import logoKiwiCode from "/images/LogoKiwiCode.png";
 import Overlay from "./UI/modal/Overlay";
 import Form from "./Form";
+import TermsOfService from "./TermsOfService";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalTermsOpen, setIsModalTermsOpen] = useState(false);
+  const [isModalPolicyOpen, setIsModalPolicyOpen] = useState(false);
 
   return (
-    <footer className="w-full">
+    <footer className="w-full bg-dark-bg">
       <section className="wrapper py-10 border_custom">
         <ul className="flex gap-x-[87px] justify-between">
           <li>
@@ -45,13 +49,13 @@ const Footer = () => {
         <div className="w-full relative">
           <p className="text-sm text-center mb-1">
             Використовуючи цей сайт, ви погоджуєтесь з{" "}
-            <a href="#" className="underline">
+            <button className="underline" onClick={() => setIsModalTermsOpen(true)}>
               Умовами обслуговування
-            </a>{" "}
+            </button>{" "}
             та{" "}
-            <a href="#" className="underline">
+            <button className="underline" onClick={() => setIsModalPolicyOpen(true)}>
               Політикою конфіденційності
-            </a>
+            </button>
           </p>
           <p className="text-base text-center">
             <a href="#">© KiWiCode Solution, 2024</a>
@@ -62,10 +66,19 @@ const Footer = () => {
             className="absolute top-0 left-0 w-[90px] h-[52px]"
           />
         </div>
-
         {isModalOpen && (
           <Overlay clickFn={() => setIsModalOpen(false)} componentName={"footer"}>
             <Form namePage="contacts" />
+          </Overlay>
+        )}
+        {isModalTermsOpen && (
+          <Overlay clickFn={() => setIsModalTermsOpen(false)}>
+            <TermsOfService />
+          </Overlay>
+        )}
+        {isModalPolicyOpen && (
+          <Overlay clickFn={() => setIsModalPolicyOpen(false)}>
+            <PrivacyPolicy />
           </Overlay>
         )}
       </section>

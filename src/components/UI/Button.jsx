@@ -6,6 +6,7 @@ const buttonsStyle = {
   orange: "min-w-[150px] h-[38px] px-6 py-[6px] bg-base-orange text-lg text-base-back mx-auto hover:bg-base-yellow",
   round: "w-8 h-8 rounded-full border border-base-white  hover:border-base-yellow",
   count: "w-[71px] h-fill flex justify-center items-center",
+  check: "w-30 px-4 text-20 flex justify-center items-center h-[30px] rounded",
 };
 
 const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, ...restProps }) => {
@@ -30,7 +31,7 @@ const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, .
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.oneOf(["transparent", "orange", "round", "count"]).isRequired,
+  style: PropTypes.oneOf(["transparent", "orange", "round", "count", "check"]).isRequired,
   btnType: PropTypes.string,
   icon: PropTypes.element,
   clickFn: PropTypes.func,

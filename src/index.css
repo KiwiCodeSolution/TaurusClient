@@ -277,25 +277,14 @@ button:hover .icon-up {
   
 }
 
-.heading {
-  position: relative;
-  display: inline-block; /* Дозволяє елементу розтягуватися відповідно до його вмісту */
+.cart{
+  stroke: #fff;
 }
 
-.heading img {
-  display: block;
-  width: 100%;
-  height: auto;
+.cart-btn:hover svg{
+  stroke: #ffd698;
 }
 
-.heading .text-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/images/text_not_found.jpg'); /* Задаємо картинку, яка буде використовуватися в якості тексту */
-  color: transparent; /* Робимо текст прозорим */
-  -webkit-background-clip: text; /* Вказуємо, що фонове зображення має обрізатися згідно з контуром тексту */
-  background-clip: text;
+.cart-not-empty{
+  stroke: #f7a033;
 }

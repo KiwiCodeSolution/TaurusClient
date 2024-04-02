@@ -1,12 +1,12 @@
 import { observer } from "mobx-react-lite";
 import categoryStore from "../../store/filter";
-
 import MetaData from "../../components/MetaData";
 import { useEffect, useState } from "react";
-
 import * as icons from "../../icons/iconComponent";
 import CategoriesList from "../../components/CategoriesList";
 import { getDishes } from "../../API/dishes";
+import Button from "../../components/UI/Button";
+import CartPopup from "../../components/CartPopup";
 
 const ICONS = [
   { id: "1", Icon: icons.Menu, IconHover: icons.MenuHover, topCategoryName: "dishes", title: "основне меню" },
@@ -14,14 +14,14 @@ const ICONS = [
   { id: "3", Icon: icons.Drinks, IconHover: icons.DrinksHover, topCategoryName: "drinks", title: "напої" },
 ];
 
-const Menu = observer(() => {
+const Order = observer(() => {
   useEffect(() => {
     getDishes();
   }, []);
 
   const [currentTopCategory, setCurrentTopCategory] = useState("dishes");
   const [currentTopTitle, setCurrentTopTitle] = useState("основне меню");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentId, setCurrentId] = useState("1");
 
   function handleCahngeCategory(topCategoryName, title, id) {
@@ -33,25 +33,24 @@ const Menu = observer(() => {
 
   return (
     <>
-      <MetaData>Меню ресторану</MetaData>
+      <MetaData>Замовлення</MetaData>
 
       <main className="relative w-full">
         <img
           src={
             currentTopCategory === "dishes"
-              ? "/images/menu/dishes.jpg"
+              ? "/images/order/dishes.png"
               : currentTopCategory === "desserts"
-              ? "/images/menu/desserts.jpg"
-              : "/images/menu/drinks.jpg"
+              ? "/images/order/desserts.png"
+              : "/images/order/drinks.png"
           }
           alt=""
           className="w-full h-[416px] object-cover object-top border-b-[0.5px] border-base-brown"
         />
         <section className="wrapper w-full section-wrapper py-16">
           <ul>
-            <li className="flex gap-x-4 items-center justify-center w-full mb-9">
-              <icons.Devices />
-              <h2 className="text-[53px] text-lite-yellow uppercase">Меню</h2>
+            <li className="flex items-center justify-center w-full mb-9">
+              <h2 className="text-[53px] text-lite-yellow uppercase">Меню замовлення</h2>
             </li>
             <li className="w-[736px] flex gap-x-14 mx-auto border_menu pb-10">
               {ICONS.map(({ id, Icon, IconHover, topCategoryName, title }) => (
@@ -74,11 +73,17 @@ const Menu = observer(() => {
           </ul>
           <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">{currentTopTitle}</h3>
 
-          <CategoriesList />
+          <CategoriesList page="order" />
+          <div className="w-full flex justify-center mt-10">
+            <Button style={"orange"} btnClass={"text-18 font-medium"} clickFn={() => setIsModalOpen(true)}>
+              Замовити
+            </Button>
+          </div>
         </section>
+        {isModalOpen && <CartPopup clickFn={() => setIsModalOpen(false)} />}
       </main>
     </>
   );
 });
 
-export default Menu;
+export default Order;

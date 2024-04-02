@@ -11,7 +11,7 @@ const CartMenuItem = observer(({ item }) => {
 
   const { _id, name, price } = item;
 
-  const value = (_id) => {
+  const value = _id => {
     if (orderStore.currentDish(_id)) {
       return orderStore.currentDish(_id).quantity;
     }
@@ -21,12 +21,12 @@ const CartMenuItem = observer(({ item }) => {
   return (
     <article className="w-[561px] h-[54px] flex items-center gap-x-6 border-b border-dashed border-base-brown pr-[10px]">
       <div className="w-[316px] text-sm normal-case">{name}</div>
-      <div className="w-[72px] h-[29px] flex gap-x-1 py-1 bg-button-bg">
+      <div className="w-[72px] h-[29px] flex gap-x-1 py-1 bg-dark-btn-bg">
         <Button style={"count"} clickFn={() => orderStore.decreaseQuantity(item)} disabled={value(_id) === 0}>
           <Minus />
         </Button>
         <span
-          className={`h-full text-sm bg-button-bg mx-auto flex justify-center items-center text-lite-yellow font-medium
+          className={`h-full text-sm bg-dark-btn-bg mx-auto flex justify-center items-center text-lite-yellow font-medium
           `}
         >
           {value(_id) <= 0 ? 0 : value(_id)}

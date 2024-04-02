@@ -46,7 +46,7 @@ const Promo = () => {
           <TitlePage>Акції</TitlePage>
 
           <div className="w-[1116px] grid grid-cols-3 gap-y-12 gap-x-6 mx-auto">
-            {PROMO_ITEMS.map((el) => (
+            {PROMO_ITEMS.map(el => (
               <PromoItem key={el.id} item={el} />
             ))}
           </div>

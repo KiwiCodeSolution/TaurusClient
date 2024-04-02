@@ -10,7 +10,7 @@ import Contacts from "./pages/client/Contacts";
 import Reserve from "./pages/client/Reserve";
 import Menu from "./pages/client/Menu";
 import { SharedLayout } from "./components/SharedLayout";
-import Delivery from "./pages/client/Delivery";
+import Order from "./pages/client/Order";
 import MenuAdmin from "./pages/admin/MenuAdmin";
 import PromoAdmin from "./pages/admin/PromoAdmin";
 import HomeAdmin from "./pages/admin/HomeAdmin";
@@ -28,7 +28,7 @@ function App() {
           <Route path="services" element={<Services />} />
           <Route path="promo" element={<Promo />} />
           <Route path="reserve" element={<Reserve />} />
-          <Route path="delivery" element={<Delivery />} />
+          <Route path="order" element={<Order />} />
           <Route path="contacts" element={<Contacts />} />
         </Route>
 

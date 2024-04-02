@@ -6,14 +6,14 @@ const ITEMS = [
   { id: "2", name: "Послуги", link: "/services" },
   { id: "3", name: "Акції", link: "/promo" },
   { id: "4", name: "Забронювати", link: "/reserve" },
-  { id: "5", name: "Доставка", link: "/delivery" },
+  { id: "5", name: "Замовити", link: "/order" },
   { id: "56", name: "Контакти", link: "/contacts" },
 ];
 
 const NavBar = ({ sectionType }) => {
   return (
     <nav className={`flex text-base ${sectionType === "footer" ? "flex-col gap-y-3" : "gap-x-6"}`}>
-      {ITEMS.map((el) => (
+      {ITEMS.map(el => (
         <NavLink
           to={el.link}
           className="hover:text-base-yellow duration-300 ease-in cursor-pointer"

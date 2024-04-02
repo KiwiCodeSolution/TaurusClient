@@ -9,7 +9,7 @@ import SocIcons from "../../components/SocIcons";
 const ITEMS = [
   {
     id: 1,
-    title: "доставка",
+    title: "замовити",
     image: "/images/home/order.png",
     alt: "зображення однієї зі страв, яку можн азамовити",
     link: "/reserve",
@@ -33,7 +33,7 @@ const Home = () => {
 
       <div className="relative">
         <div className="flex justify-between mx-auto absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
-          {ITEMS.map((el) => (
+          {ITEMS.map(el => (
             <Link
               to={el.link}
               key={el.id}
@@ -52,7 +52,7 @@ const Home = () => {
         </div>
 
         <div>
-          {ITEMS.map((el) => (
+          {ITEMS.map(el => (
             <img
               key={el.id}
               src={el.image}
@@ -66,9 +66,11 @@ const Home = () => {
           ))}
           <div className="w-full h-screen fixed top-0 left-0 bg-gradient-to-t from-[rgb(0,0,0,0.5)] to-[rgb(0,0,0,0.5)] z-0" />
         </div>
-        <div className="flex flex-col h-[70%] items-center justify-between absolute top-[225px] right-0 z-50">
-          <Location section="home" />
-          <SocIcons section="home" />
+        <div className="wrapper h-full w-[1280px] absolute top-0 left-1/2 -translate-x-1/2">
+          <div className="flex flex-col h-[70%] items-center justify-between absolute top-[225px] right-[-48px] z-50">
+            <Location section="home" />
+            <SocIcons section="home" />
+          </div>
         </div>
       </div>
     </>

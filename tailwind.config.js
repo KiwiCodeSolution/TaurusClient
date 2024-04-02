@@ -10,7 +10,8 @@ export default {
         "base-brown": "#7E664D",
         "base-back": "#0C0C09",
         "lite-yellow": "#ECDDC6",
-        "button-bg": "#181817",
+        "dark-bg": "#181817",
+        "dark-btn-bg":"#33302D"
       },
       fontSize: {
         14: ["14px", "20px"],
