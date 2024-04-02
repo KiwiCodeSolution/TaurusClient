@@ -7,52 +7,72 @@ import CartMenuItem from "../pages/client/CartMenuItem";
 import TotalPrice from "./TotalPrice";
 
 import Button from "./UI/Button";
+import { useState } from "react";
+import Form from "./Form";
 
-const CartPopup = observer(({ clickFn }) => {
+const CartPopup = observer(({ clickFn, formFn }) => {
+  const [step, setStep] = useState(1);
   const items = orderStore.order.items;
 
   function deliveryChange(option) {
     orderStore.deliveryOption(option);
   }
 
-  console.log(orderStore.order.delivery);
-
   return (
-    <Overlay
-      clickFn={clickFn}
-      stylesPopUp={"w-[641px] min-h-[319px] flex flex-col items-strt"}
-      status={"confirm"}
-      type={"cart"}
-    >
-      <h4 className="text-20 text-lite-yellow uppercase text-center mb-6">Замовлення</h4>
-      <div className="w-fit p-1 bg-dark-btn-bg rounded-[6px] mx-auto flex gap-x-4">
-        <Button
-          style={"check"}
-          clickFn={() => deliveryChange(false)}
-          btnClass={!orderStore.order.delivery && "bg-base-yellow text-base-back"}
-        >
-          У ресторані
-        </Button>
-        <Button
-          style={"check"}
-          clickFn={() => deliveryChange(true)}
-          btnClass={orderStore.order.delivery && "bg-base-yellow text-base-back"}
-        >
-          Доставка
-        </Button>
-      </div>
-      <div className="mb-20">
-        {items.map(({ item }) => (
-          <CartMenuItem key={item._id} item={item} />
-        ))}
-        <TotalPrice />
-      </div>
-    </Overlay>
+    <>
+      <Overlay
+        clickFn={clickFn}
+        stylesPopUp={"w-[680px] min-h-[319px] max-h-[685px] flex flex-col items-strt"}
+        status={"confirm"}
+        componentName={"cart"}
+      >
+        <h4 className="text-20 text-lite-yellow uppercase text-center mb-6">
+          {step === 1 ? "Замовлення" : "ОФормлення замовлення"}
+        </h4>
+
+        {step === 1 ? (
+          <>
+            <div className="w-fit p-1 bg-dark-btn-bg rounded-[6px] mx-auto flex gap-x-4 mb-4">
+              <Button
+                style={"check"}
+                clickFn={() => deliveryChange(false)}
+                btnClass={!orderStore.order.delivery ? "bg-base-yellow text-base-back" : ""}
+              >
+                У ресторані
+              </Button>
+              <Button
+                style={"check"}
+                clickFn={() => deliveryChange(true)}
+                btnClass={orderStore.order.delivery ? "bg-base-yellow text-base-back" : ""}
+              >
+                Доставка
+              </Button>
+            </div>
+            <div className="mb-20 overflow-auto">
+              {items.map(({ item }) => (
+                <CartMenuItem key={item._id} item={item} />
+              ))}
+              <TotalPrice />
+            </div>
+            <Button
+              btnClass="text-18 font-medium text-base-back"
+              style={"orange"}
+              clickFn={() => setStep(2)}
+            >
+              Оформити замолення
+            </Button>
+          </>
+        ) : (
+          <Form namePage="order" clickFn={formFn} />
+        )}
+      </Overlay>
+    </>
   );
 });
 
 CartPopup.propTypes = {
   clickFn: PropTypes.func.isRequired,
+  formFn: PropTypes.func.isRequired,
 };
 
 export default CartPopup;

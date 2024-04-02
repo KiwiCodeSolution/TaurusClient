@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { observer } from "mobx-react-lite";
 import { useForm, Controller } from "react-hook-form";
 import TextField from "./UI/form/TextField";
 import Button from "./UI/Button";
@@ -7,6 +8,7 @@ import DateTimeField from "./UI/form/DateTimeField";
 import ChexboxField from "./UI/form/ChexboxField";
 import { useState } from "react";
 import ConfirmPopup from "./ConfirmPopup";
+import notificationStore from "../store/notification";
 
 const TEXT_FIELDS = [
   {
@@ -60,9 +62,8 @@ const options = [
   { value: "10", label: "10 осіб" },
 ];
 
-const Form = ({ namePage }) => {
+const Form = observer(({ namePage, clickFn }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({});
 
   const {
     control,
@@ -82,10 +83,18 @@ const Form = ({ namePage }) => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     console.log(data);
-    setFormData(data);
-    setIsModalOpen(true);
+
+    if (namePage === "contacts") {
+      setIsModalOpen(true);
+    }
+
+    if (namePage === "order") {
+      clickFn();
+      notificationStore.setIsOpen(true);
+    }
+
     // if (!data.selectedOption) {
     //   setError("selectedOption", {
     //     type: "manual",
@@ -106,7 +115,7 @@ const Form = ({ namePage }) => {
     reset();
   };
 
-  const handleReset = (fieldName) => {
+  const handleReset = fieldName => {
     resetField(fieldName);
   };
 
@@ -117,16 +126,13 @@ const Form = ({ namePage }) => {
       : namePage === "contacts"
       ? "w-[546px] px-6 flex flex-col gap-y-4 mt-8 mx-auto"
       : namePage === "order"
-      ? "w-[578px] p-10 flex flex-col gap-y-4 mt-8 mx-auto"
+      ? "w-[578px] flex flex-col gap-y-4 mx-auto"
       : "";
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={formStyle}>
         {/* ------------------ inputs --------------- */}
-        {namePage === "order" && (
-          <h3 className="w-full text-[27px] uppercase text-center text-lite-yellow mb-6">ОФормлення замовлення</h3>
-        )}
 
         {TEXT_FIELDS.map(({ id, name, defaultValue, placeholder, type, style, label }) => (
           <TextField
@@ -174,7 +180,8 @@ const Form = ({ namePage }) => {
         {/* ------------------ text --------------- */}
         <div className="flex flex-col gap-y-[19px] order-8">
           <p className="text-14 text-base-brown">
-            <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для заповнення
+            <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для
+            заповнення
           </p>
           <Controller
             name="agreement"
@@ -190,7 +197,11 @@ const Form = ({ namePage }) => {
           />
         </div>
 
-        <Button style={"orange"} btnClass="order-10 mt-6 text-center text-18 font-medium" type="submit">
+        <Button
+          style={"orange"}
+          btnClass="order-10 mt-6 text-center text-18 font-medium"
+          type="submit"
+        >
           {namePage === "reserve"
             ? "Забронювати"
             : namePage === "contacts"
@@ -201,13 +212,14 @@ const Form = ({ namePage }) => {
         </Button>
       </form>
 
-      {isModalOpen && <ConfirmPopup data={formData} clickFn={() => setIsModalOpen(false)} />}
+      {isModalOpen && <ConfirmPopup clickFn={() => setIsModalOpen(false)} />}
     </>
   );
-};
+});
 
 Form.propTypes = {
   namePage: PropTypes.string.isRequired,
+  clickFn: PropTypes.func.isRequired,
 };
 
 export default Form;

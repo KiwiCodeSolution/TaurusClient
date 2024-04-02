@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
+import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import useScrollBlock from "../../../hooks/useScrollBlock";
 import Button from "../Button";
 import { Cross } from "../../../icons/iconComponent";
+// import notificationStore from "../../../store/notification";
 
-const modalRoot = document.querySelector("#modal-root");
+const modalRoot = document.querySelector("#confirm-modal-root");
 
-const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName }) => {
+const ConfirmOverlay = observer(({ children, stylesPopUp, stylesOverlay, clickFn }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
 
   function closeModal() {
@@ -28,7 +30,7 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName 
     return () => {
       window.removeEventListener("keydown", keyDown);
     };
-  }, [blockScroll, clickFn, closeModal]);
+  }, [blockScroll, closeModal]);
 
   function handleOverlayClick(e) {
     if (e.target === e.currentTarget) {
@@ -49,20 +51,19 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName 
           <Cross className={"absolute top-[16px] right-[16px] icon"} />
         </button>
         {children}
-        {/* {(componentName !== "PhoneContactList" || componentName !== "cart") && (
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-            <Button style={"orange"} clickFn={closeModal}>
-              Закрити
-            </Button>
-          </div>
-        )} */}
+
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+          <Button style={"orange"} clickFn={closeModal}>
+            Закрити
+          </Button>
+        </div>
       </div>
     </div>,
     modalRoot
   );
-};
+});
 
-Overlay.propTypes = {
+ConfirmOverlay.propTypes = {
   children: PropTypes.node.isRequired,
   clickFn: PropTypes.func.isRequired,
   stylesOverlay: PropTypes.string,
@@ -72,4 +73,4 @@ Overlay.propTypes = {
   type: PropTypes.string,
 };
 
-export default Overlay;
+export default ConfirmOverlay;

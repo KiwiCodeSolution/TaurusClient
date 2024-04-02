@@ -7,11 +7,30 @@ import CategoriesList from "../../components/CategoriesList";
 import { getDishes } from "../../API/dishes";
 import Button from "../../components/UI/Button";
 import CartPopup from "../../components/CartPopup";
+import ConfirmPopup from "../../components/ConfirmPopup";
 
 const ICONS = [
-  { id: "1", Icon: icons.Menu, IconHover: icons.MenuHover, topCategoryName: "dishes", title: "основне меню" },
-  { id: "2", Icon: icons.Desserts, IconHover: icons.DessertsHover, topCategoryName: "desserts", title: "десерти" },
-  { id: "3", Icon: icons.Drinks, IconHover: icons.DrinksHover, topCategoryName: "drinks", title: "напої" },
+  {
+    id: "1",
+    Icon: icons.Menu,
+    IconHover: icons.MenuHover,
+    topCategoryName: "dishes",
+    title: "основне меню",
+  },
+  {
+    id: "2",
+    Icon: icons.Desserts,
+    IconHover: icons.DessertsHover,
+    topCategoryName: "desserts",
+    title: "десерти",
+  },
+  {
+    id: "3",
+    Icon: icons.Drinks,
+    IconHover: icons.DrinksHover,
+    topCategoryName: "drinks",
+    title: "напої",
+  },
 ];
 
 const Order = observer(() => {
@@ -23,12 +42,18 @@ const Order = observer(() => {
   const [currentTopTitle, setCurrentTopTitle] = useState("основне меню");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentId, setCurrentId] = useState("1");
+  const [isOpenNotification, setIsOpenNotification] = useState(false);
 
   function handleCahngeCategory(topCategoryName, title, id) {
     setCurrentTopCategory(topCategoryName);
     setCurrentTopTitle(title);
     setCurrentId(id);
     categoryStore.setTopCategory(topCategoryName);
+  }
+
+  function handleModals() {
+    setIsModalOpen(false);
+    setIsOpenNotification(true);
   }
 
   return (
@@ -71,16 +96,25 @@ const Order = observer(() => {
               ))}
             </li>
           </ul>
-          <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">{currentTopTitle}</h3>
+          <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">
+            {currentTopTitle}
+          </h3>
 
           <CategoriesList page="order" />
           <div className="w-full flex justify-center mt-10">
-            <Button style={"orange"} btnClass={"text-18 font-medium"} clickFn={() => setIsModalOpen(true)}>
+            <Button
+              style={"orange"}
+              btnClass={"text-18 font-medium"}
+              clickFn={() => setIsModalOpen(true)}
+            >
               Замовити
             </Button>
           </div>
         </section>
-        {isModalOpen && <CartPopup clickFn={() => setIsModalOpen(false)} />}
+        {isOpenNotification && (
+          <ConfirmPopup type={"cart"} clickFn={() => setIsOpenNotification(false)} />
+        )}
+        {isModalOpen && <CartPopup clickFn={() => setIsModalOpen(false)} formFn={handleModals} />}
       </main>
     </>
   );
