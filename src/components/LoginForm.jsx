@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Check, Hide, Show } from "../icons/iconComponent";
 import Button from "./UI/Button";
 import authState from "../store/auth";
@@ -14,6 +14,14 @@ const Information = () => {
 };
 
 const LoginForm = () => {
+  useEffect(() => {
+    // Перевіряємо, чи користувач вже авторизований
+    if (authState.isAuth) {
+      // Якщо користувач вже авторизований, перенаправляємо його на домашню сторінку адміністратора
+      return <Navigate to="/admin/authorized" />;
+    }
+  }, []);
+
   const {
     register,
     handleSubmit,
