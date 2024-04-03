@@ -13,12 +13,16 @@ import { Cart } from "../icons/iconComponent";
 import CartPopup from "./CartPopup";
 import ConfirmPopup from "./ConfirmPopup";
 
-export const SharedLayout = observer(() => {
+const SharedLayout = observer(() => {
+  // потрібно, аби зрозуміти розташування сторінки та чи потрібно виводити футер
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenNotification, setIsOpenNotification] = useState(false);
+
+  // номер всюди задіяно через цю константу. достатньо змінити тільки тут
   const number = "+38 099 101 81 81";
 
   const isCartEmpty = orderStore.order.items?.length > 0;
@@ -55,8 +59,14 @@ export const SharedLayout = observer(() => {
         <Outlet />
       </Suspense>
       <div className="w-full h-[104px] absolute top-0 left-0 bg-gradient-to-b from-[#090705] to-[rgb(11,8,3,0)]" />
+
+      {/* попап із лінками на месенджерами */}
       {isOpen && <PhoneContactList clickFn={closeModal} contactNumber={number} />}
+
+      {/* попап кошика */}
       {isOpenCart && <CartPopup clickFn={() => setIsOpenCart(false)} formFn={handleModals} />}
+
+      {/* попап підтвердження відправки замовлення */}
       {isOpenNotification && (
         <ConfirmPopup type={"cart"} clickFn={() => setIsOpenNotification(false)} />
       )}
@@ -64,3 +74,5 @@ export const SharedLayout = observer(() => {
     </div>
   );
 });
+
+export default SharedLayout;

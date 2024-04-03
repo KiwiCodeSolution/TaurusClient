@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+
+import { useState } from "react";
 import { Check, Hide, Show } from "../icons/iconComponent";
 import Button from "./UI/Button";
 import authState from "../store/auth";
@@ -13,15 +14,7 @@ const Information = () => {
   );
 };
 
-const LoginForm = () => {
-  useEffect(() => {
-    // Перевіряємо, чи користувач вже авторизований
-    if (authState.isAuth) {
-      // Якщо користувач вже авторизований, перенаправляємо його на домашню сторінку адміністратора
-      return <Navigate to="/admin/authorized" />;
-    }
-  }, []);
-
+const LoginForm = observer(() => {
   const {
     register,
     handleSubmit,
@@ -137,6 +130,6 @@ const LoginForm = () => {
       {info && <Information />}
     </div>
   );
-};
+});
 
 export default LoginForm;
