@@ -3,6 +3,7 @@ import { ToastContainer, Bounce } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./components/Loader";
 
 const Home = React.lazy(() => import("./pages/client/Home"));
 const NotFound = React.lazy(() => import("./pages/client/NotFound"));
@@ -23,7 +24,7 @@ const NotPages = React.lazy(() => import("./pages/admin/NotPages"));
 
 const App = observer(() => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         {/* Клієнтська частина */}
         <Route path="/" element={<SharedLayout />}>
