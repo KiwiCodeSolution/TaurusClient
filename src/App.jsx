@@ -1,30 +1,31 @@
+import React, { Suspense } from "react";
 import { ToastContainer, Bounce } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import "react-toastify/dist/ReactToastify.css";
 
-import Home from "./pages/client/Home";
-import NotFound from "./pages/client/NotFound";
-import Services from "./pages/client/Services";
-import Promo from "./pages/client/Promo";
-import Contacts from "./pages/client/Contacts";
-import Reserve from "./pages/client/Reserve";
-import Menu from "./pages/client/Menu";
-import SharedLayout from "./components/SharedLayout";
-import Order from "./pages/client/Order";
-import MenuAdmin from "./pages/admin/MenuAdmin";
-import PromoAdmin from "./pages/admin/PromoAdmin";
-import HomeAdmin from "./pages/admin/HomeAdmin";
-import MenuDeliveryAdmin from "./pages/admin/MenuDeliveryAdmin";
-import LoginPage from "./pages/client/Login";
-import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
-import NotPages from "./pages/admin/NotPages";
+const Home = React.lazy(() => import("./pages/client/Home"));
+const NotFound = React.lazy(() => import("./pages/client/NotFound"));
+const Services = React.lazy(() => import("./pages/client/Services"));
+const Promo = React.lazy(() => import("./pages/client/Promo"));
+const Contacts = React.lazy(() => import("./pages/client/Contacts"));
+const Reserve = React.lazy(() => import("./pages/client/Reserve"));
+const Menu = React.lazy(() => import("./pages/client/Menu"));
+const SharedLayout = React.lazy(() => import("./components/SharedLayout"));
+const Order = React.lazy(() => import("./pages/client/Order"));
+const MenuAdmin = React.lazy(() => import("./pages/admin/MenuAdmin"));
+const PromoAdmin = React.lazy(() => import("./pages/admin/PromoAdmin"));
+const HomeAdmin = React.lazy(() => import("./pages/admin/HomeAdmin"));
+const MenuDeliveryAdmin = React.lazy(() => import("./pages/admin/MenuDeliveryAdmin"));
+const LoginPage = React.lazy(() => import("./pages/client/Login"));
+const { PrivateRoute, RedirectRoute } = React.lazy(() => import("./helpers/redirect"));
+const NotPages = React.lazy(() => import("./pages/admin/NotPages"));
 
 const App = observer(() => {
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        {/* клієнтська частина */}
+        {/* Клієнтська частина */}
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path="menu" element={<Menu />} />
@@ -35,11 +36,10 @@ const App = observer(() => {
           <Route path="contacts" element={<Contacts />} />
         </Route>
         <Route path="*" element={<NotFound />} />
-        {/* кінець клієнтської частини */}
+        {/* Кінець клієнтської частини */}
 
-        {/* адмінська частина */}
-        {/* авторизація */}
-
+        {/* Адміністративна частина */}
+        {/* Авторизація */}
         <Route
           path="/admin"
           element={
@@ -49,8 +49,7 @@ const App = observer(() => {
           }
         />
 
-        {/* стартова сторінка */}
-
+        {/* Стартова сторінка */}
         <Route
           path="/admin/home"
           element={
@@ -59,8 +58,7 @@ const App = observer(() => {
             </PrivateRoute>
           }
         >
-          {/* робота із меню страв та акціями */}
-
+          {/* Робота із меню страв та акціями */}
           <Route path="menu">
             <Route
               index
@@ -89,8 +87,7 @@ const App = observer(() => {
             />
           </Route>
 
-          {/* робота із замовленнями */}
-
+          {/* Робота із замовленнями */}
           <Route path="orders">
             <Route
               path="delivery"
@@ -120,10 +117,10 @@ const App = observer(() => {
         </Route>
         <Route path="/admin/*" element={<NotPages />} />
 
-        {/* кінець адмінської частини */}
+        {/* Кінець адміністративної частини */}
       </Routes>
       <ToastContainer transition={Bounce} />
-    </>
+    </Suspense>
   );
 });
 
