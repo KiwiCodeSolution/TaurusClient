@@ -26,7 +26,7 @@ const CartPopup = observer(({ clickFn, formFn }) => {
         status={"confirm"}
         componentName={"cart"}
       >
-        <h4 className="text-20 text-lite-yellow uppercase text-center mb-6">
+        <h4 className="text-xl text-lite-yellow uppercase text-center mb-6">
           {step === 1 ? "Замовлення" : "ОФормлення замовлення"}
         </h4>
 

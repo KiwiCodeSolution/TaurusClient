@@ -1,5 +1,6 @@
 import { ToastContainer, Bounce } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/client/Home";
@@ -18,7 +19,7 @@ import MenuDeliveryAdmin from "./pages/admin/MenuDeliveryAdmin";
 import LoginPage from "./pages/client/Login";
 import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
 
-function App() {
+const App = observer(() => {
   return (
     <>
       <Routes>
@@ -80,6 +81,6 @@ function App() {
       <ToastContainer transition={Bounce} />
     </>
   );
-}
+});
 
 export default App;

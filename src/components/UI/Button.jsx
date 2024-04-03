@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 const buttonsStyle = {
   transparent:
     "w-[156px] h-[38px] px-3 py-[6px] border border-base-white text-base text-base-white hover:border-base-yellow hover:text-base-yellow",
-  orange: "min-w-[150px] h-[38px] px-6 py-[6px] bg-base-orange text-lg text-base-back mx-auto hover:bg-base-yellow",
+  orange:
+    "min-w-[150px] h-[38px] px-6 py-[6px] bg-base-orange text-lg text-base-back mx-auto hover:bg-base-yellow",
   round: "w-8 h-8 rounded-full border border-base-white  hover:border-base-yellow",
   count: "w-[71px] h-fill flex justify-center items-center",
-  check: "w-30 px-4 text-20 flex justify-center items-center h-[30px] rounded",
+  check: "w-30 px-4 text-xl flex justify-center items-center h-[30px] rounded",
 };
 
 const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, ...restProps }) => {

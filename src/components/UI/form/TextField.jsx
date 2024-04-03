@@ -1,4 +1,5 @@
 import { useController } from "react-hook-form";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { Cross } from "../../../icons/iconComponent";
 export const baseStyleInput =
@@ -8,6 +9,8 @@ export const baseStyleLabel = "text-14 text-lite-yellow";
 // const baseStyleError = 'text-pink text-xs text-right absolute -bottom-5 right-0';
 
 const TextField = ({ control, name, defaultValue, placeholder, onReset, type, style, label }) => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   // Визначаємо правила, якщо тип не є textarea
   const rules = type !== "textarea" ? { required: "Це поле обов'язкове" } : {};
 
@@ -17,6 +20,10 @@ const TextField = ({ control, name, defaultValue, placeholder, onReset, type, st
     defaultValue,
     rules,
   });
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   return (
     <div className={`flex flex-col gap-y-2 ${style} relative`}>
@@ -38,11 +45,30 @@ const TextField = ({ control, name, defaultValue, placeholder, onReset, type, st
           className={`${fieldState.error && "border-base-orange"} ${baseStyleInput}`}
           name={name}
         />
+      ) : type === "password" ? (
+        <div className="relative">
+          <input
+            {...field}
+            type={passwordVisible ? "text" : "password"} // Зміна типу поля вводу
+            placeholder={placeholder}
+            className={`${fieldState.error && "border-base-orange"} ${baseStyleInput}`}
+            name={name}
+          />
+          <button
+            type="button"
+            className="absolute top-1/2 transform -translate-y-1/2 right-2"
+            onClick={togglePasswordVisibility}
+          >
+            {passwordVisible ? "Hide" : "Show"}
+          </button>
+        </div>
       ) : (
         <textarea
           {...field}
           placeholder={placeholder}
-          className={`h-[92px] ${style} ${fieldState.error && "border-base-orange"} ${baseStyleInput}`}
+          className={`h-[92px] ${style} ${
+            fieldState.error && "border-base-orange"
+          } ${baseStyleInput}`}
           name={name}
           style={{
             resize: "none",
@@ -50,11 +76,17 @@ const TextField = ({ control, name, defaultValue, placeholder, onReset, type, st
         />
       )}
 
-      <button type="button" className="absolute right-0 form_button" onClick={() => onReset({ name })}>
+      <button
+        type="button"
+        className="absolute right-0 form_button"
+        onClick={() => onReset({ name })}
+      >
         <Cross className={"icon"} />
       </button>
       {fieldState.error && (
-        <span className="absolute -bottom-4 left-0 text-14 text-base-orange italic">{fieldState.error.message}</span>
+        <span className="absolute -bottom-4 left-0 text-14 text-base-orange italic">
+          {fieldState.error.message}
+        </span>
       )}
     </div>
   );

@@ -288,3 +288,12 @@ button:hover .icon-up {
 .cart-not-empty{
   stroke: #f7a033;
 }
+
+.show,
+.hide{
+  fill:#ECDDC6
+}
+
+.password-btn:hover .show, 
+.password-btn:hover .hide
+{fill:#ffd698}

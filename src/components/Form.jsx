@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { observer } from "mobx-react-lite";
+import { toJS } from "mobx";
 import { useForm, Controller } from "react-hook-form";
 import TextField from "./UI/form/TextField";
 import Button from "./UI/Button";
@@ -8,7 +9,7 @@ import DateTimeField from "./UI/form/DateTimeField";
 import ChexboxField from "./UI/form/ChexboxField";
 import { useState } from "react";
 import ConfirmPopup from "./ConfirmPopup";
-import notificationStore from "../store/notification";
+import orderStore from "../store/order";
 
 const TEXT_FIELDS = [
   {
@@ -91,8 +92,11 @@ const Form = observer(({ namePage, clickFn }) => {
     }
 
     if (namePage === "order") {
+      const formattedData = toJS(orderStore.order.items);
+      // JSON.stringify(orderStore.order.items, null, 2);
+      console.log(formattedData);
       clickFn();
-      notificationStore.setIsOpen(true);
+      orderStore.clearOrderedProductList();
     }
 
     // if (!data.selectedOption) {
@@ -159,7 +163,7 @@ const Form = observer(({ namePage, clickFn }) => {
                   <>
                     <SelectField
                       {...field}
-                      control={control} // Додайте цей рядок
+                      control={control}
                       options={options}
                       name="quantity"
                       isSearchable={true}
