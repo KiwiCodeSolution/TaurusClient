@@ -32,10 +32,14 @@ const CategoriesList = observer(({ page }) => {
 
   const [currentCategory, setCurrentCategory] = useState(categoryStore.category);
   const menuItems = data.filter(el => el.topCategory === categoryStore.topCategory);
-  const subMenuItemsDrinks = menuItems[0].subCategory ? menuItems.find(el => el.category === currentCategory) : null;
+  const subMenuItemsDrinks = menuItems[0].subCategory
+    ? menuItems.find(el => el.category === currentCategory)
+    : null;
 
   return (
-    <div className="w-[1116px] mx-auto">
+    <div
+      className={`${page === "admin" ? "w-[calc(100%-300px)] h-[247px]" : "w-[1116px]"} mx-auto`}
+    >
       {/* блок для субкатегорій, є у категорії напоїв */}
       {categoryStore.topCategory === "drinks" && subMenuItemsDrinks && (
         <div className="w-[735px] flex gap-x-4 justify-between mx-auto">
@@ -46,40 +50,48 @@ const CategoriesList = observer(({ page }) => {
           ))}
         </div>
       )}
-      <div className="w-full flex gap-x-[46px]">
-        {/* бічне меню із розділами */}
-        <div className="w-[273px] flex flex-col gap-y-2 pt-7">
-          {menuItems.map(el => (
-            <button
-              key={el.id}
-              onClick={() => setCurrentCategory(el.category)}
-              className={`w-full py-[14px] px-2 text-18 uppercase ${
-                el.category === currentCategory ? "text-base-orange bg-dark-btn-bg" : "text-lite-yellow"
-              }  hover:text-base-orange`}
-            >
-              {el.category}
-            </button>
-          ))}
-        </div>
 
-        {/* центральний блок із переліком страв*/}
-        <div className="">
-          <div
-            className={`${
-              page === "order" ? "w-[546px]" : "w-full"
-            } flex justify-between mr-auto items-center pb-[14px]`}
-          >
-            <p className="text-14 text-lite-yellow">Назва</p>
-            <p className="text-14 text-lite-yellow">Ціна</p>
+      {page !== "admin" && (
+        <>
+          <div className="w-full flex gap-x-[46px]">
+            {/* бічне меню із розділами */}
+            <div className="w-[273px] flex flex-col gap-y-2 pt-7">
+              {menuItems.map(el => (
+                <button
+                  key={el.id}
+                  onClick={() => setCurrentCategory(el.category)}
+                  className={`w-full py-[14px] px-2 text-18 uppercase ${
+                    el.category === currentCategory
+                      ? "text-base-orange bg-dark-btn-bg"
+                      : "text-lite-yellow"
+                  }  hover:text-base-orange`}
+                >
+                  {el.category}
+                </button>
+              ))}
+            </div>
+
+            {/* центральний блок із переліком страв*/}
+
+            <div className="">
+              <div
+                className={`${
+                  page === "order" ? "w-[546px]" : "w-{831px]"
+                } flex justify-between mr-auto items-center pb-[14px]`}
+              >
+                <p className="text-14 text-lite-yellow">Назва</p>
+                <p className="text-14 text-lite-yellow">Ціна</p>
+              </div>
+              <div className="flex flex-col gap-y-4">
+                {page === "order"
+                  ? dishes.map(item => <MenuDeliveriItem key={item._id} item={item} />)
+                  : dishes.map(item => <MenuItem key={item._id} item={item} />)}
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col gap-y-4">
-            {page === "order"
-              ? dishes.map(item => <MenuDeliveriItem key={item._id} item={item} />)
-              : dishes.map(item => <MenuItem key={item._id} item={item} />)}
-          </div>
-        </div>
-      </div>
-      {page === "order" && <TotalPrice />}
+          {page === "order" && <TotalPrice />}
+        </>
+      )}
     </div>
   );
 });

@@ -23,7 +23,7 @@ export const getDishes = async () => {
   }
 };
 
-export const createDish = async (dish) => {
+export const createDish = async dish => {
   try {
     const result = await axios.post(`${baseServerURL}product`, dish);
 
@@ -37,7 +37,7 @@ export const createDish = async (dish) => {
   }
 };
 
-export const updateDish = async (dish) => {
+export const updateDish = async dish => {
   try {
     const result = await axios.put(`${baseServerURL}product/${dish._id}`, { ...dish });
     toast.success("Інформацію оновлено!", options);
@@ -48,7 +48,7 @@ export const updateDish = async (dish) => {
   }
 };
 
-export const deleteDish = async (dish) => {
+export const deleteDish = async dish => {
   try {
     const result = await axios.delete(`${baseServerURL}product/${dish._id}`);
     toast.success("Страву видалено!", options);

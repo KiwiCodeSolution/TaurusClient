@@ -8,18 +8,22 @@ class Filter {
 
   constructor() {
     makeAutoObservable(this);
-    makePersistable(this, { name: "filter", properties: ["topCategory", "category", "subCategory"] });
+    makePersistable(this, {
+      name: "filter",
+      properties: ["topCategory", "category", "subCategory"],
+      storage: window.localStorage,
+    });
   }
 
-  setTopCategory = (text) => {
+  setTopCategory = text => {
     this.topCategory = text;
   };
 
-  setCategory = (text) => {
+  setCategory = text => {
     this.category = text;
   };
 
-  setSubCategory = (text) => {
+  setSubCategory = text => {
     this.subCategory = text;
   };
 }

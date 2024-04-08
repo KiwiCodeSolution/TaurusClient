@@ -8,10 +8,17 @@ import SideBar from "../../adminSections/SideBar";
 const HomeAdmin = () => {
   const location = useLocation();
 
+  const currentStyle =
+    location.pathname === "/admin/home" ? "bg-[rgba(171,171,171,0.5)]" : "bg-base-back";
+
+  console.log(currentStyle);
+
   return (
     <>
       <MetaData>Домашня адмін-сторінка</MetaData>
-      <section className="fixed inset-0 w-full h-screen bg-[rgba(171,171,171,0.5)] z-[100] top-0 backdrop-blur-lg">
+      <section
+        className={`fixed inset-0 w-full h-screen ${currentStyle} z-[100] top-0 backdrop-blur-lg flex`}
+      >
         {location.pathname === "/admin/home" && (
           <div className="w-[578px] min-h-[460px] bg-base-back border border-base-brown py-[64px] px-[122px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <img src={Logo} alt="" className="mx-auto" />

@@ -90,6 +90,21 @@
   border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
 }
 
+.border_admin_menu {
+  border-bottom: 1px;
+  border-style: solid;
+
+  border-image: linear-gradient(
+      270deg,
+      #e4b88b 0%,
+      #e4b88b 0%,
+      #7e664d 100%,
+      #7e664d 100%,
+      #e4b88b 0%
+    )
+    1;
+}
+
 .border_menu {
   border-bottom: 1px;
   border-style: solid;
@@ -260,40 +275,38 @@ button:hover .icon-up {
   fill: #f7a033;
 }
 
-
-.text-not_found{
+.text-not_found {
   width: 100%;
   text-align: center;
   font-size: 166px;
   font-weight: 700;
   line-height: 1.5;
-  background:  url("/images/text_not_found.jpg");
-  background-position:   center;
+  background: url("/images/text_not_found.jpg");
+  background-position: center;
   background-repeat: no-repeat;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  
 }
 
-.cart{
+.cart {
   stroke: #fff;
 }
 
-.cart-btn:hover svg{
+.cart-btn:hover svg {
   stroke: #ffd698;
 }
 
-.cart-not-empty{
+.cart-not-empty {
   stroke: #f7a033;
 }
 
 .show,
-.hide{
-  fill:#ECDDC6
+.hide {
+  fill: #ecddc6;
 }
 
-.password-btn:hover .show, 
-.password-btn:hover .hide
-{fill:#ffd698}
+.password-btn:hover .show,
+.password-btn:hover .hide {
+  fill: #ffd698;
+}

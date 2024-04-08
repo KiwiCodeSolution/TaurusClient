@@ -14,17 +14,21 @@ class Order {
       order: observable,
       addToCart: action,
       totalPrice: action,
-      deliveryOption:action,
+      deliveryOption: action,
       decreaseQuantity: action,
       items: computed,
       totalQuantity: computed,
       clearOrderedProductList: action,
     });
 
-    makePersistable(this, { name: "order", properties: ["order"] });
+    makePersistable(this, {
+      name: "order",
+      properties: ["order"],
+      storage: window.localStorage,
+    });
   }
 
-  addToCart = (dish) => {
+  addToCart = dish => {
     const foundDish = this.order.items.find(({ item }) => item._id === dish._id);
 
     if (foundDish) {
@@ -97,7 +101,10 @@ class Order {
     if (!this.order.items) {
       return 0;
     }
-    const total = this.order.items.reduce((total, { item, quantity }) => total + item.price * quantity, 0);
+    const total = this.order.items.reduce(
+      (total, { item, quantity }) => total + item.price * quantity,
+      0
+    );
     this.order.total = total; // оновлення значення total безпосередньо в order
     return total;
   }
@@ -114,7 +121,7 @@ class Order {
   }
 
   deliveryOption(option) {
-    return this.order.delivery = option
+    return (this.order.delivery = option);
   }
 
   // placeOrderAction = async (customerData) => {

@@ -1,9 +1,11 @@
+/* prettier-ignore */
 import React, { Suspense } from "react";
 import { ToastContainer, Bounce } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./components/Loader";
+import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
 
 const Home = React.lazy(() => import("./pages/client/Home"));
 const NotFound = React.lazy(() => import("./pages/client/NotFound"));
@@ -19,7 +21,7 @@ const PromoAdmin = React.lazy(() => import("./pages/admin/PromoAdmin"));
 const HomeAdmin = React.lazy(() => import("./pages/admin/HomeAdmin"));
 const MenuDeliveryAdmin = React.lazy(() => import("./pages/admin/MenuDeliveryAdmin"));
 const LoginPage = React.lazy(() => import("./pages/client/Login"));
-const { PrivateRoute, RedirectRoute } = React.lazy(() => import("./helpers/redirect"));
+
 const NotPages = React.lazy(() => import("./pages/admin/NotPages"));
 
 const App = observer(() => {
@@ -40,6 +42,7 @@ const App = observer(() => {
         {/* Кінець клієнтської частини */}
 
         {/* Адміністративна частина */}
+
         {/* Авторизація */}
         <Route
           path="/admin"
@@ -69,7 +72,6 @@ const App = observer(() => {
                 </PrivateRoute>
               }
             />
-
             <Route
               path="promo"
               element={
@@ -88,7 +90,7 @@ const App = observer(() => {
             />
           </Route>
 
-          {/* Робота із замовленнями */}
+          {/* Робота із замовленнями, зверненнями та бронюванням столиків */}
           <Route path="orders">
             <Route
               path="delivery"

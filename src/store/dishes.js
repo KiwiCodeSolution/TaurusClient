@@ -25,7 +25,7 @@ class Dishes {
     });
   };
 
-  createDishesAction = async (dish) => {
+  createDishesAction = async dish => {
     const result = await createDish(dish);
 
     runInAction(() => {
@@ -38,7 +38,7 @@ class Dishes {
     return true;
   };
 
-  updateDishesAction = async (dish) => {
+  updateDishesAction = async dish => {
     const result = await updateDish(dish);
 
     runInAction(() => {

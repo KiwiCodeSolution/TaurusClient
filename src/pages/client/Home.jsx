@@ -12,15 +12,21 @@ const ITEMS = [
     title: "замовити",
     image: "/images/home/order.png",
     alt: "зображення однієї зі страв, яку можн азамовити",
-    link: "/reserve",
+    link: "/order",
   },
-  { id: 2, title: "меню", image: "/images/home/food.jpg", alt: "загальне зображення їжі", link: "/menu" },
+  {
+    id: 2,
+    title: "меню",
+    image: "/images/home/food.jpg",
+    alt: "загальне зображення їжі",
+    link: "/menu",
+  },
   {
     id: 3,
     title: "забронювати",
     image: "/images/home/reserve.png",
     alt: "зображення напоїв, що подають у ресторані",
-    link: "/menu",
+    link: "/reserve",
   },
 ];
 
@@ -57,7 +63,9 @@ const Home = () => {
               key={el.id}
               src={el.image}
               alt={el.alt}
-              className={`${el.id == currentImage ? "inline w-full h-screen object-cover" : "hidden"}`}
+              className={`${
+                el.id == currentImage ? "inline w-full h-screen object-cover" : "hidden"
+              }`}
               style={{
                 backgroundImage: "linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))",
                 zIndex: 10,
