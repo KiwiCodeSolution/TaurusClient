@@ -18,11 +18,11 @@ const PhoneContactList = ({ clickFn }) => {
       stylesPopUp={"w-[352px] border_overlay flex flex-col"}
     >
       <>
-        <h4 className="text-xl uppercase leading-[30px] text-center text-lite-yellow mb-4">
+        <h4 className="text-xl uppercase leading-[30px] text-center text-beige mb-4">
           Оберіть зручний спосіб зв’язку з нами
         </h4>
-        <span className="text-lite-yellow text-center mb-1">Наш номер</span>
-        <span className="text-lite-yellow text-center mb-4">{phoneNumber}</span>
+        <span className="text-beige text-center mb-1">Наш номер</span>
+        <span className="text-beige text-center mb-4">{phoneNumber}</span>
         <div className="w-full h-[1px] line" />
         <div className="flex flex-col gap-y-5 mt-6 ">
           {ITEMS.map(({ Icon, text, link }) => (
@@ -30,7 +30,7 @@ const PhoneContactList = ({ clickFn }) => {
               key={text}
               href={link}
               target="_blank"
-              className="phoneContactList_link px-3 py-2 flex gap-x-2 mx-auto items-center text-base-yellow hover:text-lite-yellow"
+              className="phoneContactList_link px-3 py-2 flex gap-x-2 mx-auto items-center text-base-yellow hover:text-beige"
             >
               <Icon section="phone" /> <span className=""> {text}</span>
             </a>

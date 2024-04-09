@@ -47,7 +47,11 @@ const DateTimeField = ({ control, namePage }) => {
 
     const timeArray = [];
 
-    if (selectedTime && todayFormatted === daySelectedFormatted && currentTimeFormatted._d > maxTime._d) {
+    if (
+      selectedTime &&
+      todayFormatted === daySelectedFormatted &&
+      currentTimeFormatted._d > maxTime._d
+    ) {
       //повертаємо пустий масив. у цьому разі далі по коду спрацьовують перевірки та нотифікашки.
 
       return [];
@@ -85,7 +89,7 @@ const DateTimeField = ({ control, namePage }) => {
               control={control}
               name="date"
               selected={selectedDay || day}
-              onChange={(date) => {
+              onChange={date => {
                 field.onChange(date);
                 setSelectedDay(date);
                 setIsCalendarOpen(false); // Закрити календар після вибору дати
@@ -96,7 +100,7 @@ const DateTimeField = ({ control, namePage }) => {
               placeholderText="Оберіть дату"
               locale="uk"
               dateFormat="dd/MM/yyyy"
-              className="w-full rounded-md outline-none bg-base-back text-lite-yellow text-opacity-40 pl-[2px] cursor-default"
+              className="w-full rounded-md outline-none bg-base-black text-beige text-opacity-40 pl-[2px] cursor-default"
             />
 
             <button
@@ -104,7 +108,9 @@ const DateTimeField = ({ control, namePage }) => {
               className="calendar_button w-7 h-full absolute top-0 right-0"
               onClick={handleIconClick}
             >
-              <ArrowDown className={`absolute top-[34px] left-1/3 ${isCalendarOpen && "rotate-180"} `} />
+              <ArrowDown
+                className={`absolute top-[34px] left-1/3 ${isCalendarOpen && "rotate-180"} `}
+              />
             </button>
           </div>
         )}
@@ -124,7 +130,7 @@ const DateTimeField = ({ control, namePage }) => {
               isSearchable={true}
               placeholder={time.length === 0 ? "Оберіть інший день" : "Оберіть час"}
               label="Час"
-              onChange={(selectedOption) => {
+              onChange={selectedOption => {
                 field.onChange(selectedOption);
                 setSelectedTime(selectedOption); // Зберегти обраний час у стані
               }}

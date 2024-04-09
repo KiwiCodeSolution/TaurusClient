@@ -1,23 +1,24 @@
 import { observer } from "mobx-react-lite";
+import { Check, Trash, Edit } from "../icons/iconComponent";
 
-const MenuItem = observer(({ item }, section) => {
-  console.log(section);
-
+const MenuItem = observer(({ item, section }) => {
   if (!item) {
-    return <h3 className="text-lite-yellow ">Вибачте, сталася помилка</h3>;
+    return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
   }
 
-  const { name, price, unit, description } = item;
+  const { name, price, unit, description, action } = item;
 
   return (
     <article
       className={`${
-        section === "admin" ? "w-[914px]" : "w-[831px]"
-      } flex gap-x-14 mx-auto items-center justify-between`}
+        section === "admin"
+          ? "gap-x-5 min-h-[74px] border-b border-base-brown border-dashed"
+          : "w-[831px] gap-x-14"
+      } flex mx-auto items-center justify-between`}
     >
       <ul
-        className={`flex flex-col text-lite-yellow  overflow-hidden ${
-          section === "order" ? "w-[546px]" : "w-full"
+        className={`flex flex-col text-beige  overflow-hidden ${
+          section === "order" ? "w-[546px]" : section === "admin" ? "w-[488px]" : "w-full"
         }`}
       >
         <li className="text-lg uppercase">{name}</li>
@@ -28,11 +29,36 @@ const MenuItem = observer(({ item }, section) => {
               ....................................................................................................................................................................................................................................................................................................................................................................................................
             </span>
           </p>
-          <p className="w-fit h-full bg-base-back z-10">{price}грн</p>
+          {section !== "admin" && <p className="w-fit h-full bg-base-black z-10">{price}грн</p>}
         </li>
         <li className="text-xs text-base-brown">Pasta with vegan meatballs and tomato sauce</li>
-        {section === "admin" && <li className="w-[426px]">buttons</li>}
       </ul>
+      {section === "admin" && (
+        <ul className="w-[426px] flex justify-between items-center gap-x-5">
+          <li className="w-[73px] flex items-center justify-center bg-dark-bg text-base-yellow text-14 font-semibold mx-auto">
+            {price}грн.
+          </li>
+          <li className="w-[41px]">
+            <div className="w-5 h-5 border rounded-[4px] border-base-brown mx-auto">
+              {action && <Check />}
+            </div>
+          </li>
+          <li className="w-[56px] flex items-center justify-center bg-dark-bg text-beige text-14 mx-auto">
+            {/* {salary}% */}
+            -20%
+          </li>
+          <li className="w-[83px] flex items-center justify-center">
+            <button className="cursor-pointer">
+              <Edit className={"fill-beige hover:fill-base-orange"} />
+            </button>
+          </li>
+          <li className="w-[73px] flex items-center justify-center">
+            <button className="cursor-pointer">
+              <Trash className={"fill-beige hover:fill-base-orange"} />
+            </button>
+          </li>
+        </ul>
+      )}
     </article>
   );
 });

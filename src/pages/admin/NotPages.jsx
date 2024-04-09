@@ -6,16 +6,16 @@ const NotPages = () => {
   return (
     <>
       <MetaData>Такої сторінки не існує</MetaData>
-      <section className="section-wrapper pt-[106px] bg-base-back h-screen">
+      <section className="section-wrapper pt-[106px] bg-base-black h-screen">
         <div className="flex flex-col gap-y-10 mx-auto w-fit text-center">
           <h1 className="text-not_found">Oops!</h1>
-          <p className="text-[36px] text-lite-yellow">404 - Таку сторінку не знайдено</p>
-          <p className="w-[420px] text-14 text-lite-yellow mx-auto">
+          <p className="text-[36px] text-beige">404 - Таку сторінку не знайдено</p>
+          <p className="w-[420px] text-14 text-beige mx-auto">
             Сторінку, яку Ви шукаєте, не вдалося знайти. Можливо, її було видалено, її ім’я змінено
             або вона тимчасово недоступна.
           </p>
-          <Button style={"orange"} btnClass={"font-medium text-base-back text-18"}>
-            <NavLink to="/admin/home">Перейти на доашню сторінку</NavLink>
+          <Button style={"orange"} btnClass={"font-medium text-base-black text-18"}>
+            <NavLink to="/admin/access">Перейти на доашню сторінку</NavLink>
           </Button>
         </div>
       </section>

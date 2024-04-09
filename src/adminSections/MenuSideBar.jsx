@@ -3,9 +3,9 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const MENUITEMS = [
-  { id: "1", name: "Меню", link: "/admin/home/menu" },
-  { id: "2", name: "Меню доставки", link: "/admin/home/menu/delivery" },
-  { id: "3", name: "Акції", link: "/admin/home/menu/promo" },
+  { id: "1", name: "Меню", link: "/admin/access/menu" },
+  { id: "2", name: "Меню доставки", link: "/admin/access/menu/delivery" },
+  { id: "3", name: "Акції", link: "/admin/access/menu/promo" },
 ];
 // const DELIVERYITEMS = [{ id: "", name: "", link: "" }];
 
@@ -13,9 +13,9 @@ const MenuSideBar = ({ location }) => {
   const [currentItem, setCurrentItem] = useState("1");
 
   const path =
-    location === "/admin/home/menu" ||
-    location === "/admin/home/menu/promo" ||
-    location === "/admin/home/menu/delivery";
+    location === "/admin/access/menu" ||
+    location === "/admin/access/menu/promo" ||
+    location === "/admin/access/menu/delivery";
 
   return path ? (
     <div className="h-[237px] flex flex-col justify-between items-center">
@@ -23,7 +23,7 @@ const MenuSideBar = ({ location }) => {
         <NavLink
           to={el.link}
           className={`w-full h-[55px] cursor-pointer uppercase  text-18 flex justify-center items-center hover:text-base-orange hover:bg-dark-btn-bg ${
-            currentItem === el.id ? "text-base-orange bg-dark-btn-bg" : "text-lite-yellow"
+            currentItem === el.id ? "text-base-orange bg-dark-btn-bg" : "text-beige"
           }`}
           key={el.id + el.name}
           onClick={() => setCurrentItem(el.id)}

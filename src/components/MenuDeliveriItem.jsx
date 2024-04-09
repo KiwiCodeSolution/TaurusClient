@@ -7,7 +7,7 @@ import MenuItem from "./MenuItem";
 
 const MenuDeliveriItem = observer(({ item }) => {
   if (!item) {
-    return <h3 className="text-lite-yellow ">ВИбачте, сталася помилка</h3>;
+    return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
   }
 
   const { _id } = item;
@@ -23,7 +23,11 @@ const MenuDeliveriItem = observer(({ item }) => {
     <article className="w-[831px] flex gap-x-14 mx-auto items-center justify-between">
       <MenuItem item={item} section={"order"} />
       <div className="h-[41px] flex py-1 bg-dark-btn-bg">
-        <Button style={"count"} clickFn={() => orderStore.decreaseQuantity(item)} disabled={value(_id) === 0}>
+        <Button
+          style={"count"}
+          clickFn={() => orderStore.decreaseQuantity(item)}
+          disabled={value(_id) === 0}
+        >
           <Minus />
         </Button>
         <span

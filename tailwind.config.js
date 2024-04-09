@@ -8,10 +8,10 @@ export default {
         "base-yellow": "#FFD698",
         "base-orange": "#F7A033",
         "base-brown": "#7E664D",
-        "base-back": "#0C0C09",
-        "lite-yellow": "#ECDDC6",
+        "base-black": "#0C0C09",
+        beige: "#ECDDC6",
         "dark-bg": "#181817",
-        "dark-btn-bg":"#33302D"
+        "dark-btn-bg": "#33302D",
       },
       fontSize: {
         14: ["14px", "20px"],

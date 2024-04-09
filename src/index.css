@@ -310,3 +310,21 @@ button:hover .icon-up {
 .password-btn:hover .hide {
   fill: #ffd698;
 }
+
+.admin ::-webkit-scrollbar {
+  width: 3px; /* Ширина самого скроллбара */
+}
+
+.admin ::-webkit-scrollbar-track {
+  background: #ffd698; /* Фон скроллбару */
+  border-radius: 8px; /* Радіус кутів для track */
+}
+
+.admin ::-webkit-scrollbar-thumb {
+  background: #f7a033; /* Колір thumb */
+  border-radius: 8px; /* Радіус кутів для thumb */
+}
+
+.admin ::-webkit-scrollbar-thumb:hover {
+  background: #ecddc6; /* Колір thumb при наведенні */
+}

@@ -3,9 +3,9 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Cross } from "../../../icons/iconComponent";
 export const baseStyleInput =
-  "border-b-[0.5px] border-base-brown bg-base-back placeholder:text-16 placeholder:text-lite-yellow placeholder:text-opacity-40 outline-none";
+  "border-b-[0.5px] border-base-brown bg-base-black placeholder:text-16 placeholder:text-beige placeholder:text-opacity-40 outline-none";
 
-export const baseStyleLabel = "text-14 text-lite-yellow";
+export const baseStyleLabel = "text-14 text-beige";
 // const baseStyleError = 'text-pink text-xs text-right absolute -bottom-5 right-0';
 
 const TextField = ({ control, name, defaultValue, placeholder, onReset, type, style, label }) => {

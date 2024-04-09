@@ -26,7 +26,7 @@ const CartPopup = observer(({ clickFn, formFn }) => {
         status={"confirm"}
         componentName={"cart"}
       >
-        <h4 className="text-xl text-lite-yellow uppercase text-center mb-6">
+        <h4 className="text-xl text-beige uppercase text-center mb-6">
           {step === 1 ? "Замовлення" : "ОФормлення замовлення"}
         </h4>
 
@@ -36,14 +36,14 @@ const CartPopup = observer(({ clickFn, formFn }) => {
               <Button
                 style={"check"}
                 clickFn={() => deliveryChange(false)}
-                btnClass={!orderStore.order.delivery ? "bg-base-yellow text-base-back" : ""}
+                btnClass={!orderStore.order.delivery ? "bg-base-yellow text-base-black" : ""}
               >
                 У ресторані
               </Button>
               <Button
                 style={"check"}
                 clickFn={() => deliveryChange(true)}
-                btnClass={orderStore.order.delivery ? "bg-base-yellow text-base-back" : ""}
+                btnClass={orderStore.order.delivery ? "bg-base-yellow text-base-black" : ""}
               >
                 Доставка
               </Button>
@@ -55,7 +55,7 @@ const CartPopup = observer(({ clickFn, formFn }) => {
               <TotalPrice />
             </div>
             <Button
-              btnClass="text-18 font-medium text-base-back"
+              btnClass="text-18 font-medium text-base-black"
               style={"orange"}
               clickFn={() => setStep(2)}
             >

@@ -8,7 +8,7 @@ import authState from "../store/auth";
 
 const Information = () => {
   return (
-    <div className="w-[428px] h-[81px] p-4 rounded bg-dark-btn-bg border border-base-brown flex items-center text-center text-14 text-lite-yellow gap-x-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div className="w-[428px] h-[81px] p-4 rounded bg-dark-btn-bg border border-base-brown flex items-center text-center text-14 text-beige gap-x-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       Для відновлення пароля зверніться до адміністратора
     </div>
   );
@@ -44,8 +44,8 @@ const LoginForm = observer(() => {
   };
 
   return (
-    <div className="w-[578px] h-[460px] bg-base-back border border-base-brown p-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <h1 className="w-[333px] mb-10 text-center uppercase text-xl leading-6 mx-auto text-lite-yellow">
+    <div className="w-[578px] h-[460px] bg-base-black border border-base-brown p-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <h1 className="w-[333px] mb-10 text-center uppercase text-xl leading-6 mx-auto text-beige">
         Доступ для управління сайтом
       </h1>
       <form
@@ -54,14 +54,14 @@ const LoginForm = observer(() => {
         autoComplete={rememberMe ? "on" : "off"}
       >
         <label className="flex flex-col gap-y-2 relative">
-          <span className="text-14 text-lite-yellow">Логін:</span>
+          <span className="text-14 text-beige">Логін:</span>
           <input
             type="text"
             {...register("text", { required: true })}
             placeholder="Введіть Ваш логін"
             className={`${
               errors.email && "border-b border-base-orange"
-            } h-9 p-2 bg-dark-btn-bg text-lite-yellow placeholder:text-lite-yellow placeholder:text-opacity-50 placeholder:text-16 outline-none`}
+            } h-9 p-2 bg-dark-btn-bg text-beige placeholder:text-beige placeholder:text-opacity-50 placeholder:text-16 outline-none`}
             autoComplete={rememberMe ? "name" : "off"}
           />
           {errors.text && (
@@ -71,7 +71,7 @@ const LoginForm = observer(() => {
           )}
         </label>
         <label className="flex flex-col gap-y-2 relative">
-          <span className="text-14 text-lite-yellow">Пароль:</span>
+          <span className="text-14 text-beige">Пароль:</span>
 
           <input
             type={passwordVisible ? "text" : "password"}
@@ -79,7 +79,7 @@ const LoginForm = observer(() => {
             placeholder="Введіть пароль"
             className={`${
               errors.password && "border-b border-base-orange"
-            } h-9 p-2 bg-dark-btn-bg text-lite-yellow placeholder:text-lite-yellow placeholder:text-opacity-50 placeholder:text-16 outline-none`}
+            } h-9 p-2 bg-dark-btn-bg text-beige placeholder:text-beige placeholder:text-opacity-50 placeholder:text-16 outline-none`}
             autoComplete={rememberMe ? "password" : "off"}
           />
 
@@ -98,7 +98,7 @@ const LoginForm = observer(() => {
           )}
         </label>
         <div className="w-full flex justify-between mt-4">
-          <div className="flex text-14 text-lite-yellow">
+          <div className="flex text-14 text-beige">
             <label className="text-14 flex w-full gap-x-2">
               <input
                 type="checkbox"

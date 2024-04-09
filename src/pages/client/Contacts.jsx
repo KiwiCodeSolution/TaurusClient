@@ -27,9 +27,15 @@ const Contacts = () => {
         ></iframe>
         <div className="w-full min-h-[578px] py-16 mx-auto wrapper">
           <div className="w-[1116px] flex gap-x-6 mx-auto">
-            <img src="/images/contacts/form.png" alt="" className="w-[546px] h-[552px] object-cover" />
+            <img
+              src="/images/contacts/form.png"
+              alt=""
+              className="w-[546px] h-[552px] object-cover"
+            />
             <div className="w-[546px]">
-              <h3 className="w-full text-[27px] uppercase text-center text-lite-yellow">Зв’яжіться з нами</h3>
+              <h3 className="w-full text-[27px] uppercase text-center text-beige">
+                Зв’яжіться з нами
+              </h3>
               <Form namePage={"contacts"} />
             </div>
           </div>

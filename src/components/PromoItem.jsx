@@ -8,7 +8,7 @@ const PromoItem = ({ item }) => {
     <article className="w-[356px] h-[568px] py-8 px-6 border border-base-brown flex flex-col gap-y-6 justify-between relative mx-auto">
       <div className="w-[308px] h-[235px] border border-base-brown overflow-hidden relative">
         <img src={src} className="w-[308px] h-[235px] object-cover" />
-        <div className="w-[82px] h-8 px-1 py-3 text-18 font-medium text-base-back bg-base-orange flex items-center justify-center absolute top-3 left-0">
+        <div className="w-[82px] h-8 px-1 py-3 text-18 font-medium text-base-black bg-base-orange flex items-center justify-center absolute top-3 left-0">
           Акція
         </div>
       </div>
@@ -25,7 +25,7 @@ const PromoItem = ({ item }) => {
           </p>
         </div>
       </div>
-      <p className="w-full text-center text-16 leading-6 text-lite-yellow">
+      <p className="w-full text-center text-16 leading-6 text-beige">
         {text} <span className="font-semibold text-base-orange">{percent}.</span>
       </p>
       {oldPrice && (

@@ -32,12 +32,19 @@ const CategoryFilter = observer(({ page }) => {
 
   const [currentId, setCurrentId] = useState("1");
 
-  function handleCahngeCategory(topCategoryName, title, id) {
-    // clickFn(topCategoryName);
+  function handleChangeCategory(topCategoryName, title, id) {
     setCurrentTopTitle(title);
     setCurrentId(id);
     categoryStore.setTopCategory(topCategoryName);
   }
+
+  function handleId(id) {
+    if (page === "admin") {
+      return;
+    } else setCurrentId(id);
+  }
+
+  console.log(currentId);
 
   return (
     <>
@@ -52,7 +59,7 @@ const CategoryFilter = observer(({ page }) => {
           <h2
             className={`${
               page === "admin" ? "text-[32px] mt-12 mb-1" : "text-[53px]"
-            }  text-lite-yellow uppercase`}
+            }  text-beige uppercase`}
           >
             Меню
           </h2>
@@ -66,10 +73,15 @@ const CategoryFilter = observer(({ page }) => {
             <button
               key={id + topCategoryName}
               className={`flex items-center justify-between hover:text-base-orange menu-list py-[29px] ${
-                id === currentId ? "text-base-orange  bg-dark-btn-bg" : "text-lite-yellow"
-              } ${page === "admin" ? "w-[237px] h-[55px]" : "w-[208px] h-[208px]  flex-col"}`}
-              onClick={() => handleCahngeCategory(topCategoryName, title, id)}
-              onMouseEnter={() => setCurrentId(id)}
+                id === currentId ? "text-base-orange" : "text-beige"
+              } ${
+                page === "admin"
+                  ? "w-[237px] h-[55px] hover:bg-dark-btn-bg active:bg-dark-btn-bg"
+                  : "w-[208px] h-[208px] flex-col"
+              }
+               ${page === "admin" && id === currentId ? "bg-dark-btn-bg" : ""}`}
+              onClick={() => handleChangeCategory(topCategoryName, title, id)}
+              onMouseEnter={handleId(id)}
             >
               {page !== "admin" && (
                 <div className="w-[112px] h-[112px] flex pb-6 items-end justify-center">
@@ -84,7 +96,7 @@ const CategoryFilter = observer(({ page }) => {
         {page === "admin" && <li className="border_admin_menu w-[916px] mx-auto" />}
       </ul>
       {page !== "admin" && (
-        <h3 className="w-full text-center text-[27px] text-lite-yellow uppercase mt-10 mb-8">
+        <h3 className="w-full text-center text-[27px] text-beige uppercase mt-10 mb-8">
           {currentTopTitle}
         </h3>
       )}

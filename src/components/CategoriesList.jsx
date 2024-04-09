@@ -63,7 +63,7 @@ const CategoriesList = observer(({ page }) => {
                   className={`w-full py-[14px] px-2 text-18 uppercase ${
                     el.category === currentCategory
                       ? "text-base-orange bg-dark-btn-bg"
-                      : "text-lite-yellow"
+                      : "text-beige"
                   }  hover:text-base-orange`}
                 >
                   {el.category}
@@ -79,13 +79,13 @@ const CategoriesList = observer(({ page }) => {
                   page === "order" ? "w-[546px]" : "w-{831px]"
                 } flex justify-between mr-auto items-center pb-[14px]`}
               >
-                <p className="text-14 text-lite-yellow">Назва</p>
-                <p className="text-14 text-lite-yellow">Ціна</p>
+                <p className="text-14 text-beige">Назва</p>
+                <p className="text-14 text-beige">Ціна</p>
               </div>
               <div className="flex flex-col gap-y-4">
                 {page === "order"
                   ? dishes.map(item => <MenuDeliveriItem key={item._id} item={item} />)
-                  : dishes.map(item => <MenuItem key={item._id} item={item} />)}
+                  : dishes.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
               </div>
             </div>
           </div>

@@ -21,6 +21,7 @@ const PromoAdmin = React.lazy(() => import("./pages/admin/PromoAdmin"));
 const HomeAdmin = React.lazy(() => import("./pages/admin/HomeAdmin"));
 const MenuDeliveryAdmin = React.lazy(() => import("./pages/admin/MenuDeliveryAdmin"));
 const LoginPage = React.lazy(() => import("./pages/client/Login"));
+const EditDishPage = React.lazy(() => import("./pages/admin/EditDishPage"));
 
 const NotPages = React.lazy(() => import("./pages/admin/NotPages"));
 
@@ -55,7 +56,7 @@ const App = observer(() => {
 
         {/* Стартова сторінка */}
         <Route
-          path="/admin/home"
+          path="/admin/access"
           element={
             <PrivateRoute>
               <HomeAdmin />
@@ -72,6 +73,7 @@ const App = observer(() => {
                 </PrivateRoute>
               }
             />
+
             <Route
               path="promo"
               element={
@@ -80,11 +82,20 @@ const App = observer(() => {
                 </PrivateRoute>
               }
             />
+
             <Route
               path="delivery"
               element={
                 <PrivateRoute>
                   <MenuDeliveryAdmin />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="menu/:_id"
+              element={
+                <PrivateRoute>
+                  <EditDishPage />
                 </PrivateRoute>
               }
             />
