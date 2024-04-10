@@ -45,90 +45,27 @@ const App = observer(() => {
         {/* Адміністративна частина */}
 
         {/* Авторизація */}
-        <Route
-          path="/admin"
-          element={
-            <RedirectRoute>
-              <LoginPage />
-            </RedirectRoute>
-          }
-        />
+        <Route path="/admin" element={<RedirectRoute> <LoginPage /> </RedirectRoute>}/>
 
         {/* Стартова сторінка */}
-        <Route
-          path="/admin/access"
-          element={
-            <PrivateRoute>
-              <HomeAdmin />
-            </PrivateRoute>
-          }
-        >
+        <Route path="/admin/access" element={<PrivateRoute> <HomeAdmin /> </PrivateRoute>}>
           {/* Робота із меню страв та акціями */}
-          <Route path="menu">
-            <Route
-              index
-              element={
-                <PrivateRoute>
-                  <MenuAdmin />
-                </PrivateRoute>
-              }
-            />
-
-            <Route
-              path="promo"
-              element={
-                <PrivateRoute>
-                  <PromoAdmin />
-                </PrivateRoute>
-              }
-            />
-
-            <Route
-              path="delivery"
-              element={
-                <PrivateRoute>
-                  <MenuDeliveryAdmin />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="menu/:_id"
-              element={
-                <PrivateRoute>
-                  <EditDishPage />
-                </PrivateRoute>
-              }
-            />
+          <Route path="site"> 
+            <Route path="menu" element={<PrivateRoute> <MenuAdmin /> </PrivateRoute>}/>
+            <Route path="menu/:_id" element={<PrivateRoute> <EditDishPage /> </PrivateRoute>}/>
+            <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="delivery" element={<PrivateRoute> <MenuDeliveryAdmin /> </PrivateRoute>}/>
+            
           </Route>
 
           {/* Робота із замовленнями, зверненнями та бронюванням столиків */}
           <Route path="orders">
-            <Route
-              path="delivery"
-              element={
-                <PrivateRoute>
-                  <PromoAdmin />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="take"
-              element={
-                <PrivateRoute>
-                  <PromoAdmin />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="archive"
-              element={
-                <PrivateRoute>
-                  <PromoAdmin />
-                </PrivateRoute>
-              }
-            />
+            <Route path="delivery" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="take" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="archive" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
           </Route>
         </Route>
+
         <Route path="/admin/*" element={<NotPages />} />
 
         {/* Кінець адміністративної частини */}

@@ -1,0 +1,205 @@
+import { observer } from "mobx-react-lite";
+import { useForm, Controller } from "react-hook-form";
+import SelectFieldAdmin from "./form/SelectFieldAdmin";
+import TextFieldAdmin from "./form/TextFieldAdmin";
+
+const topOptions = [
+  { value: "dishes", label: "основне меню" },
+  { value: "desserts", label: "десерти" },
+  { value: "drinks", label: "напої" },
+];
+
+const options = [
+  { value: "cold_dishes", label: "холодні страви" },
+  { value: "bruschetta", label: "брускети" },
+  { value: "salads", label: "салати" },
+  { value: "hot_appetizers", label: "гарячі закуски" },
+  { value: "burgers", label: "бургери" },
+  { value: "soups", label: "супи" },
+  { value: "paste", label: "паста" },
+  { value: "main_dishes", label: "основні страви" },
+  { value: "bbq_menu", label: "bbq-меню" },
+  { value: "side_dishes", label: "гарніри" },
+  { value: "sauces", label: "соуси" },
+  { value: "cakes", label: "тістечка" },
+  { value: "ice", label: "морозиво" },
+  { value: "beer", label: "пиво" },
+  { value: "wine", label: "вино" },
+  { value: "strong_drinks", label: "міцні напої" },
+  { value: "cocktails", label: "коктейлі" },
+  { value: "soft_drinks", label: "безалкогольні напої" },
+  { value: "hot_drinks", label: "гарячі напої" },
+];
+
+const subOptions = [
+  { value: "snacks_beer", label: "закуски до пива" },
+  { value: "craft_beer", label: "крафтове пиво" },
+  { value: "rose_wine", label: "рожеве вино" },
+];
+
+const fieldsDescription = [
+  {
+    id: "1",
+    name: "name",
+    label: "Назва великими літерами",
+    defaultValue: "",
+    style: "",
+  },
+  {
+    id: "2",
+    name: "subname",
+    label: "Додаткова інформація",
+    defaultValue: "",
+    style: "",
+  },
+  {
+    id: "3",
+    name: "translit",
+    label: "Назва англійською",
+    defaultValue: "",
+    style: "",
+  },
+];
+
+const fieldsDPrice = [
+  {
+    id: "4",
+    name: "price",
+    label: "Ціна",
+    defaultValue: "",
+    style: "w-[241px]",
+  },
+  {
+    id: "5",
+    name: "discount",
+    label: "Знижка",
+    defaultValue: "",
+    style: "w-[241px]",
+  },
+];
+
+const EditForm = observer(({ item }) => {
+  console.log(item);
+  const {
+    control,
+    handleSubmit,
+    reset,
+    resetField,
+    // setError,
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      top: topOptions[0],
+      category: options[0],
+      sub: subOptions[0],
+    },
+  });
+
+  const onSubmit = data => {
+    console.log(data);
+
+    reset();
+  };
+
+  const handleReset = fieldName => {
+    resetField(fieldName);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="w-[502px] h-[567px] mx-auto mt-8">
+      {/* ------------------ top category --------------- */}
+      <Controller
+        name="top"
+        control={control}
+        render={({ field }) => (
+          <>
+            <SelectFieldAdmin
+              {...field}
+              control={control}
+              options={topOptions}
+              name="top"
+              isSearchable={true}
+              label="Головний розділ меню"
+              style={"w-full"}
+              isRequired
+            />
+          </>
+        )}
+      />
+
+      <div className="flex items-center justify-between mt-4">
+        {/* ------------------ category --------------- */}
+        <Controller
+          name="category"
+          control={control}
+          render={({ field }) => (
+            <>
+              <SelectFieldAdmin
+                {...field}
+                control={control}
+                options={options}
+                name="category"
+                isSearchable={true}
+                label="Категорія меню"
+                style={"w-[241px]"}
+                isRequired
+              />
+            </>
+          )}
+        />
+
+        {/* ------------------ sub category --------------- */}
+        <Controller
+          name="sub"
+          control={control}
+          render={({ field }) => (
+            <>
+              <SelectFieldAdmin
+                {...field}
+                control={control}
+                options={subOptions}
+                name="sub"
+                isSearchable={true}
+                label="Підкатегорія меню"
+                style={"w-[241px]"}
+              />
+            </>
+          )}
+        />
+      </div>
+
+      {fieldsDescription.map(({ id, name, defaultValue, style, label }) => (
+        <TextFieldAdmin
+          control={control}
+          name={name}
+          key={id}
+          defaultValue={defaultValue}
+          label={label}
+          onReset={() => handleReset(name)}
+          style={style}
+        />
+      ))}
+
+      <div className="flex items-center justify-between mt-4">
+        {fieldsDPrice.map(({ id, name, defaultValue, style, label }) => (
+          <TextFieldAdmin
+            control={control}
+            name={name}
+            key={id}
+            defaultValue={defaultValue}
+            label={label}
+            onReset={() => handleReset(name)}
+            style={style}
+          />
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between mt-4">
+        <div className="flex flex-col">1 2</div>
+        <div className="flex flex-col">1 2</div>
+      </div>
+    </form>
+  );
+});
+
+export default EditForm;

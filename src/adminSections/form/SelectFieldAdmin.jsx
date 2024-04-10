@@ -1,27 +1,11 @@
-/* eslint-disable react/prop-types */
-import { useController } from "react-hook-form";
 import { forwardRef, useState } from "react";
-import PropTypes from "prop-types";
 import Select, { components } from "react-select";
-import { baseStyleLabel } from "./TextField";
-import { ArrowDown } from "../../../icons/iconComponent";
+import { useController } from "react-hook-form";
+import PropTypes from "prop-types";
+import { ArrowDown } from "../../icons/iconComponent";
 
-const SelectField = forwardRef(
-  (
-    {
-      control,
-      options,
-      value,
-      onChange,
-      name,
-      placeholder,
-      style,
-      fontSizePlaceholder,
-      label,
-      namePage,
-    },
-    ref
-  ) => {
+const SelectFieldAdmin = forwardRef(
+  ({ control, options, value, onChange, name, style, label, isRequired }, ref) => {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
 
     const { fieldState } = useController({
@@ -29,8 +13,6 @@ const SelectField = forwardRef(
       control,
       rules: { required: "Це поле обов'язкове" },
     });
-
-    const isSelectDisabled = options.length === 0;
 
     const DropdownIndicator = props => {
       return (
@@ -45,7 +27,7 @@ const SelectField = forwardRef(
     const customStyles = {
       control: provided => ({
         ...provided,
-        backgroundColor: "#0C0C09",
+        backgroundColor: "#33302D",
         overflow: "hidden",
         outline: "none",
         border: "0",
@@ -67,19 +49,23 @@ const SelectField = forwardRef(
       }),
       menu: provided => ({
         ...provided,
-        backgroundColor: "#0C0C09", // Змініть розмір фону за необхідності
+        backgroundColor: "#33302D", // Змініть розмір фону за необхідності
       }),
       option: (provided, state) => {
         return {
           ...provided,
-          backgroundColor: state.isSelected ? "#7E664D" : "#0C0C09",
-          color: state.isSelected ? "#F7A033" : "#FFD698",
+          backgroundColor: state.isSelected ? "#7E664D" : "#33302D",
+          color: state.isSelected ? "#F7A033" : "#ECDDC6",
           "&:hover": {
-            backgroundColor: "#FFD698",
-            color: "#0C0C09",
+            backgroundColor: "#ECDDC6",
+            color: "#33302D",
           },
+
           borderBottom: "1px solid #7E664D",
           borderColor: "#7E664D",
+          "&:last-child": {
+            borderBottom: "none", // видаляємо бордер у останнього елементу
+          },
         };
       },
       singleValue: provided => ({
@@ -87,40 +73,26 @@ const SelectField = forwardRef(
         color: "#ECDDC6",
         opacity: 0.4, // змініть на бажаний колір тексту
       }),
-      placeholder: styles => ({
-        ...styles,
-        color: "#ECDDC6", // колір тексту плейсхолдера
-        fontSize: fontSizePlaceholder || "16px",
-        opacity: 0.4,
-      }),
     };
 
     return (
-      <div
-        className={`${
-          namePage === "order" ? "w-[241px]" : "w-[166px]"
-        } h-[59px] flex flex-col border-b-[0.5px] ${
-          fieldState.error ? "border-base-orange" : "border-base-brown"
-        }  relative ${style}`}
-      >
-        <label className={`${baseStyleLabel}`}>
-          {label} <span className="text-base-orange">*</span>
+      <div>
+        <label className="text-14 text-beige mb-2">
+          {label} {isRequired && <span className="text-base-orange">*</span>}
         </label>
         <Select
           components={{ DropdownIndicator }}
           ref={ref}
           options={options}
-          value={value}
+          value={value || options[0]}
           onChange={onChange}
           isSearchable={true}
-          placeholder={placeholder}
-          styles={customStyles}
-          isDisabled={isSelectDisabled}
           onMenuOpen={() => setMenuIsOpen(true)}
           onMenuClose={() => setMenuIsOpen(false)}
           menuIsOpen={menuIsOpen}
-          className={`select_persons ${style} p-0 `}
+          className={`${style} p-0`}
           name={name}
+          styles={customStyles}
         />
         {fieldState.error && (
           <span className="absolute -bottom-4 left-0 text-14 text-base-orange italic z-10">
@@ -132,19 +104,17 @@ const SelectField = forwardRef(
   }
 );
 
-SelectField.displayName = { name };
+SelectFieldAdmin.displayName = { name };
 
-SelectField.propTypes = {
+SelectFieldAdmin.propTypes = {
   control: PropTypes.object.isRequired,
   options: PropTypes.array.isRequired,
   value: PropTypes.object,
   onChange: PropTypes.func,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
   style: PropTypes.string,
-  fontSizePlaceholder: PropTypes.string,
-  namePage: PropTypes.string,
+  isRequired: PropTypes.bool,
 };
 
-export default SelectField;
+export default SelectFieldAdmin;

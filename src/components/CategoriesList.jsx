@@ -7,7 +7,7 @@ import data from "../datas/categories.json";
 import { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import TotalPrice from "./TotalPrice";
-import MenuDeliveriItem from "./MenuDeliveriItem";
+import MenuDeliveryItem from "./MenuDeliveryItem";
 
 const CategoriesList = observer(({ page }) => {
   useEffect(() => {
@@ -84,7 +84,7 @@ const CategoriesList = observer(({ page }) => {
               </div>
               <div className="flex flex-col gap-y-4">
                 {page === "order"
-                  ? dishes.map(item => <MenuDeliveriItem key={item._id} item={item} />)
+                  ? dishes.map(item => <MenuDeliveryItem key={item._id} item={item} />)
                   : dishes.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
               </div>
             </div>

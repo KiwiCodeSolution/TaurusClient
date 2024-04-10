@@ -1,21 +1,24 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const MENUITEMS = [
-  { id: "1", name: "Меню", link: "/admin/access/menu" },
-  { id: "2", name: "Меню доставки", link: "/admin/access/menu/delivery" },
-  { id: "3", name: "Акції", link: "/admin/access/menu/promo" },
+  { id: "1", name: "Меню", link: "/admin/access/site/menu" },
+  { id: "2", name: "Меню доставки", link: "/admin/access/site/delivery" },
+  { id: "3", name: "Акції", link: "/admin/access/site/promo" },
 ];
 // const DELIVERYITEMS = [{ id: "", name: "", link: "" }];
 
 const MenuSideBar = ({ location }) => {
   const [currentItem, setCurrentItem] = useState("1");
 
+  const currentLocation = useLocation()?.state?.from.pathname;
+
   const path =
-    location === "/admin/access/menu" ||
-    location === "/admin/access/menu/promo" ||
-    location === "/admin/access/menu/delivery";
+    currentLocation === "/admin/access/site/menu" ||
+    location === "/admin/access/site/menu" ||
+    location === "/admin/access/site/promo" ||
+    location === "/admin/access/site/delivery";
 
   return path ? (
     <div className="h-[237px] flex flex-col justify-between items-center">

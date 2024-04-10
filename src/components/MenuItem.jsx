@@ -1,12 +1,15 @@
 import { observer } from "mobx-react-lite";
 import { Check, Trash, Edit } from "../icons/iconComponent";
+import { Link, useLocation } from "react-router-dom";
 
 const MenuItem = observer(({ item, section }) => {
+  const location = useLocation();
+
   if (!item) {
     return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
   }
 
-  const { name, price, unit, description, action } = item;
+  const { name, price, unit, description, action, _id } = item;
 
   return (
     <article
@@ -48,9 +51,13 @@ const MenuItem = observer(({ item, section }) => {
             -20%
           </li>
           <li className="w-[83px] flex items-center justify-center">
-            <button className="cursor-pointer">
+            <Link
+              className="cursor-pointer"
+              to={`/admin/access/site/menu/${_id}`}
+              state={{ from: location }}
+            >
               <Edit className={"fill-beige hover:fill-base-orange"} />
-            </button>
+            </Link>
           </li>
           <li className="w-[73px] flex items-center justify-center">
             <button className="cursor-pointer">

@@ -154,7 +154,8 @@ export const ArrowDown = ({ className }) => (
     viewBox="0 0 12 7"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className={`icon_down ${className}`}
+    // className={`icon_down ${className}`}
+    className={className}
   >
     <path d="M1 0.999999L6 6L11 1" strokeLinecap="round" strokeLinejoin="round" />
   </svg>

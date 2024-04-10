@@ -5,7 +5,7 @@ import Button from "./UI/Button";
 import { Minus, Plus } from "../icons/iconComponent";
 import MenuItem from "./MenuItem";
 
-const MenuDeliveriItem = observer(({ item }) => {
+const MenuDeliveryItem = observer(({ item }) => {
   if (!item) {
     return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
   }
@@ -45,4 +45,4 @@ const MenuDeliveriItem = observer(({ item }) => {
   );
 });
 
-export default MenuDeliveriItem;
+export default MenuDeliveryItem;

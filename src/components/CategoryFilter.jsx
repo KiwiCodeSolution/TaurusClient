@@ -44,8 +44,6 @@ const CategoryFilter = observer(({ page }) => {
     } else setCurrentId(id);
   }
 
-  console.log(currentId);
-
   return (
     <>
       <ul>
@@ -56,13 +54,13 @@ const CategoryFilter = observer(({ page }) => {
         >
           {page !== "admin" && <icons.Devices />}
 
-          <h2
+          <h1
             className={`${
               page === "admin" ? "text-[32px] mt-12 mb-1" : "text-[53px]"
             }  text-beige uppercase`}
           >
             Меню
-          </h2>
+          </h1>
         </li>
         <li
           className={`${
@@ -76,7 +74,7 @@ const CategoryFilter = observer(({ page }) => {
                 id === currentId ? "text-base-orange" : "text-beige"
               } ${
                 page === "admin"
-                  ? "w-[237px] h-[55px] hover:bg-dark-btn-bg active:bg-dark-btn-bg"
+                  ? "w-[237px] h-[55px] hover:bg-dark-btn-bg"
                   : "w-[208px] h-[208px] flex-col"
               }
                ${page === "admin" && id === currentId ? "bg-dark-btn-bg" : ""}`}
