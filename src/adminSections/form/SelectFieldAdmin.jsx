@@ -35,7 +35,7 @@ const SelectFieldAdmin = forwardRef(
         "&:hover": {
           borderColor: "#F7A033", // Змініть на бажаний колір бордера при ховері
         },
-        borderRadius: "0.375rem",
+        borderRadius: "4px",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
       }),
       menuList: provided => ({
@@ -76,8 +76,8 @@ const SelectFieldAdmin = forwardRef(
     };
 
     return (
-      <div>
-        <label className="text-14 text-beige mb-2">
+      <div className="flex flex-col gap-y-2">
+        <label className="text-14 text-beige">
           {label} {isRequired && <span className="text-base-orange">*</span>}
         </label>
         <Select

@@ -44,6 +44,7 @@ const fieldsDescription = [
     label: "Назва великими літерами",
     defaultValue: "",
     style: "",
+    isRequired: true,
   },
   {
     id: "2",
@@ -51,6 +52,7 @@ const fieldsDescription = [
     label: "Додаткова інформація",
     defaultValue: "",
     style: "",
+    isRequired: true,
   },
   {
     id: "3",
@@ -58,6 +60,7 @@ const fieldsDescription = [
     label: "Назва англійською",
     defaultValue: "",
     style: "",
+    isRequired: true,
   },
 ];
 
@@ -68,6 +71,7 @@ const fieldsDPrice = [
     label: "Ціна",
     defaultValue: "",
     style: "w-[241px]",
+    isRequired: true,
   },
   {
     id: "5",
@@ -75,6 +79,7 @@ const fieldsDPrice = [
     label: "Знижка",
     defaultValue: "",
     style: "w-[241px]",
+    isRequired: false,
   },
 ];
 
@@ -106,7 +111,10 @@ const EditForm = observer(({ item }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-[502px] h-[567px] mx-auto mt-8">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-[502px] h-[567px] mx-auto mt-8 flex flex-col gap-y-4"
+    >
       {/* ------------------ top category --------------- */}
       <Controller
         name="top"
@@ -127,7 +135,7 @@ const EditForm = observer(({ item }) => {
         )}
       />
 
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between">
         {/* ------------------ category --------------- */}
         <Controller
           name="category"
@@ -168,7 +176,7 @@ const EditForm = observer(({ item }) => {
         />
       </div>
 
-      {fieldsDescription.map(({ id, name, defaultValue, style, label }) => (
+      {fieldsDescription.map(({ id, name, defaultValue, style, label, isRequired }) => (
         <TextFieldAdmin
           control={control}
           name={name}
@@ -177,11 +185,12 @@ const EditForm = observer(({ item }) => {
           label={label}
           onReset={() => handleReset(name)}
           style={style}
+          isRequired={isRequired}
         />
       ))}
 
-      <div className="flex items-center justify-between mt-4">
-        {fieldsDPrice.map(({ id, name, defaultValue, style, label }) => (
+      <div className="flex items-center justify-between">
+        {fieldsDPrice.map(({ id, name, defaultValue, style, label, isRequired }) => (
           <TextFieldAdmin
             control={control}
             name={name}
@@ -189,6 +198,7 @@ const EditForm = observer(({ item }) => {
             defaultValue={defaultValue}
             label={label}
             onReset={() => handleReset(name)}
+            isRequired={isRequired}
             style={style}
           />
         ))}

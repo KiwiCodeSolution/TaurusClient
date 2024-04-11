@@ -2,16 +2,7 @@ import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
 import { Cross } from "../../icons/iconComponent";
 
-const TextFieldAdmin = ({
-  control,
-  name,
-  defaultValue,
-
-  onReset,
-  style,
-  label,
-  isRequired,
-}) => {
+const TextFieldAdmin = ({ control, name, defaultValue, onReset, style, label, isRequired }) => {
   const { field, fieldState } = useController({
     name,
     control,
@@ -26,7 +17,7 @@ const TextFieldAdmin = ({
       <input
         name={name}
         type="input"
-        className="h-9 bg-dark-btn-bg text-beige"
+        className="h-9 bg-dark-btn-bg text-beige rounded-[4px]"
         {...field}
         value={field.value}
       />
