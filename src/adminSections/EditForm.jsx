@@ -48,7 +48,7 @@ const fieldsDescription = [
   },
   {
     id: "2",
-    name: "subname",
+    name: "description",
     label: "Додаткова інформація",
     defaultValue: "",
     style: "",
@@ -56,7 +56,7 @@ const fieldsDescription = [
   },
   {
     id: "3",
-    name: "translit",
+    name: "englishName",
     label: "Назва англійською",
     defaultValue: "",
     style: "",
@@ -85,6 +85,19 @@ const fieldsDPrice = [
 
 const EditForm = observer(({ item }) => {
   console.log(item);
+
+  const defaultValues = {
+    top: item?.topCategory || topOptions[0],
+    category: item?.category || options[0],
+    sub: item?.subCategory || subOptions[0],
+    name: item?.name || "",
+    subname: item?.description || "",
+    englishName: item?.englishName || "",
+    price: item?.price || "",
+    discount_price: item?.discount_price || "",
+    // weight: item?.weight || "",
+  };
+
   const {
     control,
     handleSubmit,
@@ -93,11 +106,7 @@ const EditForm = observer(({ item }) => {
     // setError,
   } = useForm({
     mode: "onChange",
-    defaultValues: {
-      top: topOptions[0],
-      category: options[0],
-      sub: subOptions[0],
-    },
+    defaultValues: defaultValues,
   });
 
   const onSubmit = data => {

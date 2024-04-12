@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Check, Trash, Edit } from "../icons/iconComponent";
 import { Link, useLocation } from "react-router-dom";
+import dishesStore from "../store/dishes";
 
 const MenuItem = observer(({ item, section }) => {
   const location = useLocation();
@@ -9,7 +10,7 @@ const MenuItem = observer(({ item, section }) => {
     return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
   }
 
-  const { name, price, unit, description, action, _id } = item;
+  const { name, price, description, action, _id, englishName, weight } = item;
 
   return (
     <article
@@ -27,14 +28,14 @@ const MenuItem = observer(({ item, section }) => {
         <li className="text-lg uppercase">{name}</li>
         <li className="text-sm flex justify-between">
           <p className="w-fit relative">
-            {description} ({unit})
+            {description} ({weight}, г)
             <span className="w-[90%] absolute top-0 left-[100%] z-0">
               ....................................................................................................................................................................................................................................................................................................................................................................................................
             </span>
           </p>
           {section !== "admin" && <p className="w-fit h-full bg-base-black z-10">{price}грн</p>}
         </li>
-        <li className="text-xs text-base-brown">Pasta with vegan meatballs and tomato sauce</li>
+        <li className="text-xs text-base-brown">{englishName}</li>
       </ul>
       {section === "admin" && (
         <ul className="w-[426px] flex justify-between items-center gap-x-5">
@@ -60,7 +61,7 @@ const MenuItem = observer(({ item, section }) => {
             </Link>
           </li>
           <li className="w-[73px] flex items-center justify-center">
-            <button className="cursor-pointer">
+            <button className="cursor-pointer" onClick={() => dishesStore.deleteDishesAction(item)}>
               <Trash className={"fill-beige hover:fill-base-orange"} />
             </button>
           </li>

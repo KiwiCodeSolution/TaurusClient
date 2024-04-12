@@ -21,6 +21,13 @@ const ConfirmPopup = ({ type, clickFn }) => {
           <p className="text-center mb-10">Наш менеджер зв’яжеться з Вами найближчим часом.</p>
         </>
       )}
+      {type === "contact" && (
+        <>
+          <p className="uppercase text-center text-xl mb-10">дякуємо!</p>
+          <p className="text-center mb-4">Вашe повідомлення відправлено.</p>
+          <p className="text-center mb-10">Наш менеджер зв’яжеться з Вами найближчим часом.</p>
+        </>
+      )}
     </ConfirmOverlay>
   );
 };

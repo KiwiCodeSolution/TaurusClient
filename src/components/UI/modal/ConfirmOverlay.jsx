@@ -6,7 +6,6 @@ import { createPortal } from "react-dom";
 import useScrollBlock from "../../../hooks/useScrollBlock";
 import Button from "../Button";
 import { Cross } from "../../../icons/iconComponent";
-// import notificationStore from "../../../store/notification";
 
 const modalRoot = document.querySelector("#confirm-modal-root");
 

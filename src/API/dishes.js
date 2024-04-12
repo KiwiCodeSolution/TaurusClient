@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
 
-const options = {
+export const options = {
   position: "top-center",
   autoClose: 5000,
   hideProgressBar: false,

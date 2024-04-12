@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { useForm, Controller } from "react-hook-form";
@@ -6,10 +7,11 @@ import TextField from "./UI/form/TextField";
 import Button from "./UI/Button";
 import SelectField from "./UI/form/SelectField";
 import DateTimeField from "./UI/form/DateTimeField";
-import ChexboxField from "./UI/form/ChexboxField";
+import CheckboxField from "./UI/form/CheckboxField";
 import { useState } from "react";
 import ConfirmPopup from "./ConfirmPopup";
 import orderStore from "../store/order";
+import { baseServerURL } from "../API/config";
 
 const TEXT_FIELDS = [
   {
@@ -65,6 +67,17 @@ const options = [
 
 const Form = observer(({ namePage, clickFn }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
+
+  const defaultValues = {
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    quantity: null,
+    date: new Date(),
+    consent: false, // Додайте це значення за замовчуванням
+  };
 
   const {
     control,
@@ -74,48 +87,60 @@ const Form = observer(({ namePage, clickFn }) => {
     // setError,
   } = useForm({
     mode: "onChange",
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-      quantity: null,
-      date: new Date(),
-    },
+    defaultValues: defaultValues,
   });
 
-  const onSubmit = data => {
-    console.log(data);
+  const onSubmit = async data => {
+    console.log("onSubmit", data);
+    const formattedData = {
+      ...data,
+      // Відправити лише значення поля часу
+      time: data.time?.value,
+    };
 
     if (namePage === "contacts") {
-      setIsModalOpen(true);
+      try {
+        delete data.quantity;
+        delete data.date;
+
+        const result = await axios.post(`${baseServerURL}feedback`, data);
+
+        console.log("result", result.data);
+        setIsModalOpen(true);
+        setConsentChecked(false);
+        reset(defaultValues);
+
+        return;
+      } catch (error) {
+        return { error: error.message };
+      }
     }
 
     if (namePage === "order") {
-      const formattedData = toJS(orderStore.order.items);
-      // JSON.stringify(orderStore.order.items, null, 2);
-      console.log(formattedData);
-      clickFn();
-      orderStore.clearOrderedProductList();
+      const formatData = toJS(orderStore.order.items);
+      delete formattedData.quantity;
+
+      const requestData = {
+        ...formattedData,
+        products: formatData,
+        delivery_type: orderStore.order.delivery_type,
+      };
+
+      try {
+        console.log("requestData", requestData);
+        const result = await axios.post(`${baseServerURL}order`, requestData);
+        console.log("result", result);
+
+        clickFn();
+        orderStore.clearOrderedProductList();
+        setConsentChecked(false);
+        reset();
+        return result;
+      } catch (error) {
+        return { error: error.message };
+      }
     }
 
-    // if (!data.selectedOption) {
-    //   setError("selectedOption", {
-    //     type: "manual",
-    //     message: "Будь ласка, оберіть опцію",
-    //   });
-
-    //   return;
-    // }
-
-    // const trimmedData = trimValues(data);
-    // const valueTime = format(data.time, "hh:mm");
-    // const valueDate = format(data.date, "dd.MM.yyyy");
-    // console.log(valueTime, valueDate, data);
-
-    //очищуємо не тільки всі інпути, але й кастомний селект. прямо вказавши, що саме потрібно очистити
-
-    // reset({ selectedOption: "" });
     reset();
   };
 
@@ -188,14 +213,16 @@ const Form = observer(({ namePage, clickFn }) => {
             заповнення
           </p>
           <Controller
-            name="agreement"
+            name="consent"
             control={control}
             render={({ field }) => (
-              <ChexboxField
+              <CheckboxField
                 {...field}
                 control={control}
                 label={"погоджуюсь на обробку персональних даних"}
-                name={"agreement"}
+                name={"consent"}
+                checked={consentChecked} // Додайте цей рядок
+                onChange={e => setConsentChecked(e.target.checked)}
               />
             )}
           />
@@ -216,14 +243,14 @@ const Form = observer(({ namePage, clickFn }) => {
         </Button>
       </form>
 
-      {isModalOpen && <ConfirmPopup clickFn={() => setIsModalOpen(false)} />}
+      {isModalOpen && <ConfirmPopup clickFn={() => setIsModalOpen(false)} type={"contact"} />}
     </>
   );
 });
 
 Form.propTypes = {
   namePage: PropTypes.string.isRequired,
-  clickFn: PropTypes.func.isRequired,
+  clickFn: PropTypes.func,
 };
 
 export default Form;

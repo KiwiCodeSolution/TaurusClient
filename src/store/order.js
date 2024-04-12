@@ -3,10 +3,10 @@ import { makePersistable } from "mobx-persist-store";
 
 class Order {
   order = {
-    items: [], // { item, quantity }
+    items: [], // { item }
     order_number: null,
     total: 0,
-    delivery: false,
+    delivery_type: "У ресторані",
   };
 
   constructor() {
@@ -29,27 +29,26 @@ class Order {
   }
 
   addToCart = dish => {
-    const foundDish = this.order.items.find(({ item }) => item._id === dish._id);
+    const foundDish = this.order.items.find(item => item._id === dish._id);
 
     if (foundDish) {
       foundDish.quantity += 1;
       this.totalPrice();
-
       return;
     }
 
-    this.order.items.push({ item: dish, quantity: 1 });
+    this.order.items.push(dish);
     this.totalPrice();
   };
 
-  currentDish(dishtId) {
-    const foundDish = this.order.items.find(({ item }) => item._id === dishtId);
+  currentDish(dishId) {
+    const foundDish = this.order.items.find(item => item._id === dishId);
 
     return foundDish;
   }
 
-  removeDish(dishtId) {
-    const dishIndex = this.order.items.findIndex(({ item }) => item._id === dishtId);
+  removeDish(dishId) {
+    const dishIndex = this.order.items.findIndex(item => item._id === dishId);
 
     if (dishIndex === -1) {
       return;
@@ -71,7 +70,7 @@ class Order {
   }
 
   decreaseQuantity(dish) {
-    const productIndex = this.order.items.findIndex(({ item }) => {
+    const productIndex = this.order.items.findIndex(item => {
       return item._id === dish._id;
     });
 
@@ -80,6 +79,12 @@ class Order {
     }
 
     this.items[productIndex].quantity -= 1;
+
+    if (this.items[productIndex].quantity === 0) {
+      this.removeDish(dish._id);
+      this.totalPrice();
+      return;
+    }
 
     this.totalPrice();
   }
@@ -94,17 +99,14 @@ class Order {
   }
 
   get totalQuantity() {
-    return this.order.items.reduce((total, { item, quantity }) => total + item.price * quantity, 0);
+    return this.order.items.reduce((total, { item }) => total + item.price * item.quantity, 0);
   }
 
   totalPrice() {
     if (!this.order.items) {
       return 0;
     }
-    const total = this.order.items.reduce(
-      (total, { item, quantity }) => total + item.price * quantity,
-      0
-    );
+    const total = this.order.items.reduce((total, item) => total + item.price * item.quantity, 0);
     this.order.total = total; // оновлення значення total безпосередньо в order
     return total;
   }
@@ -117,11 +119,12 @@ class Order {
       items: [],
       order_number: null,
       total: 0,
+      delivery_type: "",
     };
   }
 
   deliveryOption(option) {
-    return (this.order.delivery = option);
+    return (this.order.delivery_type = option);
   }
 
   // placeOrderAction = async (customerData) => {

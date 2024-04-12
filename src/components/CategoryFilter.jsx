@@ -39,9 +39,10 @@ const CategoryFilter = observer(({ page }) => {
   }
 
   function handleId(id) {
-    if (page === "admin") {
-      return;
-    } else setCurrentId(id);
+    if (page !== "admin") {
+      setCurrentId(id);
+    }
+    return;
   }
 
   return (
@@ -79,7 +80,7 @@ const CategoryFilter = observer(({ page }) => {
               }
                ${page === "admin" && id === currentId ? "bg-dark-btn-bg" : ""}`}
               onClick={() => handleChangeCategory(topCategoryName, title, id)}
-              onMouseEnter={handleId(id)}
+              onMouseEnter={() => handleId(id)}
             >
               {page !== "admin" && (
                 <div className="w-[112px] h-[112px] flex pb-6 items-end justify-center">

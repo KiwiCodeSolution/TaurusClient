@@ -1,21 +1,18 @@
-import { makeObservable, } from "mobx";
+import { makeObservable } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 
 class Notification {
-  isOpen = false
+  isOpen = false;
+  feedbackPopUpIsOpen = false;
 
   constructor() {
     makeObservable(this);
-    makePersistable(this, { name: "notification", properties: ["isOpen"] });
+    makePersistable(this, { name: "notification", properties: ["isOpen", "feedbackPopUpIsOpen"] });
   }
 
-
-  setIsOpen=(value) =>{
+  setIsOpen = value => {
     this.isOpen = value;
-  }
-
-  
-
+  };
 }
 
 export default new Notification();

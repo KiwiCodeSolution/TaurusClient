@@ -40,7 +40,7 @@ const DateTimeField = ({ control, namePage }) => {
       const currentTodayTime = moment().add(1, "hour").format("HH");
       startTime.setHours(currentTodayTime, 0, 0); // Початковий час: 8:00
     } else {
-      startTime.setHours(8, 0, 0); // Початковий час: 8:00
+      startTime.setHours(9, 0, 0); // Початковий час: 8:00
     }
 
     endTime.setHours(21, 0, 0); // Кінцевий час: 21:00
@@ -95,7 +95,7 @@ const DateTimeField = ({ control, namePage }) => {
                 setIsCalendarOpen(false); // Закрити календар після вибору дати
               }}
               open={isCalendarOpen}
-              onBlur={() => setIsCalendarOpen(false)} // Додано обробник події onBlur
+              onBlur={() => setIsCalendarOpen(false)}
               wrapperClassName="w-full"
               placeholderText="Оберіть дату"
               locale="uk"
@@ -109,7 +109,9 @@ const DateTimeField = ({ control, namePage }) => {
               onClick={handleIconClick}
             >
               <ArrowDown
-                className={`absolute top-[34px] left-1/3 ${isCalendarOpen && "rotate-180"} `}
+                className={`absolute top-[34px] left-1/3 ${
+                  isCalendarOpen && "rotate-180"
+                } stroke-beige hover:stroke-base-orange`}
               />
             </button>
           </div>

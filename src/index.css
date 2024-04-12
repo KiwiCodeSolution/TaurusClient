@@ -220,6 +220,13 @@ button:hover .icon-up {
   color: #f7a033;
 }
 
+.date-picker .react-datepicker__day,
+.react-datepicker__month-text,
+.react-datepicker__quarter-text,
+.react-datepicker__year-text {
+  color: #ffd698;
+}
+
 .date-picker .react-datepicker__year-read-view--down-arrow,
 .react-datepicker__month-read-view--down-arrow,
 .react-datepicker__month-year-read-view--down-arrow,

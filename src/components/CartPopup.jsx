@@ -18,6 +18,8 @@ const CartPopup = observer(({ clickFn, formFn }) => {
     orderStore.deliveryOption(option);
   }
 
+  console.log(orderStore.order.delivery_type);
+
   return (
     <>
       <Overlay
@@ -35,21 +37,29 @@ const CartPopup = observer(({ clickFn, formFn }) => {
             <div className="w-fit p-1 bg-dark-btn-bg rounded-[6px] mx-auto flex gap-x-4 mb-4">
               <Button
                 style={"check"}
-                clickFn={() => deliveryChange(false)}
-                btnClass={!orderStore.order.delivery ? "bg-base-yellow text-base-black" : ""}
+                clickFn={() => deliveryChange("У ресторані")}
+                btnClass={
+                  orderStore.order.delivery_type === "У ресторані"
+                    ? "bg-base-yellow text-base-black"
+                    : ""
+                }
               >
                 У ресторані
               </Button>
               <Button
                 style={"check"}
-                clickFn={() => deliveryChange(true)}
-                btnClass={orderStore.order.delivery ? "bg-base-yellow text-base-black" : ""}
+                clickFn={() => deliveryChange("Доставка")}
+                btnClass={
+                  orderStore.order.delivery_type === "Доставка"
+                    ? "bg-base-yellow text-base-black"
+                    : ""
+                }
               >
                 Доставка
               </Button>
             </div>
             <div className="mb-20 overflow-auto">
-              {items.map(({ item }) => (
+              {items.map(item => (
                 <CartMenuItem key={item._id} item={item} />
               ))}
               <TotalPrice />

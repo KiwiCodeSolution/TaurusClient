@@ -8,6 +8,7 @@ import CartPopup from "../../components/CartPopup";
 import ConfirmPopup from "../../components/ConfirmPopup";
 import CategoryFilter from "../../components/CategoryFilter";
 import filterStore from "../../store/filter";
+import orderStore from "../../store/order";
 
 const Order = observer(() => {
   useEffect(() => {
@@ -21,6 +22,9 @@ const Order = observer(() => {
     setIsModalOpen(false);
     setIsOpenNotification(true);
   }
+
+  const isDisabled = orderStore.items?.length <= 0;
+  console.log(isDisabled);
 
   return (
     <>
@@ -46,6 +50,7 @@ const Order = observer(() => {
               style={"orange"}
               btnClass={"text-18 font-medium"}
               clickFn={() => setIsModalOpen(true)}
+              disabled={isDisabled}
             >
               Замовити
             </Button>

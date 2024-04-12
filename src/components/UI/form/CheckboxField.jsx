@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { forwardRef, useState } from "react";
 import { Check } from "../../../icons/iconComponent";
 
-const ChexboxField = forwardRef(({ control, label, name }, ref) => {
+const CheckboxField = forwardRef(({ control, label, name }, ref) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const { field, fieldState } = useController({
@@ -25,7 +25,9 @@ const ChexboxField = forwardRef(({ control, label, name }, ref) => {
           onClick={() => setIsChecked(!isChecked)}
         />
         <span
-          className={`w-5 h-5 border rounded-[4px] ${fieldState.error ? "border-base-orange" : "border-base-brown"}`}
+          className={`w-5 h-5 border rounded-[4px] ${
+            fieldState.error ? "border-base-orange" : "border-base-brown"
+          }`}
         >
           {isChecked && <Check />}
         </span>
@@ -33,19 +35,21 @@ const ChexboxField = forwardRef(({ control, label, name }, ref) => {
       </label>
       {/* Покажіть текст помилки, якщо він є */}
       {fieldState.error && (
-        <span className="absolute -bottom-5 left-0 text-14 text-base-orange italic">{fieldState.error.message}</span>
+        <span className="absolute -bottom-5 left-0 text-14 text-base-orange italic">
+          {fieldState.error.message}
+        </span>
       )}
     </div>
   );
 });
 
-ChexboxField.displayName = { name };
+CheckboxField.displayName = { name };
 
-ChexboxField.propTypes = {
+CheckboxField.propTypes = {
   control: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   style: PropTypes.string,
 };
 
-export default ChexboxField;
+export default CheckboxField;

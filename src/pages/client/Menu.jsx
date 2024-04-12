@@ -2,13 +2,14 @@ import { observer } from "mobx-react-lite";
 import MetaData from "../../components/MetaData";
 import { useEffect } from "react";
 import CategoriesList from "../../components/CategoriesList";
-import { getDishes } from "../../API/dishes";
+
 import CategoryFilter from "../../components/CategoryFilter";
 import filterStore from "../../store/filter";
+import dishStore from "../../store/dishes";
 
 const Menu = observer(() => {
   useEffect(() => {
-    getDishes();
+    dishStore.getDishesAction();
   }, []);
 
   return (

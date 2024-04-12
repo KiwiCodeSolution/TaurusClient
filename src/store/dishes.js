@@ -50,5 +50,18 @@ class Dishes {
 
     return true;
   };
+
+  deleteDishesAction = async dish => {
+    const result = await deleteDish(dish);
+
+    runInAction(() => {
+      if (result.error) {
+        return;
+      }
+    });
+    this.getDishesAction();
+
+    return true;
+  };
 }
 export default new Dishes();
