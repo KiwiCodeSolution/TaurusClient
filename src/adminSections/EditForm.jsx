@@ -9,27 +9,35 @@ const topOptions = [
   { value: "drinks", label: "напої" },
 ];
 
-const options = [
-  { value: "cold_dishes", label: "холодні страви" },
-  { value: "bruschetta", label: "брускети" },
-  { value: "salads", label: "салати" },
-  { value: "hot_appetizers", label: "гарячі закуски" },
-  { value: "burgers", label: "бургери" },
-  { value: "soups", label: "супи" },
-  { value: "paste", label: "паста" },
-  { value: "main_dishes", label: "основні страви" },
-  { value: "bbq_menu", label: "bbq-меню" },
-  { value: "side_dishes", label: "гарніри" },
-  { value: "sauces", label: "соуси" },
-  { value: "cakes", label: "тістечка" },
-  { value: "ice", label: "морозиво" },
-  { value: "beer", label: "пиво" },
-  { value: "wine", label: "вино" },
-  { value: "strong_drinks", label: "міцні напої" },
-  { value: "cocktails", label: "коктейлі" },
-  { value: "soft_drinks", label: "безалкогольні напої" },
-  { value: "hot_drinks", label: "гарячі напої" },
-];
+const options = {
+  dishes: [
+    { value: "cold_dishes", label: "холодні страви" },
+    { value: "bruschetta", label: "брускети" },
+    { value: "salads", label: "салати" },
+    { value: "hot_appetizers", label: "гарячі закуски" },
+    { value: "burgers", label: "бургери" },
+    { value: "soups", label: "супи" },
+    { value: "paste", label: "паста" },
+    { value: "main_dishes", label: "основні страви" },
+    { value: "bbq_menu", label: "bbq-меню" },
+    { value: "side_dishes", label: "гарніри" },
+    { value: "sauces", label: "соуси" },
+  ],
+
+  desserts: [
+    { value: "cakes", label: "тістечка" },
+    { value: "ice", label: "морозиво" },
+  ],
+
+  drinks: [
+    { value: "beer", label: "пиво" },
+    { value: "wine", label: "вино" },
+    { value: "strong_drinks", label: "міцні напої" },
+    { value: "cocktails", label: "коктейлі" },
+    { value: "soft_drinks", label: "безалкогольні напої" },
+    { value: "hot_drinks", label: "гарячі напої" },
+  ],
+};
 
 const subOptions = [
   { value: "snacks_beer", label: "закуски до пива" },
@@ -42,7 +50,7 @@ const fieldsDescription = [
     id: "1",
     name: "name",
     label: "Назва великими літерами",
-    defaultValue: "",
+
     style: "",
     isRequired: true,
   },
@@ -50,7 +58,6 @@ const fieldsDescription = [
     id: "2",
     name: "description",
     label: "Додаткова інформація",
-    defaultValue: "",
     style: "",
     isRequired: true,
   },
@@ -58,7 +65,6 @@ const fieldsDescription = [
     id: "3",
     name: "englishName",
     label: "Назва англійською",
-    defaultValue: "",
     style: "",
     isRequired: true,
   },
@@ -69,7 +75,6 @@ const fieldsDPrice = [
     id: "4",
     name: "price",
     label: "Ціна",
-    defaultValue: "",
     style: "w-[241px]",
     isRequired: true,
   },
@@ -77,21 +82,22 @@ const fieldsDPrice = [
     id: "5",
     name: "discount",
     label: "Знижка",
-    defaultValue: "",
     style: "w-[241px]",
     isRequired: false,
   },
 ];
 
 const EditForm = observer(({ item }) => {
-  console.log(item);
+  const itemTopCategory = topOptions.find(option => option.label === item?.topCategory);
+  const itemSubCategory = subOptions.find(option => option.label === item?.subCategory);
+  const itemCategory = options.itemTopCategory?.find(option => option.label === item?.category);
 
   const defaultValues = {
-    top: item?.topCategory || topOptions[0],
-    category: item?.category || options[0],
-    sub: item?.subCategory || subOptions[0],
+    top: itemTopCategory || topOptions[0],
+    category: itemCategory || options[0],
+    sub: itemSubCategory || subOptions[0],
     name: item?.name || "",
-    subname: item?.description || "",
+    description: item?.description || "",
     englishName: item?.englishName || "",
     price: item?.price || "",
     discount_price: item?.discount_price || "",
@@ -100,6 +106,7 @@ const EditForm = observer(({ item }) => {
 
   const {
     control,
+    watch,
     handleSubmit,
     reset,
     resetField,
@@ -108,6 +115,9 @@ const EditForm = observer(({ item }) => {
     mode: "onChange",
     defaultValues: defaultValues,
   });
+
+  const topValue = watch("top", "");
+  const currentOptions = topValue?.value || itemTopCategory.value;
 
   const onSubmit = data => {
     console.log(data);
@@ -154,11 +164,11 @@ const EditForm = observer(({ item }) => {
               <SelectFieldAdmin
                 {...field}
                 control={control}
-                options={options}
+                options={options[currentOptions]}
                 name="category"
                 isSearchable={true}
                 label="Категорія меню"
-                style={"w-[241px]"}
+                style={itemSubCategory || topValue.label === "напої" ? "w-[241px]" : "w-[502px]"}
                 isRequired
               />
             </>
@@ -166,23 +176,25 @@ const EditForm = observer(({ item }) => {
         />
 
         {/* ------------------ sub category --------------- */}
-        <Controller
-          name="sub"
-          control={control}
-          render={({ field }) => (
-            <>
-              <SelectFieldAdmin
-                {...field}
-                control={control}
-                options={subOptions}
-                name="sub"
-                isSearchable={true}
-                label="Підкатегорія меню"
-                style={"w-[241px]"}
-              />
-            </>
-          )}
-        />
+        {(itemSubCategory || topValue.label === "напої") && (
+          <Controller
+            name="sub"
+            control={control}
+            render={({ field }) => (
+              <>
+                <SelectFieldAdmin
+                  {...field}
+                  control={control}
+                  options={subOptions}
+                  name="sub"
+                  isSearchable={true}
+                  label="Підкатегорія меню"
+                  style={"w-[241px]"}
+                />
+              </>
+            )}
+          />
+        )}
       </div>
 
       {fieldsDescription.map(({ id, name, defaultValue, style, label, isRequired }) => (

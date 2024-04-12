@@ -11,13 +11,16 @@ const TextFieldAdmin = ({ control, name, defaultValue, onReset, style, label, is
 
   return (
     <div className={`flex flex-col relative ${style}`}>
-      <label className="text-14 text-beige mb-2">
+      <label htmlFor={name} className="text-14 text-beige mb-2">
         {label} {isRequired && <span className="text-base-orange">*</span>}
       </label>
       <input
         name={name}
+        id={name}
         type="input"
-        className="h-9 bg-dark-btn-bg text-beige rounded-[4px]"
+        className={`${
+          name === "name" ? "uppercase" : ""
+        } h-9 bg-dark-btn-bg text-beige rounded-[4px]`}
         {...field}
         value={field.value}
       />

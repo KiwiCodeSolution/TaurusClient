@@ -7,6 +7,7 @@ import { ArrowDown } from "../../icons/iconComponent";
 const SelectFieldAdmin = forwardRef(
   ({ control, options, value, onChange, name, style, label, isRequired }, ref) => {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
+    const inputId = `${name}-input`;
 
     const { fieldState } = useController({
       name,
@@ -77,10 +78,11 @@ const SelectFieldAdmin = forwardRef(
 
     return (
       <div className="flex flex-col gap-y-2">
-        <label className="text-14 text-beige">
+        <label htmlFor={inputId} className="text-14 text-beige">
           {label} {isRequired && <span className="text-base-orange">*</span>}
         </label>
         <Select
+          inputId={inputId}
           components={{ DropdownIndicator }}
           ref={ref}
           options={options}

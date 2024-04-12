@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
         {isModalOpen && (
           <Overlay clickFn={() => setIsModalOpen(false)} componentName={"footer"}>
-            <Form namePage="contacts" />
+            <Form namePage="contacts" clickFn={() => setIsModalOpen(false)} />
           </Overlay>
         )}
         {isModalTermsOpen && (

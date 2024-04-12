@@ -12,13 +12,18 @@ import Form from "./Form";
 
 const CartPopup = observer(({ clickFn, formFn }) => {
   const [step, setStep] = useState(1);
+  const [delivery, setDelivery] = useState("У ресторані");
+
   const items = orderStore.order.items;
 
   function deliveryChange(option) {
     orderStore.deliveryOption(option);
   }
 
-  console.log(orderStore.order.delivery_type);
+  function nextStep() {
+    deliveryChange(delivery);
+    setStep(2);
+  }
 
   return (
     <>
@@ -37,23 +42,15 @@ const CartPopup = observer(({ clickFn, formFn }) => {
             <div className="w-fit p-1 bg-dark-btn-bg rounded-[6px] mx-auto flex gap-x-4 mb-4">
               <Button
                 style={"check"}
-                clickFn={() => deliveryChange("У ресторані")}
-                btnClass={
-                  orderStore.order.delivery_type === "У ресторані"
-                    ? "bg-base-yellow text-base-black"
-                    : ""
-                }
+                clickFn={() => setDelivery("У ресторані")}
+                btnClass={delivery === "У ресторані" ? "bg-base-yellow text-base-black" : ""}
               >
                 У ресторані
               </Button>
               <Button
                 style={"check"}
-                clickFn={() => deliveryChange("Доставка")}
-                btnClass={
-                  orderStore.order.delivery_type === "Доставка"
-                    ? "bg-base-yellow text-base-black"
-                    : ""
-                }
+                clickFn={() => setDelivery("Доставка")}
+                btnClass={delivery === "Доставка" ? "bg-base-yellow text-base-black" : ""}
               >
                 Доставка
               </Button>
@@ -67,7 +64,7 @@ const CartPopup = observer(({ clickFn, formFn }) => {
             <Button
               btnClass="text-18 font-medium text-base-black"
               style={"orange"}
-              clickFn={() => setStep(2)}
+              clickFn={() => nextStep()}
             >
               Оформити замолення
             </Button>

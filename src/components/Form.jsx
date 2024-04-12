@@ -67,7 +67,7 @@ const options = [
 
 const Form = observer(({ namePage, clickFn }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [consentChecked, setConsentChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const defaultValues = {
     name: "",
@@ -76,7 +76,7 @@ const Form = observer(({ namePage, clickFn }) => {
     message: "",
     quantity: null,
     date: new Date(),
-    consent: false, // Додайте це значення за замовчуванням
+    consent: false,
   };
 
   const {
@@ -91,10 +91,9 @@ const Form = observer(({ namePage, clickFn }) => {
   });
 
   const onSubmit = async data => {
-    console.log("onSubmit", data);
+    // console.log("onSubmit", data);
     const formattedData = {
       ...data,
-      // Відправити лише значення поля часу
       time: data.time?.value,
     };
 
@@ -106,8 +105,10 @@ const Form = observer(({ namePage, clickFn }) => {
         const result = await axios.post(`${baseServerURL}feedback`, data);
 
         console.log("result", result.data);
+
         setIsModalOpen(true);
-        setConsentChecked(false);
+
+        setIsChecked(false);
         reset(defaultValues);
 
         return;
@@ -133,7 +134,7 @@ const Form = observer(({ namePage, clickFn }) => {
 
         clickFn();
         orderStore.clearOrderedProductList();
-        setConsentChecked(false);
+        setIsChecked(false);
         reset();
         return result;
       } catch (error) {
@@ -146,6 +147,11 @@ const Form = observer(({ namePage, clickFn }) => {
 
   const handleReset = fieldName => {
     resetField(fieldName);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    clickFn && clickFn();
   };
 
   // стилі для форми в залежності від її розташування
@@ -212,6 +218,8 @@ const Form = observer(({ namePage, clickFn }) => {
             <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для
             заповнення
           </p>
+
+          {/* ------------------ check --------------- */}
           <Controller
             name="consent"
             control={control}
@@ -221,8 +229,8 @@ const Form = observer(({ namePage, clickFn }) => {
                 control={control}
                 label={"погоджуюсь на обробку персональних даних"}
                 name={"consent"}
-                checked={consentChecked} // Додайте цей рядок
-                onChange={e => setConsentChecked(e.target.checked)}
+                onChecked={() => setIsChecked(!isChecked)}
+                isCheck={isChecked}
               />
             )}
           />
@@ -243,7 +251,7 @@ const Form = observer(({ namePage, clickFn }) => {
         </Button>
       </form>
 
-      {isModalOpen && <ConfirmPopup clickFn={() => setIsModalOpen(false)} type={"contact"} />}
+      {isModalOpen && <ConfirmPopup clickFn={() => closeModal()} type={"contact"} />}
     </>
   );
 });

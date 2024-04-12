@@ -124,27 +124,12 @@ class Order {
   }
 
   deliveryOption(option) {
-    return (this.order.delivery_type = option);
+    console.log(option);
+    const delivery = (this.order.delivery_type = option);
+    console.log(this.order.delivery_type);
+
+    return delivery;
   }
-
-  // placeOrderAction = async (customerData) => {
-  //   this.setisProcessing(true);
-  //   const order = {
-  //     ...customerData,
-  //     total_amount: this.totalPrice,
-  //     ...toJS(this.order),
-  //   };
-
-  //   try {
-  //     const result = await placeOrder(order);
-  //     this.setOrderNumber(result.data.order_number);
-  //     this.clearOrderedProductList();
-  //   } catch (err) {
-  //     this.setError(err.message);
-  //   } finally {
-  //     this.setisProcessing(true);
-  //   }
-  // };
 
   setisProcessing(value) {
     this.order.isProcessing = value;
