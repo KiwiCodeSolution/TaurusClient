@@ -77,7 +77,7 @@ const SelectFieldAdmin = forwardRef(
     };
 
     return (
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-2 relative">
         <label htmlFor={inputId} className="text-14 text-beige">
           {label} {isRequired && <span className="text-base-orange">*</span>}
         </label>

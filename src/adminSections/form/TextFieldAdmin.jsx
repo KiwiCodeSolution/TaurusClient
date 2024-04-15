@@ -20,7 +20,7 @@ const TextFieldAdmin = ({ control, name, defaultValue, onReset, style, label, is
         type="input"
         className={`${
           name === "name" ? "uppercase" : ""
-        } h-9 bg-dark-btn-bg text-beige rounded-[4px]`}
+        } h-9 px-2 py-1 bg-dark-btn-bg  rounded-[4px]`}
         {...field}
         value={field.value}
       />

@@ -26,7 +26,7 @@ const HomeAdmin = () => {
 
             <div className="flex flex-col gap-y-4 text-18">
               <NavLink
-                to={"/admin/access/orders"}
+                to={"/admin/access/restaurant/delivery"}
                 className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
               >
                 Управління рестораном
@@ -36,6 +36,12 @@ const HomeAdmin = () => {
                 className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
               >
                 Управління сайтом
+              </NavLink>
+              <NavLink
+                to={"/admin/access/users/staff"}
+                className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
+              >
+                Управління користувачами
               </NavLink>
               <Button
                 style={"orange"}

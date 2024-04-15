@@ -63,12 +63,22 @@ const App = observer(() => {
           </Route>
 
           {/* Робота із замовленнями, зверненнями та бронюванням столиків */}
-          <Route path="orders">
+          <Route path="restaurant">
             <Route path="delivery" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
             <Route path="take" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="appeals" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="booking" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
             <Route path="archive" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
           </Route>
+
+           {/* Робота із замовленнями, зверненнями та бронюванням столиків */}
+          <Route path="users">
+            <Route path="staff" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="archive" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="staff/:_id" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+          </Route>
         </Route>
+        
 
         <Route path="/admin/*" element={<NotPages />} />
 

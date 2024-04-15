@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import Button from "./UI/Button";
 import * as icons from "../icons/iconComponent";
 
-const PromoItem = ({ item }) => {
+const PromoItem = ({ item, type }) => {
   const { src, percent, title, text, proposal, oldPrice, currentPrice } = item;
   return (
     <article className="w-[356px] h-[568px] py-8 px-6 border border-base-brown flex flex-col gap-y-6 justify-between relative mx-auto">
@@ -35,9 +35,13 @@ const PromoItem = ({ item }) => {
           <li className="text-base-orange line-through">{oldPrice}</li>
         </ul>
       )}
-      <Button style="orange" btnClass="mt-auto">
-        Замовити
-      </Button>
+      {type === "admin" ? (
+        ""
+      ) : (
+        <Button style="orange" btnClass="mt-auto">
+          Замовити
+        </Button>
+      )}
     </article>
   );
 };
@@ -52,6 +56,7 @@ PromoItem.propTypes = {
     oldPrice: PropTypes.string,
     currentPrice: PropTypes.string,
   }).isRequired,
+  type: PropTypes.string,
 };
 
 export default PromoItem;

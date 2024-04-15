@@ -2,7 +2,9 @@ import { useParams, useLocation, Link } from "react-router-dom";
 import dishesStore from "../../store/dishes";
 
 import MetaData from "../../components/MetaData";
-import EditForm from "../../adminSections/EditForm";
+import DishForm from "../../adminSections/DishForm";
+import { ArrowBack } from "../../icons/iconComponent";
+import TitlePage from "../../adminSections/TitlePage";
 
 const EditDishPage = () => {
   const { _id } = useParams();
@@ -19,20 +21,17 @@ const EditDishPage = () => {
     <>
       <MetaData>Редагування страви</MetaData>
       <section className="w-[calc(100%-300px)] flex flex-col">
-        <div className="w-full mx-auto flex flex-col">
-          <h1 className="w-full text-center uppercase text-[32px] mt-12 mb-10 text-beige">
-            Редагування позиції меню
-          </h1>
-          <div className="border_admin_menu w-[916px] mx-auto" />
-        </div>
+        <TitlePage>Редагування позиції меню</TitlePage>
+
         <div className="w-[calc(100%-300px)] mx-auto relative">
           <Link
-            className="flex gap-x-2 absolute top-8 left-8"
+            className="flex gap-x-2 absolute top-8 left-3 back text-beige hover:text-base-orange items-center"
             to={location?.state?.from.pathname ?? "/"}
           >
+            <ArrowBack className={"fill-beige"} />
             Повернутись
           </Link>
-          <EditForm item={currentDish} />
+          <DishForm item={currentDish} />
         </div>
       </section>
     </>

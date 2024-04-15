@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import categoryStore from "../store/filter";
 import dishesStore from "../store/dishes";
 
-import data from "../datas/categories.json";
+import data from "../data/categories.json";
 import { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import TotalPrice from "./TotalPrice";

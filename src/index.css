@@ -335,3 +335,11 @@ button:hover .icon-up {
 .admin ::-webkit-scrollbar-thumb:hover {
   background: #ecddc6; /* Колір thumb при наведенні */
 }
+
+.trash:hover svg {
+  fill: #ffd698;
+}
+
+.back:hover svg {
+  fill: #f7a033;
+}

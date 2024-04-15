@@ -2,7 +2,7 @@ import MetaData from "../../components/MetaData";
 import PromoItem from "../../components/PromoItem";
 import TitlePage from "../../components/TitlePage";
 
-const PROMO_ITEMS = [
+export const PROMO_ITEMS = [
   {
     id: "1",
     src: "/images/promo/chocolate-fondue.png",
@@ -41,7 +41,11 @@ const Promo = () => {
     <>
       <MetaData>Акції ресторану</MetaData>
       <section>
-        <img src="" alt="" className="w-full h-[416px] object-cover border-b-[0.5px] border-base-brown" />
+        <img
+          src=""
+          alt=""
+          className="w-full h-[416px] object-cover border-b-[0.5px] border-base-brown"
+        />
         <div className="w-full mx-auto wrapper">
           <TitlePage>Акції</TitlePage>
 
