@@ -62,9 +62,9 @@ const CategoriesList = observer(({ page }) => {
                   onClick={() => setCurrentCategory(el.category)}
                   className={`w-full py-[14px] px-2 text-18 uppercase ${
                     el.category === currentCategory
-                      ? "text-base-orange bg-dark-btn-bg"
-                      : "text-beige"
-                  }  hover:text-base-orange`}
+                      ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
+                      : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
+                  }`}
                 >
                   {el.category}
                 </button>

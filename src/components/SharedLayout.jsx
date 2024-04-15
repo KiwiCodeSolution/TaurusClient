@@ -47,7 +47,7 @@ const SharedLayout = observer(() => {
         <NavBar />
 
         <div className="flex gap-x-[44px]">
-          <Button style={"transparent"} clickFn={openModal}>
+          <Button style={"contacts"} clickFn={openModal}>
             {number}
           </Button>
           <button onClick={() => setIsOpenCart(true)} className="cart-btn" disabled={!isCartEmpty}>

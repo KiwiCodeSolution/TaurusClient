@@ -38,12 +38,12 @@ const CategoryFilter = observer(({ page }) => {
     categoryStore.setTopCategory(topCategoryName);
   }
 
-  function handleId(id) {
-    if (page !== "admin") {
-      setCurrentId(id);
-    }
-    return;
-  }
+  // function handleId(id) {
+  //   if (page !== "admin") {
+  //     setCurrentId(id);
+  //   }
+  //   return;
+  // }
 
   return (
     <>
@@ -71,16 +71,20 @@ const CategoryFilter = observer(({ page }) => {
           {ICONS.map(({ id, Icon, IconHover, topCategoryName, title }) => (
             <button
               key={id + topCategoryName}
-              className={`flex items-center justify-between hover:text-base-orange menu-list py-[29px] ${
-                id === currentId ? "text-base-orange" : "text-beige"
-              } ${
+              className={`flex items-center justify-between hover:underline hover:underline-offset-4 menu-list py-[29px] ${
+                id === currentId
+                  ? "text-base-orange hover:underline hover:underline-offset-4"
+                  : "text-beige"
+              } 
+              ${
                 page === "admin"
-                  ? "w-[237px] h-[55px] hover:bg-dark-btn-bg"
+                  ? "w-[237px] h-[55px] hover:text-base-yellow"
                   : "w-[208px] h-[208px] flex-col"
               }
-               ${page === "admin" && id === currentId ? "bg-dark-btn-bg" : ""}`}
+               ${page === "admin" && id === currentId ? "bg-dark-btn-bg" : ""}
+               `}
               onClick={() => handleChangeCategory(topCategoryName, title, id)}
-              onMouseEnter={() => handleId(id)}
+              // onMouseEnter={() => handleId(id)}
             >
               {page !== "admin" && (
                 <div className="w-[112px] h-[112px] flex pb-6 items-end justify-center">

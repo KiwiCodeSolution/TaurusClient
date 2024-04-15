@@ -43,14 +43,22 @@ const CartPopup = observer(({ clickFn, formFn }) => {
               <Button
                 style={"check"}
                 clickFn={() => setDelivery("У ресторані")}
-                btnClass={delivery === "У ресторані" ? "bg-base-yellow text-base-black" : ""}
+                btnClass={
+                  delivery === "У ресторані"
+                    ? "bg-base-yellow text-base-black"
+                    : "hover:text-base-yellow"
+                }
               >
                 У ресторані
               </Button>
               <Button
                 style={"check"}
                 clickFn={() => setDelivery("Доставка")}
-                btnClass={delivery === "Доставка" ? "bg-base-yellow text-base-black" : ""}
+                btnClass={
+                  delivery === "Доставка"
+                    ? "bg-base-yellow text-base-black"
+                    : "hover:text-base-yellow"
+                }
               >
                 Доставка
               </Button>

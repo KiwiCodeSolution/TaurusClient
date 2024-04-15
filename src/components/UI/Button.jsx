@@ -2,12 +2,15 @@ import PropTypes from "prop-types";
 
 const buttonsStyle = {
   transparent:
-    "w-[156px] h-[38px] px-3 py-[6px] border border-base-white text-base text-base-white hover:border-base-yellow hover:text-base-yellow",
+    "w-[156px] h-[38px] px-3 py-[6px] border border-base-white text-base text-base-white hover:border-base-orange hover:text-base-orange",
+  contacts:
+    "w-[156px] h-[38px] px-3 py-[6px] border border-base-white text-base text-base-white hover:border-base-orange hover:bg-base-orange hover:text-base-black",
   orange:
     "min-w-[156px] h-[38px] px-6 py-[6px] bg-base-orange text-lg text-base-black mx-auto hover:bg-base-yellow disabled:opacity-25 disabled:opacity-25 disabled:hover:bg-base-orange",
-  round: "w-8 h-8 rounded-full border border-base-white  hover:border-base-yellow",
+  round: "w-8 h-8 rounded-full border border-base-beige hover:border-base-orange",
   count: "w-[71px] h-fill flex justify-center items-center",
   check: "w-30 px-4 text-xl flex justify-center items-center h-[30px] rounded",
+  gray: "w-fit h-[38px] py-[6px] px-3 bg-dark-btn-bg border border-beige text-16 text-beige flex items-center gap-x-2",
 };
 
 const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, ...restProps }) => {
@@ -32,7 +35,8 @@ const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, .
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.oneOf(["transparent", "orange", "round", "count", "check"]).isRequired,
+  style: PropTypes.oneOf(["transparent", "contacts", "orange", "round", "count", "check", "gray"])
+    .isRequired,
   btnType: PropTypes.string,
   icon: PropTypes.element,
   clickFn: PropTypes.func,

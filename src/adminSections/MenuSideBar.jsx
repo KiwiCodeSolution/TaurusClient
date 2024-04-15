@@ -45,8 +45,10 @@ const MenuSideBar = () => {
         MENULINKS.map(el => (
           <NavLink
             to={el.link}
-            className={`w-full h-[55px] cursor-pointer uppercase  text-18 flex justify-center items-center hover:text-base-orange hover:bg-dark-btn-bg ${
-              currentItem === el.id ? "text-base-orange bg-dark-btn-bg" : "text-beige"
+            className={`w-full h-[55px] cursor-pointer uppercase text-18 flex justify-center items-center ${
+              currentItem === el.id
+                ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
+                : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
             key={el.id + el.name}
             onClick={() => setCurrentItem(el.id)}
@@ -58,8 +60,10 @@ const MenuSideBar = () => {
         RESTAURANTLINKS.map(el => (
           <NavLink
             to={el.link}
-            className={`w-full h-[55px] cursor-pointer uppercase  text-18 flex justify-center items-center hover:text-base-orange hover:bg-dark-btn-bg ${
-              currentItem === el.id ? "text-base-orange bg-dark-btn-bg" : "text-beige"
+            className={`w-full h-[55px] cursor-pointer uppercase text-18 flex justify-center items-center ${
+              currentItem === el.id
+                ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
+                : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
             key={el.id + el.name}
             onClick={() => setCurrentItem(el.id)}
@@ -71,8 +75,10 @@ const MenuSideBar = () => {
         USERSLINKS.map(el => (
           <NavLink
             to={el.link}
-            className={`w-full h-[55px] cursor-pointer uppercase  text-18 flex justify-center items-center hover:text-base-orange hover:bg-dark-btn-bg ${
-              currentItem === el.id ? "text-base-orange bg-dark-btn-bg" : "text-beige"
+            className={`w-full h-[55px] cursor-pointer uppercase text-18 flex justify-center items-center ${
+              currentItem === el.id
+                ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
+                : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
             key={el.id + el.name}
             onClick={() => setCurrentItem(el.id)}

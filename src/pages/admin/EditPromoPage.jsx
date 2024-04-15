@@ -2,26 +2,25 @@ import { useParams, useLocation, Link } from "react-router-dom";
 import dishesStore from "../../store/dishes";
 
 import MetaData from "../../components/MetaData";
-import DishForm from "../../adminSections/DishForm";
+import PromoForm from "../../adminSections/PromoForm";
 import { ArrowBack } from "../../icons/iconComponent";
 import TitlePage from "../../adminSections/TitlePage";
-
-const EditDishPage = () => {
+const EditPromoPage = () => {
   const { _id } = useParams();
   const location = useLocation();
-  const dishes = dishesStore.dishes;
+  // const promotions = dishesStore.dishes;
 
-  if (!_id) return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
-  if (!dishes) return <h2>Ми не отримали перелік страв. Спробуйте ще раз</h2>;
+  // if (!_id) return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
+  // if (!promotions) return <h2>Ми не отримали перелік акцій. Спробуйте ще раз</h2>;
 
-  const currentDish = dishes.find(dish => dish._id === _id);
-  if (!currentDish) return <h2>У нас немає страви їз id:{_id}</h2>;
+  // const currentPromo = promotions.find(promo => promo._id === _id);
+  // if (!currentPromo) return <h2>У нас немає акції їз id:{_id}</h2>;
 
   return (
     <>
-      <MetaData>Редагування страви</MetaData>
+      <MetaData>Редагування Акції</MetaData>
       <section className="w-[calc(100%-300px)] flex flex-col">
-        <TitlePage>Редагування позиції меню</TitlePage>
+        <TitlePage>Редагування акційної позиції</TitlePage>
 
         <div className="w-[calc(100%-300px)] mx-auto relative">
           <Link
@@ -31,11 +30,11 @@ const EditDishPage = () => {
             <ArrowBack className={"fill-beige"} />
             Повернутись
           </Link>
-          <DishForm item={currentDish} />
+          {/* <PromoForm item={currentPromo} /> */}
         </div>
       </section>
     </>
   );
 };
 
-export default EditDishPage;
+export default EditPromoPage;

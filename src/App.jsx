@@ -8,6 +8,7 @@ import Loader from "./components/Loader";
 import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
 
 
+
 const Home = React.lazy(() => import("./pages/client/Home"));
 const NotFound = React.lazy(() => import("./pages/client/NotFound"));
 const Services = React.lazy(() => import("./pages/client/Services"));
@@ -24,6 +25,8 @@ const MenuDeliveryAdmin = React.lazy(() => import("./pages/admin/MenuDeliveryAdm
 const LoginPage = React.lazy(() => import("./pages/client/Login"));
 const EditDishPage = React.lazy(() => import("./pages/admin/EditDishPage"));
 const CreateDishPage = React.lazy(() => import("./pages/admin/CreateDishPage"));
+const EditPromoPage = React.lazy(() => import("./pages/admin/EditPromoPage"));
+
 
 
 const NotPages = React.lazy(() => import("./pages/admin/NotPages"));
@@ -58,6 +61,7 @@ const App = observer(() => {
             <Route path="menu/:_id" element={<PrivateRoute> <EditDishPage /> </PrivateRoute>}/>
             <Route path="menu/create" element={<PrivateRoute> <CreateDishPage /> </PrivateRoute>}/>
             <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+               <Route path="promo/:_id" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
             <Route path="delivery" element={<PrivateRoute> <MenuDeliveryAdmin /> </PrivateRoute>}/>
             
           </Route>

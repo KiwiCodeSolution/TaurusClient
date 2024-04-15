@@ -67,16 +67,16 @@ const SelectField = forwardRef(
       }),
       menu: provided => ({
         ...provided,
-        backgroundColor: "#0C0C09", // Змініть розмір фону за необхідності
+        backgroundColor: "#33302D", // Змініть розмір фону за необхідності
       }),
       option: (provided, state) => {
         return {
           ...provided,
-          backgroundColor: state.isSelected ? "#7E664D" : "#0C0C09",
-          color: state.isSelected ? "#F7A033" : "#FFD698",
+          backgroundColor: "#33302D",
+          color: state.isSelected ? "#FFD698" : "rgb(236, 221, 198, 0.6)",
           "&:hover": {
-            backgroundColor: "#FFD698",
-            color: "#0C0C09",
+            backgroundColor: "#33302D",
+            color: "#FFD698",
           },
           borderBottom: "1px solid #7E664D",
           borderColor: "#7E664D",

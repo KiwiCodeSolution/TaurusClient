@@ -68,6 +68,10 @@
     margin: 0px;
     list-style: none;
   }
+
+  svg {
+    transition: fill 250ms ease;
+  }
 }
 
 .logo:hover svg,
@@ -162,8 +166,8 @@
 }
 
 button:hover .icon-up {
-  fill: #ffd698;
-  stroke: #ffd698;
+  fill: #f7a033;
+  stroke: #f7a033;
   transform: fill;
   transform: stroke;
   transition-duration: 250ms;
@@ -274,9 +278,9 @@ button:hover .icon-up {
   color: #0c0c09;
 }
 
-.trash svg {
+/* .trash svg {
   fill: #ecddc6;
-}
+} */
 
 .trash:hover svg {
   fill: #f7a033;
@@ -336,10 +340,22 @@ button:hover .icon-up {
   background: #ecddc6; /* Колір thumb при наведенні */
 }
 
+/* .trash-icon {
+  transition: fill 250ms ease; 
+} */
+
 .trash:hover svg {
-  fill: #ffd698;
+  fill: #f7a033;
 }
 
 .back:hover svg {
+  fill: #ffd698;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.btn_gray:hover svg {
   fill: #f7a033;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }

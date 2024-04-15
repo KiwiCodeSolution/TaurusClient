@@ -1,12 +1,13 @@
+/* eslint-disable react-refresh/only-export-components */
 import MetaData from "../../components/MetaData";
 import PromoItem from "../../components/PromoItem";
 import TitlePage from "../../components/TitlePage";
 
 export const PROMO_ITEMS = [
   {
-    id: "1",
+    _id: "1",
     src: "/images/promo/chocolate-fondue.png",
-    percent: "50%",
+    sale: "50%",
     title: "Акція До дня закоханих!",
     text: "Замовляй Французький шоколадний фондан з морозивом та отримай другий зі знижкою",
     icon: "heart",
@@ -15,9 +16,9 @@ export const PROMO_ITEMS = [
     proposal: "1+1",
   },
   {
-    id: "2",
+    _id: "2",
     src: "/images/promo/sushi-set.png",
-    percent: "30%",
+    sale: "30%",
     title: "Акція До дня закоханих!",
     text: "Замовляй Суші сет “Perfect match” зі знижкою",
     icon: "heart",
@@ -26,9 +27,9 @@ export const PROMO_ITEMS = [
     proposal: "-30%",
   },
   {
-    id: "3",
+    _id: "3",
     src: "/images/promo/fwine-cheese.png",
-    percent: "10%",
+    sale: "10%",
     title: "Акція До дня закоханих!",
     text: "Проведи День закоханих в романтичній атмосфері “Taurus Soul”. Замовляй  будь-який другий бокал червоного або білого вина зі  знижкою",
     icon: "heart",
@@ -51,7 +52,7 @@ const Promo = () => {
 
           <div className="w-[1116px] grid grid-cols-3 gap-y-12 gap-x-6 mx-auto">
             {PROMO_ITEMS.map(el => (
-              <PromoItem key={el.id} item={el} />
+              <PromoItem key={el._id} item={el} />
             ))}
           </div>
         </div>

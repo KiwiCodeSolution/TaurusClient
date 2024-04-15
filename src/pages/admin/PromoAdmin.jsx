@@ -12,7 +12,7 @@ const PromoAdmin = () => {
         <div className="w-[980px] h-[75%] mt-[52px] mx-auto overflow-y-auto">
           <div className="w-full grid grid-cols-2 gap-y-12 gap-x-6 mx-auto">
             {PROMO_ITEMS.map(el => (
-              <PromoItem key={el.id} item={el} type={"admin"} />
+              <PromoItem key={el._id} item={el} type={"admin"} />
             ))}
           </div>
         </div>

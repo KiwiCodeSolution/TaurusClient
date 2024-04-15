@@ -275,7 +275,7 @@ const DishForm = observer(({ item, type }) => {
               btnClass="flex items-center justify-center gap-x-[6px] trash"
               clickFn={() => setIsOpenModalConfirm(true)}
             >
-              <Trash className={"fill-white w-4 h-4"} /> Видалити
+              <Trash className={"fill-white w-4 h-4 trash-icon"} /> Видалити
             </Button>
           </div>
         )}

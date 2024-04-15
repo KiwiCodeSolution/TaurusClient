@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
 import Button from "./UI/Button";
 import * as icons from "../icons/iconComponent";
+import { Link, useLocation } from "react-router-dom";
 
 const PromoItem = ({ item, type }) => {
-  const { src, percent, title, text, proposal, oldPrice, currentPrice } = item;
+  const { src, sale, title, text, proposal, oldPrice, currentPrice, _id } = item;
+  const location = useLocation();
+
   return (
     <article className="w-[356px] h-[568px] py-8 px-6 border border-base-brown flex flex-col gap-y-6 justify-between relative mx-auto">
       <div className="w-[308px] h-[235px] border border-base-brown overflow-hidden relative">
@@ -13,7 +16,7 @@ const PromoItem = ({ item, type }) => {
         </div>
       </div>
       <div className="w-[75px] h-[72px] rounded-full bg-base-orange flex flex-col justify-center items-center text-white text-24 font-semibold absolute top-3 right-3">
-        <span className="">{percent}</span>
+        <span className="">{sale}</span>
         <span className="uppercase">off</span>
       </div>
       <div className="w-full flex justify-between items-center">
@@ -26,7 +29,7 @@ const PromoItem = ({ item, type }) => {
         </div>
       </div>
       <p className="w-full text-center text-16 leading-6 text-beige">
-        {text} <span className="font-semibold text-base-orange">{percent}.</span>
+        {text} <span className="font-semibold text-base-orange">{sale}.</span>
       </p>
       {oldPrice && (
         <ul className="flex gap-x-2 text-18 leading-[27px] justify-center mt-auto">
@@ -36,7 +39,22 @@ const PromoItem = ({ item, type }) => {
         </ul>
       )}
       {type === "admin" ? (
-        ""
+        <div className="w-full flex justify-between items-center gap-x-4 mt-1">
+          <Link
+            className="cursor-pointer w-fit h-[38px] py-[6px] px-3 bg-dark-btn-bg border border-beige text-16 text-beige flex items-center gap-x-2 btn_gray hover:border-base-orange hover:text-base-orange"
+            to={`/admin/access/site/promo/${_id}`}
+            state={{ from: location }}
+          >
+            <icons.Edit className={"fill-beige hover:fill-base-orange"} /> Редагувати
+          </Link>
+
+          <Button
+            style={"transparent"}
+            btnClass="flex items-center justify-center gap-x-[6px] trash"
+          >
+            <icons.Trash className={"fill-white w-4 h-4"} /> Видалити
+          </Button>
+        </div>
       ) : (
         <Button style="orange" btnClass="mt-auto">
           Замовити
@@ -48,8 +66,9 @@ const PromoItem = ({ item, type }) => {
 
 PromoItem.propTypes = {
   item: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
-    percent: PropTypes.string.isRequired,
+    sale: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     proposal: PropTypes.string,

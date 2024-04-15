@@ -8,8 +8,7 @@ import SideBar from "../../adminSections/SideBar";
 const HomeAdmin = () => {
   const location = useLocation();
 
-  const currentStyle =
-    location.pathname === "/admin/access" ? "bg-[rgba(171,171,171,0.5)]" : "bg-base-black";
+  const currentStyle = location.pathname === "/admin/access" ? "bg-[#565350]" : "bg-base-black";
 
   return (
     <>
