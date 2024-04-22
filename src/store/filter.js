@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 
 class Filter {
-  topCategory = "dishes";
+  topCategory = "основне меню";
   category = "";
   subCategory = "";
 

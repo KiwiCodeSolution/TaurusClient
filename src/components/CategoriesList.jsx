@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { observer } from "mobx-react-lite";
+import { toJS } from "mobx";
 import categoryStore from "../store/filter";
 import dishesStore from "../store/dishes";
 
-import data from "../data/categories.json";
 import { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import TotalPrice from "./TotalPrice";
@@ -12,9 +12,9 @@ import MenuDeliveryItem from "./MenuDeliveryItem";
 const CategoriesList = observer(({ page }) => {
   useEffect(() => {
     setCurrentCategory(
-      categoryStore.topCategory === "dishes"
+      categoryStore.topCategory === "основне меню"
         ? "холодні страви"
-        : categoryStore.topCategory === "drinks"
+        : categoryStore.topCategory === "напої"
         ? "пиво"
         : "тістечка"
     );
@@ -26,22 +26,37 @@ const CategoriesList = observer(({ page }) => {
 
   const dishes = dishesStore.dishes;
 
-  // const isEmpty = products?.length === 0;
+  // const subMenuItemsDrinks = menuItems[0].subCategory
+  //   ? menuItems.find(el => el.category === currentCategory)
+  //   : null;
 
-  // const totalSum = products.reduce((acc, product) => acc + product.item.price * product.quantity, 0);
+  const categories = [];
 
-  const [currentCategory, setCurrentCategory] = useState(categoryStore.category);
-  const menuItems = data.filter(el => el.topCategory === categoryStore.topCategory);
-  const subMenuItemsDrinks = menuItems[0].subCategory
-    ? menuItems.find(el => el.category === currentCategory)
-    : null;
+  dishes
+    .filter(el => el.topCategory === categoryStore.topCategory)
+    .forEach(el => {
+      if (!categories.includes(el.category)) {
+        categories.push(el.category);
+
+        console.log(el.category);
+        console.log(categories);
+      }
+    });
+  const [currentCategory, setCurrentCategory] = useState(categories[0]);
+
+  const menu = dishes
+    .filter(el => el.topCategory === categoryStore.topCategory)
+    .filter(el => el.category === categories[0]);
+
+  console.log("categories", categories);
+  console.log("currentCategory------------", currentCategory);
 
   return (
     <div
       className={`${page === "admin" ? "w-[calc(100%-300px)] h-[247px]" : "w-[1116px]"} mx-auto`}
     >
       {/* блок для субкатегорій, є у категорії напоїв */}
-      {categoryStore.topCategory === "drinks" && subMenuItemsDrinks && (
+      {/* {categoryStore.topCategory === "drinks" && subMenuItemsDrinks && (
         <div className="w-[735px] flex gap-x-4 justify-between mx-auto">
           {subMenuItemsDrinks.subCategory.map(el => (
             <button key={el} onClick={() => categoryStore.setSubCategory(el)}>
@@ -49,24 +64,24 @@ const CategoriesList = observer(({ page }) => {
             </button>
           ))}
         </div>
-      )}
+      )} */}
 
       {page !== "admin" && (
         <>
           <div className="w-full flex gap-x-[46px]">
             {/* бічне меню із розділами */}
             <div className="w-[273px] flex flex-col gap-y-2 pt-7">
-              {menuItems.map(el => (
+              {categories.map((el, index) => (
                 <button
-                  key={el.id}
-                  onClick={() => setCurrentCategory(el.category)}
+                  key={el}
+                  onClick={() => setCurrentCategory(el)}
                   className={`w-full py-[14px] px-2 text-18 uppercase ${
-                    el.category === currentCategory
+                    el === currentCategory
                       ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
                       : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
                   }`}
                 >
-                  {el.category}
+                  {el} {index}
                 </button>
               ))}
             </div>
@@ -85,7 +100,7 @@ const CategoriesList = observer(({ page }) => {
               <div className="flex flex-col gap-y-4">
                 {page === "order"
                   ? dishes.map(item => <MenuDeliveryItem key={item._id} item={item} />)
-                  : dishes.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
+                  : menu.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
               </div>
             </div>
           </div>
