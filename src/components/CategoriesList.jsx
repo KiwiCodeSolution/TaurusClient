@@ -10,68 +10,81 @@ import TotalPrice from "./TotalPrice";
 import MenuDeliveryItem from "./MenuDeliveryItem";
 
 const CategoriesList = observer(({ page }) => {
-  useEffect(() => {
-    setCurrentCategory(
-      categoryStore.topCategory === "основне меню"
-        ? "холодні страви"
-        : categoryStore.topCategory === "напої"
-        ? "пиво"
-        : "тістечка"
-    );
-  }, [categoryStore.topCategory]);
-
-  useEffect(() => {
-    dishesStore.getDishesAction();
-  }, []);
-
   const dishes = dishesStore.dishes;
 
-  // const subMenuItemsDrinks = menuItems[0].subCategory
-  //   ? menuItems.find(el => el.category === currentCategory)
-  //   : null;
-
   const categories = [];
+  const subCategories = [];
 
   dishes
     .filter(el => el.topCategory === categoryStore.topCategory)
     .forEach(el => {
       if (!categories.includes(el.category)) {
         categories.push(el.category);
-
-        console.log(el.category);
-        console.log(categories);
       }
     });
+
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
+  const [currentSubCategory, setCurrentSubCategory] = useState(subCategories[0]);
 
-  const menu = dishes
-    .filter(el => el.topCategory === categoryStore.topCategory)
-    .filter(el => el.category === categories[0]);
+  useEffect(() => {
+    setCurrentCategory(categories[0]);
+  }, [categoryStore.topCategory]);
 
-  console.log("categories", categories);
-  console.log("currentCategory------------", currentCategory);
+  const menu = dishes.filter(
+    el => el.topCategory === categoryStore.topCategory && el.category === currentCategory
+  );
+
+  const subMenuItemsDrinks = dishes.filter(
+    el => el.topCategory === "напої" && el.subCategory !== ""
+  );
+
+  dishes
+    .filter(
+      el => el.topCategory === "напої" && el.subCategory !== "" && el.category === currentCategory
+    )
+    .forEach(el => {
+      if (!subCategories.includes(el.subCategory)) {
+        subCategories.push(el.subCategory);
+      }
+    });
+
+  console.log("currentSubCategory", currentSubCategory);
+
+  const menuDrinks = dishes.filter(
+    el => el.topCategory === "напої" && el.subCategory === currentSubCategory
+  );
+
+  console.log("menuDrinks", menuDrinks);
+
+  function changeCategory(category, subCategory) {
+    if (subCategory) {
+      setCurrentCategory(category);
+      setCurrentSubCategory(subCategory);
+    }
+    setCurrentSubCategory(subCategory);
+  }
 
   return (
     <div
       className={`${page === "admin" ? "w-[calc(100%-300px)] h-[247px]" : "w-[1116px]"} mx-auto`}
     >
       {/* блок для субкатегорій, є у категорії напоїв */}
-      {/* {categoryStore.topCategory === "drinks" && subMenuItemsDrinks && (
+      {categoryStore.topCategory === "напої" && subMenuItemsDrinks && (
         <div className="w-[735px] flex gap-x-4 justify-between mx-auto">
-          {subMenuItemsDrinks.subCategory.map(el => (
-            <button key={el} onClick={() => categoryStore.setSubCategory(el)}>
+          {subCategories.map(el => (
+            <button key={el} onClick={() => setCurrentSubCategory(el)}>
               {el}
             </button>
           ))}
         </div>
-      )} */}
+      )}
 
       {page !== "admin" && (
         <>
           <div className="w-full flex gap-x-[46px]">
             {/* бічне меню із розділами */}
             <div className="w-[273px] flex flex-col gap-y-2 pt-7">
-              {categories.map((el, index) => (
+              {categories.map(el => (
                 <button
                   key={el}
                   onClick={() => setCurrentCategory(el)}
@@ -81,7 +94,7 @@ const CategoriesList = observer(({ page }) => {
                       : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
                   }`}
                 >
-                  {el} {index}
+                  {el}
                 </button>
               ))}
             </div>
@@ -97,11 +110,27 @@ const CategoriesList = observer(({ page }) => {
                 <p className="text-14 text-beige">Назва</p>
                 <p className="text-14 text-beige">Ціна</p>
               </div>
-              <div className="flex flex-col gap-y-4">
-                {page === "order"
-                  ? dishes.map(item => <MenuDeliveryItem key={item._id} item={item} />)
-                  : menu.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
-              </div>
+
+              {/* не напої */}
+
+              {categoryStore.topCategory !== "напої" && (
+                <div className="flex flex-col gap-y-4">
+                  {page === "order"
+                    ? menu.map(item => <MenuDeliveryItem key={item._id} item={item} />)
+                    : menu.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
+                </div>
+              )}
+
+              {/* напої */}
+              {categoryStore.topCategory === "напої" && (
+                <div className="flex flex-col gap-y-4">
+                  {page === "order"
+                    ? menuDrinks.map(item => <MenuDeliveryItem key={item._id} item={item} />)
+                    : menuDrinks.map(item => (
+                        <MenuItem key={item._id} item={item} section={"menu"} />
+                      ))}
+                </div>
+              )}
             </div>
           </div>
           {page === "order" && <TotalPrice />}

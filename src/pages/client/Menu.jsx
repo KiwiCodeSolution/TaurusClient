@@ -19,9 +19,9 @@ const Menu = observer(() => {
       <main className="relative w-full">
         <img
           src={
-            filterStore.topCategory === "dishes"
+            filterStore.topCategory === "основне меню"
               ? "/images/menu/dishes.jpg"
-              : filterStore.topCategory === "desserts"
+              : filterStore.topCategory === "десерти"
               ? "/images/menu/desserts.jpg"
               : "/images/menu/drinks.jpg"
           }

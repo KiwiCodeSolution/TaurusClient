@@ -24,7 +24,6 @@ const Order = observer(() => {
   }
 
   const isDisabled = orderStore.items?.length <= 0;
-  console.log(isDisabled);
 
   return (
     <>
@@ -33,9 +32,9 @@ const Order = observer(() => {
       <main className="relative w-full">
         <img
           src={
-            filterStore.topCategory === "dishes"
+            filterStore.topCategory === "основне меню"
               ? "/images/order/dishes.png"
-              : filterStore.topCategory === "desserts"
+              : filterStore.topCategory === "десерти"
               ? "/images/order/desserts.png"
               : "/images/order/drinks.png"
           }
