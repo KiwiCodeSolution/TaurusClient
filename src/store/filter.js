@@ -26,6 +26,10 @@ class Filter {
   setSubCategory = text => {
     this.subCategory = text;
   };
+
+  reset() {
+    this.topCategory = "основне меню";
+  }
 }
 
 export default new Filter();

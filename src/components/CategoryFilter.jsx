@@ -28,13 +28,11 @@ const ICONS = [
 ];
 
 const CategoryFilter = observer(({ page }) => {
-  const [currentTopTitle, setCurrentTopTitle] = useState("основне меню");
+  const [currentTopTitle, setCurrentTopTitle] = useState(categoryStore.topCategory);
 
-  const [currentId, setCurrentId] = useState("1");
-
-  function handleChangeCategory(topCategoryName, title, id) {
+  function handleChangeCategory(topCategoryName, title) {
     setCurrentTopTitle(title);
-    setCurrentId(id);
+
     categoryStore.setTopCategory(topCategoryName);
   }
 
@@ -53,14 +51,14 @@ const CategoryFilter = observer(({ page }) => {
             page === "admin" ? "mb-10" : "mb-9"
           } flex gap-x-4 items-center justify-center w-full`}
         >
-          {page !== "admin" && <icons.Devices />}
+          {page !== "admin" && page !== "order" && <icons.Devices />}
 
           <h1
             className={`${
               page === "admin" ? "text-[32px] mt-12 mb-1" : "text-[53px]"
             }  text-beige uppercase`}
           >
-            Меню
+            {page !== "order" ? "Меню" : "Меню доставки"}
           </h1>
         </li>
         <li
@@ -72,7 +70,7 @@ const CategoryFilter = observer(({ page }) => {
             <button
               key={id + topCategoryName}
               className={`flex items-center justify-between hover:underline hover:underline-offset-4 menu-list py-[29px] ${
-                id === currentId
+                title === categoryStore.topCategory
                   ? "text-base-orange hover:underline hover:underline-offset-4"
                   : "text-beige"
               } 
@@ -81,14 +79,14 @@ const CategoryFilter = observer(({ page }) => {
                   ? "w-[237px] h-[55px] hover:text-base-yellow"
                   : "w-[208px] h-[208px] flex-col"
               }
-               ${page === "admin" && id === currentId ? "bg-dark-btn-bg" : ""}
+               ${page === "admin" && title === categoryStore.topCategory ? "bg-dark-btn-bg" : ""}
                `}
               onClick={() => handleChangeCategory(topCategoryName, title, id)}
               // onMouseEnter={() => handleId(id)}
             >
               {page !== "admin" && (
                 <div className="w-[112px] h-[112px] flex pb-6 items-end justify-center">
-                  {id === currentId ? <IconHover /> : <Icon />}
+                  {title === categoryStore.topCategory ? <IconHover /> : <Icon />}
                 </div>
               )}
 

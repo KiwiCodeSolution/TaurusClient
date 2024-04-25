@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
+
 import categoryStore from "../store/filter";
 import dishesStore from "../store/dishes";
 
@@ -8,12 +8,19 @@ import { useEffect, useState } from "react";
 import MenuItem from "./MenuItem";
 import TotalPrice from "./TotalPrice";
 import MenuDeliveryItem from "./MenuDeliveryItem";
+import SubMenuSwiper from "./SubMenuSwiper";
 
 const CategoriesList = observer(({ page }) => {
+  useEffect(() => {
+    categoryStore.reset();
+  }, []);
+
   const dishes = dishesStore.dishes;
 
-  const categories = [];
-  const subCategories = [];
+  const categories = []; //бічне меню
+  const subCategories = []; //суб меню у напоях
+
+  //формуємо бічне меню
 
   dishes
     .filter(el => el.topCategory === categoryStore.topCategory)
@@ -24,20 +31,23 @@ const CategoriesList = observer(({ page }) => {
     });
 
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
-  const [currentSubCategory, setCurrentSubCategory] = useState(subCategories[0]);
+  const [currentSubCategory, setCurrentSubCategory] = useState("");
 
   useEffect(() => {
     setCurrentCategory(categories[0]);
   }, [categoryStore.topCategory]);
 
+  // виводимо страви в залежності від топ та бічного меню
   const menu = dishes.filter(
     el => el.topCategory === categoryStore.topCategory && el.category === currentCategory
   );
 
+  // всі елементи у розділі напоїв
   const subMenuItemsDrinks = dishes.filter(
     el => el.topCategory === "напої" && el.subCategory !== ""
   );
 
+  // формуємо суб меню: топ = напої, суб не пусто та поточна категорія
   dishes
     .filter(
       el => el.topCategory === "напої" && el.subCategory !== "" && el.category === currentCategory
@@ -48,35 +58,32 @@ const CategoriesList = observer(({ page }) => {
       }
     });
 
-  console.log("currentSubCategory", currentSubCategory);
-
+  //формуємо переік напоїв, які вібповідають активному бічному меню та меню зверху.
   const menuDrinks = dishes.filter(
-    el => el.topCategory === "напої" && el.subCategory === currentSubCategory
+    el => el.topCategory === "напої" && el.subCategory === (currentSubCategory || subCategories[0])
   );
 
-  console.log("menuDrinks", menuDrinks);
+  function changeCategory(category) {
+    setCurrentCategory(category);
+    setCurrentSubCategory("");
+  }
 
-  function changeCategory(category, subCategory) {
-    if (subCategory) {
-      setCurrentCategory(category);
-      setCurrentSubCategory(subCategory);
-    }
-    setCurrentSubCategory(subCategory);
+  function changeSubCategory(sub) {
+    setCurrentSubCategory(sub);
+    categoryStore.setSubCategory(sub);
   }
 
   return (
     <div
-      className={`${page === "admin" ? "w-[calc(100%-300px)] h-[247px]" : "w-[1116px]"} mx-auto`}
+      className={`${
+        page === "admin" ? "w-[calc(100%-300px)] h-[247px]" : "w-[1116px]"
+      } mx-auto categories relative`}
     >
       {/* блок для субкатегорій, є у категорії напоїв */}
       {categoryStore.topCategory === "напої" && subMenuItemsDrinks && (
-        <div className="w-[735px] flex gap-x-4 justify-between mx-auto">
-          {subCategories.map(el => (
-            <button key={el} onClick={() => setCurrentSubCategory(el)}>
-              {el}
-            </button>
-          ))}
-        </div>
+        // <div className="w-[735px] flex gap-x-4 justify-between mx-auto">
+        <SubMenuSwiper items={subCategories} fnc={changeSubCategory} />
+        // </div>
       )}
 
       {page !== "admin" && (
@@ -87,7 +94,7 @@ const CategoriesList = observer(({ page }) => {
               {categories.map(el => (
                 <button
                   key={el}
-                  onClick={() => setCurrentCategory(el)}
+                  onClick={() => changeCategory(el)}
                   className={`w-full py-[14px] px-2 text-18 uppercase ${
                     el === currentCategory
                       ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"

@@ -42,7 +42,7 @@ const Order = observer(() => {
           className="w-full h-[416px] object-cover object-top border-b-[0.5px] border-base-brown"
         />
         <section className="wrapper w-full section-wrapper py-16">
-          <CategoryFilter />
+          <CategoryFilter page="order" />
           <CategoriesList page="order" />
           <div className="w-full flex justify-center mt-10">
             <Button
