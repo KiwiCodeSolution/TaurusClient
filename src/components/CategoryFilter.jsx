@@ -34,6 +34,7 @@ const CategoryFilter = observer(({ page }) => {
     setCurrentTopTitle(title);
 
     categoryStore.setTopCategory(topCategoryName);
+    console.log(categoryStore.topCategory);
   }
 
   // function handleId(id) {

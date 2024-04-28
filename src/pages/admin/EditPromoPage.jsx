@@ -30,7 +30,7 @@ const EditPromoPage = () => {
             <ArrowBack className={"fill-beige"} />
             Повернутись
           </Link>
-          {/* <PromoForm item={currentPromo} /> */}
+          <PromoForm />
         </div>
       </section>
     </>

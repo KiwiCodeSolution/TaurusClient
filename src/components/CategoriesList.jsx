@@ -80,11 +80,27 @@ const CategoriesList = observer(({ page }) => {
       } mx-auto categories relative`}
     >
       {/* блок для субкатегорій, є у категорії напоїв */}
-      {categoryStore.topCategory === "напої" && subMenuItemsDrinks && (
-        // <div className="w-[735px] flex gap-x-4 justify-between mx-auto">
-        <SubMenuSwiper items={subCategories} fnc={changeSubCategory} />
-        // </div>
-      )}
+      {categoryStore.topCategory === "напої" &&
+        subMenuItemsDrinks &&
+        (subCategories.length <= 2 ? (
+          <div className="w-[735px] flex gap-x-4 justify-center mx-auto mb-[18px]">
+            {subCategories.map(el => (
+              <button
+                key={el}
+                onClick={() => changeSubCategory(el)}
+                className={`text-xl ${
+                  el === currentSubCategory
+                    ? "text-base-orange hover:underline hover:underline-offset-4"
+                    : "text-beige hover:text-base-yellow hover:underline hover:underline-offset-4"
+                }  uppercase mx-auto `}
+              >
+                {el}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <SubMenuSwiper items={subCategories} fnc={changeSubCategory} />
+        ))}
 
       {page !== "admin" && (
         <>

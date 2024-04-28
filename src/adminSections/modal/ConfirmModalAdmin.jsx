@@ -10,11 +10,11 @@ import { Cross } from "../../icons/iconComponent";
 const modalRoot = document.querySelector("#confirm-modal-admin-root");
 
 const ConfirmModalAdmin = observer(
-  ({ children, stylesPopUp, stylesOverlay, clickFn, confirmFn }) => {
+  ({ children, stylesPopUp, stylesOverlay, chancelFn, confirmFn }) => {
     const [blockScroll, allowScroll] = useScrollBlock();
 
     function closeModal() {
-      clickFn();
+      chancelFn();
       allowScroll();
     }
 
@@ -69,7 +69,7 @@ const ConfirmModalAdmin = observer(
 
 ConfirmModalAdmin.propTypes = {
   children: PropTypes.node.isRequired,
-  clickFn: PropTypes.func.isRequired,
+  chancelFn: PropTypes.func.isRequired,
   confirmFn: PropTypes.func.isRequired,
   stylesOverlay: PropTypes.string,
   stylesPopUp: PropTypes.string,

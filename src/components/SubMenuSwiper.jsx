@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react-refresh/only-export-components */
 import React, { Component } from "react";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react";
-import categoryStore from "../store/filter";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,26 +12,26 @@ import { ArrowUp } from "../icons/iconComponent";
 function SampleNextArrow(props) {
   const { style, onClick } = props;
   return (
-    <div
-      className={`-top-[58px] right-[5px] `}
+    <button
+      className={`-top-1/3 right-0 absolute w-12 h-12 rounded-full border border-base-beige justify-center hover:border-base-orange`}
       style={{ ...style, display: "flex", alignItems: "center" }}
       onClick={onClick}
     >
       <ArrowUp className={"rotate-90"} />
-    </div>
+    </button>
   );
 }
 
 function SamplePrevArrow(props) {
   const { style, onClick } = props;
   return (
-    <div
-      className={`-top-[58px] left-[5px] xl:left-0 xl:right-[173px] `}
+    <button
+      className={`-top-1/3 left-0 absolute w-12 h-12 rounded-full border border-base-beige justify-center hover:border-base-orange`}
       style={{ ...style, display: "flex", alignItems: "center" }}
       onClick={onClick}
     >
       <ArrowUp className={"-rotate-90"} />
-    </div>
+    </button>
   );
 }
 
@@ -39,14 +40,20 @@ class SubMenuSwiper extends Component {
     super(props);
 
     this.state = {
-      active: this.props.items[0],
+      active: "",
     };
 
     this.sliderRef = React.createRef();
   }
 
+  setActive(el) {
+    this.setState({ active: el });
+    this.props.fnc(el);
+  }
+
   render() {
-    const { items, fnc } = this.props;
+    const { items } = this.props;
+    const { active } = this.state;
     const settings = {
       infinite: true,
       speed: 500,
@@ -56,23 +63,21 @@ class SubMenuSwiper extends Component {
       prevArrow: <SamplePrevArrow />,
     };
 
-    console.log(categoryStore.subCategory);
-
     return (
       <Slider
         ref={this.sliderRef}
         {...settings}
-        className="z-0 w-[735px] flex gap-x-[94px] px-[94px] justify-between mx-auto"
+        className="z-0 w-[735px] flex gap-x-[94px] px-[94px] justify-between mx-auto mb-[18px]"
       >
         {items.map(el => (
           <div key={el} className="mx-auto">
             <button
-              onClick={() => fnc(el)}
+              onClick={() => this.setActive(el)}
               className={`text-xl ${
-                el === this.state.active
+                el === active
                   ? "text-base-orange hover:underline hover:underline-offset-4"
                   : "text-beige hover:text-base-yellow hover:underline hover:underline-offset-4"
-              }  uppercase mx-auto `}
+              } uppercase mx-auto `}
             >
               {el}
             </button>

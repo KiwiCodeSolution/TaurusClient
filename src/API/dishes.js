@@ -48,6 +48,18 @@ export const updateDish = async dish => {
   }
 };
 
+export const updateDishAvialable = async dish => {
+  try {
+    const updatedDish = { available: dish.available }; // Створюємо об'єкт тільки з полем available
+    const result = await axios.put(`${baseServerURL}product/${dish._id}`, updatedDish);
+    toast.success("Інформацію оновлено!", options);
+    return result;
+  } catch (error) {
+    toast.error("Такої страви не існує!", options);
+    return { error: error.message };
+  }
+};
+
 export const deleteDish = async dish => {
   try {
     const result = await axios.delete(`${baseServerURL}product/${dish._id}`);

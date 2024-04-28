@@ -78,7 +78,7 @@ const CartPopup = observer(({ clickFn, formFn }) => {
             </Button>
           </>
         ) : (
-          <Form namePage="order" clickFn={formFn} />
+          <Form namePage="order" clickFn={formFn} delivery={"Доставка"} />
         )}
       </Overlay>
     </>

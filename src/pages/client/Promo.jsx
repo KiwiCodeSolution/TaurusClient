@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import MetaData from "../../components/MetaData";
 import PromoItem from "../../components/PromoItem";
+import PromoSwiper from "../../components/PromoSwiper";
 import TitlePage from "../../components/TitlePage";
 
 export const PROMO_ITEMS = [
@@ -41,12 +42,8 @@ const Promo = () => {
   return (
     <>
       <MetaData>Акції ресторану</MetaData>
-      <section>
-        <img
-          src=""
-          alt=""
-          className="w-full h-[416px] object-cover border-b-[0.5px] border-base-brown"
-        />
+      <section className="relative">
+        <PromoSwiper />
         <div className="w-full mx-auto wrapper">
           <TitlePage>Акції</TitlePage>
 

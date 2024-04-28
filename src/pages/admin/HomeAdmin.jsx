@@ -40,7 +40,7 @@ const HomeAdmin = () => {
                 to={"/admin/access/users/staff"}
                 className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
               >
-                Управління користувачами
+                Управління доступами
               </NavLink>
               <Button
                 style={"orange"}

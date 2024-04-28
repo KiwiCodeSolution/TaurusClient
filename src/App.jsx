@@ -6,6 +6,8 @@ import { observer } from "mobx-react-lite";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./components/Loader";
 import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
+import Archive from "./pages/admin/ArchivePage";
+import HidePage from "./pages/admin/HidePage";
 
 
 
@@ -60,7 +62,9 @@ const App = observer(() => {
             <Route path="menu" element={<PrivateRoute> <MenuAdmin /> </PrivateRoute>}/>
             <Route path="menu/:_id" element={<PrivateRoute> <EditDishPage /> </PrivateRoute>}/>
             <Route path="menu/create" element={<PrivateRoute> <CreateDishPage /> </PrivateRoute>}/>
-            <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="menu/archive" element={<PrivateRoute> <Archive /> </PrivateRoute>}/>
+            <Route path="menu/hide" element={<PrivateRoute> <HidePage /> </PrivateRoute>}/>
+            <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/><Route path="promo/create" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
                <Route path="promo/:_id" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
             <Route path="delivery" element={<PrivateRoute> <MenuDeliveryAdmin /> </PrivateRoute>}/>
             

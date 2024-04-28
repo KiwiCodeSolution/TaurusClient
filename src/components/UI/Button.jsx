@@ -11,6 +11,8 @@ const buttonsStyle = {
   count: "w-[71px] h-fill flex justify-center items-center",
   check: "w-30 px-4 text-xl flex justify-center items-center h-[30px] rounded",
   gray: "w-fit h-[38px] py-[6px] px-3 bg-dark-btn-bg border border-beige text-16 text-beige flex items-center gap-x-2",
+  admin:
+    "w-fit h-[38px] py-[6px] px-3 border border-beige text-beige text-16 flex items-center gap-x-2 hover:border-base-orange hover:text-base-orange btn-admin",
 };
 
 const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, ...restProps }) => {
@@ -35,8 +37,16 @@ const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, .
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.oneOf(["transparent", "contacts", "orange", "round", "count", "check", "gray"])
-    .isRequired,
+  style: PropTypes.oneOf([
+    "transparent",
+    "contacts",
+    "orange",
+    "round",
+    "count",
+    "check",
+    "gray",
+    "admin",
+  ]).isRequired,
   btnType: PropTypes.string,
   icon: PropTypes.element,
   clickFn: PropTypes.func,

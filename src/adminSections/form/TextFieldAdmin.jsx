@@ -2,7 +2,17 @@ import PropTypes from "prop-types";
 import { useController } from "react-hook-form";
 import { Cross } from "../../icons/iconComponent";
 
-const TextFieldAdmin = ({ control, name, defaultValue, onReset, style, label, isRequired }) => {
+const TextFieldAdmin = ({
+  control,
+  name,
+  defaultValue,
+  onReset,
+  style,
+  label,
+  isRequired,
+  type,
+  placeholder,
+}) => {
   const { field, fieldState } = useController({
     name,
     control,
@@ -14,16 +24,25 @@ const TextFieldAdmin = ({ control, name, defaultValue, onReset, style, label, is
       <label htmlFor={name} className="text-14 text-beige mb-2">
         {label} {isRequired && <span className="text-base-orange">*</span>}
       </label>
-      <input
-        name={name}
-        id={name}
-        type="input"
-        className={`${
-          name === "name" ? "uppercase" : ""
-        } h-9 px-2 py-1 bg-dark-btn-bg  rounded-[4px]`}
-        {...field}
-        value={field.value}
-      />
+      {type === "input" ? (
+        <input
+          name={name}
+          id={name}
+          type="input"
+          className={`${
+            name === "title" ? "uppercase" : ""
+          } h-9 px-2 py-1 bg-dark-btn-bg rounded-[4px]`}
+          {...field}
+          value={field.value}
+        />
+      ) : (
+        <textarea
+          {...field}
+          placeholder={placeholder}
+          name={name}
+          className={`px-2 py-1 bg-dark-btn-bg rounded-[4px]`}
+        />
+      )}
       <button
         type="button"
         className="absolute top-1/2 right-0 form_button"
@@ -48,6 +67,8 @@ TextFieldAdmin.propTypes = {
   onReset: PropTypes.func.isRequired,
   style: PropTypes.string,
   isRequired: PropTypes.bool,
+  placeholder: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default TextFieldAdmin;

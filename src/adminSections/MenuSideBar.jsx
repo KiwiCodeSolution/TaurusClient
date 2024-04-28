@@ -6,7 +6,6 @@ const MENULINKS = [
   { id: "1", name: "Меню", link: "/admin/access/site/menu" },
   { id: "2", name: "Меню доставки", link: "/admin/access/site/delivery" },
   { id: "3", name: "Акції", link: "/admin/access/site/promo" },
-  { id: "4", name: "add", link: "/admin/access/site/menu/create" },
 ];
 
 const RESTAURANTLINKS = [

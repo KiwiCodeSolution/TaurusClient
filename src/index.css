@@ -74,6 +74,10 @@
   }
 }
 
+.body-scroll-lock {
+  overflow: hidden;
+}
+
 .logo:hover svg,
 .logo:hover path {
   fill: #ffd698;
@@ -358,4 +362,16 @@ button:hover .icon-up {
   fill: #f7a033;
   transition-duration: 250ms;
   transition-timing-function: ease;
+}
+
+.categories .slick-slider {
+  position: relative;
+}
+
+.button-navigate svg {
+  fill: #f7a033;
+}
+
+.btn-admin:hover svg {
+  fill: #f7a033;
 }

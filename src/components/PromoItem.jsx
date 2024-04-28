@@ -21,12 +21,12 @@ const PromoItem = ({ item, type }) => {
       </div>
       <div className="w-full flex justify-between items-center">
         <h3 className="uppercase text-18 leading-[27px] text-base-yellow">{title}</h3>
-        <div className="w-[35px] h-[34px] flex justify-center items-center relative">
+        {/* <div className="w-[35px] h-[34px] flex justify-center items-center relative">
           <icons.Heart className={"absolute top-0 left-0"} />
           <p className="text-xs text-white leading-[15px] font-semibold absolute top-1/4 left-1/2 -translate-x-1/2 z-10">
             {proposal}
           </p>
-        </div>
+        </div> */}
       </div>
       <p className="w-full text-center text-16 leading-6 text-beige">
         {text} <span className="font-semibold text-base-orange">{sale}.</span>

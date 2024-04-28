@@ -8,7 +8,7 @@ const MenuAdminItem = observer(() => {
     dishesStore.getDishesAction();
   }, []);
 
-  const dishes = dishesStore.dishes;
+  const dishes = dishesStore.dishes.filter(el => el.available);
 
   return (
     <section className="flex flex-col gp-y-1">

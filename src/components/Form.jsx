@@ -48,7 +48,7 @@ const TEXT_FIELDS = [
     defaultValue: "",
     placeholder: "Введіть текст",
     type: "textarea",
-    style: "order-5",
+    style: "order-6",
   },
 ];
 
@@ -65,7 +65,7 @@ const options = [
   { value: "10", label: "10 осіб" },
 ];
 
-const Form = observer(({ namePage, clickFn }) => {
+const Form = observer(({ namePage, clickFn, delivery }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -77,6 +77,7 @@ const Form = observer(({ namePage, clickFn }) => {
     quantity: null,
     date: new Date(),
     consent: false,
+    address: "",
   };
 
   const {
@@ -183,8 +184,20 @@ const Form = observer(({ namePage, clickFn }) => {
           />
         ))}
 
+        {delivery === "Доставка" && (
+          <TextField
+            control={control}
+            name="address"
+            placeholder="Введіть Вашу адресу"
+            label="Вашa адреса"
+            onReset={() => handleReset(name)}
+            type="input"
+            style="order-4"
+          />
+        )}
+
         {namePage !== "contacts" && (
-          <div className="w-full flex justify-between order-4">
+          <div className="w-full flex justify-between order-5">
             {/* ------------------ persons --------------- */}
             {namePage === "reserve" && (
               <Controller
@@ -199,7 +212,7 @@ const Form = observer(({ namePage, clickFn }) => {
                       name="quantity"
                       isSearchable={true}
                       placeholder="Кількість осіб"
-                      style={"order-6"}
+                      style={"order-7"}
                       label="Кількість людей"
                     />
                   </>
