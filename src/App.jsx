@@ -64,7 +64,8 @@ const App = observer(() => {
             <Route path="menu/create" element={<PrivateRoute> <CreateDishPage /> </PrivateRoute>}/>
             <Route path="menu/archive" element={<PrivateRoute> <Archive /> </PrivateRoute>}/>
             <Route path="menu/hide" element={<PrivateRoute> <HidePage /> </PrivateRoute>}/>
-            <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/><Route path="promo/create" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
+            <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="promo/create" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
                <Route path="promo/:_id" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
             <Route path="delivery" element={<PrivateRoute> <MenuDeliveryAdmin /> </PrivateRoute>}/>
             

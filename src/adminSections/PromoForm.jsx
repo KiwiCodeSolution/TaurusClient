@@ -2,11 +2,12 @@ import { observer } from "mobx-react-lite";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import TextFieldAdmin from "./form/TextFieldAdmin";
+import FileFieldAdmin from "./form/FileFieldAdmin";
 
 const FIELDS = [
   {
     id: "1",
-    name: "title",
+    name: "name",
     label: "Назва акції",
     style: "",
     isRequired: true,
@@ -67,10 +68,11 @@ const PromoForm = observer(({ item, type }) => {
   const defaultValues = {
     name: item?.name || "",
     description: item?.description || "",
-    englishName: item?.englishName || "",
-    price: item?.price || "",
-    discount_price: item?.discount_price || "",
-    weight: item?.weight || "",
+    newPrice: item?.newPrice || "",
+    oldPrice: item?.oldPrice || "",
+    label: item?.label || "",
+    description_img: item?.description_img || "",
+    image: item?.image || "",
   };
 
   const {
@@ -93,6 +95,7 @@ const PromoForm = observer(({ item, type }) => {
   };
 
   const handleReset = fieldName => {
+    console.log(fieldName);
     resetField(fieldName);
   };
 
@@ -131,14 +134,26 @@ const PromoForm = observer(({ item, type }) => {
               />
             ))}
           </div>
-          <div className="w-[288px]">
+          <div className="w-[288px] flex flex-col">
             <TextFieldAdmin
               control={control}
               name="description_img"
               label="Опис картинки"
               onReset={() => handleReset("description_img")}
               isRequired={true}
+              type={"input"}
             />
+            <div className="flex items-start">
+              <img src="" alt="" />
+
+              <FileFieldAdmin
+                control={control}
+                name="image"
+                label="Зображення"
+                onReset={() => handleReset("image")}
+                isRequired={true}
+              />
+            </div>
           </div>
         </div>
       </form>

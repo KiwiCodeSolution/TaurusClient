@@ -7,6 +7,12 @@ import categoryStore from "../../store/filter";
 import MenuItem from "../../components/MenuItem";
 import PageButtons from "../../components/PageButtons";
 
+const buttons = [
+  { label: "Додати позицію", link: "/admin/access/site/menu/create" },
+  { label: "Архів", link: "/admin/access/site/menu/archive" },
+  { label: "Переглянути приховані", link: "/admin/access/site/menu/hide" },
+];
+
 const MenuAdmin = observer(() => {
   useEffect(() => {
     dishesStore.getDishesAction();
@@ -23,7 +29,7 @@ const MenuAdmin = observer(() => {
       <MetaData>Перелік страв</MetaData>
       <section className="mx-auto w-[calc(100%-300px)] h-screen admin">
         <CategoryFilter page={"admin"} />
-        <PageButtons />
+        <PageButtons buttons={buttons} />
 
         <div className="w-[914px] h-[37px] p-2 flex mx-auto items-center justify-between bg-base-brown text-beige text-14 my-4">
           <span className="w-fit">Назва</span>
