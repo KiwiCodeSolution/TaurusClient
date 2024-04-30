@@ -1,13 +1,16 @@
 import { observer } from "mobx-react-lite";
-import { useForm, Controller } from "react-hook-form";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+
 import TextFieldAdmin from "./form/TextFieldAdmin";
 import FileFieldAdmin from "./form/FileFieldAdmin";
+import Button from "../components/UI/Button";
+import axios from "axios";
+import { baseServerURL } from "../API/config";
 
 const FIELDS = [
   {
     id: "1",
-    name: "name",
+    name: "title",
     label: "Назва акції",
     style: "",
     isRequired: true,
@@ -66,7 +69,7 @@ const FIELDS_PRICE = [
 
 const PromoForm = observer(({ item, type }) => {
   const defaultValues = {
-    name: item?.name || "",
+    title: item?.title || "",
     description: item?.description || "",
     newPrice: item?.newPrice || "",
     oldPrice: item?.oldPrice || "",
@@ -77,21 +80,36 @@ const PromoForm = observer(({ item, type }) => {
 
   const {
     control,
-    watch,
+    // watch,
     handleSubmit,
-    reset,
+    // reset,
     resetField,
+
     // setError,
   } = useForm({
-    mode: "onChange",
+    mode: "all",
     defaultValues: defaultValues,
   });
 
-  const onSubmit = data => {
-    console.log(data);
-    reset();
+  // const fileValue = watch("image");
+  // console.log(fileValue);
 
-    window.location.href = "/admin/access/site/menu";
+  const onSubmit = async data => {
+    console.log(data);
+
+    try {
+      const result = await axios.post(`${baseServerURL}promotions`, data);
+
+      console.log("result", result.data);
+
+      return;
+    } catch (error) {
+      return { error: error.message };
+    }
+
+    // reset();
+
+    // window.location.href = "/admin/access/site/menu";
   };
 
   const handleReset = fieldName => {
@@ -144,8 +162,6 @@ const PromoForm = observer(({ item, type }) => {
               type={"input"}
             />
             <div className="flex items-start">
-              <img src="" alt="" />
-
               <FileFieldAdmin
                 control={control}
                 name="image"
@@ -156,6 +172,13 @@ const PromoForm = observer(({ item, type }) => {
             </div>
           </div>
         </div>
+        <Button
+          style={"orange"}
+          btnClass="order-10 mt-6 text-center text-18 font-medium"
+          type="submit"
+        >
+          Відправити
+        </Button>
       </form>
     </>
   );
