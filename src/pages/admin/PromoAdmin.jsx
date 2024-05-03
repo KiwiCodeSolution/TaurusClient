@@ -1,6 +1,6 @@
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
-import PageButtons from "../../components/PageButtons";
+import PageButtons from "../../adminSections/PageButtons";
 import PromoItem from "../../components/PromoItem";
 import { PROMO_ITEMS } from "../client/Promo";
 

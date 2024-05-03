@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
-import Button from "./UI/Button";
+import Button from "../components/UI/Button";
 import { Add, Archive, Show } from "../icons/iconComponent";
 
 const PageButtons = ({ buttons }) => {
@@ -11,28 +11,29 @@ const PageButtons = ({ buttons }) => {
       <Button style={"admin"}>
         <Link
           to={buttons[0].link}
-          className={"flex gap-x-2 items-center"}
+          className={"flex gap-x-2 items-center nav-link"}
           state={{ from: location }}
         >
-          <Add className={"fill-beige"} /> {buttons[0].label}
+          <Add className={"fill-beige"} />
+          <span>{buttons[0].label}</span>
         </Link>
       </Button>
       <Button style={"admin"}>
         <Link
           to={buttons[1].link}
-          className={"flex gap-x-2 items-center"}
+          className={"flex gap-x-2 items-center nav-link"}
           state={{ from: location }}
         >
-          <Archive className={"fill-beige"} /> {buttons[1].label}
+          <Archive className={"fill-beige"} /> <span>{buttons[1].label}</span>
         </Link>
       </Button>
       <Button style={"admin"}>
         <Link
           to={buttons[2].link}
-          className={"flex gap-x-2 items-center"}
+          className={"flex gap-x-2 items-center nav-link"}
           state={{ from: location }}
         >
-          <Show /> {buttons[2].label}
+          <Show className={"fill-beige"} /> <span>{buttons[2].label}</span>
         </Link>
       </Button>
     </div>
@@ -40,11 +41,12 @@ const PageButtons = ({ buttons }) => {
 };
 
 PageButtons.propTypes = {
-  buttons: PropTypes.shape({
-    link: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  }).isRequired,
-  type: PropTypes.string,
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({
+      link: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default PageButtons;

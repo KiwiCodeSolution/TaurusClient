@@ -40,20 +40,24 @@ const PromoItem = ({ item, type }) => {
       )}
       {type === "admin" ? (
         <div className="w-full flex justify-between items-center gap-x-4 mt-1">
-          <Link
-            className="cursor-pointer w-fit h-[38px] py-[6px] px-3 bg-dark-btn-bg border border-beige text-16 text-beige flex items-center gap-x-2 btn_gray hover:border-base-orange hover:text-base-orange"
-            to={`/admin/access/site/promo/${_id}`}
-            state={{ from: location }}
-          >
-            <icons.Edit className={"fill-beige hover:fill-base-orange"} /> Редагувати
-          </Link>
-
-          <Button
-            style={"transparent"}
-            btnClass="flex items-center justify-center gap-x-[6px] trash"
-          >
-            <icons.Trash className={"fill-white w-4 h-4"} /> Видалити
-          </Button>
+          <button className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-beige cursor-pointer ">
+            <Link
+              className="w-full flex items-center justify-center"
+              to={`/admin/access/site/promo/${_id}`}
+              state={{ from: location }}
+            >
+              <icons.Edit className={"fill-beige w-4 h-4"} />
+            </Link>
+          </button>
+          <button className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center">
+            <icons.Show className={"fill-white w-4 h-4"} />
+          </button>
+          <button className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center">
+            <icons.Archive className={"fill-white w-4 h-4"} />
+          </button>
+          <button className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center">
+            <icons.Trash className={"fill-white w-4 h-4"} />
+          </button>
         </div>
       ) : (
         <Button style="orange" btnClass="mt-auto">

@@ -30,8 +30,8 @@ const TextFieldAdmin = ({
           id={name}
           type="input"
           className={`${
-            name === "title" ? "uppercase" : ""
-          } h-9 px-2 py-1 bg-dark-btn-bg rounded-[4px]`}
+            name === "title" || name === "name" ? "uppercase" : ""
+          } h-9 px-2 py-1 bg-dark-btn-bg rounded-[4px] focus:outline outline-offset-2 outline-1 outline-beige `}
           {...field}
           value={field.value}
         />
@@ -40,7 +40,7 @@ const TextFieldAdmin = ({
           {...field}
           placeholder={placeholder}
           name={name}
-          className={`px-2 py-1 bg-dark-btn-bg rounded-[4px]`}
+          className={`px-2 py-1 bg-dark-btn-bg rounded-[4px] focus:outline outline-offset-2 outline-1 outline-beige`}
         />
       )}
       <button

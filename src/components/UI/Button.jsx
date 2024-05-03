@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 const buttonsStyle = {
   transparent:
     "w-[156px] h-[38px] px-3 py-[6px] border border-base-white text-base text-base-white hover:border-base-orange hover:text-base-orange",
+  beige:
+    "w-[156px] h-[38px] px-3 py-[6px] border border-beige text-base text-beige hover:border-base-orange hover:text-base-orange",
   contacts:
     "w-[156px] h-[38px] px-3 py-[6px] border border-base-white text-base text-base-white hover:border-base-orange hover:bg-base-orange hover:text-base-black",
   orange:
@@ -46,6 +48,7 @@ Button.propTypes = {
     "check",
     "gray",
     "admin",
+    "beige",
   ]).isRequired,
   btnType: PropTypes.string,
   icon: PropTypes.element,

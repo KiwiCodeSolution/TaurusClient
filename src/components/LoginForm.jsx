@@ -88,7 +88,7 @@ const LoginForm = observer(() => {
             onClick={togglePasswordVisibility}
             className="absolute top-1/2 right-2 password-btn h-6 w-6"
           >
-            {passwordVisible ? <Hide /> : <Show />}
+            {passwordVisible ? <Hide /> : <Show className={"fill-beige"}/>}
           </button>
 
           {errors.password && (

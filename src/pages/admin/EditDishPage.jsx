@@ -31,7 +31,7 @@ const EditDishPage = () => {
             <ArrowBack className={"fill-beige"} />
             Повернутись
           </Link>
-          <DishForm item={currentDish} />
+          <DishForm item={currentDish} type={"edit"} />
         </div>
       </section>
     </>

@@ -4,7 +4,7 @@ import CategoryFilter from "../../components/CategoryFilter";
 import { useEffect } from "react";
 import dishesStore from "../../store/dishes";
 import MenuItem from "../../components/MenuItem";
-import PageButtons from "../../components/PageButtons";
+import PageButtons from "../../adminSections/PageButtons";
 
 const buttons = [
   { label: "Додати позицію", link: "/admin/access/site/menu/create" },

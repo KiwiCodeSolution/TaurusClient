@@ -244,6 +244,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
                 name={"consent"}
                 onChecked={() => setIsChecked(!isChecked)}
                 isCheck={isChecked}
+                isRequired={true}
               />
             )}
           />

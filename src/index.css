@@ -316,14 +316,19 @@ button:hover .icon-up {
   stroke: #f7a033;
 }
 
-.show,
+/* .show,
 .hide {
   fill: #ecddc6;
-}
+} */
 
 .password-btn:hover .show,
 .password-btn:hover .hide {
   fill: #ffd698;
+}
+
+.btn-archive:hover .archive,
+.btn-show:hover .show {
+  fill: #f7a033;
 }
 
 .admin ::-webkit-scrollbar {
@@ -350,6 +355,8 @@ button:hover .icon-up {
 
 .trash:hover svg {
   fill: #f7a033;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }
 
 .back:hover svg {
@@ -374,4 +381,10 @@ button:hover .icon-up {
 
 .btn-admin:hover svg {
   fill: #f7a033;
+}
+
+.btn-admin:hover span {
+  color: #f7a033;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }

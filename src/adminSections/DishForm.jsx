@@ -3,11 +3,12 @@ import { useForm, Controller } from "react-hook-form";
 import SelectFieldAdmin from "./form/SelectFieldAdmin";
 import TextFieldAdmin from "./form/TextFieldAdmin";
 import Button from "../components/UI/Button";
-import { Trash } from "../icons/iconComponent";
+import { Archive, Show, Trash } from "../icons/iconComponent";
 import { useState } from "react";
 import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
 import dishesStore from "../store/dishes";
-import { createDish, updateDish } from "../API/dishes";
+// import { createDish, updateDish } from "../API/dishes";
+import CheckboxField from "../components/UI/form/CheckboxField";
 
 const topOptions = [
   { value: "dishes", label: "основне меню" },
@@ -58,6 +59,7 @@ const fieldsDescription = [
     label: "Назва",
     style: "text-18 text-beige",
     isRequired: true,
+    type: "input",
   },
   {
     id: "2",
@@ -75,20 +77,22 @@ const fieldsDescription = [
   },
 ];
 
-const fieldsDPrice = [
+const fieldPrice = [
   {
     id: "4",
     name: "price",
     label: "Ціна",
     style: "w-[30%] text-14 text-base-yellow font-semibold",
     isRequired: true,
+    type: "input",
   },
   {
     id: "5",
-    name: "discount",
+    name: "discount_price",
     label: "Знижка",
     style: "w-[30%] text-14 text-beige",
     isRequired: false,
+    type: "input",
   },
   {
     id: "6",
@@ -96,6 +100,45 @@ const fieldsDPrice = [
     label: "Вага",
     style: "w-[30%] text-14 text-beige",
     isRequired: false,
+    type: "input",
+  },
+];
+
+const checkFields = [
+  {
+    id: "8",
+    name: "new",
+    label: "Додати плашку “NEW”",
+    // style: "w-[30%] text-14 text-base-yellow font-semibold",
+    isRequired: true,
+    // type: "input",
+  },
+  {
+    id: "9",
+    name: "delivery",
+    label: "Додати в меню доставки",
+    // style: "w-[30%] text-14 text-beige",
+    isRequired: false,
+    // type: "input",
+  },
+];
+
+const promoFields = [
+  {
+    id: "10",
+    name: "promo",
+    label: "Плашка “Акція”",
+    // style: "w-[30%] text-14 text-base-yellow font-semibold",
+    isRequired: true,
+    // type: "input",
+  },
+  {
+    id: "11",
+    name: "salary",
+    label: "Додати плашку знижки",
+    // style: "w-[30%] text-14 text-beige",
+    isRequired: false,
+    // type: "input",
   },
 ];
 
@@ -107,6 +150,8 @@ const DishForm = observer(({ item, type }) => {
   );
   const itemSubCategory = subOptions.find(option => option.label === item?.subCategory);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
+  const [isChecked, setIsChecked] = useState({ new: false, delivery: false });
+  const [isCheckedPromo, setIsCheckedPromo] = useState({ promo: false, salary: false });
 
   const defaultValues = {
     top: itemTopCategory || topOptions[0],
@@ -118,13 +163,17 @@ const DishForm = observer(({ item, type }) => {
     price: item?.price || "",
     discount_price: item?.discount_price || "",
     weight: item?.weight || "",
+    salary: item?.salary || false,
+    promo: item?.promo || false,
+    new: item?.new || false,
+    delivery: item?.delivery || false,
   };
 
   const {
     control,
     watch,
     handleSubmit,
-    reset,
+    // reset,
     resetField,
     // setError,
   } = useForm({
@@ -142,10 +191,20 @@ const DishForm = observer(({ item, type }) => {
 
     // updateDish(data);
 
-    console.log(data);
-    reset();
+    if (topValue.label !== "напої") {
+      try {
+        delete data.sub;
+        console.log("не напої", data);
+        return;
+      } catch (error) {
+        return { error: error.message };
+      }
+    }
 
-    window.location.href = "/admin/access/site/menu";
+    console.log(data);
+    // reset();
+
+    // window.location.href = "/admin/access/site/menu";
   };
 
   const handleReset = fieldName => {
@@ -156,7 +215,7 @@ const DishForm = observer(({ item, type }) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[502px] h-[567px] mx-auto mt-8 flex flex-col gap-y-4"
+        className="w-[502px] h-[567px] mx-auto mt-[72px] flex flex-col gap-y-4 relative"
       >
         {/* ------------------ top category --------------- */}
         <Controller
@@ -221,7 +280,7 @@ const DishForm = observer(({ item, type }) => {
           )}
         </div>
 
-        {fieldsDescription.map(({ id, name, defaultValue, style, label, isRequired }) => (
+        {fieldsDescription.map(({ id, name, defaultValue, style, label, isRequired, type }) => (
           <TextFieldAdmin
             control={control}
             name={name}
@@ -231,11 +290,12 @@ const DishForm = observer(({ item, type }) => {
             onReset={() => handleReset(name)}
             style={style}
             isRequired={isRequired}
+            type={type}
           />
         ))}
 
         <div className="flex items-center justify-between">
-          {fieldsDPrice.map(({ id, name, defaultValue, style, label, isRequired }) => (
+          {fieldPrice.map(({ id, name, defaultValue, style, label, isRequired, type }) => (
             <TextFieldAdmin
               control={control}
               name={name}
@@ -245,19 +305,73 @@ const DishForm = observer(({ item, type }) => {
               onReset={() => handleReset(name)}
               isRequired={isRequired}
               style={style}
+              type={type}
             />
           ))}
         </div>
 
         <div className="flex items-center justify-between mt-4">
-          <div className="flex flex-col">1 2</div>
-          <div className="flex flex-col">1 2</div>
+          <div className="w-[242px] flex flex-col gap-y-4">
+            {promoFields.map(({ name, id, label }) => (
+              <Controller
+                name={name}
+                control={control}
+                key={id}
+                render={({ field }) => (
+                  <CheckboxField
+                    {...field}
+                    control={control}
+                    label={label}
+                    name={name}
+                    onChecked={() =>
+                      setIsCheckedPromo(prevState => ({
+                        ...prevState,
+                        [name]: !prevState[name],
+                      }))
+                    }
+                    isCheck={isCheckedPromo[name]}
+                    isRequired={false}
+                    section={"admin"}
+                  />
+                )}
+              />
+            ))}
+          </div>
+
+          <div className="w-[242px] flex flex-col gap-y-4">
+            {checkFields.map(({ name, id, label }) => (
+              <Controller
+                name={name}
+                control={control}
+                key={id}
+                render={({ field }) => (
+                  <CheckboxField
+                    {...field}
+                    control={control}
+                    label={label}
+                    name={name}
+                    onChecked={() =>
+                      setIsChecked(prevState => ({
+                        ...prevState,
+                        [name]: !prevState[name],
+                      }))
+                    }
+                    isCheck={isChecked[name]}
+                    isRequired={false}
+                    section={"admin"}
+                  />
+                )}
+              />
+            ))}
+          </div>
         </div>
 
         <p className="text-14 text-base-brown">
           <span className="text-base-orange">*</span> поля позначені зірочкою обов’язкові для
           заповнення
         </p>
+
+        {/* кнопки */}
 
         {type === "create" ? (
           <div className="w-fit flex items-center gap-x-5 mx-auto">
@@ -266,16 +380,32 @@ const DishForm = observer(({ item, type }) => {
             </Button>
           </div>
         ) : (
-          <div className="w-fit flex items-center gap-x-5 mx-auto">
+          <div className="w-fit flex flex-col items-center gap-y-4 mx-auto absolute top-0 -right-[200px]">
             <Button type="submit" style={"orange"}>
               Зберігти
             </Button>
             <Button
-              style={"transparent"}
+              type="submit"
+              style={"beige"}
+              btnClass="flex items-center justify-center gap-x-[6px] btn-archive"
+            >
+              <Archive className={"fill-beige"} />
+              Архівувати
+            </Button>
+            <Button
+              type="submit"
+              style={"beige"}
+              btnClass="flex items-center justify-center gap-x-[6px] btn-show"
+            >
+              <Show className={"fill-beige"} />
+              Приховати
+            </Button>
+            <Button
+              style={"beige"}
               btnClass="flex items-center justify-center gap-x-[6px] trash"
               clickFn={() => setIsOpenModalConfirm(true)}
             >
-              <Trash className={"fill-white w-4 h-4 trash-icon"} /> Видалити
+              <Trash className={"fill-beige w-4 h-4 trash-icon"} /> Видалити
             </Button>
           </div>
         )}
