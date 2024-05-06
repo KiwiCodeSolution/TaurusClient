@@ -4,7 +4,10 @@ import ConfirmOverlay from "./UI/modal/ConfirmOverlay";
 
 const ConfirmPopup = ({ type, clickFn }) => {
   return (
-    <ConfirmOverlay stylesPopUp={"w-[572px] h-[319px] flex flex-col items-strt"} clickFn={clickFn}>
+    <ConfirmOverlay
+      stylesPopUp={"w-[572px] h-[319px] flex flex-col items-center"}
+      clickFn={clickFn}
+    >
       {type === "booking" && (
         <>
           <p className="uppercase text-center text-xl mb-10">дякуємо</p>

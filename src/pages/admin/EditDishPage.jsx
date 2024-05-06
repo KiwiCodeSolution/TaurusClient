@@ -1,14 +1,13 @@
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import dishesStore from "../../store/dishes";
-
 import MetaData from "../../components/MetaData";
 import DishForm from "../../adminSections/DishForm";
-import { ArrowBack } from "../../icons/iconComponent";
 import TitlePage from "../../adminSections/TitlePage";
+import ButtonBack from "../../adminSections/ButtonBack";
 
 const EditDishPage = () => {
   const { _id } = useParams();
-  const location = useLocation();
+
   const dishes = dishesStore.dishes;
 
   if (!_id) return <h3 className="text-beige ">Вибачте, сталася помилка</h3>;
@@ -20,17 +19,11 @@ const EditDishPage = () => {
   return (
     <>
       <MetaData>Редагування страви</MetaData>
-      <section className="w-[calc(100%-300px)] flex flex-col">
+      <section className="w-[980px] mx-auto flex flex-col admin">
         <TitlePage>Редагування позиції меню</TitlePage>
 
-        <div className="w-[calc(100%-300px)] mx-auto relative">
-          <Link
-            className="flex gap-x-2 absolute top-8 left-[20px] back text-beige hover:text-base-yellow items-center"
-            to={location?.state?.from.pathname ?? "/"}
-          >
-            <ArrowBack className={"fill-beige"} />
-            Повернутись
-          </Link>
+        <div className="w-[980px] mx-auto relative ">
+          <ButtonBack />
           <DishForm item={currentDish} type={"edit"} />
         </div>
       </section>

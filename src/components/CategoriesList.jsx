@@ -76,7 +76,7 @@ const CategoriesList = observer(({ page }) => {
   return (
     <div
       className={`${
-        page === "admin" ? "w-[calc(100%-300px)] h-[247px]" : "w-[1116px]"
+        page === "admin" ? "w-[980px] mx-auto h-[247px]" : "w-[1116px]"
       } mx-auto categories relative`}
     >
       {/* блок для субкатегорій, є у категорії напоїв */}

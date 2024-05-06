@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useController } from "react-hook-form";
+import { Archive } from "../../icons/iconComponent";
 
 const FileFieldAdmin = ({ control, name, onReset, style, label, isRequired }) => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -17,33 +18,37 @@ const FileFieldAdmin = ({ control, name, onReset, style, label, isRequired }) =>
   };
 
   return (
-    <label className="flex flex-col">
-      {label}
-      <div className="flex">
-        <div className="w-[50%]">
+    <div className="flex flex-col mt-4 w-[287px]">
+      <p className="text-14 text-beige mb-2">Зображення</p>
+      <div className="flex justify-between">
+        <div className="w-[146px] h-[113px] border border-beige">
           {previewImage && (
             <img
               src={previewImage}
               alt="Preview"
-              className="mt-2 object-cover"
+              className="object-cover"
               style={{ maxWidth: "100%" }}
             />
           )}
         </div>
+        <label className="w-[125px] h-9 px-2 py-1 flex items-center justify-center gap-x-2 bg-dark-btn-bg border border-beige rounded-[4px] text-beige text-base hover:text-base-orange hover:border-base-orange">
+          <Archive className={"fill-beige"} />
+          {label}
 
-        <input
-          {...field}
-          name={name}
-          id={name}
-          type="file"
-          className="w-[125px] h-9 px-2 py-1 bg-dark-btn-bg rounded-[4px]"
-          onChange={event => {
-            field.onChange(event.target.value); // data send back to hook form
-            handleFileChange(event); // UI state
-          }} // Передавання функції handleImageChange безпосередньо
-        />
+          <input
+            {...field}
+            name={name}
+            id={name}
+            type="file"
+            className=" hidden"
+            onChange={event => {
+              field.onChange(event.target.value); // data send back to hook form
+              handleFileChange(event); // UI state
+            }} // Передавання функції handleImageChange безпосередньо
+          />
+        </label>
       </div>
-    </label>
+    </div>
   );
 };
 

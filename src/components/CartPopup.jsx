@@ -29,12 +29,12 @@ const CartPopup = observer(({ clickFn, formFn }) => {
     <>
       <Overlay
         clickFn={clickFn}
-        stylesPopUp={"w-[680px] min-h-[319px] max-h-[685px] flex flex-col items-strt"}
+        stylesPopUp={"w-[680px] min-h-[319px] flex flex-col items-center"}
         status={"confirm"}
         componentName={"cart"}
       >
-        <h4 className="text-xl text-beige uppercase text-center mb-6">
-          {step === 1 ? "Замовлення" : "ОФормлення замовлення"}
+        <h4 className="w-full text-xl text-beige uppercase text-center mb-6">
+          {step === 1 ? "Замовлення" : "Оформлення замовлення"}
         </h4>
 
         {step === 1 ? (

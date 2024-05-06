@@ -1,9 +1,9 @@
 import MetaData from "../../components/MetaData";
-import DishForm from "../../adminSections/DishForm";
 import TitlePage from "../../adminSections/TitlePage";
+import PromoForm from "../../adminSections/PromoForm";
 import ButtonBack from "../../adminSections/ButtonBack";
 
-const CreateDishPage = () => {
+const CreatePromoPage = () => {
   return (
     <>
       <MetaData>Створення страви</MetaData>
@@ -12,11 +12,11 @@ const CreateDishPage = () => {
 
         <div className="w-[980px] mx-auto relative">
           <ButtonBack />
-          <DishForm type={"create"} />
+          <PromoForm type={"create"} />
         </div>
       </section>
     </>
   );
 };
 
-export default CreateDishPage;
+export default CreatePromoPage;

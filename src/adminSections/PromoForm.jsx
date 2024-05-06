@@ -6,6 +6,7 @@ import FileFieldAdmin from "./form/FileFieldAdmin";
 import Button from "../components/UI/Button";
 import axios from "axios";
 import { baseServerURL } from "../API/config";
+import { Archive, Show, Trash } from "../icons/iconComponent";
 
 const FIELDS = [
   {
@@ -68,6 +69,7 @@ const FIELDS_PRICE = [
 ];
 
 const PromoForm = observer(({ item, type }) => {
+  console.log(type);
   const defaultValues = {
     title: item?.title || "",
     description: item?.description || "",
@@ -121,7 +123,7 @@ const PromoForm = observer(({ item, type }) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[502px] h-[567px] mx-auto mt-8 flex flex-col gap-y-4"
+        className="w-[502px] h-[567px] mx-auto mt-8 flex flex-col gap-y-4 relative"
       >
         {FIELDS.map(({ id, name, defaultValue, style, label, isRequired, type }) => (
           <TextFieldAdmin
@@ -165,20 +167,55 @@ const PromoForm = observer(({ item, type }) => {
               <FileFieldAdmin
                 control={control}
                 name="image"
-                label="Зображення"
+                label="Змінити"
                 onReset={() => handleReset("image")}
                 isRequired={true}
               />
             </div>
           </div>
         </div>
-        <Button
-          style={"orange"}
-          btnClass="order-10 mt-6 text-center text-18 font-medium"
-          type="submit"
-        >
-          Відправити
-        </Button>
+
+        <p className="text-sm text-base-brown mt-4">
+          * поля позначені зірочкою обов’язкові для заповнення{" "}
+        </p>
+        {/* кнопки */}
+
+        {type === "create" ? (
+          <div className="w-fit flex items-center gap-x-5 mx-auto">
+            <Button type="submit" style={"orange"}>
+              Створити
+            </Button>
+          </div>
+        ) : (
+          <div className="w-fit flex flex-col items-center gap-y-4 mx-auto absolute top-0 -right-[200px]">
+            <Button type="submit" style={"orange"}>
+              Зберігти
+            </Button>
+            <Button
+              type="submit"
+              style={"beige"}
+              btnClass="flex items-center justify-center gap-x-[6px] btn-archive"
+            >
+              <Archive className={"fill-beige"} />
+              Архівувати
+            </Button>
+            <Button
+              type="submit"
+              style={"beige"}
+              btnClass="flex items-center justify-center gap-x-[6px] btn-show"
+            >
+              <Show className={"fill-beige"} />
+              Приховати
+            </Button>
+            <Button
+              style={"beige"}
+              btnClass="flex items-center justify-center gap-x-[6px] trash"
+              // clickFn={() => setIsOpenModalConfirm(true)}
+            >
+              <Trash className={"fill-beige w-4 h-4 trash-icon"} /> Видалити
+            </Button>
+          </div>
+        )}
       </form>
     </>
   );

@@ -1,15 +1,14 @@
 import MetaData from "../../components/MetaData";
 import TitlePage from "../../adminSections/TitlePage";
 import dishesStore from "../../store/dishes";
-
-import { Link, useLocation } from "react-router-dom";
-import { ArrowBack, Minus, Plus } from "../../icons/iconComponent";
-import { useState } from "react";
+import { Minus, Plus } from "../../icons/iconComponent";
 import MenuItem from "../../components/MenuItem";
+import { useState } from "react";
+import ButtonBack from "../../adminSections/ButtonBack";
 
-const Archive = () => {
+const HidePage = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const location = useLocation();
+
   const dishes = dishesStore.dishes;
 
   const topCategories = [];
@@ -22,9 +21,11 @@ const Archive = () => {
 
   const [openCategoryName, setOpenCategoryName] = useState(topCategories[0]);
 
-  const menuArchive = dishes.filter(
-    ({ topCategory, archive }) => topCategory === openCategoryName && archive
+  const menuAvailable = dishes.filter(
+    ({ topCategory, available }) => topCategory === openCategoryName && !available
   );
+
+  console.log(openCategoryName);
 
   function openMenu(name) {
     setOpenCategoryName(name);
@@ -33,17 +34,11 @@ const Archive = () => {
 
   return (
     <>
-      <MetaData>Архів страв</MetaData>
-      <section className="w-[calc(100%-300px)] flex flex-col relative admin">
-        <TitlePage>Архів позиції меню</TitlePage>
+      <MetaData>Приховані страви</MetaData>
+      <section className="w-[980px] mx-auto flex flex-col relative admin">
+        <TitlePage>Приховані позиції меню</TitlePage>
         <div className="w-[914px] h-full mx-auto relative">
-          <Link
-            className="flex gap-x-2 absolute top-8 left-[20px] back text-beige hover:text-base-yellow items-center"
-            to={location?.state?.from.pathname ?? "/"}
-          >
-            <ArrowBack className={"fill-beige"} />
-            Повернутись
-          </Link>
+          <ButtonBack />
           <div className="w-[914px] h-[37px] p-2 flex mx-auto items-center justify-between bg-base-brown text-beige text-14 mt-[75px] mb-4">
             <span className="w-fit">Назва</span>
             <div className="w-[426px] flex justify-between items-center gap-x-5">
@@ -65,8 +60,8 @@ const Archive = () => {
                 </div>
 
                 {openCategoryName === el &&
-                  menuArchive.map(element => (
-                    <MenuItem key={element._id} item={element} section={"admin"} />
+                  menuAvailable.map(element => (
+                    <MenuItem key={element._id} item={element} section={"admin"} archive />
                   ))}
               </div>
             ))}
@@ -77,4 +72,4 @@ const Archive = () => {
   );
 };
 
-export default Archive;
+export default HidePage;

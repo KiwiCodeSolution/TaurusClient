@@ -22,7 +22,7 @@ const MenuDeliveryAdmin = observer(() => {
   return (
     <>
       <MetaData>Перелік страв</MetaData>
-      <section className="mx-auto w-[calc(100%-300px)] h-screen admin">
+      <section className="mx-auto w-[980px] mx-auto h-screen admin">
         <CategoryFilter page={"admin"} />
         <PageButtons buttons={buttons} />
         <div className="w-[914px] h-[37px] p-2 flex mx-auto items-center justify-between bg-base-brown text-beige text-14 my-4">

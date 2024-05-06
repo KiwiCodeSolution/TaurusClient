@@ -69,9 +69,9 @@
     list-style: none;
   }
 
-  svg {
+  /* svg {
     transition: fill 250ms ease;
-  }
+  } */
 }
 
 .body-scroll-lock {
@@ -288,6 +288,9 @@ button:hover .icon-up {
 
 .trash:hover svg {
   fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }
 
 .text-not_found {
@@ -310,6 +313,9 @@ button:hover .icon-up {
 
 .cart-btn:hover svg {
   stroke: #ffd698;
+  transform: stroke;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }
 
 .cart-not-empty {
@@ -324,11 +330,17 @@ button:hover .icon-up {
 .password-btn:hover .show,
 .password-btn:hover .hide {
   fill: #ffd698;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }
 
 .btn-archive:hover .archive,
 .btn-show:hover .show {
   fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }
 
 .admin ::-webkit-scrollbar {
@@ -377,14 +389,24 @@ button:hover .icon-up {
 
 .button-navigate svg {
   fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }
 
 .btn-admin:hover svg {
   fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
 }
 
 .btn-admin:hover span {
   color: #f7a033;
   transition-duration: 250ms;
   transition-timing-function: ease;
+}
+
+label:hover svg {
+  fill: #f7a033;
 }

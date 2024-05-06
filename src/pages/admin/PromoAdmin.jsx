@@ -1,30 +1,64 @@
+/* eslint-disable react/prop-types */
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
 import PageButtons from "../../adminSections/PageButtons";
 import PromoItem from "../../components/PromoItem";
 import { PROMO_ITEMS } from "../client/Promo";
+import { useState } from "react";
 
-const buttons = [
+const buttonsPromo = [
   { label: "Додати Акцію", link: "/admin/access/site/promo/create" },
   { label: "Архів Акцій", link: "/admin/access/site/promo/archive" },
   { label: "Переглянути приховані", link: "/admin/access/site/promo/hide" },
 ];
 
 const PromoAdmin = () => {
+  const [currentSection, setCurrentSection] = useState("Акційні пропозиції");
+
+  const ButtonSection = ({ text }) => {
+    return (
+      <button
+        className={`flex items-center justify-between hover:underline hover:underline-offset-4 menu-list py-[29px] px-[13px] ${
+          currentSection === text
+            ? "text-base-orange hover:underline hover:underline-offset-4 bg-dark-btn-bg"
+            : "text-beige"
+        }  w-[237px] h-[55px] hover:text-base-yellow
+             
+              
+               `}
+        onClick={() => setCurrentSection(text)}
+      >
+        <p className="text-lg uppercase mx-auto">{text}</p>
+      </button>
+    );
+  };
   return (
     <>
       <MetaData>Акції</MetaData>
-      <section className="mx-auto w-[calc(100%-300px)] h-screen admin">
-        <TitlePage>Редагування акцій</TitlePage>
+      <section className="w-[980px] mx-auto h-screen admin relative">
+        <TitlePage style={"mt-[103px]"}>Акції</TitlePage>
 
-        <PageButtons buttons={buttons} />
-        <div className="w-[980px] h-[75%] mt-[52px] mx-auto overflow-y-auto">
-          <div className="w-full grid grid-cols-2 gap-y-12 gap-x-6 mx-auto">
-            {PROMO_ITEMS.map(el => (
-              <PromoItem key={el._id} item={el} type={"admin"} />
-            ))}
-          </div>
+        <div className="w-[980px] flex gap-x-[70px] items-center justify-center mx-auto absolute top-[111px] left-1/2 -translate-x-1/2">
+          <ButtonSection text={"Акційні пропозиції"} />
+          <ButtonSection text={"Банери"} />
         </div>
+
+        {currentSection === "Акційні пропозиції" ? (
+          <>
+            <PageButtons buttons={buttonsPromo} />
+            <div className="w-[980px] h-[75%] mt-[52px] mx-auto overflow-y-auto">
+              <div className="w-full grid grid-cols-2 gap-y-12 gap-x-6 mx-auto">
+                {PROMO_ITEMS.map(el => (
+                  <PromoItem key={el._id} item={el} type={"admin"} />
+                ))}
+              </div>
+            </div>
+          </>
+        ) : (
+          <h1 className="text-center text-6xl text-beige uppercase mt-20">
+            Цей функціонал на стадії розробки
+          </h1>
+        )}
       </section>
     </>
   );

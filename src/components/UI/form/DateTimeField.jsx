@@ -3,22 +3,25 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { baseStyleLabel } from "./TextField";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import uk from "date-fns/locale/uk";
 import SelectField from "./SelectField";
 import { ArrowDown } from "../../../icons/iconComponent";
 
-const DateTimeField = ({ control, namePage }) => {
+const DateTimeField = ({ control, namePage, currentDate }) => {
   //локалізація для каледаря, інакше виводить інформацію англійською
   registerLocale("uk", uk);
   setDefaultLocale("uk");
 
-  const day = new Date();
-  const [selectedDay, setSelectedDay] = useState(day);
+  const [selectedDay, setSelectedDay] = useState(currentDate);
   const [selectedTime, setSelectedTime] = useState(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  useEffect(() => {
+    setSelectedDay(currentDate);
+  }, [currentDate]);
 
   //відслідковує, чи відкритий календар. в залежності від цього змінює положення іконки-стрілочки
   const handleIconClick = () => {
@@ -27,7 +30,7 @@ const DateTimeField = ({ control, namePage }) => {
 
   //створюємо масив часу для відображення у полі "час"
   const generateTimeArray = () => {
-    const todayFormatted = moment(day).format("DD-MM-YYYY");
+    const todayFormatted = moment(currentDate).format("DD-MM-YYYY");
     const daySelectedFormatted = moment(selectedDay).format("DD-MM-YYYY");
     const currentTime = moment().format("HH:mm");
     const currentTimeFormatted = moment(currentTime, "HH:mm");
@@ -88,7 +91,7 @@ const DateTimeField = ({ control, namePage }) => {
               {...field}
               control={control}
               name="date"
-              selected={selectedDay || day}
+              selected={selectedDay}
               onChange={date => {
                 field.onChange(date);
                 setSelectedDay(date);
@@ -149,6 +152,7 @@ const DateTimeField = ({ control, namePage }) => {
 DateTimeField.propTypes = {
   control: PropTypes.object.isRequired,
   namePage: PropTypes.string,
+  currentDate: PropTypes.instanceOf(Date),
 };
 
 export default DateTimeField;

@@ -6,8 +6,6 @@ import { observer } from "mobx-react-lite";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./components/Loader";
 import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
-import Archive from "./pages/admin/ArchivePage";
-import HidePage from "./pages/admin/HidePage";
 
 
 
@@ -28,6 +26,11 @@ const LoginPage = React.lazy(() => import("./pages/client/Login"));
 const EditDishPage = React.lazy(() => import("./pages/admin/EditDishPage"));
 const CreateDishPage = React.lazy(() => import("./pages/admin/CreateDishPage"));
 const EditPromoPage = React.lazy(() => import("./pages/admin/EditPromoPage"));
+const Archive = React.lazy(() => import("./pages/admin/ArchiveMenuPage"));
+const HidePage = React.lazy(() => import("./pages/admin/HideMenuPage"));
+const HidePromo = React.lazy(() => import("./pages/admin//HidePromoPage"));
+const ArchivePromo = React.lazy(() => import("./pages/admin/ArchivePromoPage"));
+const CreatePromoPage = React.lazy(() => import("./pages/admin/CreatePromoPage"));
 
 
 
@@ -65,8 +68,10 @@ const App = observer(() => {
             <Route path="menu/archive" element={<PrivateRoute> <Archive /> </PrivateRoute>}/>
             <Route path="menu/hide" element={<PrivateRoute> <HidePage /> </PrivateRoute>}/>
             <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="promo/create" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
-               <Route path="promo/:_id" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
+            <Route path="promo/create" element={<PrivateRoute> <CreatePromoPage /> </PrivateRoute>}/>
+            <Route path="promo/hide" element={<PrivateRoute> <HidePromo /> </PrivateRoute>}/>
+            <Route path="promo/archive" element={<PrivateRoute> <ArchivePromo /> </PrivateRoute>}/>
+            <Route path="promo/:_id" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
             <Route path="delivery" element={<PrivateRoute> <MenuDeliveryAdmin /> </PrivateRoute>}/>
             
           </Route>

@@ -68,6 +68,7 @@ const options = [
 const Form = observer(({ namePage, clickFn, delivery }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const defaultValues = {
     name: "",
@@ -78,6 +79,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
     date: new Date(),
     consent: false,
     address: "",
+    time: null,
   };
 
   const {
@@ -126,6 +128,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
         ...formattedData,
         products: formatData,
         delivery_type: orderStore.order.delivery_type,
+        total_cost: orderStore.order.total,
       };
 
       try {
@@ -143,7 +146,55 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
       }
     }
 
-    reset();
+    if (namePage === "reserve") {
+      try {
+        const requestData = {
+          ...formattedData,
+          customerName: data.name,
+          phoneNumber: data.phone,
+          date: data.date,
+          time: data.time.value,
+          numberOfPeople: data.quantity.value,
+          tableNumber: 1,
+          consentToProcessPersonalData: isChecked,
+        };
+
+        const result = await axios.post(`${baseServerURL}reservations`, requestData);
+        setCurrentDate(new Date());
+        setIsModalOpen(true);
+        setIsChecked(false);
+        reset();
+        return result;
+      } catch (error) {
+        return { error: error.message };
+      }
+    }
+
+    if (namePage === "service") {
+      try {
+        const requestData = {
+          ...formattedData,
+          message: "service_page " + data.message,
+          total_cost: orderStore.order.total,
+        };
+
+        delete data.quantity;
+        delete data.date;
+
+        const result = await axios.post(`${baseServerURL}feedback`, requestData);
+
+        console.log("result", result.data);
+
+        setIsModalOpen(true);
+
+        setIsChecked(false);
+        reset(defaultValues);
+
+        return;
+      } catch (error) {
+        return { error: error.message };
+      }
+    }
   };
 
   const handleReset = fieldName => {
@@ -159,10 +210,10 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
   const formStyle =
     namePage === "reserve"
       ? "w-[597px] h-fit px-[22px] flex flex-col gap-y-4 mb-16 mx-auto"
-      : namePage === "contacts"
+      : namePage === "contacts" || namePage === "service"
       ? "w-[546px] px-6 flex flex-col gap-y-4 mt-8 mx-auto"
       : namePage === "order"
-      ? "w-[578px] flex flex-col gap-y-4 mx-auto"
+      ? "w-[578px] h-fit flex flex-col gap-y-4 mx-auto"
       : "";
 
   return (
@@ -196,7 +247,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
           />
         )}
 
-        {namePage !== "contacts" && (
+        {namePage !== "contacts" && namePage !== "service" && (
           <div className="w-full flex justify-between order-5">
             {/* ------------------ persons --------------- */}
             {namePage === "reserve" && (
@@ -221,7 +272,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
             )}
 
             {/* ------------------ date & time --------------- */}
-            <DateTimeField control={control} namePage={namePage} />
+            <DateTimeField control={control} namePage={namePage} currentDate={currentDate} />
           </div>
         )}
 

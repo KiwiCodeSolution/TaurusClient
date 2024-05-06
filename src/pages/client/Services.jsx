@@ -66,7 +66,7 @@ const Services = () => {
       </section>
       {isModalOpen && (
         <Overlay clickFn={() => setIsModalOpen(false)}>
-          <Form namePage="contacts" clickFn={() => setIsModalOpen(false)} />
+          <Form namePage="service" clickFn={() => setIsModalOpen(false)} />
         </Overlay>
       )}
     </>
