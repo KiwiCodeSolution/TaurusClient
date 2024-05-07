@@ -16,7 +16,7 @@ export const options = {
 export const getAllPromotions = async () => {
   try {
     const result = await axios.get(`${baseServerURL}promotions`);
-
+    console.log(result);
     return result;
   } catch (error) {
     return { error: error.message };

@@ -22,7 +22,7 @@ const MenuDeliveryAdmin = observer(() => {
   return (
     <>
       <MetaData>Перелік страв</MetaData>
-      <section className="mx-auto w-[980px] mx-auto h-screen admin">
+      <section className="mx-auto w-[980px] h-screen admin">
         <CategoryFilter page={"admin"} />
         <PageButtons buttons={buttons} />
         <div className="w-[914px] h-[37px] p-2 flex mx-auto items-center justify-between bg-base-brown text-beige text-14 my-4">
@@ -36,7 +36,7 @@ const MenuDeliveryAdmin = observer(() => {
             <span className="w-[73px] text-center">Видалити</span>
           </div>
         </div>
-        <div className="w-[914px] h-[calc(100%-300px)] mx-auto px-4 overflow-auto">
+        <div className="w-[914px] h-[calc(100%-400px)] mx-auto px-4 overflow-auto">
           {dishes.map(item => (
             <MenuItem key={item._id} item={item} section={"admin"} />
           ))}

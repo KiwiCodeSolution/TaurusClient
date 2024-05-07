@@ -22,7 +22,7 @@ const USERSLINKS = [
 ];
 
 const MenuSideBar = () => {
-  const [currentItem, setCurrentItem] = useState("1");
+  const [currentItem, setCurrentItem] = useState(localStorage.getItem("currentId") || "1");
   const { pathname } = useLocation();
 
   // Перевіряємо, чи адреса містить "/admin/access/site"
@@ -38,6 +38,11 @@ const MenuSideBar = () => {
   //   location === "/admin/access/site/promo" ||
   //   location === "/admin/access/site/delivery";
 
+  function handleMenuItem(id) {
+    localStorage.setItem("currentId", id);
+    setCurrentItem(id);
+  }
+
   return (
     <div className="h-[237px] flex flex-col justify-between items-center">
       {isSitePage &&
@@ -50,7 +55,7 @@ const MenuSideBar = () => {
                 : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
             key={el.id + el.name}
-            onClick={() => setCurrentItem(el.id)}
+            onClick={() => handleMenuItem(el.id)}
           >
             {el.name}
           </NavLink>

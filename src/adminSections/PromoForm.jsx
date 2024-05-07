@@ -1,12 +1,11 @@
 import { observer } from "mobx-react-lite";
-import { useForm } from "react-hook-form";
-
+import { Controller, useForm } from "react-hook-form";
 import TextFieldAdmin from "./form/TextFieldAdmin";
-import FileFieldAdmin from "./form/FileFieldAdmin";
 import Button from "../components/UI/Button";
 import axios from "axios";
 import { baseServerURL } from "../API/config";
 import { Archive, Show, Trash } from "../icons/iconComponent";
+import { useState } from "react";
 
 const FIELDS = [
   {
@@ -24,15 +23,6 @@ const FIELDS = [
     style: "",
     isRequired: true,
   },
-
-  // {
-  //   id: "6",
-  //   name: "name",
-  //   label: "Опис зображення",
-  //   style: "",
-  //   isRequired: true,
-  //   type: "input",
-  // },
 ];
 
 const FIELDS_PRICE = [
@@ -58,18 +48,9 @@ const FIELDS_PRICE = [
     style: "",
     type: "input",
   },
-  // {
-  //   id: "6",
-  //   name: "name",
-  //   label: "Опис зображення",
-  //   style: "",
-  //   isRequired: true,
-  //   type: "input",
-  // },
 ];
 
 const PromoForm = observer(({ item, type }) => {
-  console.log(type);
   const defaultValues = {
     title: item?.title || "",
     description: item?.description || "",
@@ -77,47 +58,54 @@ const PromoForm = observer(({ item, type }) => {
     oldPrice: item?.oldPrice || "",
     label: item?.label || "",
     description_img: item?.description_img || "",
-    image: item?.image || "",
+    image: item?.image || null,
   };
 
   const {
     control,
-    // watch,
     handleSubmit,
     // reset,
     resetField,
-
-    // setError,
   } = useForm({
     mode: "all",
     defaultValues: defaultValues,
   });
 
-  // const fileValue = watch("image");
-  // console.log(fileValue);
+  const imagePreview = item?.image && `http://localhost:5000/${item?.image}`;
+
+  const [previewImage, setPreviewImage] = useState(imagePreview || null);
+
+  const handleFileChange = e => {
+    const selectedFile = e.target.files[0];
+    const imgUrl = URL.createObjectURL(selectedFile);
+    setPreviewImage(imgUrl);
+  };
 
   const onSubmit = async data => {
-    console.log(data.image);
+    const file = data.image;
+    const formData = new FormData();
+    formData.append("image", file);
 
-    // try {
-    //   const result = await axios.post(`${baseServerURL}uploads`, data.image);
+    try {
+      const result = await axios.post(`${baseServerURL}uploads`, formData);
+      console.log("result", result.data);
 
-    //   // const result = await axios.post(`${baseServerURL}promotions`, data);
+      const requestData = {
+        ...data,
+        image: result.data.img_url,
+      };
 
-    //   console.log("result", result.data);
+      await axios.post(`${baseServerURL}promotions`, requestData);
+      // reset();
 
-    //   return;
-    // } catch (error) {
-    //   return { error: error.message };
-    // }
-
-    // reset();
-
-    // window.location.href = "/admin/access/site/menu";
+      // window.location.href = "/admin/access/site/promo";
+      return;
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleReset = fieldName => {
-    console.log(fieldName);
     resetField(fieldName);
   };
 
@@ -166,13 +154,42 @@ const PromoForm = observer(({ item, type }) => {
               type={"input"}
             />
             <div className="flex items-start">
-              <FileFieldAdmin
-                control={control}
-                name="image"
-                label="Змінити"
-                onReset={() => handleReset("image")}
-                isRequired={true}
-              />
+              <div className="flex flex-col mt-4 w-[287px]">
+                <p className="text-14 text-beige mb-2">Зображення</p>
+                <div className="flex justify-between">
+                  <div className="w-[146px] h-[113px] border border-beige">
+                    {previewImage && (
+                      <img
+                        src={previewImage}
+                        alt="Preview"
+                        className="object-cover"
+                        style={{ maxWidth: "100%" }}
+                      />
+                    )}
+                  </div>
+                  <Controller
+                    name="image"
+                    control={control}
+                    defaultValue={null}
+                    render={({ field }) => (
+                      <label className="w-[125px] h-9 px-2 py-1 flex items-center justify-center gap-x-2 bg-dark-btn-bg border border-beige rounded-[4px] text-beige text-base hover:text-base-orange hover:border-base-orange">
+                        <Archive className={"fill-beige"} />
+                        Змінити
+                        <input
+                          name="image"
+                          id="image"
+                          type="file"
+                          className=" hidden"
+                          onChange={e => {
+                            field.onChange(e.target.files[0]);
+                            handleFileChange(e);
+                          }}
+                        />
+                      </label>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

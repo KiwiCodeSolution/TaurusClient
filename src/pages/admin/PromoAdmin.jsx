@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
+import { observer } from "mobx-react-lite";
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
 import PageButtons from "../../adminSections/PageButtons";
 import PromoItem from "../../components/PromoItem";
-import { PROMO_ITEMS } from "../client/Promo";
-import { useState } from "react";
+// import { PROMO_ITEMS } from "../client/Promo";
+import { useEffect, useState } from "react";
+import promoStore from "../../store/promo";
 
 const buttonsPromo = [
   { label: "Додати Акцію", link: "/admin/access/site/promo/create" },
@@ -12,7 +14,13 @@ const buttonsPromo = [
   { label: "Переглянути приховані", link: "/admin/access/site/promo/hide" },
 ];
 
-const PromoAdmin = () => {
+const PromoAdmin = observer(() => {
+  useEffect(() => {
+    promoStore.getAllPromo();
+  }, []);
+
+  const promo = promoStore.promo;
+
   const [currentSection, setCurrentSection] = useState("Акційні пропозиції");
 
   const ButtonSection = ({ text }) => {
@@ -46,9 +54,9 @@ const PromoAdmin = () => {
         {currentSection === "Акційні пропозиції" ? (
           <>
             <PageButtons buttons={buttonsPromo} />
-            <div className="w-[980px] h-[75%] mt-[52px] mx-auto overflow-y-auto">
+            <div className="w-[980px] h-[calc(100%-400px)] mt-[52px] mx-auto overflow-y-auto">
               <div className="w-full grid grid-cols-2 gap-y-12 gap-x-6 mx-auto">
-                {PROMO_ITEMS.map(el => (
+                {promo.map(el => (
                   <PromoItem key={el._id} item={el} type={"admin"} />
                 ))}
               </div>
@@ -62,6 +70,6 @@ const PromoAdmin = () => {
       </section>
     </>
   );
-};
+});
 
 export default PromoAdmin;

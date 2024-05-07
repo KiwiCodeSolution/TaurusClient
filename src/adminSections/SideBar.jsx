@@ -12,6 +12,10 @@ const SideBar = () => {
     authState.setIsAuth(false);
   }
 
+  function clearCurrentItem() {
+    localStorage.removeItem("currentId");
+  }
+
   return (
     <div className="w-[300px] h-screen flex flex-col bg-dark-bg border border-base-brown py-12 px-8 items-center">
       <div className="h-[35%] flex flex-col items-center pb-12 relative">
@@ -26,7 +30,9 @@ const SideBar = () => {
       </div>
       <div className="h-[35%] flex flex-col items-center justify-end gap-y-4">
         <NavLink to={"/admin/access"}>
-          <Button style={"transparent"}>На головну</Button>
+          <Button style={"transparent"} clickFn={clearCurrentItem}>
+            На головну
+          </Button>
         </NavLink>
 
         <Button style={"orange"} clickFn={logOut}>
