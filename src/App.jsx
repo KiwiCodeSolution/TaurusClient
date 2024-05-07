@@ -7,8 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "./components/Loader";
 import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
 
-
-
 const Home = React.lazy(() => import("./pages/client/Home"));
 const NotFound = React.lazy(() => import("./pages/client/NotFound"));
 const Services = React.lazy(() => import("./pages/client/Services"));
@@ -23,17 +21,10 @@ const PromoAdmin = React.lazy(() => import("./pages/admin/PromoAdmin"));
 const HomeAdmin = React.lazy(() => import("./pages/admin/HomeAdmin"));
 const MenuDeliveryAdmin = React.lazy(() => import("./pages/admin/MenuDeliveryAdmin"));
 const LoginPage = React.lazy(() => import("./pages/client/Login"));
-const EditDishPage = React.lazy(() => import("./pages/admin/EditDishPage"));
-const CreateDishPage = React.lazy(() => import("./pages/admin/CreateDishPage"));
-const EditPromoPage = React.lazy(() => import("./pages/admin/EditPromoPage"));
-const Archive = React.lazy(() => import("./pages/admin/ArchiveMenuPage"));
-const HidePage = React.lazy(() => import("./pages/admin/HideMenuPage"));
-const HidePromo = React.lazy(() => import("./pages/admin//HidePromoPage"));
-const ArchivePromo = React.lazy(() => import("./pages/admin/ArchivePromoPage"));
-const CreatePromoPage = React.lazy(() => import("./pages/admin/CreatePromoPage"));
-
-
-
+const ModifyDishPage = React.lazy(() => import("./pages/admin/ModifyDishPage"));
+const ModifyPromoPage = React.lazy(() => import("./pages/admin/ModifyPromoPage"));
+const InvisibleDishPage = React.lazy(() => import("./pages/admin/InvisibleDishPage"));
+const InvisiblePromoPage = React.lazy(() => import("./pages/admin/InvisiblePromoPage"));
 const NotPages = React.lazy(() => import("./pages/admin/NotPages"));
 
 const App = observer(() => {
@@ -63,17 +54,16 @@ const App = observer(() => {
           {/* Робота із меню страв та акціями */}
           <Route path="site"> 
             <Route path="menu" element={<PrivateRoute> <MenuAdmin /> </PrivateRoute>}/>
-            <Route path="menu/:_id" element={<PrivateRoute> <EditDishPage /> </PrivateRoute>}/>
-            <Route path="menu/create" element={<PrivateRoute> <CreateDishPage /> </PrivateRoute>}/>
-            <Route path="menu/archive" element={<PrivateRoute> <Archive /> </PrivateRoute>}/>
-            <Route path="menu/hide" element={<PrivateRoute> <HidePage /> </PrivateRoute>}/>
-            <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="promo/create" element={<PrivateRoute> <CreatePromoPage /> </PrivateRoute>}/>
-            <Route path="promo/hide" element={<PrivateRoute> <HidePromo /> </PrivateRoute>}/>
-            <Route path="promo/archive" element={<PrivateRoute> <ArchivePromo /> </PrivateRoute>}/>
-            <Route path="promo/:_id" element={<PrivateRoute> <EditPromoPage /> </PrivateRoute>}/>
+            <Route path="menu/:_id" element={<PrivateRoute> <ModifyDishPage type={"edit"}/> </PrivateRoute>}/>
+            <Route path="menu/create" element={<PrivateRoute> <ModifyDishPage /> </PrivateRoute>}/>
+            <Route path="menu/archive" element={<PrivateRoute> <InvisibleDishPage /> </PrivateRoute>}/>
+            <Route path="menu/hide" element={<PrivateRoute> <InvisibleDishPage type={"hide"}/> </PrivateRoute>}/>
             <Route path="delivery" element={<PrivateRoute> <MenuDeliveryAdmin /> </PrivateRoute>}/>
-            
+            <Route path="promo" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="promo/:_id" element={<PrivateRoute> <ModifyPromoPage type={"edit"}/> </PrivateRoute>}/>      
+            <Route path="promo/create" element={<PrivateRoute> <ModifyPromoPage /> </PrivateRoute>}/>
+            <Route path="promo/archive" element={<PrivateRoute> <InvisiblePromoPage /> </PrivateRoute>}/>
+            <Route path="promo/hide" element={<PrivateRoute> <InvisiblePromoPage type={"hide"}/> </PrivateRoute>}/>
           </Route>
 
           {/* Робота із замовленнями, зверненнями та бронюванням столиків */}

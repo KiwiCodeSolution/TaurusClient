@@ -12,10 +12,11 @@ const FileFieldAdmin = ({ control, name, onReset, style, label, isRequired }) =>
 
   const handleFileChange = e => {
     const selectedFile = e.target.files[0];
-    const urlImage = URL.createObjectURL(selectedFile);
 
-    setPreviewImage(urlImage);
+    setPreviewImage(selectedFile);
   };
+
+  const imageUrl = previewImage && URL.createObjectURL(previewImage);
 
   return (
     <div className="flex flex-col mt-4 w-[287px]">
@@ -24,7 +25,7 @@ const FileFieldAdmin = ({ control, name, onReset, style, label, isRequired }) =>
         <div className="w-[146px] h-[113px] border border-beige">
           {previewImage && (
             <img
-              src={previewImage}
+              src={imageUrl}
               alt="Preview"
               className="object-cover"
               style={{ maxWidth: "100%" }}
@@ -44,7 +45,7 @@ const FileFieldAdmin = ({ control, name, onReset, style, label, isRequired }) =>
             onChange={event => {
               field.onChange(event.target.value); // data send back to hook form
               handleFileChange(event); // UI state
-            }} // Передавання функції handleImageChange безпосередньо
+            }}
           />
         </label>
       </div>

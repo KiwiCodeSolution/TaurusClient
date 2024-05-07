@@ -27,7 +27,7 @@ const MenuAdmin = observer(() => {
   return (
     <>
       <MetaData>Перелік страв</MetaData>
-      <section className="mx-auto w-[980px] mx-auto h-screen admin">
+      <section className="mx-auto w-[980px] h-screen admin">
         <CategoryFilter page={"admin"} />
         <PageButtons buttons={buttons} />
 

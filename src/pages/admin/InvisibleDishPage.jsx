@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import MetaData from "../../components/MetaData";
 import TitlePage from "../../adminSections/TitlePage";
 import dishesStore from "../../store/dishes";
@@ -6,7 +7,7 @@ import MenuItem from "../../components/MenuItem";
 import { useState } from "react";
 import ButtonBack from "../../adminSections/ButtonBack";
 
-const HidePage = () => {
+const InvisibleDishPage = ({ type }) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const dishes = dishesStore.dishes;
@@ -25,18 +26,15 @@ const HidePage = () => {
     ({ topCategory, available }) => topCategory === openCategoryName && !available
   );
 
-  console.log(openCategoryName);
-
   function openMenu(name) {
     setOpenCategoryName(name);
     setIsCategoryOpen(!isCategoryOpen);
   }
-
   return (
     <>
-      <MetaData>Приховані страви</MetaData>
+      <MetaData>{type === "hide" ? "Приховані страви" : "Архів страв"}</MetaData>
       <section className="w-[980px] mx-auto flex flex-col relative admin">
-        <TitlePage>Приховані позиції меню</TitlePage>
+        <TitlePage>{type === "hide" ? "Приховані позиції меню" : "Архів позиції меню"}</TitlePage>
         <div className="w-[914px] h-full mx-auto relative">
           <ButtonBack />
           <div className="w-[914px] h-[37px] p-2 flex mx-auto items-center justify-between bg-base-brown text-beige text-14 mt-[75px] mb-4">
@@ -72,4 +70,8 @@ const HidePage = () => {
   );
 };
 
-export default HidePage;
+InvisibleDishPage.propTypes = {
+  type: PropTypes.string,
+};
+
+export default InvisibleDishPage;

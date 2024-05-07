@@ -97,17 +97,19 @@ const PromoForm = observer(({ item, type }) => {
   // console.log(fileValue);
 
   const onSubmit = async data => {
-    console.log(data);
+    console.log(data.image);
 
-    try {
-      const result = await axios.post(`${baseServerURL}promotions`, data);
+    // try {
+    //   const result = await axios.post(`${baseServerURL}uploads`, data.image);
 
-      console.log("result", result.data);
+    //   // const result = await axios.post(`${baseServerURL}promotions`, data);
 
-      return;
-    } catch (error) {
-      return { error: error.message };
-    }
+    //   console.log("result", result.data);
+
+    //   return;
+    // } catch (error) {
+    //   return { error: error.message };
+    // }
 
     // reset();
 
