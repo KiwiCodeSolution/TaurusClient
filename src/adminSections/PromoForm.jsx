@@ -1,11 +1,14 @@
 import { observer } from "mobx-react-lite";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import TextFieldAdmin from "./form/TextFieldAdmin";
 import Button from "../components/UI/Button";
 import axios from "axios";
 import { baseServerURL } from "../API/config";
 import { Archive, Show, Trash } from "../icons/iconComponent";
 import { useState } from "react";
+import { toastOptions } from "../API/dishes";
+import { createPromotion, updatePromotion } from "../API/promotions";
 
 const FIELDS = [
   {
@@ -51,7 +54,9 @@ const FIELDS_PRICE = [
 ];
 
 const PromoForm = observer(({ item, type }) => {
+  console.log(item);
   const defaultValues = {
+    _id: item?._id || "",
     title: item?.title || "",
     description: item?.description || "",
     newPrice: item?.newPrice || "",
@@ -61,12 +66,7 @@ const PromoForm = observer(({ item, type }) => {
     image: item?.image || null,
   };
 
-  const {
-    control,
-    handleSubmit,
-    // reset,
-    resetField,
-  } = useForm({
+  const { control, handleSubmit, reset, resetField } = useForm({
     mode: "all",
     defaultValues: defaultValues,
   });
@@ -74,11 +74,25 @@ const PromoForm = observer(({ item, type }) => {
   const imagePreview = item?.image && `http://localhost:5000/${item?.image}`;
 
   const [previewImage, setPreviewImage] = useState(imagePreview || null);
+  const [isImageChange, setIsImageChange] = useState(false); // відслідковуємо, чи змінювалось зображення
 
   const handleFileChange = e => {
     const selectedFile = e.target.files[0];
+
+    const maxSizeInBytes = 8388608;
+    if (selectedFile.size > maxSizeInBytes) {
+      toast.error("Зображення занадто велике. Оберіть файл меншого розміру.", toastOptions);
+      return;
+    }
+
+    if (!selectedFile.type.includes("image")) {
+      toast.error("Будь ласка, виберіть зображення у форматах .png, .jpg або .jpeg", toastOptions);
+      e.target.value = null;
+      return;
+    }
     const imgUrl = URL.createObjectURL(selectedFile);
     setPreviewImage(imgUrl);
+    setIsImageChange(true);
   };
 
   const onSubmit = async data => {
@@ -86,22 +100,63 @@ const PromoForm = observer(({ item, type }) => {
     const formData = new FormData();
     formData.append("image", file);
 
-    try {
-      const result = await axios.post(`${baseServerURL}uploads`, formData);
-      console.log("result", result.data);
+    //якщо ми не маємо інформації про акцію, створюємо її
+    if (!item) {
+      try {
+        const result = await axios.post(`${baseServerURL}uploads`, formData);
 
-      const requestData = {
-        ...data,
-        image: result.data.img_url,
-      };
+        const createData = {
+          ...data,
+          image: result.data.img_url,
+        };
+        createPromotion(createData);
+        reset();
 
-      await axios.post(`${baseServerURL}promotions`, requestData);
-      // reset();
+        window.location.href = "/admin/access/site/promo";
+        return;
+      } catch (error) {
+        console.log(error.message);
+        toast.error(error.message, toastOptions);
+      }
+    }
 
-      // window.location.href = "/admin/access/site/promo";
-      return;
-    } catch (error) {
-      console.log(error.message);
+    //якщо ми маємо інфо про акцію, оновлюємо дані
+    else {
+      if (isImageChange) {
+        // якщо зображення було змінено
+        try {
+          const result = await axios.post(`${baseServerURL}uploads`, formData);
+          const updateData = {
+            ...data,
+            image: result.data.img_url,
+            _id: item._id,
+          };
+          updatePromotion(updateData);
+          reset();
+
+          window.location.href = "/admin/access/site/promo";
+          return;
+        } catch (error) {
+          console.log(error.message);
+          toast.error(error.message, toastOptions);
+        }
+      }
+      try {
+        //якщо зображення не змінювалось
+        const updateData = {
+          ...data,
+          _id: item._id,
+        };
+
+        updatePromotion(updateData);
+        reset();
+
+        window.location.href = "/admin/access/site/promo";
+        return;
+      } catch (error) {
+        console.log(error.message);
+        toast.error(error.message, toastOptions);
+      }
     }
   };
 
@@ -129,7 +184,7 @@ const PromoForm = observer(({ item, type }) => {
           />
         ))}
         <div className="flex gap-x-4">
-          <div className="w-[198px] flex flex-col gap-y-4">
+          <div className="w-[260px] flex flex-col gap-y-4">
             {FIELDS_PRICE.map(({ id, name, defaultValue, style, label, isRequired, type }) => (
               <TextFieldAdmin
                 control={control}
@@ -144,52 +199,40 @@ const PromoForm = observer(({ item, type }) => {
               />
             ))}
           </div>
-          <div className="w-[288px] flex flex-col">
-            <TextFieldAdmin
-              control={control}
-              name="description_img"
-              label="Опис картинки"
-              onReset={() => handleReset("description_img")}
-              isRequired={true}
-              type={"input"}
-            />
-            <div className="flex items-start">
-              <div className="flex flex-col mt-4 w-[287px]">
-                <p className="text-14 text-beige mb-2">Зображення</p>
-                <div className="flex justify-between">
-                  <div className="w-[146px] h-[113px] border border-beige">
-                    {previewImage && (
-                      <img
-                        src={previewImage}
-                        alt="Preview"
-                        className="object-cover"
-                        style={{ maxWidth: "100%" }}
-                      />
-                    )}
-                  </div>
-                  <Controller
-                    name="image"
-                    control={control}
-                    defaultValue={null}
-                    render={({ field }) => (
-                      <label className="w-[125px] h-9 px-2 py-1 flex items-center justify-center gap-x-2 bg-dark-btn-bg border border-beige rounded-[4px] text-beige text-base hover:text-base-orange hover:border-base-orange">
-                        <Archive className={"fill-beige"} />
-                        Змінити
-                        <input
-                          name="image"
-                          id="image"
-                          type="file"
-                          className=" hidden"
-                          onChange={e => {
-                            field.onChange(e.target.files[0]);
-                            handleFileChange(e);
-                          }}
-                        />
-                      </label>
-                    )}
+          <div className="w-[226px] h-[220px] flex flex-col">
+            <p className="text-14 text-beige mb-2">Зображення</p>
+            <div className="flex flex-col h-full justify-between">
+              <div className="w-full h-[152px] mb-2 border border-beige overflow-hidden">
+                {previewImage && (
+                  <img
+                    src={previewImage}
+                    alt="Preview"
+                    className="object-contain h-[152px] w-[226px]"
                   />
-                </div>
+                )}
               </div>
+              <Controller
+                name="image"
+                control={control}
+                defaultValue={null}
+                render={({ field }) => (
+                  <label className="w-full h-9 px-2 py-1 flex items-center justify-center gap-x-2 bg-dark-btn-bg  border-beige rounded-[4px] text-beige text-base hover:text-base-orange hover:border-base-orange">
+                    <Archive className={"fill-beige"} />
+                    Змінити
+                    <input
+                      name="image"
+                      id="image"
+                      type="file"
+                      className="hidden"
+                      onChange={e => {
+                        field.onChange(e.target.files[0]);
+                        handleFileChange(e);
+                      }}
+                      accept=".png, .jpg, .jpeg"
+                    />
+                  </label>
+                )}
+              />
             </div>
           </div>
         </div>

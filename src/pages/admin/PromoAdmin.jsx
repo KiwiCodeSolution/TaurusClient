@@ -4,7 +4,6 @@ import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
 import PageButtons from "../../adminSections/PageButtons";
 import PromoItem from "../../components/PromoItem";
-// import { PROMO_ITEMS } from "../client/Promo";
 import { useEffect, useState } from "react";
 import promoStore from "../../store/promo";
 

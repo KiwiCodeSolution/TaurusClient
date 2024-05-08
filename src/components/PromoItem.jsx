@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import Button from "./UI/Button";
 import * as icons from "../icons/iconComponent";
 import { Link, useLocation } from "react-router-dom";
+import NoImage from "/images/no_image.png";
 
 const PromoItem = ({ item, type }) => {
   const { image, sale, description, oldPrice, _id, label, title, newPrice } = item;
@@ -10,14 +11,16 @@ const PromoItem = ({ item, type }) => {
   return (
     <article className="w-[356px] h-[568px] py-8 px-6 border border-base-brown flex flex-col gap-y-6 justify-between relative mx-auto">
       <div className="w-[308px] h-[235px] border border-base-brown overflow-hidden relative">
-        <img src={`http://localhost:5000/${image}`} alt="Promo" />
+        <img src={image ? `http://localhost:5000/${image}` : NoImage} alt="Promo" />
         <div className="w-[82px] h-8 px-1 py-3 text-18 font-medium text-base-black bg-base-orange flex items-center justify-center absolute top-3 left-0">
           Акція
         </div>
       </div>
-      <div className="w-[75px] h-[72px] rounded-full bg-base-orange flex flex-col justify-center items-center text-white text-24 font-semibold absolute top-3 right-3">
-        <span className="w-full text-center">{label}</span>
-      </div>
+      {label && (
+        <div className="w-[75px] h-[72px] rounded-full bg-base-orange flex flex-col justify-center items-center text-white text-24 font-semibold absolute top-3 right-3">
+          <span className="w-full text-center">{label}</span>
+        </div>
+      )}
       <div className="w-full flex justify-between items-center">
         <h3 className="w-full uppercase text-18 leading-[27px] text-base-yellow text-center">
           {title}

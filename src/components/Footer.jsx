@@ -47,7 +47,7 @@ const Footer = () => {
       </section>
       <section className="wrapper pt-[22px] pb-4 border_custom">
         <div className="w-full relative">
-          <p className="text-sm text-center mb-1">
+          <p className="w-full text-sm text-center mb-1 flex gap-x-[2px] items-center justify-center">
             Використовуючи цей сайт, ви погоджуєтесь з{" "}
             <button className="underline" onClick={() => setIsModalTermsOpen(true)}>
               Умовами обслуговування
@@ -57,7 +57,7 @@ const Footer = () => {
               Політикою конфіденційності
             </button>
           </p>
-          <p className="text-base text-center">
+          <p className="w-full text-base text-center">
             <a href="#">© KiWiCode Solution, 2024</a>
           </p>
           <img

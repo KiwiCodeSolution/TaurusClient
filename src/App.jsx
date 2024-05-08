@@ -26,6 +26,11 @@ const ModifyPromoPage = React.lazy(() => import("./pages/admin/ModifyPromoPage")
 const InvisibleDishPage = React.lazy(() => import("./pages/admin/InvisibleDishPage"));
 const InvisiblePromoPage = React.lazy(() => import("./pages/admin/InvisiblePromoPage"));
 const NotPages = React.lazy(() => import("./pages/admin/NotPages"));
+const OrdersPage = React.lazy(() => import("./pages/admin/OrdersPage"));
+const OrdersArchivePage = React.lazy(() => import("./pages/admin/OrdersPage"));
+const FeedbackPage = React.lazy(() => import("./pages/admin/FeedbackPage"));
+const ServicesPage = React.lazy(() => import("./pages/admin/ServicesPage"));
+const BookingPage = React.lazy(() => import("./pages/admin/BookingPage"));
 
 const App = observer(() => {
   return (
@@ -68,11 +73,12 @@ const App = observer(() => {
 
           {/* Робота із замовленнями, зверненнями та бронюванням столиків */}
           <Route path="restaurant">
-            <Route path="delivery" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="take" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="appeals" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="booking" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="archive" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="orders" element={<PrivateRoute> <OrdersPage /> </PrivateRoute>}/>
+            <Route path="orders/archive" element={<PrivateRoute> <OrdersArchivePage /> </PrivateRoute>}/>
+            <Route path="feedback" element={<PrivateRoute> <FeedbackPage /> </PrivateRoute>}/>
+            <Route path="services" element={<PrivateRoute> <ServicesPage /> </PrivateRoute>}/>
+            <Route path="booking" element={<PrivateRoute> <BookingPage /> </PrivateRoute>}/>
+           
           </Route>
 
            {/* Робота із замовленнями, зверненнями та бронюванням столиків */}

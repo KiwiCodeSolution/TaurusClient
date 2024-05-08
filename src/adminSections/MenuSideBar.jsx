@@ -9,11 +9,10 @@ const MENULINKS = [
 ];
 
 const RESTAURANTLINKS = [
-  { id: "1", name: "Доставка", link: "/admin/access/restaurant/delivery" },
-  { id: "2", name: "Замовлення", link: "/admin/access/restaurant/take" },
-  { id: "3", name: "Звернення", link: "/admin/access/restaurant/appeals" },
+  { id: "1", name: "Історія замовлень", link: "/admin/access/restaurant/orders" },
+  { id: "2", name: "Повідомлення", link: "/admin/access/restaurant/feedback" },
+  { id: "3", name: "Замовлення послуг", link: "/admin/access/restaurant/services" },
   { id: "4", name: "Бронювання", link: "/admin/access/restaurant/booking" },
-  { id: "5", name: "Архів", link: "/admin/access/restaurant/booking" },
 ];
 
 const USERSLINKS = [
@@ -70,7 +69,7 @@ const MenuSideBar = () => {
                 : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
             key={el.id + el.name}
-            onClick={() => setCurrentItem(el.id)}
+            onClick={() => handleMenuItem(el.id)}
           >
             {el.name}
           </NavLink>
@@ -85,7 +84,7 @@ const MenuSideBar = () => {
                 : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
             key={el.id + el.name}
-            onClick={() => setCurrentItem(el.id)}
+            onClick={() => handleMenuItem(el.id)}
           >
             {el.name}
           </NavLink>

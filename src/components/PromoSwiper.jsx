@@ -43,15 +43,13 @@ class PromoSwiper extends Component {
     this.sliderRef = React.createRef();
   }
 
-  componentDidMount() {
-    // Ваш код для виклику після монтажу компоненти
-    console.log("Component mounted");
-  }
-
   render() {
     const settings = {
       infinite: true,
-      speed: 500,
+      autoplay: true,
+
+      autoplaySpeed: 3500,
+      speed: 700,
       slidesToShow: 1,
       slidesToScroll: 1,
       nextArrow: <PromoNextArrow />,

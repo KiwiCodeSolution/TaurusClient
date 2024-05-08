@@ -16,7 +16,7 @@ export const options = {
 export const getAllPromotions = async () => {
   try {
     const result = await axios.get(`${baseServerURL}promotions`);
-    console.log(result);
+
     return result;
   } catch (error) {
     return { error: error.message };
@@ -38,6 +38,7 @@ export const createPromotion = async promo => {
 };
 
 export const updatePromotion = async promo => {
+  console.log(promo);
   try {
     const result = await axios.put(`${baseServerURL}promotions/${promo._id}`, { ...promo });
     toast.success("Інформацію оновлено!", options);

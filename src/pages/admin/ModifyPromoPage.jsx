@@ -31,7 +31,11 @@ const ModifyPromoPage = observer(({ type }) => {
 
         <div className="w-[980px] mx-auto relative ">
           <ButtonBack />
-          {type === "edit" ? <PromoForm item={currentPromo} /> : <PromoForm type={"create"} />}
+          {type === "edit" ? (
+            <PromoForm item={currentPromo} type={"edit"} />
+          ) : (
+            <PromoForm type={"create"} />
+          )}
         </div>
       </section>
     </>

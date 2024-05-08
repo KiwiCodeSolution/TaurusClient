@@ -13,10 +13,13 @@ const TextFieldAdmin = ({
   type,
   placeholder,
 }) => {
+  const rules = isRequired ? { required: "Це поле обов'язкове" } : {};
+
   const { field, fieldState } = useController({
     name,
     control,
     defaultValue,
+    rules,
   });
 
   return (
@@ -29,9 +32,9 @@ const TextFieldAdmin = ({
           name={name}
           id={name}
           type="input"
-          className={`${
-            name === "title" || name === "name" ? "uppercase" : ""
-          } h-9 px-2 py-1 bg-dark-btn-bg rounded-[4px] focus:outline outline-offset-2 outline-1 outline-beige `}
+          className={`${name === "title" || name === "name" ? "uppercase" : ""} ${
+            fieldState.error ? "border-[1px] border-base-orange focus:outline-none" : ""
+          } h-9 px-2 py-1 bg-dark-btn-bg rounded-[4px]  text-beige focus:outline outline-offset-1 outline-1 outline-beige `}
           {...field}
           value={field.value}
         />
@@ -40,7 +43,9 @@ const TextFieldAdmin = ({
           {...field}
           placeholder={placeholder}
           name={name}
-          className={`px-2 py-1 bg-dark-btn-bg rounded-[4px] focus:outline outline-offset-2 outline-1 outline-beige`}
+          className={`px-2 py-1 text-beige bg-dark-btn-bg rounded-[4px] focus:outline outline-offset-1 outline-1 outline-beige ${
+            fieldState.error ? "border-[1px] border-base-orange focus:outline-none" : ""
+          }`}
         />
       )}
       <button

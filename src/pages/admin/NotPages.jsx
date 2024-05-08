@@ -15,7 +15,7 @@ const NotPages = () => {
             або вона тимчасово недоступна.
           </p>
           <Button style={"orange"} btnClass={"font-medium text-base-black text-18"}>
-            <NavLink to="/admin/access">Перейти на доашню сторінку</NavLink>
+            <NavLink to="/admin/access">Перейти на домашню сторінку</NavLink>
           </Button>
         </div>
       </section>

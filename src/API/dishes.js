@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
 
-export const options = {
+export const toastOptions = {
   position: "top-center",
   autoClose: 5000,
   hideProgressBar: false,
@@ -27,11 +27,11 @@ export const createDish = async dish => {
   try {
     const result = await axios.post(`${baseServerURL}product`, dish);
 
-    toast.success("Нову страву додано!", options);
+    toast.success("Нову страву додано!", toastOptions);
     return result;
   } catch (error) {
     if (error.request.statusText === "Conflict") {
-      toast.error("Така страва вже існує!", options);
+      toast.error("Така страва вже існує!", toastOptions);
     }
     return { error: error.message };
   }
@@ -40,10 +40,10 @@ export const createDish = async dish => {
 export const updateDish = async dish => {
   try {
     const result = await axios.put(`${baseServerURL}product/${dish._id}`, { ...dish });
-    toast.success("Інформацію оновлено!", options);
+    toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {
-    toast.error("Такої страви не існує!", options);
+    toast.error("Такої страви не існує!", toastOptions);
     return { error: error.message };
   }
 };
@@ -52,10 +52,10 @@ export const updateDishAvialable = async dish => {
   try {
     const updatedDish = { available: dish.available }; // Створюємо об'єкт тільки з полем available
     const result = await axios.put(`${baseServerURL}product/${dish._id}`, updatedDish);
-    toast.success("Інформацію оновлено!", options);
+    toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {
-    toast.error("Такої страви не існує!", options);
+    toast.error("Такої страви не існує!", toastOptions);
     return { error: error.message };
   }
 };
@@ -63,10 +63,10 @@ export const updateDishAvialable = async dish => {
 export const deleteDish = async dish => {
   try {
     const result = await axios.delete(`${baseServerURL}product/${dish._id}`);
-    toast.success("Страву видалено!", options);
+    toast.success("Страву видалено!", toastOptions);
     return result;
   } catch (error) {
-    toast.error("Такої страви не існує!", options);
+    toast.error("Такої страви не існує!", toastOptions);
     return { error: error.message };
   }
 };

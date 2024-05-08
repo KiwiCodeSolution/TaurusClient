@@ -1,8 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 import MetaData from "../../components/MetaData";
 import PromoItem from "../../components/PromoItem";
 import PromoSwiper from "../../components/PromoSwiper";
 import TitlePage from "../../components/TitlePage";
+import promoStore from "../../store/promo";
 
 export const PROMO_ITEMS = [
   {
@@ -38,7 +41,12 @@ export const PROMO_ITEMS = [
   },
 ];
 
-const Promo = () => {
+const Promo = observer(() => {
+  useEffect(() => {
+    promoStore.getAllPromo();
+  }, []);
+
+  const promo = promoStore.promo;
   return (
     <>
       <MetaData>Акції ресторану</MetaData>
@@ -48,7 +56,7 @@ const Promo = () => {
           <TitlePage>Акції</TitlePage>
 
           <div className="w-[1116px] grid grid-cols-3 gap-y-12 gap-x-6 mx-auto">
-            {PROMO_ITEMS.map(el => (
+            {promo.map(el => (
               <PromoItem key={el._id} item={el} />
             ))}
           </div>
@@ -56,6 +64,6 @@ const Promo = () => {
       </section>
     </>
   );
-};
+});
 
 export default Promo;
