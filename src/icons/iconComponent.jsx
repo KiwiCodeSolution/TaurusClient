@@ -187,15 +187,30 @@ export const LocationIcon = ({ section }) => (
 );
 
 export const Minus = () => (
-  <svg width="17" height="2" viewBox="0 0 17 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line y1="1" x2="17" y2="1" stroke="#7E664D" strokeWidth="2" />
+  <svg
+    width="17"
+    height="2"
+    viewBox="0 0 17 2"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="minus"
+  >
+    <line y1="1" x2="17" y2="1" strokeWidth="2" />
+    {/* <line y1="1" x2="17" y2="1" stroke="#7E664D" strokeWidth="2" /> */}
   </svg>
 );
 
 export const Plus = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line y1="8" x2="16" y2="8" stroke="#7E664D" strokeWidth="2" />
-    <line x1="8" x2="8" y2="16" stroke="#7E664D" strokeWidth="2" />
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="plus"
+  >
+    <line y1="8" x2="16" y2="8" strokeWidth="2" />
+    <line x1="8" x2="8" y2="16" strokeWidth="2" />
   </svg>
 );
 
@@ -668,7 +683,7 @@ export const Show = ({ className }) => (
   </svg>
 );
 
-export const Hide = ({className}) => (
+export const Hide = ({ className }) => (
   <svg
     width="24"
     height="16"

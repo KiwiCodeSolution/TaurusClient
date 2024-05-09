@@ -410,3 +410,11 @@ button:hover .icon-up {
 label:hover svg {
   fill: #f7a033;
 }
+
+.minus,
+.plus {
+  stroke: #7e664d;
+}
+button:hover svg {
+  stroke: #f7a033;
+}
