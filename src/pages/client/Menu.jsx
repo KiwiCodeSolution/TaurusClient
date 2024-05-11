@@ -26,9 +26,9 @@ const Menu = observer(() => {
               : "/images/menu/drinks.jpg"
           }
           alt=""
-          className="w-full h-[416px] object-cover object-top border-b-[0.5px] border-base-brown"
+          className="w-full h-[198px] md:h-[416px] object-cover object-top border-b-[0.5px] border-base-brown"
         />
-        <section className="wrapper w-full section-wrapper py-16">
+        <section className="wrapper w-full section-wrapper py-8 md:py-16">
           <CategoryFilter />
           <CategoriesList />
         </section>

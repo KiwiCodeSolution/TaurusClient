@@ -88,6 +88,16 @@
   }
 }
 
+.devices {
+  width: 20px;
+  height: 28px;
+
+  @media screen and (min-width: 768px) {
+    width: 28px;
+    height: 751px;
+  }
+}
+
 .logo:hover svg,
 .logo:hover path {
   fill: #ffd698;
@@ -97,9 +107,14 @@
 }
 
 .wrapper {
-  padding-left: 82px;
-  padding-right: 82px;
+  padding-left: 24px;
+  padding-right: 24px;
   margin: 0 auto;
+
+  @media screen and (min-width: 768px) {
+    padding-left: 82px;
+    padding-right: 82px;
+  }
 }
 
 .border_custom {
@@ -442,4 +457,11 @@ button:hover .call {
 button:hover .burger {
   fill: #f7a033;
   stroke: #f7a033;
+}
+
+.category-list .slick-arrow {
+  width: 0;
+  height: 0;
+  top: -100%;
+  z-index: -100;
 }

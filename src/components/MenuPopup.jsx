@@ -8,7 +8,7 @@ const MenuPopup = ({ clickFn }) => {
   return (
     <Overlay
       clickFn={clickFn}
-      stylesPopUp={"min-w-[312px] h-[480px] flex flex-col items-center py-12 px-6 mx-auto"}
+      stylesPopUp={"min-w-[312px] h-[480px] flex flex-col items-center py-12 px-6 mx-auto "}
     >
       <Logo />
       <div className={`border_admin_menu w-[192px] mx-auto my-6`} />

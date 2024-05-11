@@ -85,7 +85,7 @@ const SharedLayout = observer(() => {
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
-      <div className="hidden xl:block w-full h-[104px] absolute top-0 left-0 bg-gradient-to-b from-[#090705] to-[rgb(11,8,3,0)]" />
+      <div className="w-full h-[104px] absolute top-0 left-0 bg-gradient-to-b from-[#090705] to-[rgb(11,8,3,0)]" />
 
       {/* попап із лінками на месенджерами */}
       {isOpen && <PhoneContactList clickFn={closeModal} contactNumber={number} />}

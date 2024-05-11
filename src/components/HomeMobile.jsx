@@ -8,54 +8,52 @@ import SocIcons from "./SocIcons";
 const ITEMS_MOBILE = [
   {
     id: 1,
-    title: "замовити",
-    image: "/images/home/order.png",
-    alt: "зображення однієї зі страв, яку можн азамовити",
-    link: "/order",
-  },
-  {
-    id: 2,
     image: "/images/home/start.jpg",
     alt: "загальне зображення їжі",
   },
   {
+    id: 2,
+    title: "замовити",
+    image: "/images/home/delivery_mob.jpg",
+    alt: "зображення однієї зі страв, яку можн азамовити",
+    link: "/order",
+  },
+  {
     id: 3,
     title: "меню",
-    image: "/images/home/food.jpg",
+    image: "/images/home/menu_mob.jpg",
     alt: "загальне зображення їжі",
     link: "/menu",
   },
   {
     id: 4,
     title: "забронювати",
-    image: "/images/home/reserve.png",
+    image: "/images/home/reserve_mob.png",
     alt: "зображення напоїв, що подають у ресторані",
     link: "/reserve",
   },
 ];
 const HomeMobile = () => {
-  // const { isMobile } = useMediaQuery();
-
-  const [currentImage, setCurrentImage] = useState(2);
+  const [currentImage, setCurrentImage] = useState(1);
 
   // для мобільних пристроїв буде спрацьовувати ефект каруселі: кожні 3 секунди змінюється зображення
-  // useEffect(() => {
-  //   if (isMobile && currentImage) {
-  //     const interval = setInterval(() => {
-  //       setCurrentImage(prevImage => {
-  //         if (prevImage === 3) {
-  //           return 1;
-  //         } else if (prevImage === 1) {
-  //           return 2;
-  //         } else {
-  //           return 3;
-  //         }
-  //       });
-  //     }, 3000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage(prevImage => {
+        if (prevImage === 4) {
+          return 1;
+        } else if (prevImage === 1) {
+          return 2;
+        } else if (prevImage === 2) {
+          return 3;
+        } else {
+          return 4;
+        }
+      });
+    }, 3000);
 
-  //     return () => clearInterval(interval);
-  //   }
-  // }, []);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -66,7 +64,9 @@ const HomeMobile = () => {
               <Link
                 to={el.link}
                 key={el.id}
-                className={`w-full text-[32px] text-center uppercase font-medium leading-normal hover:text-base-yellow duration-300 ease-in cursor-pointer relative nav_link`}
+                className={`w-full text-[32px] text-center uppercase font-medium leading-normal ${
+                  currentImage === el.id ? "underline underline-offset-1" : ""
+                } hover:text-base-yellow duration-300 ease-in cursor-pointer relative nav_link`}
               >
                 {el.title}
               </Link>
