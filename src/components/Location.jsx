@@ -13,8 +13,10 @@ const Location = ({ section, className }) => {
             ? "rotate-90 hover:underline gap-x-3"
             : section === "contacts"
             ? "gap-x-[6px] items-center w-[200px]"
-            : "gap-x-[6px]"
-        } ${className} flex not-italic hover:text-base-yellow hover:cursor-pointer location`}
+            : section === "home_mobile"
+            ? "gap-x-3 items-center"
+            : ""
+        } ${className} flex not-italic text-sm location`}
       >
         {section === "home" ? (
           <LocationIcon section={"home"} />

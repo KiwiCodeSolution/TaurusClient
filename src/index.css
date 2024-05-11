@@ -78,6 +78,16 @@
   overflow: hidden;
 }
 
+.logo {
+  width: 126px;
+  height: 54px;
+
+  @media screen and (min-width: 768px) {
+    width: 159px;
+    height: 72px;
+  }
+}
+
 .logo:hover svg,
 .logo:hover path {
   fill: #ffd698;
@@ -415,6 +425,21 @@ label:hover svg {
 .plus {
   stroke: #7e664d;
 }
-button:hover svg {
+
+.call {
+  stroke: #fff;
+}
+
+.burger {
+  fill: #fff;
+}
+
+button:hover svg,
+button:hover .call {
+  stroke: #f7a033;
+}
+
+button:hover .burger {
+  fill: #f7a033;
   stroke: #f7a033;
 }
