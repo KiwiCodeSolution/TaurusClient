@@ -55,7 +55,7 @@ const Promo = observer(() => {
         <div className="w-full mx-auto wrapper">
           <TitlePage>Акції</TitlePage>
 
-          <div className="w-[1116px] grid grid-cols-3 gap-y-12 gap-x-6 mx-auto">
+          <div className="w-[1116px] grid grid-cols-1 xl:grid-cols-3 gap-y-12 gap-x-6 mx-auto">
             {promo.map(el => (
               <PromoItem key={el._id} item={el} />
             ))}

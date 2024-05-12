@@ -10,7 +10,7 @@ const ContactList = ({ page }) => {
       className={`flex ${
         page === "contacts"
           ? "w-full justify-center gap-x-16 text-beige mb-10 mx-auto"
-          : "w-[180px] flex-col gap-y-3"
+          : "w-[160px]  xl:w-[180px] flex-col gap-y-3"
       }`}
     >
       <li className={`${page === "contacts" ? "order-2 flex flex-col gap-y-3" : "order-1"}`}>
@@ -21,10 +21,16 @@ const ContactList = ({ page }) => {
             {page === "contacts" ? <icons.Phone section={"contacts"} /> : <icons.Phone />}
           </div>
           <div className="flex flex-col gap-y-[2px]">
-            <a href="tel:+380991018181" className="hover:text-base-yellow hover:cursor-pointer">
+            <a
+              href="tel:+380991018181"
+              className="hover:text-base-yellow hover:cursor-pointer text-sm"
+            >
               +38 099 101 81 81
             </a>
-            <a href="tel:+380991018181" className="hover:text-base-yellow hover:cursor-pointer">
+            <a
+              href="tel:+380991018181"
+              className="hover:text-base-yellow hover:cursor-pointer text-sm"
+            >
               +38 099 101 81 81
             </a>
           </div>
@@ -50,7 +56,7 @@ const ContactList = ({ page }) => {
           <div className="w-6">
             {page === "contacts" ? <icons.Clock section={"contacts"} /> : <icons.Clock />}
           </div>
-          <span>{workTime}</span>
+          <span className=" text-sm">{workTime}</span>
         </div>
       </li>
     </ul>

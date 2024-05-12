@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import orderStore from "../store/order";
 import Overlay from "./UI/modal/Overlay";
 
-import CartMenuItem from "../pages/client/CartMenuItem";
+import CartMenuItem from "./CartMenuItem";
 import TotalPrice from "./TotalPrice";
 
 import Button from "./UI/Button";

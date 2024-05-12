@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { observer } from "mobx-react-lite";
-import orderStore from "../../store/order";
-import { Minus, Plus, Trash } from "../../icons/iconComponent";
-import Button from "../../components/UI/Button";
+import orderStore from "../store/order";
+import { Minus, Plus, Trash } from "../icons/iconComponent";
+import Button from "./UI/Button";
 
 const CartMenuItem = observer(({ item }) => {
   if (!item) {

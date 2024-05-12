@@ -37,25 +37,25 @@ const MenuItem = observer(({ item, section, archive }) => {
         className={`${
           section === "admin"
             ? "gap-x-5 min-h-[74px] border-b border-base-brown border-dashed"
-            : "w-[831px] gap-x-14"
+            : "w-full xl:w-[831px] xl:gap-x-14 mb-4 xl:mb-0"
         } flex mx-auto items-center justify-between`}
       >
         <ul
-          className={`flex flex-col text-beige  overflow-hidden ${
+          className={`flex flex-col text-beige overflow-hidden ${
             section === "order" ? "w-[546px]" : section === "admin" ? "w-[488px]" : "w-full"
           }`}
         >
-          <li className="text-lg uppercase">{name}</li>
-          <li className="text-sm flex justify-between">
+          <li className="text-sm xl:text-lg uppercase">{name}</li>
+          <li className="text-sm flex gap-x-2 justify-between">
             <p className="w-fit relative">
               {description} ({weight}, г)
-              <span className="w-[90%] absolute top-0 left-[100%] z-0">
+              <span className="hidden xl:block w-[90%] absolute top-0 left-[100%] z-0">
                 ....................................................................................................................................................................................................................................................................................................................................................................................................
               </span>
             </p>
             {section !== "admin" && <p className="w-fit h-full bg-base-black z-10">{price}грн</p>}
           </li>
-          <li className="text-xs text-base-brown">{englishName}</li>
+          <li className="text-sm xl:text-xs font-medium text-base-brown">{englishName}</li>
         </ul>
         {section === "admin" && (
           <ul className="w-[426px] flex justify-between items-center gap-x-5">

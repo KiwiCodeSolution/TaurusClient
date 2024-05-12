@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const ServiceItem = ({ item }) => {
   return (
-    <ul className="flex flex-col w-[356px] h-[383px] p-0 text-beige mx-auto">
+    <ul className="flex flex-col w-[336px] xl:w-[356px] h-[383px] p-0 text-beige mx-auto">
       <li className="mb-6 mx-auto">
         <img
           src={item.src}

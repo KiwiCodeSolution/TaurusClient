@@ -7,6 +7,7 @@ import Button from "../../components/UI/Button";
 import items from "../../data/servicesList.json";
 import Form from "../../components/Form";
 import Overlay from "../../components/UI/modal/Overlay";
+import { imagePages } from "../../helpers/styles";
 
 const Services = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,18 +27,16 @@ const Services = () => {
   return (
     <>
       <MetaData>Послуги ресторану</MetaData>
-      <section>
-        <img
-          src="/images/menu/services.jpg"
-          alt=""
-          className="w-full h-[416px] object-cover border-b-[0.5px] border-base-brown"
-        />
+      <div className="h-[198px] md:h-[416px]">
+        <img src="/images/menu/services.jpg" alt="" className={imagePages} />
+      </div>
+      <section className="wrapper w-full section-wrapper py-16">
         <div className="w-full mx-auto wrapper">
           <TitlePage>Послуги</TitlePage>
-          <div className="grid grid-cols-3 gap-y-12 gap-x-3">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-12 gap-x-3">
             {items.map(el => (
               <motion.ul
-                className="flex flex-col w-[356px] h-[383px] p-0 text-beige mx-auto"
+                className="flex flex-col w-full xl:w-[356px] h-[383px] p-0 text-beige mx-auto"
                 key={el.id}
                 initial="hidden"
                 whileInView="visible"

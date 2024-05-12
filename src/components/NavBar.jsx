@@ -13,7 +13,11 @@ export const MENU_ITEMS = [
 
 const NavBar = ({ sectionType }) => {
   return (
-    <nav className={`flex text-base ${sectionType === "footer" ? "flex-col gap-y-3" : "gap-x-6"}`}>
+    <nav
+      className={`flex text-base ${
+        sectionType === "footer" ? "hidden xl:flex flex-col gap-y-3" : "gap-x-6"
+      }`}
+    >
       {MENU_ITEMS.map(el => (
         <NavLink
           to={el.link}

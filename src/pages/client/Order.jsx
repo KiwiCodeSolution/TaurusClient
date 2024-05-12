@@ -9,6 +9,7 @@ import ConfirmPopup from "../../components/ConfirmPopup";
 import CategoryFilter from "../../components/CategoryFilter";
 import filterStore from "../../store/filter";
 import orderStore from "../../store/order";
+import { imagePages } from "../../helpers/styles";
 
 const Order = observer(() => {
   useEffect(() => {
@@ -30,17 +31,19 @@ const Order = observer(() => {
       <MetaData>Замовлення</MetaData>
 
       <main className="relative w-full">
-        <img
-          src={
-            filterStore.topCategory === "основне меню"
-              ? "/images/order/dishes.png"
-              : filterStore.topCategory === "десерти"
-              ? "/images/order/desserts.png"
-              : "/images/order/drinks.png"
-          }
-          alt=""
-          className="w-full h-[416px] object-cover object-top border-b-[0.5px] border-base-brown"
-        />
+        <div className="h-[198px] md:h-[416px]">
+          <img
+            src={
+              filterStore.topCategory === "основне меню"
+                ? "/images/order/dishes.png"
+                : filterStore.topCategory === "десерти"
+                ? "/images/order/desserts.png"
+                : "/images/order/drinks.png"
+            }
+            alt=""
+            className={imagePages}
+          />
+        </div>
         <section className="wrapper w-full section-wrapper py-16">
           <CategoryFilter page="order" />
           <CategoriesList page="order" />

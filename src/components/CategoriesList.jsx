@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { observer } from "mobx-react-lite";
-
+import useMediaQuery from "../hooks/useMediaQuery";
 import categoryStore from "../store/filter";
 import dishesStore from "../store/dishes";
 
@@ -9,15 +9,18 @@ import MenuItem from "./MenuItem";
 import TotalPrice from "./TotalPrice";
 import MenuDeliveryItem from "./MenuDeliveryItem";
 import SubMenuSwiper from "./SubMenuSwiper";
+import { Filter } from "../icons/iconComponent";
 
 const CategoriesList = observer(({ page }) => {
   useEffect(() => {
     categoryStore.reset();
   }, []);
 
+  const { isMobile } = useMediaQuery();
+
   const dishes = dishesStore.dishes;
 
-  const categories = []; //бічне меню
+  const categories = isMobile ? ["Показати все"] : []; //бічне меню
   const subCategories = []; //суб меню у напоях
 
   //формуємо бічне меню
@@ -32,15 +35,19 @@ const CategoriesList = observer(({ page }) => {
 
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
   const [currentSubCategory, setCurrentSubCategory] = useState("");
+  const [isOpenCategoryFilter, setIsOpenCategoryFilter] = useState(false);
 
   useEffect(() => {
     setCurrentCategory(categories[0]);
   }, [categoryStore.topCategory]);
 
   // виводимо страви в залежності від топ та бічного меню
-  const menu = dishes.filter(
-    el => el.topCategory === categoryStore.topCategory && el.category === currentCategory
-  );
+  const menu =
+    currentCategory === "Показати все"
+      ? dishes.filter(el => el.topCategory === categoryStore.topCategory)
+      : dishes.filter(
+          el => el.topCategory === categoryStore.topCategory && el.category === currentCategory
+        );
 
   // всі елементи у розділі напоїв
   const subMenuItemsDrinks = dishes.filter(
@@ -64,6 +71,9 @@ const CategoriesList = observer(({ page }) => {
   );
 
   function changeCategory(category) {
+    if (isMobile) {
+      setIsOpenCategoryFilter(false);
+    }
     setCurrentCategory(category);
     setCurrentSubCategory("");
   }
@@ -74,92 +84,130 @@ const CategoriesList = observer(({ page }) => {
   }
 
   return (
-    <div
-      className={`${
-        page === "admin" ? "w-[980px] mx-auto h-[247px]" : "w-[1116px]"
-      } mx-auto categories relative`}
-    >
-      {/* блок для субкатегорій, є у категорії напоїв */}
-      {categoryStore.topCategory === "напої" &&
-        subMenuItemsDrinks &&
-        (subCategories.length <= 2 ? (
-          <div className="w-[735px] flex gap-x-4 justify-center mx-auto mb-[18px]">
-            {subCategories.map(el => (
-              <button
-                key={el}
-                onClick={() => changeSubCategory(el)}
-                className={`text-xl ${
-                  el === currentSubCategory
-                    ? "text-base-orange hover:underline hover:underline-offset-4"
-                    : "text-beige hover:text-base-yellow hover:underline hover:underline-offset-4"
-                }  uppercase mx-auto `}
-              >
-                {el}
-              </button>
-            ))}
-          </div>
-        ) : (
-          <SubMenuSwiper items={subCategories} fnc={changeSubCategory} />
-        ))}
-
-      {page !== "admin" && (
-        <>
-          <div className="w-full flex gap-x-[46px]">
-            {/* бічне меню із розділами */}
-            <div className="w-[273px] flex flex-col gap-y-2 pt-7">
-              {categories.map(el => (
+    <>
+      <div
+        className={`${
+          page === "admin" ? "w-[980px] mx-auto h-[247px]" : "w-full xl:w-[1116px]"
+        } mx-auto categories relative`}
+      >
+        {/* блок для субкатегорій, є у категорії напоїв */}
+        {categoryStore.topCategory === "напої" &&
+          subMenuItemsDrinks &&
+          (subCategories.length <= 2 ? (
+            <div className="hidden w-[735px] xl:flex gap-x-4 justify-center mx-auto mb-[18px]">
+              {subCategories.map(el => (
                 <button
                   key={el}
-                  onClick={() => changeCategory(el)}
-                  className={`w-full py-[14px] px-2 text-18 uppercase ${
-                    el === currentCategory
-                      ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
-                      : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
-                  }`}
+                  onClick={() => changeSubCategory(el)}
+                  className={`text-xl ${
+                    el === currentSubCategory
+                      ? "text-base-orange hover:underline hover:underline-offset-4"
+                      : "text-beige hover:text-base-yellow hover:underline hover:underline-offset-4"
+                  } uppercase mx-auto `}
                 >
                   {el}
                 </button>
               ))}
             </div>
+          ) : (
+            <SubMenuSwiper items={subCategories} fnc={changeSubCategory} />
+          ))}
 
-            {/* центральний блок із переліком страв*/}
+        {/* категорії та страви для мобілок */}
+        <div className="relative md:hidden">
+          <button
+            className={`w-full h-10 flex items-center justify-between p-1 ${
+              isOpenCategoryFilter ? "bg-dark-bg border-b-[1px] border-base-orange" : ""
+            }`}
+            onClick={() => setIsOpenCategoryFilter(!isOpenCategoryFilter)}
+          >
+            <span className="uppercase text--lg- text-base-orange">{currentCategory}</span>
+            <Filter />
+          </button>
+          {isOpenCategoryFilter && (
+            <div className="absolute left-0 w-full bg-dark-bg flex flex-col gap-y-1 max-h-[397px] overflow-y-auto z-20">
+              {categories.map(el => (
+                <button
+                  key={el}
+                  onClick={() => changeCategory(el)}
+                  className="text-base py-1 px-2 text-left uppercase text-beige"
+                >
+                  {el}
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="flex flex-col mt-4">
+            <div className={`w-full flex justify-between mr-auto items-center mb-4`}>
+              <p className="text-14 text-beige">Назва</p>
+              <p className="text-14 text-beige">Ціна</p>
+            </div>
+            {page === "order"
+              ? menu.map(item => <MenuDeliveryItem key={item._id} item={item} />)
+              : menu.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
+          </div>
+        </div>
 
-            <div className="">
-              <div
-                className={`${
-                  page === "order" ? "w-[546px]" : "w-{831px]"
-                } flex justify-between mr-auto items-center pb-[14px]`}
-              >
-                <p className="text-14 text-beige">Назва</p>
-                <p className="text-14 text-beige">Ціна</p>
+        {/* категорії та страви для десктопів */}
+        {!isMobile && page !== "admin" && (
+          <>
+            <div className="w-full flex gap-x-[46px]">
+              {/* бічне меню із розділами */}
+              <div className="w-[273px] flex flex-col gap-y-2 pt-7">
+                {categories.map(el => (
+                  <button
+                    key={el}
+                    onClick={() => changeCategory(el)}
+                    className={`w-full py-[14px] px-2 text-18 uppercase ${
+                      el === currentCategory
+                        ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
+                        : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
+                    }`}
+                  >
+                    {el}
+                  </button>
+                ))}
               </div>
 
-              {/* не напої */}
+              {/* центральний блок із переліком страв*/}
 
-              {categoryStore.topCategory !== "напої" && (
-                <div className="flex flex-col gap-y-4">
-                  {page === "order"
-                    ? menu.map(item => <MenuDeliveryItem key={item._id} item={item} />)
-                    : menu.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
+              <div className="">
+                <div
+                  className={`${
+                    page === "order" ? "w-[546px]" : "w-{831px]"
+                  } flex justify-between mr-auto items-center pb-[14px]`}
+                >
+                  <p className="text-14 text-beige">Назва</p>
+                  <p className="text-14 text-beige">Ціна</p>
                 </div>
-              )}
 
-              {/* напої */}
-              {categoryStore.topCategory === "напої" && (
-                <div className="flex flex-col gap-y-4">
-                  {page === "order"
-                    ? menuDrinks.map(item => <MenuDeliveryItem key={item._id} item={item} />)
-                    : menuDrinks.map(item => (
-                        <MenuItem key={item._id} item={item} section={"menu"} />
-                      ))}
-                </div>
-              )}
+                {/* не напої */}
+
+                {categoryStore.topCategory !== "напої" && (
+                  <div className="flex flex-col gap-y-4">
+                    {page === "order"
+                      ? menu.map(item => <MenuDeliveryItem key={item._id} item={item} />)
+                      : menu.map(item => <MenuItem key={item._id} item={item} section={"menu"} />)}
+                  </div>
+                )}
+
+                {/* напої */}
+                {categoryStore.topCategory === "напої" && (
+                  <div className="flex flex-col gap-y-4">
+                    {page === "order"
+                      ? menuDrinks.map(item => <MenuDeliveryItem key={item._id} item={item} />)
+                      : menuDrinks.map(item => (
+                          <MenuItem key={item._id} item={item} section={"menu"} />
+                        ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          {page === "order" && <TotalPrice />}
-        </>
-      )}
-    </div>
+            {page === "order" && <TotalPrice />}
+          </>
+        )}
+      </div>
+    </>
   );
 });
 

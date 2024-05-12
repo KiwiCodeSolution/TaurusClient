@@ -2,17 +2,14 @@ import ContactList from "../../components/ContactList";
 import Form from "../../components/Form";
 import MetaData from "../../components/MetaData";
 import TitlePage from "../../components/TitlePage";
+import { imagePages } from "../../helpers/styles";
 
 const Contacts = () => {
   return (
     <>
       <MetaData>Контакти ресторану</MetaData>
       <section className="section-wrapper">
-        <img
-          src="/images/contacts/contacts.png"
-          alt=""
-          className="w-full h-[416px] object-cover  border-b-[0.5px] border-base-brown"
-        />
+        <img src="/images/contacts/contacts.png" alt="" className={imagePages} />
         <div className="w-full mx-auto wrapper">
           <TitlePage>Контакти</TitlePage>
           <ContactList page={"contacts"} />

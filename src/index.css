@@ -94,7 +94,7 @@
 
   @media screen and (min-width: 768px) {
     width: 28px;
-    height: 751px;
+    height: 51px;
   }
 }
 
@@ -368,21 +368,25 @@ button:hover .icon-up {
   transition-timing-function: ease;
 }
 
-.admin ::-webkit-scrollbar {
+.admin ::-webkit-scrollbar,
+.client-section ::-webkit-scrollbar {
   width: 3px; /* Ширина самого скроллбара */
 }
 
-.admin ::-webkit-scrollbar-track {
+.admin ::-webkit-scrollbar-track,
+.client-section ::-webkit-scrollbar-track {
   background: #ffd698; /* Фон скроллбару */
   border-radius: 8px; /* Радіус кутів для track */
 }
 
-.admin ::-webkit-scrollbar-thumb {
+.admin ::-webkit-scrollbar-thumb,
+.client-section ::-webkit-scrollbar-thumb {
   background: #f7a033; /* Колір thumb */
   border-radius: 8px; /* Радіус кутів для thumb */
 }
 
-.admin ::-webkit-scrollbar-thumb:hover {
+.admin ::-webkit-scrollbar-thumb:hover,
+.client-section ::-webkit-scrollbar-thumb:hover {
   background: #ecddc6; /* Колір thumb при наведенні */
 }
 
@@ -449,7 +453,7 @@ label:hover svg {
   fill: #fff;
 }
 
-button:hover svg,
+/* button:hover svg, */
 button:hover .call {
   stroke: #f7a033;
 }
@@ -459,9 +463,11 @@ button:hover .burger {
   stroke: #f7a033;
 }
 
-.category-list .slick-arrow {
+.category-list .slick-arrow,
+.category-list .slick-next {
   width: 0;
   height: 0;
   top: -100%;
+  left: -150%;
   z-index: -100;
 }
