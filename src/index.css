@@ -368,6 +368,24 @@ button:hover .icon-up {
   transition-timing-function: ease;
 }
 
+::-webkit-scrollbar {
+  width: 12px; /* Ширина самого скроллбара */
+}
+
+::-webkit-scrollbar-track {
+  background: #ecddc6; /* Фон скроллбару */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffd698; /* Колір thumb */
+  border-radius: 4px; /* Радіус кутів для thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f7a033; /* Колір thumb при наведенні */
+}
+
 .admin ::-webkit-scrollbar,
 .client-section ::-webkit-scrollbar {
   width: 3px; /* Ширина самого скроллбара */

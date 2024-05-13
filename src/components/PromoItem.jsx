@@ -9,8 +9,8 @@ const PromoItem = ({ item, type }) => {
   const location = useLocation();
 
   return (
-    <article className="w-[336px] xl:w-[356px] h-[546px] xl:h-[568px] py-8 px-6 border border-base-brown flex flex-col gap-y-6 justify-between relative mx-auto">
-      <div className="w-[308px] h-[235px] border border-base-brown overflow-hidden relative">
+    <article className="w-[336px] xl:w-[356px] h-[546px] xl:h-[568px] py-6 px-4 xl:py-8 xl:px-6 border border-base-brown flex flex-col gap-y-6 justify-between relative mx-auto">
+      <div className="w-[304px] h-[235px] border border-base-brown overflow-hidden relative">
         <img src={image ? `http://localhost:5000/${image}` : NoImage} alt="Promo" />
         <div className="w-[82px] h-8 px-1 py-3 text-18 font-medium text-base-black bg-base-orange flex items-center justify-center absolute top-3 left-0">
           Акція

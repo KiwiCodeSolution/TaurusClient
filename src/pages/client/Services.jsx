@@ -20,7 +20,7 @@ const Services = () => {
     visible: custom => ({
       scale: 1,
       opacity: 1,
-      transition: { delay: custom * 0.2, duration: 0.4 },
+      transition: { delay: custom * 0.1, duration: 0.2 },
     }),
   };
 
@@ -30,13 +30,13 @@ const Services = () => {
       <div className="h-[198px] md:h-[416px]">
         <img src="/images/menu/services.jpg" alt="" className={imagePages} />
       </div>
-      <section className="wrapper w-full section-wrapper py-16">
+      <section className="wrapper w-full section-wrapper py-8 xl:py-16">
         <div className="w-full mx-auto wrapper">
           <TitlePage>Послуги</TitlePage>
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-12 gap-x-3">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-8 xl:gap-y-12 gap-x-3">
             {items.map(el => (
               <motion.ul
-                className="flex flex-col w-full xl:w-[356px] h-[383px] p-0 text-beige mx-auto"
+                className="flex flex-col w-full xl:w-[356px] h-[375px] xl:h-[383px] p-0 text-beige mx-auto"
                 key={el.id}
                 initial="hidden"
                 whileInView="visible"
@@ -44,7 +44,7 @@ const Services = () => {
                 variants={blocAnimation}
                 viewport={{ once: true }}
               >
-                <li className="mb-6 mx-auto">
+                <li className="mb-4 xl:mb-6 mx-auto">
                   <img
                     src={el.src}
                     alt={el.alt}

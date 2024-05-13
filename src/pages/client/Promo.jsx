@@ -50,16 +50,16 @@ const Promo = observer(() => {
   return (
     <>
       <MetaData>Акції ресторану</MetaData>
-      <section className="relative">
+      <div className="h-[198px] md:h-[416px]">
         <PromoSwiper />
-        <div className="w-full mx-auto wrapper">
-          <TitlePage>Акції</TitlePage>
+      </div>
+      <section className="relative wrapper w-full section-wrapper py-8 xl:py-16 mx-auto">
+        <TitlePage>Акції</TitlePage>
 
-          <div className="w-[1116px] grid grid-cols-1 xl:grid-cols-3 gap-y-12 gap-x-6 mx-auto">
-            {promo.map(el => (
-              <PromoItem key={el._id} item={el} />
-            ))}
-          </div>
+        <div className="w-full xl:w-[1116px] grid grid-cols-1 xl:grid-cols-3 gap-y-12 gap-x-6 mx-auto">
+          {promo.map(el => (
+            <PromoItem key={el._id} item={el} />
+          ))}
         </div>
       </section>
     </>
