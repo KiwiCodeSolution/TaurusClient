@@ -70,6 +70,8 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
 
+  console.log(delivery);
+
   const defaultValues = {
     name: "",
     email: "",
@@ -209,11 +211,11 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
   // стилі для форми в залежності від її розташування
   const formStyle =
     namePage === "reserve"
-      ? "w-[597px] h-fit px-[22px] flex flex-col gap-y-4 mb-16 mx-auto"
+      ? "w-[312px] xl:w-[597px] h-fit xl:px-[22px] flex flex-col gap-y-4 mb-16 mx-auto"
       : namePage === "contacts" || namePage === "service"
-      ? "w-[546px] px-6 flex flex-col gap-y-4 mt-8 mx-auto"
+      ? "w-[312px] xl:w-[546px] xl:px-6 flex flex-col gap-y-4 mt-8 mx-auto"
       : namePage === "order"
-      ? "w-[578px] h-fit flex flex-col gap-y-4 mx-auto"
+      ? "w-full xl:w-[578px] h-fit flex flex-col gap-y-4 mx-auto"
       : "";
 
   return (
@@ -248,7 +250,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
         )}
 
         {namePage !== "contacts" && namePage !== "service" && (
-          <div className="w-full flex justify-between order-5">
+          <div className="w-full grid grid-cols-2 gap-y-4 xl:pag-y-0 xl:flex justify-between order-5">
             {/* ------------------ persons --------------- */}
             {namePage === "reserve" && (
               <Controller
@@ -263,7 +265,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
                       name="quantity"
                       isSearchable={true}
                       placeholder="Кількість осіб"
-                      style={"order-7"}
+                      style={"w-[312px] xl:w-[166px] order-7"}
                       label="Кількість людей"
                     />
                   </>

@@ -81,7 +81,7 @@ const DateTimeField = ({ control, namePage, currentDate }) => {
         render={({ field }) => (
           <div
             className={`${
-              namePage === "order" ? "w-[241px]" : "w-[118px]"
+              namePage === "order" ? "w-[115px] xl:w-[241px]" : "w-[118px]"
             } h-[59px] border-b-[0.5px] border-base-brown flex flex-col gap-y-2 relative date-picker`}
           >
             <label htmlFor="date" className={`${baseStyleLabel} date`}>
@@ -133,7 +133,7 @@ const DateTimeField = ({ control, namePage, currentDate }) => {
               control={control}
               name="time"
               isSearchable={true}
-              placeholder={time.length === 0 ? "Оберіть інший день" : "Оберіть час"}
+              placeholder={time.length === 0 ? "Оберіть інший день" : "Час"}
               label="Час"
               onChange={selectedOption => {
                 field.onChange(selectedOption);

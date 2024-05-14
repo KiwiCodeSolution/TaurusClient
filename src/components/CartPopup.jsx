@@ -25,63 +25,65 @@ const CartPopup = observer(({ clickFn, formFn }) => {
     setStep(2);
   }
 
-  return (
-    <>
-      <Overlay
-        clickFn={clickFn}
-        stylesPopUp={"w-[680px] min-h-[319px] flex flex-col items-center"}
-        status={"confirm"}
-        componentName={"cart"}
-      >
-        <h4 className="w-full text-xl text-beige uppercase text-center mb-6">
-          {step === 1 ? "Замовлення" : "Оформлення замовлення"}
-        </h4>
+  console.log(delivery);
 
-        {step === 1 ? (
-          <>
-            <div className="w-fit p-1 bg-dark-btn-bg rounded-[6px] mx-auto flex gap-x-4 mb-4">
-              <Button
-                style={"check"}
-                clickFn={() => setDelivery("У ресторані")}
-                btnClass={
-                  delivery === "У ресторані"
-                    ? "bg-base-yellow text-base-black"
-                    : "hover:text-base-yellow"
-                }
-              >
-                У ресторані
-              </Button>
-              <Button
-                style={"check"}
-                clickFn={() => setDelivery("Доставка")}
-                btnClass={
-                  delivery === "Доставка"
-                    ? "bg-base-yellow text-base-black"
-                    : "hover:text-base-yellow"
-                }
-              >
-                Доставка
-              </Button>
-            </div>
-            <div className="mb-20 overflow-auto">
-              {items.map(item => (
-                <CartMenuItem key={item._id} item={item} />
-              ))}
-              <TotalPrice />
-            </div>
+  return (
+    <Overlay
+      clickFn={clickFn}
+      stylesPopUp={
+        "w-[312px] xl:w-[680px] min-h-[654px] xl:min-h-[319px] flex flex-col items-center"
+      }
+      status={"confirm"}
+      componentName={"cart"}
+    >
+      <h4 className="w-full text-xl text-beige uppercase text-center mb-6">
+        {step === 1 ? "Замовлення" : "Оформлення замовлення"}
+      </h4>
+
+      {step === 1 ? (
+        <>
+          <div className="w-fit p-1 bg-dark-btn-bg rounded-[6px] mx-auto flex gap-x-4 mb-4">
             <Button
-              btnClass="text-18 font-medium text-base-black"
-              style={"orange"}
-              clickFn={() => nextStep()}
+              style={"check"}
+              clickFn={() => setDelivery("У ресторані")}
+              btnClass={
+                delivery === "У ресторані"
+                  ? "bg-base-yellow text-base-black"
+                  : "hover:text-base-yellow"
+              }
             >
-              Оформити замолення
+              У ресторані
             </Button>
-          </>
-        ) : (
-          <Form namePage="order" clickFn={formFn} delivery={"Доставка"} />
-        )}
-      </Overlay>
-    </>
+            <Button
+              style={"check"}
+              clickFn={() => setDelivery("Доставка")}
+              btnClass={
+                delivery === "Доставка"
+                  ? "bg-base-yellow text-base-black"
+                  : "hover:text-base-yellow"
+              }
+            >
+              Доставка
+            </Button>
+          </div>
+          <div className="mb-20 overflow-auto">
+            {items.map(item => (
+              <CartMenuItem key={item._id} item={item} />
+            ))}
+            <TotalPrice />
+          </div>
+          <Button
+            btnClass="text-18 font-medium text-base-black"
+            style={"orange"}
+            clickFn={() => nextStep()}
+          >
+            Оформити замолення
+          </Button>
+        </>
+      ) : (
+        <Form namePage="order" clickFn={formFn} delivery={delivery} />
+      )}
+    </Overlay>
   );
 });
 

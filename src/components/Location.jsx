@@ -12,7 +12,7 @@ const Location = ({ section, className }) => {
           section === "home"
             ? "rotate-90 hover:underline gap-x-3"
             : section === "contacts"
-            ? "gap-x-[6px] items-center w-[200px]"
+            ? "gap-x-[6px] items-center justify-center w-full xl:w-[200px]"
             : section === "home_mobile"
             ? "gap-x-3 items-center"
             : ""

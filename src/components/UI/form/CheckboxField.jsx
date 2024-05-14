@@ -17,7 +17,7 @@ const CheckboxField = forwardRef(
         <label
           className={`text-14 ${
             section === "admin" ? "text-beige" : "text-base-brown"
-          } flex w-full gap-x-2`}
+          } flex items-center w-full gap-x-2`}
         >
           <input
             type="checkbox"

@@ -78,7 +78,7 @@ const TextField = ({ control, name, defaultValue, placeholder, onReset, type, st
 
       <button
         type="button"
-        className="absolute right-0 form_button"
+        className="absolute top-1/2 right-0 form_button"
         onClick={() => onReset({ name })}
       >
         <Cross className={"icon"} />

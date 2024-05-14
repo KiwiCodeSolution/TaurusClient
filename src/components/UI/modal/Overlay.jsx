@@ -8,7 +8,7 @@ import { Cross } from "../../../icons/iconComponent";
 
 const modalRoot = document.querySelector("#modal-root");
 
-const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName }) => {
+const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
 
   function closeModal() {
@@ -43,7 +43,7 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay, componentName 
       onClick={handleOverlayClick}
     >
       <div
-        className={`p-10 text-16 text-beige bg-base-black border border-base-brown absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100 ${stylesPopUp}`}
+        className={`px-4 py-12 xl:p-10 text-16 text-beige bg-base-black border border-base-brown absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100 ${stylesPopUp}`}
       >
         <button className="phoneContactList_button" onClick={closeModal}>
           <Cross className={"absolute top-[16px] right-[16px] icon"} />

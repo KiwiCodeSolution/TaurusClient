@@ -11,11 +11,9 @@ const Reserve = () => {
         <img src="/images/menu/reserve.jpg" alt="" className={imagePages} />
       </div>
       <section className="wrapper w-full section-wrapper py-16">
-        <div className="w-full mx-auto wrapper">
-          <TitlePage>Забронювати</TitlePage>
+        <TitlePage>Забронювати</TitlePage>
 
-          <Form namePage={"reserve"} />
-        </div>
+        <Form namePage={"reserve"} />
       </section>
     </>
   );
