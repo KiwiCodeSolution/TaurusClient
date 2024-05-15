@@ -15,7 +15,7 @@ const PhoneContactList = ({ clickFn }) => {
     <Overlay
       clickFn={clickFn}
       componentName={"PhoneContactList"}
-      stylesPopUp={"w-[352px] border_overlay flex flex-col"}
+      stylesPopUp={"w-[352px] border_custom flex flex-col"}
     >
       <>
         <h4 className="text-xl uppercase leading-[30px] text-center text-beige mb-4">

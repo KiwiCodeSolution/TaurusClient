@@ -53,7 +53,7 @@ const CategoryFilter = observer(({ page }) => {
         </li>
         <li
           className={`${
-            page !== "admin" ? "w-[320px] xl:w-[736px] border_menu pb-10" : "w-[851px] pb-3"
+            page !== "admin" ? "w-[320px] xl:w-[736px] border_custom pb-10" : "w-[851px] pb-3"
           } flex xl:gap-x-14 mx-auto relative`}
         >
           {isMobile ? (

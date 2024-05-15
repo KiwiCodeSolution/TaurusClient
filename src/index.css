@@ -9,6 +9,13 @@
     background-color: #0c0c09;
   }
 
+  body,
+  html {
+    overflow-x: hidden;
+    min-height: 100vh;
+    height: auto;
+  }
+
   input {
     cursor: text;
   }
@@ -68,10 +75,6 @@
     margin: 0px;
     list-style: none;
   }
-
-  /* svg {
-    transition: fill 250ms ease;
-  } */
 }
 
 .body-scroll-lock {
@@ -107,6 +110,8 @@
 }
 
 .wrapper {
+  min-height: 100vh;
+  height: auto;
   padding-left: 24px;
   padding-right: 24px;
   margin: 0 auto;
@@ -115,6 +120,11 @@
     padding-left: 82px;
     padding-right: 82px;
   }
+}
+
+.section-wrapper {
+  min-height: calc(100vh - 416px - 374px);
+  height: auto;
 }
 
 .border_custom {
@@ -136,18 +146,6 @@
       #e4b88b 0%
     )
     1;
-}
-
-.border_menu {
-  border-bottom: 1px;
-  border-style: solid;
-  border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
-}
-
-.border_overlay {
-  border: 1px;
-  border-style: solid;
-  border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
 }
 
 .line {
@@ -210,10 +208,6 @@ button:hover .icon-up {
 .select_persons span {
   width: 0;
   height: 0;
-}
-
-.section-wrapper {
-  min-height: calc(100vh - 416px - 374px);
 }
 
 .react-datepicker-wrapper:hover + .icon_down,
@@ -307,10 +301,6 @@ button:hover .icon-up {
   color: #0c0c09;
 }
 
-/* .trash svg {
-  fill: #ecddc6;
-} */
-
 .trash:hover svg {
   fill: #f7a033;
   transform: fill;
@@ -321,7 +311,7 @@ button:hover .icon-up {
 .text-not_found {
   width: 100%;
   text-align: center;
-  font-size: 166px;
+  font-size: 94px;
   font-weight: 700;
   line-height: 1.5;
   background: url("/images/text_not_found.jpg");
@@ -330,6 +320,10 @@ button:hover .icon-up {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media screen and (min-width: 768px) {
+    font-size: 166px;
+  }
 }
 
 .cart {
@@ -346,11 +340,6 @@ button:hover .icon-up {
 .cart-not-empty {
   stroke: #f7a033;
 }
-
-/* .show,
-.hide {
-  fill: #ecddc6;
-} */
 
 .password-btn:hover .show,
 .password-btn:hover .hide {
@@ -407,10 +396,6 @@ button:hover .icon-up {
 .client-section ::-webkit-scrollbar-thumb:hover {
   background: #ecddc6; /* Колір thumb при наведенні */
 }
-
-/* .trash-icon {
-  transition: fill 250ms ease; 
-} */
 
 .trash:hover svg {
   fill: #f7a033;
@@ -471,7 +456,6 @@ label:hover svg {
   fill: #fff;
 }
 
-/* button:hover svg, */
 button:hover .call {
   stroke: #f7a033;
 }

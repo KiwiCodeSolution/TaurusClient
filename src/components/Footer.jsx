@@ -17,8 +17,8 @@ const Footer = () => {
   const [isModalPolicyOpen, setIsModalPolicyOpen] = useState(false);
 
   return (
-    <footer className="min-w-[360px] xl:w-full bg-dark-bg">
-      <section className="wrapper pt-12 xl:py-10 border_custom relative">
+    <footer className="px-6 xl:px-[82px] min-w-[360px] xl:w-full bg-dark-bg">
+      <section className="pt-12 xl:py-10 border_custom relative">
         <div className="flex flex-col xl:flex-row gap-x-[87px] justify-between">
           <Logo />
 
@@ -57,7 +57,7 @@ const Footer = () => {
           </Button>
         </div>
       </section>
-      <section className="wrapper pt-[22px] pb-4 border_custom">
+      <section className="pt-[22px] pb-4 border_custom">
         <div className="w-full relative">
           <p className="w-full text-sm text-center flex flex-wrap gap-x-[2px] items-center justify-center mb-3 xl:mb-1">
             Використовуючи цей сайт, ви погоджуєтесь з{" "}

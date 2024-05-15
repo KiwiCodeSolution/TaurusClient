@@ -6,11 +6,11 @@ const NotFound = () => {
   return (
     <>
       <MetaData>Немає такої сторінки</MetaData>
-      <section className="section-wrapper pt-[106px] bg-[url('/images/not_found_page.png')] bg-cover bg-no-repeat bg-center h-screen">
+      <section className="px-3 xl:px-0 min-h-screen pt-[106px] bg-[url('/images/not_found_page.png')] bg-cover bg-no-repeat bg-center h-screen">
         <div className="flex flex-col gap-y-10 mx-auto w-fit text-center">
           <h1 className="text-not_found">Oops!</h1>
-          <p className="text-[36px] text-beige">404 - Таку сторінку не знайдено</p>
-          <p className="w-[420px] text-14 text-beige mx-auto">
+          <p className="text-[28px] xl:text-[36px] text-beige">404 - Таку сторінку не знайдено</p>
+          <p className="w-[336px] xl:w-[420px] text-14 text-beige mx-auto">
             Сторінку, яку Ви шукаєте, не вдалося знайти. Можливо, її було видалено, її ім’я змінено
             або вона тимчасово недоступна.
           </p>

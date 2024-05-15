@@ -70,8 +70,6 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  console.log(delivery);
-
   const defaultValues = {
     name: "",
     email: "",
