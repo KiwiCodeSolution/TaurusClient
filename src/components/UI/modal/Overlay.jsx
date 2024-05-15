@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import useScrollBlock from "../../../hooks/useScrollBlock";
-import Button from "../Button";
 import { Cross } from "../../../icons/iconComponent";
 
 const modalRoot = document.querySelector("#modal-root");
@@ -49,13 +48,6 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay }) => {
           <Cross className={"absolute top-[16px] right-[16px] icon"} />
         </button>
         {children}
-        {/* {(componentName !== "PhoneContactList" || componentName !== "cart") && (
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-            <Button style={"orange"} clickFn={closeModal}>
-              Закрити
-            </Button>
-          </div>
-        )} */}
       </div>
     </div>,
     modalRoot

@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "./components/Loader";
 import { PrivateRoute, RedirectRoute } from "./helpers/redirect";
 
+
 const Home = React.lazy(() => import("./pages/client/Home"));
 const NotFound = React.lazy(() => import("./pages/client/NotFound"));
 const Services = React.lazy(() => import("./pages/client/Services"));
@@ -31,6 +32,8 @@ const OrdersArchivePage = React.lazy(() => import("./pages/admin/OrdersPage"));
 const FeedbackPage = React.lazy(() => import("./pages/admin/FeedbackPage"));
 const ServicesPage = React.lazy(() => import("./pages/admin/ServicesPage"));
 const BookingPage = React.lazy(() => import("./pages/admin/BookingPage"));
+const UsersPage = React.lazy(() => import("./pages/admin/UsersPage"));
+const ModifyUsersPage = React.lazy(() => import("./pages/admin/ModifyUsersPage"));
 
 const App = observer(() => {
   return (
@@ -83,9 +86,9 @@ const App = observer(() => {
 
            {/* Робота із замовленнями, зверненнями та бронюванням столиків */}
           <Route path="users">
-            <Route path="staff" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="archive" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
-            <Route path="staff/:_id" element={<PrivateRoute> <PromoAdmin /> </PrivateRoute>}/>
+            <Route path="staff" element={<PrivateRoute> <UsersPage /> </PrivateRoute>}/>
+            <Route path="staff/:_id" element={<PrivateRoute> <ModifyUsersPage type={"edit"}/> </PrivateRoute>}/>
+            <Route path="staff/create" element={<PrivateRoute> <ModifyUsersPage /> </PrivateRoute>}/>   
           </Route>
         </Route>
         

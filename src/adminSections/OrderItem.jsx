@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Minus, Plus } from "../icons/iconComponent";
+import { Archive, Minus, Plus, Trash } from "../icons/iconComponent";
 
 const items = [
   { id: "1", name: "Паста з веганськими болами", quantity: "1", salary: "", price: "250" },
@@ -28,26 +28,33 @@ const OrderItem = () => {
       </div>
       {isOpenOrder && (
         <div>
+          {/* контактна інформація */}
           <div className="grid grid-cols-3">
             <p className="col-span-2">
-              <span>Email: </span> roman_bondarenko@gmail.com
+              <span className="text-base font-semibold text-base-yellow">Email: </span>
+              <a href="mailto:roman_bondarenko@gmail.com" className="cursor-pointer">
+                roman_bondarenko@gmail.com
+              </a>
             </p>
             <p>
-              <span>Телефон: </span>+38 099 840 96 14
+              <span className="text-base font-semibold text-base-yellow">Телефон: </span>
+              +38 099 840 96 14
             </p>
             <p className="col-span-2">
-              <span>Адреса: </span>кв. 32, буд. 71 вул. Прорізна, м. Харків, Харківська обл.,
-              Україна, 83000
+              <span className="text-base font-semibold text-base-yellow">Адреса: </span>кв. 32, буд.
+              71 вул. Прорізна, м. Харків, Харківська обл., Україна, 83000
             </p>
-            <p>
+            {/* <p>
               <span>:</span>
-            </p>
+            </p> */}
             <p className="col-span-2">
-              <span>Повідомлення:</span>Вишневий штрудель (3й поверх)
+              <span className="text-base font-semibold text-base-yellow">Повідомлення: </span>
+              Вишневий штрудель (3й поверх)
             </p>
           </div>
+          {/* перелік страв у замовленні */}
           <table className="w-full border-separate border-spacing-x-6 border-spacing-y-[6px]">
-            <thead className="text-left text-base-yellow font-medium">
+            <thead className="text-left text-base-yellow">
               <tr>
                 <th className="w-6">#</th>
                 <th className="w-[438px]">Назва</th>
@@ -68,6 +75,18 @@ const OrderItem = () => {
               ))}
             </tbody>
           </table>
+          <div className="w-[238px] px-3 flex justify-between gap-x-6 ml-auto">
+            <p className="w-full text-right text-base text-base-yellow font-medium">Всього:</p>
+            <p className="w-full text-right text-base text-base-yellow font-medium">390 грн</p>
+          </div>
+          <div className="w-fit flex justify-between items-center gap-x-4 my-4 ml-auto">
+            <button className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center">
+              <Archive className={"fill-white w-4 h-4"} />
+            </button>
+            <button className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center">
+              <Trash className={"fill-white w-4 h-4"} />
+            </button>
+          </div>
         </div>
       )}
     </article>

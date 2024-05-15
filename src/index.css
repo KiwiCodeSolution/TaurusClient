@@ -164,7 +164,8 @@
   stroke: #ecddc6;
 }
 
-.form_button:hover .cross {
+.form_button:hover .cross,
+button:hover .cross {
   stroke: #ffd698;
 }
 
@@ -350,6 +351,7 @@ button:hover .icon-up {
 }
 
 .btn-archive:hover .archive,
+button:hover .archive,
 .btn-show:hover .show {
   fill: #f7a033;
   transform: fill;
@@ -472,4 +474,8 @@ button:hover .burger {
   top: -100%;
   left: -150%;
   z-index: -100;
+}
+
+.custom-search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }

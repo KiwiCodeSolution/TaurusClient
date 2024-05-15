@@ -15,10 +15,7 @@ const RESTAURANTLINKS = [
   { id: "4", name: "Бронювання", link: "/admin/access/restaurant/booking" },
 ];
 
-const USERSLINKS = [
-  { id: "1", name: "Всі користувачі", link: "/admin/access/users/staff" },
-  { id: "2", name: "Архів", link: "/admin/access/users/archive" },
-];
+const USERSLINKS = [{ id: "1", name: "Всі користувачі", link: "/admin/access/users/staff" }];
 
 const MenuSideBar = () => {
   const [currentItem, setCurrentItem] = useState(localStorage.getItem("currentId") || "1");

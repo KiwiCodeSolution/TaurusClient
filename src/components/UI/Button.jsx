@@ -15,6 +15,8 @@ const buttonsStyle = {
   gray: "w-fit h-[38px] py-[6px] px-3 bg-dark-btn-bg border border-beige text-16 text-beige flex items-center gap-x-2",
   admin:
     "w-fit h-[38px] py-[6px] px-3 border border-beige text-beige text-16 flex items-center gap-x-2 hover:border-base-orange hover:text-base-orange btn-admin",
+  archive:
+    "w-[96px] h-9 bg-dark-btn-bg border border-beige rounded-r-[3px] text-beige text-sm font-medium cursor-pointer hover:border-base-orange hover:text-base-orange flex justify-between items-center px-3",
 };
 
 const Button = ({ children, style, btnType, icon, clickFn, btnClass, disabled, ...restProps }) => {
@@ -49,6 +51,7 @@ Button.propTypes = {
     "gray",
     "admin",
     "beige",
+    "archive",
   ]).isRequired,
   btnType: PropTypes.string,
   icon: PropTypes.element,
