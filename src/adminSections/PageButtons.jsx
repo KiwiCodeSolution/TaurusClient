@@ -27,15 +27,17 @@ const PageButtons = ({ buttons }) => {
           <Archive className={"fill-beige"} /> <span>{buttons[1].label}</span>
         </Link>
       </Button>
-      <Button style={"admin"}>
-        <Link
-          to={buttons[2].link}
-          className={"flex gap-x-2 items-center nav-link"}
-          state={{ from: location }}
-        >
-          <Show className={"fill-beige"} /> <span>{buttons[2].label}</span>
-        </Link>
-      </Button>
+      {buttons.length === 3 && (
+        <Button style={"admin"}>
+          <Link
+            to={buttons[2].link}
+            className={"flex gap-x-2 items-center nav-link"}
+            state={{ from: location }}
+          >
+            <Show className={"fill-beige"} /> <span>{buttons[2].label}</span>
+          </Link>
+        </Button>
+      )}
     </div>
   );
 };

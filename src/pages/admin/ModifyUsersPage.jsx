@@ -5,12 +5,12 @@ import MetaData from "../../components/MetaData";
 
 import ButtonBack from "../../adminSections/ButtonBack";
 
-import { Archive, ArrowBack } from "../../icons/iconComponent";
-import { useParams } from "react-router-dom";
+// import { Archive, ArrowBack } from "../../icons/iconComponent";
+// import { useParams } from "react-router-dom";
 import UsersForm from "../../adminSections/UsersForm";
 
 const ModifyUsersPage = observer(({ type }) => {
-  const { _id } = useParams();
+  // const { _id } = useParams();
 
   // const user = userStore.user;
 

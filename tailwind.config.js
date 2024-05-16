@@ -12,6 +12,7 @@ export default {
         beige: "#ECDDC6",
         "dark-bg": "#181817",
         "dark-btn-bg": "#33302D",
+        grey: "#565350",
       },
       fontSize: {
         14: ["14px", "20px"],

@@ -34,6 +34,7 @@ const ServicesPage = React.lazy(() => import("./pages/admin/ServicesPage"));
 const BookingPage = React.lazy(() => import("./pages/admin/BookingPage"));
 const UsersPage = React.lazy(() => import("./pages/admin/UsersPage"));
 const ModifyUsersPage = React.lazy(() => import("./pages/admin/ModifyUsersPage"));
+const InvisibleUsersPage = React.lazy(() => import("./pages/admin/InvisibleUsersPage"));
 
 const App = observer(() => {
   return (
@@ -86,9 +87,10 @@ const App = observer(() => {
 
            {/* Робота із замовленнями, зверненнями та бронюванням столиків */}
           <Route path="users">
-            <Route path="staff" element={<PrivateRoute> <UsersPage /> </PrivateRoute>}/>
-            <Route path="staff/:_id" element={<PrivateRoute> <ModifyUsersPage type={"edit"}/> </PrivateRoute>}/>
-            <Route path="staff/create" element={<PrivateRoute> <ModifyUsersPage /> </PrivateRoute>}/>   
+            <Route index element={<PrivateRoute> <UsersPage /> </PrivateRoute>}/>
+            <Route path=":_id" element={<PrivateRoute> <ModifyUsersPage type={"edit"}/> </PrivateRoute>}/>
+            <Route path="create" element={<PrivateRoute> <ModifyUsersPage /> </PrivateRoute>}/>   
+            <Route path="archive" element={<PrivateRoute> <InvisibleUsersPage /> </PrivateRoute>}/>   
           </Route>
         </Route>
         

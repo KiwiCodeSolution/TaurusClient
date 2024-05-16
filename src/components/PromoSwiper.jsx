@@ -14,7 +14,7 @@ function PromoNextArrow(props) {
   const { style, onClick } = props;
   return (
     <button
-      className={`bottom-0 right-[82px] absolute w-12 h-12 rounded-full border border-base-beige justify-center hover:border-base-orange z-[20]`}
+      className={`bottom-0 md:top-1/2 transform -translate-y-1/2 right-3 md:right-[82px] absolute w-12 h-12 rounded-full border border-base-beige justify-center hover:border-base-orange z-[20]`}
       style={{ ...style, display: "flex", alignItems: "center" }}
       onClick={onClick}
     >
@@ -27,7 +27,7 @@ function PromoPrevArrow(props) {
   const { style, onClick } = props;
   return (
     <button
-      className={`bottom-0 left-[82px] absolute w-12 h-12 rounded-full border border-base-beige justify-center hover:border-base-orange z-[20]`}
+      className={`bottom-0 md:top-1/2 transform -translate-y-1/2 left-3 md:left-[82px] absolute w-12 h-12 rounded-full border border-base-beige justify-center hover:border-base-orange z-[20]`}
       style={{ ...style, display: "flex", alignItems: "center" }}
       onClick={onClick}
     >
@@ -63,7 +63,7 @@ class PromoSwiper extends Component {
             src={el.src}
             alt={el.alt}
             key={el.alt}
-            className="w-full h-[198px] md:h-[416px] object-cover border-b-[0.5px] border-base-brown object-bottom"
+            className="w-full h-[198px] md:h-[416px] object-fill md:object-cover border-b-[0.5px] border-base-brown object-bottom"
           />
         ))}
       </Slider>
