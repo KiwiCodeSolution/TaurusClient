@@ -54,7 +54,6 @@ const FIELDS_PRICE = [
 ];
 
 const PromoForm = observer(({ item, type }) => {
-  console.log(item);
   const defaultValues = {
     _id: item?._id || "",
     title: item?.title || "",

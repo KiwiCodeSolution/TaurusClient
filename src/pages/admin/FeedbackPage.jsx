@@ -1,15 +1,25 @@
 import { observer } from "mobx-react-lite";
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/UI/Button";
 import SearchBar from "../../adminSections/SearchBar";
 import { Archive, ArrowBack } from "../../icons/iconComponent";
 import MessageItem from "../../adminSections/MessageItem";
+import feedbackStore from "../../store/feedback";
+import { prefix } from "../../helpers/styles";
 
 const FeedbackPage = observer(() => {
   const [filter, setFilter] = useState("");
   const [isArchive, setIsArchive] = useState(false);
+
+  useEffect(() => {
+    feedbackStore.getMessagesAction();
+  }, []);
+
+  const messages = feedbackStore.messages;
+
+  const feedbackItems = messages.filter(item => !item.message.startsWith(prefix));
 
   const toggleStateArchive = () => {
     setIsArchive(!isArchive);
@@ -50,7 +60,9 @@ const FeedbackPage = observer(() => {
         </div>
 
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          <MessageItem />
+          {feedbackItems.map(item => (
+            <MessageItem key={item._id} item={item} />
+          ))}
         </div>
       </section>
     </>

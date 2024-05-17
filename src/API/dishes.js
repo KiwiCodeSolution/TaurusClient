@@ -1,17 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
+import { toastOptions } from "../helpers/styles";
 
-export const toastOptions = {
-  position: "top-center",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: "dark",
-};
+
 
 export const getDishes = async () => {
   try {

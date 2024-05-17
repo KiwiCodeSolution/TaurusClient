@@ -12,6 +12,8 @@ import { useState } from "react";
 import ConfirmPopup from "./ConfirmPopup";
 import orderStore from "../store/order";
 import { baseServerURL } from "../API/config";
+import { prefix } from "../helpers/styles";
+import { createOrder } from "../API/orders";
 
 const TEXT_FIELDS = [
   {
@@ -133,7 +135,8 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
 
       try {
         console.log("requestData", requestData);
-        const result = await axios.post(`${baseServerURL}order`, requestData);
+        // const result = await axios.post(`${baseServerURL}order`, requestData);
+        const result = createOrder(requestData);
         console.log("result", result);
 
         clickFn();
@@ -174,7 +177,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
       try {
         const requestData = {
           ...formattedData,
-          message: "service_page " + data.message,
+          message: prefix + data.message,
           total_cost: orderStore.order.total,
         };
 

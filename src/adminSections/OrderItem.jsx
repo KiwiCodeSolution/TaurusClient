@@ -7,8 +7,10 @@ const items = [
   { id: "3", name: "Ароматний штрудель", quantity: "1", salary: "-", price: "300" },
 ];
 
-const OrderItem = () => {
+const OrderItem = ({ item }) => {
+  // const { name, login, access_type, role, password } = item;
   const [isOpenOrder, setIsOpenOrder] = useState(false);
+  console.table(item);
 
   return (
     <article className="w-full px-2 border-b border-base-brown border-dashed text-sm text-beige">

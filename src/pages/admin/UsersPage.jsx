@@ -1,14 +1,13 @@
 import { observer } from "mobx-react-lite";
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
-
-import { Archive, ArrowBack } from "../../icons/iconComponent";
 import PageButtons from "../../adminSections/PageButtons";
 import UserItem from "../../adminSections/UserItem";
 
+import users from "../../data/usersTest.json";
+
 const buttons = [
   { label: "Додати користувача", link: "/admin/access/users/create" },
-
   { label: "Архів", link: "/admin/access/users/archive" },
 ];
 
@@ -29,7 +28,9 @@ const UsersPage = observer(() => {
           <p className="w-[73px]">Видалити</p>
         </div>
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          <UserItem />
+          {users.map(user => (
+            <UserItem user={user} key={user.id} />
+          ))}
         </div>
       </section>
     </>

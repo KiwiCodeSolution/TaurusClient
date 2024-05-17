@@ -1,15 +1,22 @@
 import { observer } from "mobx-react-lite";
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/UI/Button";
 import SearchBar from "../../adminSections/SearchBar";
 import { Archive, ArrowBack } from "../../icons/iconComponent";
 import BookingItem from "../../adminSections/BookingItem";
+import reservationsStore from "../../store/reservations";
 
 const BookingPage = observer(() => {
   const [filter, setFilter] = useState("");
   const [isArchive, setIsArchive] = useState(false);
+
+  useEffect(() => {
+    reservationsStore.getReserveAction();
+  }, []);
+
+  const reserves = reservationsStore.reserves;
 
   const toggleStateArchive = () => {
     setIsArchive(!isArchive);
@@ -51,7 +58,9 @@ const BookingPage = observer(() => {
         </div>
 
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          <BookingItem />
+          {reserves.map(el => (
+            <BookingItem key={el._id} item={el} />
+          ))}
         </div>
       </section>
     </>

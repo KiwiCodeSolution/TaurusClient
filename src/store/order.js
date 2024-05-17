@@ -154,31 +154,6 @@ class Order {
   get error() {
     return this.order.error;
   }
-
-  // placeOrderAction = async (customerData) => {
-  //   clientStore.setIsLoading(true);
-  //   // временное .. начало
-  //   const order = {
-  //     ...customerData,
-  //     total_amount: this.totalPrice,
-  //     ...toJS(this.order),
-  //   };
-  //   console.log("placingOrder:", order);
-  //   const result = await placeOrder(order);
-  //   //  временное .. стоп
-
-  //   // const result = await placeOrder(toJS(this.order));
-
-  //   runInAction(() => {
-  //     clientStore.setIsLoading(false);
-  //     if (result.error) {
-  //       clientStore.setError(result.error);
-  //       return;
-  //     }
-  //     this.order = { products: [] };
-  //     clientStore.setMessage(result.data.order_number);
-  //   });
-  // };
 }
 
 export default new Order();

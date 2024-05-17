@@ -5,11 +5,18 @@ import OrderItem from "../../adminSections/OrderItem";
 import Button from "../../components/UI/Button";
 import { Archive, ArrowBack } from "../../icons/iconComponent";
 import SearchBar from "../../adminSections/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import adminOrders from "../../store/adminOrders";
 
 const OrdersPage = observer(() => {
   const [filter, setFilter] = useState("");
   const [isArchive, setIsArchive] = useState(false);
+
+  useEffect(() => {
+    adminOrders.getOrders();
+  }, []);
+
+  const orders = adminOrders.orders;
 
   const toggleStateArchive = () => {
     setIsArchive(!isArchive);
@@ -53,7 +60,9 @@ const OrdersPage = observer(() => {
         </div>
 
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          <OrderItem />
+          {orders.map(item => (
+            <OrderItem key={item._id} item={item} />
+          ))}
         </div>
       </section>
     </>

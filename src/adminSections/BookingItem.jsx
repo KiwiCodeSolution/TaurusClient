@@ -1,26 +1,29 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
+import { parseISO, format } from "date-fns";
 import { Archive, Minus, Plus, Trash } from "../icons/iconComponent";
 
-const BookingItem = () => {
+const BookingItem = ({ item }) => {
+  const { customerName, phoneNumber, email, date, time, numberOfPeople, message } = item;
   const [isOpenOrder, setIsOpenOrder] = useState(false);
 
+  const parsedDate = parseISO(date);
+  const formattedDate = format(parsedDate, "dd-MM-yyyy");
+
   return (
-    <article className="w-full px-2 border-b border-base-brown border-dashed text-sm text-beige">
-      <div className="w-full flex items-center gap-x-6 px-2 overflow-hidden">
-        <p className="w-[117px]">01-04-2024 12:35</p>
-        <p className="w-[188px]">Катерина Олександрівна Коваленко-Бачинська</p>
+    <article className="w-full min-h-[71px] p-2 border-b border-base-brown border-dashed text-sm text-beige flex  flex-col justify-center">
+      <div className="w-full h-full flex items-center gap-x-6 px-2 overflow-hidden">
+        <p className="w-[117px]">
+          {formattedDate} {time}
+        </p>
+        <p className="w-[188px]">{customerName}</p>
         <div className="w-[342px] max-h-[63px] overflow-hidden">
           <div className="line-clamp-3">
-            <p className="block">
-              Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення для святкування
-              дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення
-              для святкування дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує
-              аренда приміщення для святкування дня народження
-            </p>
+            <p className="block">{message}</p>
           </div>
         </div>
-        <p className="w-[109px]">4</p>
-        <p className="w-[100px]">Нове</p>
+        <p className="w-[109px]">{numberOfPeople}</p>
+        <p className="w-[100px]">{status}</p>
         <button
           className="w-6 h-6 bg-dark-btn-bg cursor-pointer flex items-center justify-center"
           onClick={() => setIsOpenOrder(!isOpenOrder)}
@@ -29,25 +32,22 @@ const BookingItem = () => {
         </button>
       </div>
       {isOpenOrder && (
-        <div>
+        <div className="mt-2">
           <div className="grid grid-cols-3">
             <p className="col-span-2">
               <span className="text-base font-semibold text-base-yellow">Email: </span>
-              <a href="mailto:roman_bondarenko@gmail.com" className="cursor-pointer">
-                roman_bondarenko@gmail.com
+              <a href={`mailto:${email}`} className="cursor-pointer">
+                {email}
               </a>
             </p>
             <p>
               <span className="text-base font-semibold text-base-yellow">Телефон: </span>
-              +38 099 840 96 14
+              {phoneNumber}
             </p>
 
             <p className="col-span-3">
               <span className="text-base font-semibold text-base-yellow">Повідомлення: </span>
-              Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення для святкування
-              дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення
-              для святкування дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує
-              аренда приміщення для святкування дня народження
+              {message}
             </p>
           </div>
 
@@ -63,6 +63,18 @@ const BookingItem = () => {
       )}
     </article>
   );
+};
+
+BookingItem.propTypes = {
+  item: PropTypes.shape({
+    customerName: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    numberOfPeople: PropTypes.number.isRequired,
+    message: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default BookingItem;

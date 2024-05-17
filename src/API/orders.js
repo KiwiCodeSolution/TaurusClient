@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
 import { toastOptions } from "../helpers/styles";
 
-export const getAllPromotions = async () => {
+export const getAllOrders = async () => {
   try {
     const result = await axios.get(`${baseServerURL}promotions`);
 
@@ -13,11 +13,10 @@ export const getAllPromotions = async () => {
   }
 };
 
-export const createPromotion = async promo => {
+export const createOrder = async order => {
   try {
-    const result = await axios.post(`${baseServerURL}promotions`, promo);
+    const result = await axios.post(`${baseServerURL}order`, order);
 
-    toast.success("Нову акцію додано!", toastOptions);
     return result;
   } catch (error) {
     if (error.request.statusText === "Conflict") {
@@ -27,20 +26,9 @@ export const createPromotion = async promo => {
   }
 };
 
-export const updatePromotion = async promo => {
+export const deleteOrder = async order => {
   try {
-    const result = await axios.put(`${baseServerURL}promotions/${promo._id}`, { ...promo });
-    toast.success("Інформацію оновлено!", toastOptions);
-    return result;
-  } catch (error) {
-    toast.error("Такої акції не існує!", toastOptions);
-    return { error: error.message };
-  }
-};
-
-export const deletePromotion = async promo => {
-  try {
-    const result = await axios.delete(`${baseServerURL}promotions/${promo._id}`);
+    const result = await axios.delete(`${baseServerURL}order/${order._id}`);
     toast.success("Акцію видалено!", toastOptions);
     return result;
   } catch (error) {

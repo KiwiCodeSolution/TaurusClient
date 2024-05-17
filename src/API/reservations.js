@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
 import { toastOptions } from "../helpers/styles";
 
-export const sendFeedback = async data => {
+export const sendReserve = async data => {
   try {
-    const result = await axios.post(`${baseServerURL}feedback`, data);
+    const result = await axios.post(`${baseServerURL}reservations`, data);
     console.log("result", result);
 
     return result;
@@ -14,9 +14,10 @@ export const sendFeedback = async data => {
   }
 };
 
-export const getAllFeedbacks = async () => {
+export const getAllReserves = async () => {
   try {
-    const result = await axios.get(`${baseServerURL}feedback`);
+    const result = await axios.get(`${baseServerURL}reservations`);
+
     return result;
   } catch (error) {
     toast.error("Щось сталося! ми не отримали інформацію про звернення!", toastOptions);
@@ -24,9 +25,9 @@ export const getAllFeedbacks = async () => {
   }
 };
 
-export const updateFeedback = async data => {
+export const updateReserve = async data => {
   try {
-    const result = await axios.put(`${baseServerURL}feedback/${data._id}`, { ...data });
+    const result = await axios.put(`${baseServerURL}reservations/${data._id}`, { ...data });
     toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {
@@ -35,10 +36,10 @@ export const updateFeedback = async data => {
   }
 };
 
-export const deleteFeedback = async data => {
+export const deleteReserve = async data => {
   try {
-    const result = await axios.delete(`${baseServerURL}feedback/${data._id}`);
-    toast.success("Звернення архівовано!", toastOptions);
+    const result = await axios.delete(`${baseServerURL}reservations/${data._id}`);
+    toast.success("Звернення видалено!", toastOptions);
     return result;
   } catch (error) {
     toast.error("Такого звернення не існує!", toastOptions);

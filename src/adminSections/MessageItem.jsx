@@ -1,26 +1,30 @@
+import PropTypes from "prop-types";
+import { parseISO, format } from "date-fns";
 import { useState } from "react";
 import { Archive, Minus, Plus, Trash } from "../icons/iconComponent";
 
-const MessageItem = () => {
+const MessageItem = ({ item }) => {
+  const { status, name, email, phone, message, createdAt } = item;
+  const parsedDate = parseISO(createdAt);
+  const formattedDate = format(parsedDate, "dd-MM-yyyy");
+  const formattedTime = format(parsedDate, "HH:mm");
   const [isOpenOrder, setIsOpenOrder] = useState(false);
 
   return (
-    <article className="w-full px-2 border-b border-base-brown border-dashed text-sm text-beige">
-      <div className="w-full flex items-center gap-x-6 px-2 overflow-hidden">
-        <p className="w-[117px]">01-04-2024 12:35</p>
-        <p className="w-[168px]">Катерина Олександрівна Коваленко-Бачинська</p>
+    <article className="w-full min-h-[71px] p-2 border-b border-base-brown border-dashed text-sm text-beige flex flex-col justify-center">
+      <div className="w-full h-[71px] flex items-center gap-x-6 px-2 overflow-hidden">
+        <div className="w-[117px] flex flex-col">
+          <span>{formattedDate} </span>
+          <span>{formattedTime}</span>
+        </div>
+        <p className="w-[168px]">{name}</p>
         <div className="w-[342px] max-h-[63px] overflow-hidden">
           <div className="line-clamp-3">
-            <p className="block">
-              Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення для святкування
-              дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення
-              для святкування дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує
-              аренда приміщення для святкування дня народження
-            </p>
+            <p className="block">{message}</p>
           </div>
         </div>
 
-        <p className="w-[120px]">Нове</p>
+        <p className="w-[120px]">{status}</p>
         <button
           className="w-6 h-6 bg-dark-btn-bg cursor-pointer flex items-center justify-center"
           onClick={() => setIsOpenOrder(!isOpenOrder)}
@@ -29,25 +33,22 @@ const MessageItem = () => {
         </button>
       </div>
       {isOpenOrder && (
-        <div>
+        <div className="mt-2">
           <div className="grid grid-cols-3">
             <p className="col-span-2">
               <span className="text-base font-semibold text-base-yellow">Email: </span>
-              <a href="mailto:roman_bondarenko@gmail.com" className="cursor-pointer">
-                roman_bondarenko@gmail.com
+              <a href={`mailto:${email}`} className="cursor-pointer">
+                {email}
               </a>
             </p>
             <p>
               <span className="text-base font-semibold text-base-yellow">Телефон: </span>
-              +38 099 840 96 14
+              {phone}
             </p>
 
             <p className="col-span-3">
               <span className="text-base font-semibold text-base-yellow">Повідомлення: </span>
-              Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення для святкування
-              дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує аренда приміщення
-              для святкування дня народження Доброго дня! Підкажіть, будь-ласка, скільки коштує
-              аренда приміщення для святкування дня народження
+              {message}
             </p>
           </div>
 
@@ -63,6 +64,18 @@ const MessageItem = () => {
       )}
     </article>
   );
+};
+
+MessageItem.propTypes = {
+  item: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    archive: PropTypes.bool.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default MessageItem;
