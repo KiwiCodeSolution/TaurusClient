@@ -196,7 +196,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
   //   }
   // };
 
-  const onSubmit = async data => {
+  const onSubmit = data => {
     const formattedData = {
       ...data,
       time: data.time?.value,
@@ -211,24 +211,20 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
 
     const action = actions[namePage];
     if (action) {
-      try {
-        await action();
-        setIsModalOpen(true);
-        setIsChecked(false);
-        reset(defaultValues);
-      } catch (error) {
-        return { error: error.message };
-      }
+      action();
+      setIsModalOpen(true);
+      setIsChecked(false);
+      reset(defaultValues);
     }
   };
 
-  const sendFeedbackAndReset = async data => {
+  const sendFeedbackAndReset = data => {
     delete data.quantity;
     delete data.date;
-    await sendFeedback(data);
+    sendFeedback(data);
   };
 
-  const sendServiceFeedbackAndReset = async data => {
+  const sendServiceFeedbackAndReset = data => {
     delete data.quantity;
     delete data.date;
     const requestData = {
@@ -236,10 +232,10 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
       message: prefix + data.message,
       total_cost: orderStore.order.total,
     };
-    await sendFeedback(requestData);
+    sendFeedback(requestData);
   };
 
-  const createOrderAndReset = async formattedData => {
+  const createOrderAndReset = formattedData => {
     const orderProducts = toJS(orderStore.order.items).map(product => ({
       product: product._id,
       quantity: product.quantity,
@@ -251,11 +247,11 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
       delivery_type: orderStore.order.delivery_type,
       total_cost: orderStore.order.total,
     };
-    await createOrder(requestData);
+    createOrder(requestData);
     clickFn();
   };
 
-  const sendReserveAndReset = async data => {
+  const sendReserveAndReset = data => {
     const requestData = {
       ...data,
       customerName: data.name,
@@ -266,7 +262,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
       tableNumber: 1,
       consentToProcessPersonalData: isChecked,
     };
-    await sendReserve(requestData);
+    sendReserve(requestData);
     setCurrentDate(new Date());
   };
 

@@ -25,6 +25,18 @@ export const createOrder = async order => {
   }
 };
 
+export const updateOrder = async order => {
+  try {
+    const result = await axios.put(`${baseServerURL}order/${order._id}`, { ...order });
+    console.log(result.data);
+    return result;
+  } catch (error) {
+    console.log(error.message);
+    toast.error("Вибачте, сталася помилка! Спробуйте ще раз через кілька хвилин.", toastOptions);
+    return { error: error.message };
+  }
+};
+
 export const deleteOrder = async order => {
   try {
     const result = await axios.delete(`${baseServerURL}order/${order._id}`);

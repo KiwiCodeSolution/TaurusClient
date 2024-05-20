@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
-import { getAllOrders } from "../API/orders";
+import { deleteOrder, getAllOrders, updateOrder } from "../API/orders";
 
 class AdminOrders {
   orders = [];
@@ -23,6 +23,32 @@ class AdminOrders {
       }
       this.orders = result.data;
     });
+  };
+
+  updateOrder = async data => {
+    const result = await updateOrder(data);
+
+    runInAction(() => {
+      if (result.error) {
+        return;
+      }
+    });
+    this.getOrders();
+
+    return true;
+  };
+
+  deleteOrder = async data => {
+    const result = await deleteOrder(data);
+
+    runInAction(() => {
+      if (result.error) {
+        return;
+      }
+    });
+    this.getOrders();
+
+    return true;
   };
 }
 

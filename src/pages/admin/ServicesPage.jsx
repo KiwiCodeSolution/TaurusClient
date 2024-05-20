@@ -14,30 +14,24 @@ const ServicesPage = observer(() => {
   const [isArchive, setIsArchive] = useState(false);
 
   useEffect(() => {
-    feedbackStore.getMessagesAction();
+    feedbackStore.getMessages();
   }, []);
 
   const messages = feedbackStore.messages;
 
+  const filteredServicesItemsByArchive = messages.filter(
+    item => item.message.startsWith(prefix) && (isArchive ? item.archive : !item.archive)
+  );
+
+  const filteredServicesItems = filteredServicesItemsByArchive.filter(order => {
+    return Object.values(order).some(value =>
+      value.toString().toLowerCase().includes(filter.toLowerCase())
+    );
+  });
+
   const toggleStateArchive = () => {
     setIsArchive(!isArchive);
   };
-
-  function removeServicePagePrefix(message) {
-    if (message.startsWith(prefix)) {
-      return message.slice(prefix.length).trim(); // Видаляє префікс та зайві пробіли на початку
-    }
-    return message;
-  }
-
-  const servicesItems = messages
-    .filter(item => item.message.startsWith(prefix))
-    .map(item => ({
-      ...item,
-      message: removeServicePagePrefix(item.message),
-    }));
-
-  const feedbsckItems = messages.filter(item => item.message.startsWith(!prefix));
 
   return (
     <>
@@ -75,7 +69,7 @@ const ServicesPage = observer(() => {
         </div>
 
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          {servicesItems.map(item => (
+          {filteredServicesItems.map(item => (
             <MessageItem key={item._id} item={item} />
           ))}
         </div>

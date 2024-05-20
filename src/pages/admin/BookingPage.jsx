@@ -16,11 +16,20 @@ const BookingPage = observer(() => {
     reservationsStore.getReserveAction();
   }, []);
 
-  const reserves = reservationsStore.reserves;
+  const filteredItemsByArchive = reservationsStore.reserves.filter(item =>
+    isArchive ? item.archive : !item.archive
+  );
 
   const toggleStateArchive = () => {
     setIsArchive(!isArchive);
   };
+
+  const filteredItems = filteredItemsByArchive.filter(order => {
+    return Object.values(order).some(value =>
+      value.toString().toLowerCase().includes(filter.toLowerCase())
+    );
+  });
+
   return (
     <>
       <MetaData>Бронювання</MetaData>
@@ -54,11 +63,11 @@ const BookingPage = observer(() => {
           <p className="w-[188px]">Замовник</p>
           <p className="w-[342px]">Повідомлення</p>
           <p className="w-[109px]">Кількість людей</p>
-          <p className="w-[100px]">Статус</p>
+          <p className="w-[120px]">Статус</p>
         </div>
 
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          {reserves.map(el => (
+          {filteredItems.map(el => (
             <BookingItem key={el._id} item={el} />
           ))}
         </div>

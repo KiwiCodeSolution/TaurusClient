@@ -14,16 +14,27 @@ const FeedbackPage = observer(() => {
   const [isArchive, setIsArchive] = useState(false);
 
   useEffect(() => {
-    feedbackStore.getMessagesAction();
+    feedbackStore.getMessages();
   }, []);
 
-  const messages = feedbackStore.messages;
+  const filteredFeedbackByArchive = feedbackStore.messages.filter(
+    item => !item.message.startsWith(prefix) && (isArchive ? item.archive : !item.archive)
+  );
 
-  const feedbackItems = messages.filter(item => !item.message.startsWith(prefix));
+  const filteredFeedback = filteredFeedbackByArchive.filter(order => {
+    return Object.values(order).some(value =>
+      value.toString().toLowerCase().includes(filter.toLowerCase())
+    );
+  });
 
   const toggleStateArchive = () => {
     setIsArchive(!isArchive);
   };
+
+  const handleFeedbackUpdate = () => {
+    feedbackStore.getMessages();
+  };
+
   return (
     <>
       <MetaData>Повідомлення</MetaData>
@@ -60,8 +71,8 @@ const FeedbackPage = observer(() => {
         </div>
 
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          {feedbackItems.map(item => (
-            <MessageItem key={item._id} item={item} />
+          {filteredFeedback.map(item => (
+            <MessageItem key={item._id} item={item} onUpdate={handleFeedbackUpdate} />
           ))}
         </div>
       </section>

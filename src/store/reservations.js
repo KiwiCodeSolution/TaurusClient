@@ -16,7 +16,6 @@ class Reservations {
 
   getReserveAction = async () => {
     const result = await getAllReserves();
-    console.log("result", result);
 
     runInAction(() => {
       if (result.error) {
@@ -26,7 +25,7 @@ class Reservations {
     });
   };
 
-  createFeedbackAction = async data => {
+  createReserveAction = async data => {
     const result = await sendReserve(data);
 
     runInAction(() => {
@@ -39,7 +38,7 @@ class Reservations {
     return true;
   };
 
-  updateFeedbackAction = async data => {
+  updateReserveAction = async data => {
     const result = await updateReserve(data);
 
     runInAction(() => {

@@ -4,7 +4,7 @@ import { Archive, Hide, Minus, Plus, Show, Trash } from "../icons/iconComponent"
 
 const UserItem = ({ user }) => {
   const { name, login, access_type, role, password } = user;
-  const [isOpenOrder, setIsOpenOrder] = useState(false);
+  const [isOpenUser, setIsOpenUser] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const ArrayPasswordItems = () => {
@@ -21,8 +21,16 @@ const UserItem = ({ user }) => {
   };
 
   return (
-    <article className="w-full min-h-[71px] px-2 border-b border-base-brown border-dashed text-sm text-beige">
-      <div className="w-full h-[71px] flex items-center gap-x-6 overflow-hidden">
+    <article
+      className={`w-full min-h-[71px] px-2 border-b border-base-brown border-dashed text-sm text-beige ${
+        isOpenUser ? "bg-dark-bg" : ""
+      }`}
+    >
+      <div
+        className={`w-full h-[71px] flex items-center gap-x-6 overflow-hidden ${
+          isOpenUser ? "border-b border-black" : ""
+        }`}
+      >
         <p className="w-[183px]">{name}</p>
         <p className="w-[160px]">{login}</p>
         <p className="w-[132px]">{access_type}</p>
@@ -31,12 +39,12 @@ const UserItem = ({ user }) => {
         <p className="w-[73px]">дел</p>
         <button
           className="w-6 h-6 bg-dark-btn-bg cursor-pointer flex items-center justify-center"
-          onClick={() => setIsOpenOrder(!isOpenOrder)}
+          onClick={() => setIsOpenUser(!isOpenUser)}
         >
-          {isOpenOrder ? <Minus /> : <Plus />}
+          {isOpenUser ? <Minus /> : <Plus />}
         </button>
       </div>
-      {isOpenOrder && (
+      {isOpenUser && (
         <div>
           <div className="grid grid-cols-2">
             <p className="">

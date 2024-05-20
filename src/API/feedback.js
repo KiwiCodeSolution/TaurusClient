@@ -25,6 +25,7 @@ export const getAllFeedbacks = async () => {
 export const updateFeedback = async data => {
   try {
     const result = await axios.put(`${baseServerURL}feedback/${data._id}`, { ...data });
+    console.log(result.data);
     toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {

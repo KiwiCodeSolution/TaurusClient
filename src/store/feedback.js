@@ -14,7 +14,7 @@ class Messages {
     });
   }
 
-  getMessagesAction = async () => {
+  getMessages = async () => {
     const result = await getAllFeedbacks();
 
     runInAction(() => {
@@ -33,7 +33,7 @@ class Messages {
         return;
       }
     });
-    this.getMessagesAction();
+    this.getMessages();
 
     return true;
   };
@@ -46,7 +46,7 @@ class Messages {
         return;
       }
     });
-    this.getMessagesAction();
+    this.getMessages();
 
     return true;
   };
@@ -59,7 +59,7 @@ class Messages {
         return;
       }
     });
-    this.getMessagesAction();
+    this.getMessages();
 
     return true;
   };
