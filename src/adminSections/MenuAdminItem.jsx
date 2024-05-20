@@ -5,9 +5,12 @@ import dishesStore from "../store/dishes";
 
 const MenuAdminItem = observer(() => {
   useEffect(() => {
-    dishesStore.getDishesAction();
+    // Перевірка наявності страв у сторі
+    if (!dishesStore.dishes.length) {
+      // Якщо страв немає, тоді викликаємо функцію для їх отримання
+      dishesStore.getDishesAction();
+    }
   }, []);
-
   const dishes = dishesStore.dishes.filter(el => el.available);
 
   return (

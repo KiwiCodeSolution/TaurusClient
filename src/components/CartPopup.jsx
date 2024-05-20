@@ -30,9 +30,7 @@ const CartPopup = observer(({ clickFn, formFn }) => {
   return (
     <Overlay
       clickFn={clickFn}
-      stylesPopUp={
-        "w-[312px] xl:w-[680px] min-h-[654px] xl:min-h-[319px] flex flex-col items-center"
-      }
+      stylesPopUp={"w-[312px] md:w-[680px] h-[654px] md:h-[750px] flex flex-col items-center"}
       status={"confirm"}
       componentName={"cart"}
     >
@@ -66,12 +64,12 @@ const CartPopup = observer(({ clickFn, formFn }) => {
               Доставка
             </Button>
           </div>
-          <div className="mb-20 overflow-auto">
+          <div className="mb-10 overflow-auto">
             {items.map(item => (
               <CartMenuItem key={item._id} item={item} />
             ))}
-            <TotalPrice />
           </div>
+          <TotalPrice />
           <Button
             btnClass="text-18 font-medium text-base-black"
             style={"orange"}

@@ -2,11 +2,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
 import { toastOptions } from "../helpers/styles";
+import orderStore from "../store/order";
 
 export const getAllOrders = async () => {
   try {
-    const result = await axios.get(`${baseServerURL}promotions`);
-
+    const result = await axios.get(`${baseServerURL}order`);
     return result;
   } catch (error) {
     return { error: error.message };
@@ -16,12 +16,11 @@ export const getAllOrders = async () => {
 export const createOrder = async order => {
   try {
     const result = await axios.post(`${baseServerURL}order`, order);
-
+    orderStore.clearOrderedProductList();
     return result;
   } catch (error) {
-    if (error.request.statusText === "Conflict") {
-      toast.error("Така акція вже існує!", toastOptions);
-    }
+    console.log(error.message);
+    toast.error("Вибачте, сталася помилка! Спробуйте ще раз через кілька хвилин.", toastOptions);
     return { error: error.message };
   }
 };
@@ -29,10 +28,10 @@ export const createOrder = async order => {
 export const deleteOrder = async order => {
   try {
     const result = await axios.delete(`${baseServerURL}order/${order._id}`);
-    toast.success("Акцію видалено!", toastOptions);
+    toast.success("замовлення видалено!", toastOptions);
     return result;
   } catch (error) {
-    toast.error("Такої акції не існує!", toastOptions);
+    toast.error("Такого замовлення не існує!", toastOptions);
     return { error: error.message };
   }
 };

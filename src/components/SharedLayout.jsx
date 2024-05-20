@@ -26,7 +26,7 @@ const SharedLayout = observer(() => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenNotification, setIsOpenNotification] = useState(false);
 
-  // номер всюди задіяно через цю константу. достатньо змінити тільки тут
+  // номер всюди задано через цю константу. достатньо змінити тільки тут
   const number = "+38 099 101 81 81";
 
   const isCartEmpty = orderStore.order.items?.length > 0;
@@ -46,11 +46,11 @@ const SharedLayout = observer(() => {
 
   return (
     <div className="relative" id="header">
-      <header className="w-full xl:w-[1280px] flex px-3 xl:px-[82px] items-center justify-between text-base absolute top-0 left-1/2 -translate-x-1/2 h-[104px] z-10 mx-auto">
+      <header className="w-full xl:w-[1280px] flex px-3 md:px-[82px] items-center justify-between text-base absolute top-0 left-1/2 -translate-x-1/2 h-[104px] z-10 mx-auto">
         <Logo />
         {!isMobile && <NavBar />}
 
-        <div className="hidden xl:flex gap-x-[44px]">
+        <div className="hidden md:flex gap-x-[44px]">
           <Button style={"contacts"} clickFn={openModal}>
             {number}
           </Button>
@@ -59,7 +59,7 @@ const SharedLayout = observer(() => {
           </button>
         </div>
 
-        <div className="xl:hidden flex gap-x-2">
+        <div className="md:hidden flex gap-x-2">
           <button
             onClick={() => openModal()}
             className="w-10 h-10 flex items-center justify-center"

@@ -17,16 +17,16 @@ const Footer = () => {
   const [isModalPolicyOpen, setIsModalPolicyOpen] = useState(false);
 
   return (
-    <footer className="px-6 xl:px-[82px] min-w-[360px] xl:w-full bg-dark-bg">
-      <section className="pt-12 xl:py-10 border_custom relative">
-        <div className="flex flex-col xl:flex-row gap-x-[87px] justify-between">
+    <footer className="px-6 md:px-[82px] min-w-[360px] md:w-full bg-dark-bg">
+      <section className="pt-12 md:py-10 border_custom relative">
+        <div className="flex flex-col md:flex-row gap-x-[87px] justify-between">
           <Logo />
 
           <NavBar sectionType={"footer"} />
 
           <div className="flex mt-8 md:hidden w-full justify-between">
             <ContactList />
-            <div className="w-[160px] xl:w-[186px] flex flex-col gap-y-[29px]">
+            <div className="w-[160px] md:w-[186px] flex flex-col gap-y-[29px]">
               <p className="w-full text-sm">Слідкуйте за нами в соціальних мережах</p>
               <SocIcons />
             </div>
@@ -34,15 +34,15 @@ const Footer = () => {
           <Button
             style={"transparent"}
             clickFn={() => setIsModalOpen(true)}
-            btnClass={"w-full my-8 xl:hidden xl:my-0"}
+            btnClass={"w-full my-8 md:hidden md:my-0"}
           >
             Зв&apos;язатись
           </Button>
 
-          <div className="hidden xl:flex justify-between">
+          <div className="hidden md:flex justify-between">
             <ContactList />
           </div>
-          <div className="hidden xl:flex w-[186px] flex-col gap-y-[29px]">
+          <div className="hidden md:flex w-[186px] flex-col gap-y-[29px]">
             <p className="w-full">Слідкуйте за нами в соціальних мережах</p>
             <SocIcons />
             <Button style={"transparent"} clickFn={() => setIsModalOpen(true)}>
@@ -50,7 +50,7 @@ const Footer = () => {
             </Button>
           </div>
 
-          <Button style={"round"} btnClass={"absolute top-12 right-3 xl:relative"}>
+          <Button style={"round"} btnClass={"absolute top-12 right-3 md:relative"}>
             <a href="#header" className="w-full h-full p-2 flex justify-center items-center">
               <ArrowUp />
             </a>
@@ -59,7 +59,7 @@ const Footer = () => {
       </section>
       <section className="pt-[22px] pb-4 border_custom">
         <div className="w-full relative">
-          <p className="w-full text-sm text-center flex flex-wrap gap-x-[2px] items-center justify-center mb-3 xl:mb-1">
+          <p className="w-full text-sm text-center flex flex-wrap gap-x-[2px] items-center justify-center mb-3 md:mb-1">
             Використовуючи цей сайт, ви погоджуєтесь з{" "}
             <button className="underline" onClick={() => setIsModalTermsOpen(true)}>
               Умовами обслуговування
@@ -69,7 +69,7 @@ const Footer = () => {
               Політикою конфіденційності
             </button>
           </p>
-          <p className="w-full text-sm xl:text-base text-center mb-3 xl:mb-0">
+          <p className="w-full text-sm md:text-base text-center mb-3 md:mb-0">
             <a href="https://www.linkedin.com/company/kiwicodesolution" target="_blank">
               © Copyright | KiWiCode Solution, 2024
             </a>
@@ -77,7 +77,7 @@ const Footer = () => {
           <img
             src={logoKiwiCode}
             alt="logo company KiwiCode Solutions"
-            className="mx-auto xl:absolute xl:top-0 xl:left-0 w-[90px] h-[52px]"
+            className="mx-auto md:absolute md:top-0 md:left-0 w-[90px] h-[52px]"
           />
         </div>
         {isModalOpen && (

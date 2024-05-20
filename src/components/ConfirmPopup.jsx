@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 
-import ConfirmOverlay from "./UI/modal/ConfirmOverlay";
+import NotificationsOverlay from "./UI/modal/NotificationsOverlay";
 
 const ConfirmPopup = ({ type, clickFn }) => {
   return (
-    <ConfirmOverlay
-      stylesPopUp={"w-[312px] xl:w-[572px] h-[319px] flex flex-col items-center"}
+    <NotificationsOverlay
+      stylesPopUp={"w-[312px] md:w-[572px] h-[319px] flex flex-col items-center"}
       clickFn={clickFn}
     >
       {type === "booking" && (
@@ -31,7 +31,7 @@ const ConfirmPopup = ({ type, clickFn }) => {
           <p className="text-center mb-10">Наш менеджер зв’яжеться з Вами найближчим часом.</p>
         </>
       )}
-    </ConfirmOverlay>
+    </NotificationsOverlay>
   );
 };
 

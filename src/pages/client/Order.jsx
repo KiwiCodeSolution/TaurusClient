@@ -2,20 +2,23 @@ import { observer } from "mobx-react-lite";
 import MetaData from "../../components/MetaData";
 import { useEffect, useState } from "react";
 import CategoriesList from "../../components/CategoriesList";
-import { getDishes } from "../../API/dishes";
 import Button from "../../components/UI/Button";
 import CartPopup from "../../components/CartPopup";
 import ConfirmPopup from "../../components/ConfirmPopup";
 import CategoryFilter from "../../components/CategoryFilter";
 import filterStore from "../../store/filter";
 import orderStore from "../../store/order";
+import dishesStore from "../../store/dishes";
 import { imagePages } from "../../helpers/styles";
 
 const Order = observer(() => {
   useEffect(() => {
-    getDishes();
+    // Перевірка наявності страв у сторі
+    if (!dishesStore.dishes.length) {
+      // Якщо страв немає, тоді викликаємо функцію для їх отримання
+      dishesStore.getDishesAction();
+    }
   }, []);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenNotification, setIsOpenNotification] = useState(false);
 

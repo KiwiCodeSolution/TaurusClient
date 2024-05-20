@@ -6,7 +6,6 @@ import { toastOptions } from "../helpers/styles";
 export const sendReserve = async data => {
   try {
     const result = await axios.post(`${baseServerURL}reservations`, data);
-    console.log("result", result);
 
     return result;
   } catch (error) {

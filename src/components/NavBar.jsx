@@ -15,7 +15,7 @@ const NavBar = ({ sectionType }) => {
   return (
     <nav
       className={`flex text-base ${
-        sectionType === "footer" ? "hidden xl:flex flex-col gap-y-3" : "gap-x-6"
+        sectionType === "footer" ? "hidden md:flex flex-col gap-y-3" : "gap-x-6"
       }`}
     >
       {MENU_ITEMS.map(el => (

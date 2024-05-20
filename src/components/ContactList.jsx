@@ -9,14 +9,14 @@ const ContactList = ({ page }) => {
     <ul
       className={`flex ${
         page === "contacts"
-          ? "w-full flex-col xl:flex-row justify-center gap-y-3 xl:gap-y-0 gap-x-16 text-beige mb-10 mx-auto"
-          : "w-[160px]  xl:w-[180px] flex-col gap-y-3"
+          ? "w-full flex-col md:flex-row justify-center gap-y-3 md:gap-y-0 gap-x-16 text-beige mb-10 mx-auto"
+          : "w-[160px]  md:w-[180px] flex-col gap-y-3"
       }`}
     >
       <li className={`${page === "contacts" ? "order-2 flex flex-col gap-y-3" : "order-1"}`}>
         {page === "contacts" && <p className="font-bold text-center">Телефони</p>}
 
-        <div className="flex gap-x-[6px] justify-center xl:justify-start contact_item">
+        <div className="flex gap-x-[6px] justify-center md:justify-start contact_item">
           <div className="w-6 pt-1">
             {page === "contacts" ? <icons.Phone section={"contacts"} /> : <icons.Phone />}
           </div>
@@ -52,7 +52,7 @@ const ContactList = ({ page }) => {
         } contact_item`}
       >
         {page === "contacts" && <p className="font-bold text-center">Час роботи</p>}
-        <div className="flex gap-x-[6px] justify-center xl:justify-start items-center">
+        <div className="flex gap-x-[6px] justify-center md:justify-start items-center">
           <div className="w-6">
             {page === "contacts" ? <icons.Clock section={"contacts"} /> : <icons.Clock />}
           </div>

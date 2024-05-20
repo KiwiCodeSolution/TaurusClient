@@ -8,10 +8,10 @@ const buttonsStyle = {
   contacts:
     "w-[156px] h-[38px] px-3 py-[6px] border border-base-white text-base text-base-white hover:border-base-orange hover:bg-base-orange hover:text-base-black",
   orange:
-    "w-full md:min-w-[156px] h-[38px] px-6 py-[6px] bg-base-orange text-lg text-base-black mx-auto hover:bg-base-yellow disabled:opacity-25 disabled:opacity-25 disabled:hover:bg-base-orange",
-  round: "w-12 h-12 xl:w-8 xl:h-8 rounded-full border border-base-beige hover:border-base-orange",
+    "w-full md:w-[165px] h-[38px] px-6 py-[6px] bg-base-orange text-lg text-base-black mx-auto hover:bg-base-yellow disabled:opacity-25 disabled:opacity-25 disabled:hover:bg-base-orange",
+  round: "w-12 h-12 md:w-8 md:h-8 rounded-full border border-base-beige hover:border-base-orange",
   count: "h-fill flex justify-center items-center",
-  check: "w-30 px-4 text-base xl:text-xl flex justify-center items-center h-[30px] rounded",
+  check: "w-30 px-4 text-base md:text-xl flex justify-center items-center h-[30px] rounded",
   gray: "w-fit h-[38px] py-[6px] px-3 bg-dark-btn-bg border border-beige text-16 text-beige flex items-center gap-x-2",
   admin:
     "w-fit h-[38px] py-[6px] px-3 border border-beige text-beige text-16 flex items-center gap-x-2 hover:border-base-orange hover:text-base-orange btn-admin",

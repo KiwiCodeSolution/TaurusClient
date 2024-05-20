@@ -81,7 +81,7 @@ const DateTimeField = ({ control, namePage, currentDate }) => {
         render={({ field }) => (
           <div
             className={`${
-              namePage === "order" ? "w-[115px] xl:w-[241px]" : "w-[118px]"
+              namePage === "order" ? "w-[115px] md:w-[241px]" : "w-[118px]"
             } h-[59px] border-b-[0.5px] border-base-brown flex flex-col gap-y-2 relative date-picker`}
           >
             <label htmlFor="date" className={`${baseStyleLabel} date`}>

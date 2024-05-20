@@ -19,8 +19,8 @@ const CartMenuItem = observer(({ item }) => {
   };
 
   return (
-    <article className="w-[263px] xl:w-[561px] xl:h-[54px] flex flex-col gap-y-1 xl:gap-y-0 xl:flex-row xl:items-center gap-x-6 border-b border-dashed border-base-brown pr-[10px] py-2 xl:py-0 relative">
-      <div className="w-full xl:w-[316px] text-sm normal-case">{name}</div>
+    <article className="w-[263px] md:w-[561px] md:h-[54px] flex flex-col gap-y-1 md:gap-y-0 md:flex-row md:items-center gap-x-6 border-b border-dashed border-base-brown pr-[10px] py-2 md:py-0 relative">
+      <div className="w-full md:w-[316px] text-sm normal-case">{name}</div>
       <div className="w-[72px] h-[29px] flex gap-x-1 py-1 bg-dark-btn-bg">
         <Button
           style={"count"}
@@ -41,7 +41,7 @@ const CartMenuItem = observer(({ item }) => {
       </div>
       <div className="text-sm font-semibold text-base-yellow">{price} грн</div>
       <button
-        className="absolute top-1/3 right-1 xl:static xl:ml-auto trash"
+        className="absolute top-1/3 right-1 md:static md:ml-auto trash"
         onClick={() => orderStore.removeDish(_id)}
       >
         <Trash className={"fill-beige"} />

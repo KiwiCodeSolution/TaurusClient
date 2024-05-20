@@ -3,8 +3,6 @@ import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
 import { toastOptions } from "../helpers/styles";
 
-
-
 export const getDishes = async () => {
   try {
     const result = await axios.get(`${baseServerURL}product`);

@@ -87,14 +87,14 @@ const CategoriesList = observer(({ page }) => {
     <>
       <div
         className={`${
-          page === "admin" ? "w-[980px] mx-auto h-[247px]" : "w-full xl:w-[1116px]"
+          page === "admin" ? "w-[980px] mx-auto h-[247px]" : "w-full md:w-[1116px]"
         } mx-auto categories relative`}
       >
         {/* блок для субкатегорій, є у категорії напоїв */}
         {categoryStore.topCategory === "напої" &&
           subMenuItemsDrinks &&
           (subCategories.length <= 2 ? (
-            <div className="hidden w-[735px] xl:flex gap-x-4 justify-center mx-auto mb-[18px]">
+            <div className="hidden w-[735px] md:flex gap-x-4 justify-center mx-auto mb-[18px]">
               {subCategories.map(el => (
                 <button
                   key={el}

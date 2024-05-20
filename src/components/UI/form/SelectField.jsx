@@ -98,7 +98,7 @@ const SelectField = forwardRef(
     return (
       <div
         className={`${
-          namePage === "order" ? "w-[135px] xl:w-[241px]" : ""
+          namePage === "order" ? "w-[135px] md:w-[241px]" : ""
         } h-[59px] flex flex-col border-b-[0.5px] ${
           fieldState.error ? "border-base-orange" : "border-base-brown"
         } relative ${style}`}

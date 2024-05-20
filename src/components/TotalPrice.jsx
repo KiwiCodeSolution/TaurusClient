@@ -6,7 +6,7 @@ const TotalPrice = observer(() => {
   const totalSum = ordersStore.order.total;
 
   return (
-    <div className="w-full flex justify-end items-center mt-4 uppercase text-16 text-beige">
+    <div className="w-full flex justify-end items-center mb-4 uppercase text-16 text-beige">
       всього:{" "}
       <span className="min-w-[155px] ml-[21px] h-10 py-2 flex justify-center bg-dark-btn-bg text-base-orange normal-case">
         {totalSum} грн.

@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
+import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import useScrollBlock from "../../../hooks/useScrollBlock";
+import Button from "../Button";
 import { Cross } from "../../../icons/iconComponent";
 
-const modalRoot = document.querySelector("#modal-root");
+const modalRoot = document.querySelector("#notification-modal-root");
 
-const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay }) => {
+const NotificationsOverlay = observer(({ children, stylesPopUp, stylesOverlay, clickFn }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
 
   function closeModal() {
@@ -27,7 +29,7 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay }) => {
     return () => {
       window.removeEventListener("keydown", keyDown);
     };
-  }, [blockScroll, clickFn, closeModal]);
+  }, [blockScroll, closeModal]);
 
   function handleOverlayClick(e) {
     if (e.target === e.currentTarget) {
@@ -42,26 +44,31 @@ const Overlay = ({ children, clickFn, stylesPopUp, stylesOverlay }) => {
       onClick={handleOverlayClick}
     >
       <div
-        className={`px-4 py-12 md:p-10 text-16 text-beige bg-base-black border border-base-brown absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100 ${stylesPopUp}`}
+        className={`p-10 text-16 text-beige bg-base-black border border-base-brown absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100 ${stylesPopUp}`}
       >
         <button className="phoneContactList_button" onClick={closeModal}>
           <Cross className={"absolute top-[16px] right-[16px] icon"} />
         </button>
         {children}
+
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+          <Button style={"orange"} clickFn={closeModal}>
+            Закрити
+          </Button>
+        </div>
       </div>
     </div>,
     modalRoot
   );
-};
+});
 
-Overlay.propTypes = {
+NotificationsOverlay.propTypes = {
   children: PropTypes.node.isRequired,
   clickFn: PropTypes.func.isRequired,
   stylesOverlay: PropTypes.string,
   stylesPopUp: PropTypes.string,
   componentName: PropTypes.string,
-  // status: PropTypes.string,
   type: PropTypes.string,
 };
 
-export default Overlay;
+export default NotificationsOverlay;

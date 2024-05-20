@@ -1,4 +1,6 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
+import { parseISO, format } from "date-fns";
 import { Archive, Minus, Plus, Trash } from "../icons/iconComponent";
 
 const items = [
@@ -8,19 +10,40 @@ const items = [
 ];
 
 const OrderItem = ({ item }) => {
-  // const { name, login, access_type, role, password } = item;
+  const {
+    name,
+    email,
+    phone,
+    time,
+    date,
+    message,
+    total_cost,
+    address,
+    status,
+    products,
+    delivery_type,
+    order_number,
+  } = item;
   const [isOpenOrder, setIsOpenOrder] = useState(false);
-  console.table(item);
+
+  const parsedDate = parseISO(date);
+  const formattedDate = format(parsedDate, "dd-MM-yyyy");
+
+  const formatOrderNumber = number => {
+    return number.toString().padStart(9, "0");
+  };
 
   return (
     <article className="w-full px-2 border-b border-base-brown border-dashed text-sm text-beige">
       <div className="w-full h-[63px] flex items-center gap-x-6 px-2">
-        <p className="w-[117px]">01-04-2024 12:35</p>
-        <p className="w-[103px]">#0000000001</p>
-        <p className="w-[202px]">Катерина Олександрівна Коваленко-Бачинська</p>
-        <p className="w-[105px]">На місці</p>
-        <p className="w-[85px]">1.750,00 </p>
-        <p className="w-[120px]">Нове</p>
+        <p className="w-[117px]">
+          {formattedDate} {time}
+        </p>
+        <p className="w-[103px]"># {formatOrderNumber(order_number)}</p>
+        <p className="w-[202px]">{name}</p>
+        <p className="w-[105px]">{delivery_type} </p>
+        <p className="w-[85px]">{total_cost || 0} </p>
+        <p className="w-[120px]">{status || "Нове"} </p>
         <button
           className="w-6 h-6 bg-dark-btn-bg cursor-pointer flex items-center justify-center"
           onClick={() => setIsOpenOrder(!isOpenOrder)}
@@ -34,24 +57,24 @@ const OrderItem = ({ item }) => {
           <div className="grid grid-cols-3">
             <p className="col-span-2">
               <span className="text-base font-semibold text-base-yellow">Email: </span>
-              <a href="mailto:roman_bondarenko@gmail.com" className="cursor-pointer">
-                roman_bondarenko@gmail.com
+              <a href={`mailto:${email}`} className="cursor-pointer">
+                {email}
               </a>
             </p>
             <p>
               <span className="text-base font-semibold text-base-yellow">Телефон: </span>
-              +38 099 840 96 14
+              {phone}
             </p>
             <p className="col-span-2">
-              <span className="text-base font-semibold text-base-yellow">Адреса: </span>кв. 32, буд.
-              71 вул. Прорізна, м. Харків, Харківська обл., Україна, 83000
+              <span className="text-base font-semibold text-base-yellow">Адреса: </span>
+              {address}
             </p>
             {/* <p>
               <span>:</span>
             </p> */}
             <p className="col-span-2">
               <span className="text-base font-semibold text-base-yellow">Повідомлення: </span>
-              Вишневий штрудель (3й поверх)
+              {message}
             </p>
           </div>
           {/* перелік страв у замовленні */}
@@ -66,15 +89,16 @@ const OrderItem = ({ item }) => {
               </tr>
             </thead>
             <tbody>
-              {items.map((order, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{order.name}</td>
-                  <td>{order.quantity}</td>
-                  <td>{order.salary}</td>
-                  <td>{order.price}</td>
-                </tr>
-              ))}
+              {products &&
+                products.map((order, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{order.name}</td>
+                    <td>{order.quantity}</td>
+                    <td>{order.salary}</td>
+                    <td>{order.price}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           <div className="w-[238px] px-3 flex justify-between gap-x-6 ml-auto">
@@ -93,6 +117,26 @@ const OrderItem = ({ item }) => {
       )}
     </article>
   );
+};
+
+OrderItem.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    total_cost: PropTypes.number.isRequired,
+    address: PropTypes.string.isRequired,
+    status: PropTypes.oneOf(["pending", "progress", "confirmed", "cancelled"]).isRequired,
+    products: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+    }).isRequired,
+    delivery_type: PropTypes.oneOf(["У ресторані", "Доставка"]).isRequired,
+    order_number: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default OrderItem;

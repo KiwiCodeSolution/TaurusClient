@@ -41,9 +41,8 @@ const UserItem = ({ user }) => {
           <div className="grid grid-cols-2">
             <p className="">
               <span className="text-base font-semibold text-base-yellow">Логін: </span>
-              <a href="mailto:roman_bondarenko@gmail.com" className="cursor-pointer">
-                {login}
-              </a>
+
+              {login}
             </p>
             <p>
               <span className="text-base font-semibold text-base-yellow">Роль: </span>

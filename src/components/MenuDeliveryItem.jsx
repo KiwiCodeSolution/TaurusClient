@@ -20,19 +20,19 @@ const MenuDeliveryItem = observer(({ item }) => {
   };
 
   return (
-    <article className="w-full xl:w-[831px] flex flex-col xl:flex-row gap-x-14 mx-auto items-center justify-between mb-6 xl:mb-0">
+    <article className="w-full md:w-[831px] flex flex-col md:flex-row gap-x-14 mx-auto items-center justify-between mb-6 md:mb-0">
       <MenuItem item={item} section={"order"} />
-      <div className="w-full xl:w-fit h-[41px] flex py-1 bg-dark-btn-bg">
+      <div className="w-full md:w-fit h-[41px] flex py-1 bg-dark-btn-bg">
         <Button
           style={"count"}
           clickFn={() => orderStore.decreaseQuantity(item)}
           disabled={value(_id) === 0}
-          btnClass={"w-[33%] xl:w-[71px]"}
+          btnClass={"w-[33%] md:w-[71px]"}
         >
           <Minus />
         </Button>
         <span
-          className={`w-[33%] xl:w-[71px] h-full text-base font-semibold bg-dark-btn-bg border-base-brown border-l border-r mx-auto flex justify-center items-center ${
+          className={`w-[33%] md:w-[71px] h-full text-base font-semibold bg-dark-btn-bg border-base-brown border-l border-r mx-auto flex justify-center items-center ${
             value(_id) === 0 ? "text-base-brown" : "text-base-orange"
           }`}
         >
@@ -41,7 +41,7 @@ const MenuDeliveryItem = observer(({ item }) => {
         <Button
           style={"count"}
           clickFn={() => orderStore.addToCart(item)}
-          btnClass={"w-[33%] xl:w-[71px]"}
+          btnClass={"w-[33%] md:w-[71px]"}
         >
           <Plus />
         </Button>

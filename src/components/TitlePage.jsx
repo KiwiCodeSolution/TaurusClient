@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const TitlePage = ({ children }) => {
   return (
-    <h1 className="w-full text-[32px] xl:text-[53px] leading-[1.22] uppercase text-center text-base-yellow mb-8 xl:mb-16">
+    <h1 className="w-full text-[32px] md:text-[53px] leading-[1.22] uppercase text-center text-base-yellow mb-8 md:mb-16">
       {children}
     </h1>
   );

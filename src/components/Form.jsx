@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import { useForm, Controller } from "react-hook-form";
@@ -11,9 +10,10 @@ import CheckboxField from "./UI/form/CheckboxField";
 import { useState } from "react";
 import ConfirmPopup from "./ConfirmPopup";
 import orderStore from "../store/order";
-import { baseServerURL } from "../API/config";
 import { prefix } from "../helpers/styles";
 import { createOrder } from "../API/orders";
+import { sendFeedback } from "../API/feedback";
+import { sendReserve } from "../API/reservations";
 
 const TEXT_FIELDS = [
   {
@@ -95,109 +95,179 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
     defaultValues: defaultValues,
   });
 
+  // const onSubmit = async data => {
+  //   const formattedData = {
+  //     ...data,
+  //     time: data.time?.value,
+  //   };
+
+  //   if (namePage === "contacts") {
+  //     try {
+  //       delete data.quantity;
+  //       delete data.date;
+  //       sendFeedback(data);
+
+  //       setIsModalOpen(true);
+
+  //       setIsChecked(false);
+  //       reset(defaultValues);
+
+  //       return;
+  //     } catch (error) {
+  //       return { error: error.message };
+  //     }
+  //   }
+
+  //   if (namePage === "order") {
+  //     const formatData = toJS(orderStore.order.items);
+  //     delete formattedData.quantity;
+
+  //     const orderProducts = formatData.map(product => ({
+  //       product: product._id, // ідентифікатор продукту
+  //       quantity: product.quantity, // кількість
+  //     }));
+
+  //     const requestData = {
+  //       ...formattedData,
+  //       products: orderProducts,
+  //       delivery_type: orderStore.order.delivery_type,
+  //       total_cost: orderStore.order.total,
+  //     };
+
+  //     try {
+  //       console.log(requestData);
+  //       const result = createOrder(requestData);
+
+  //       clickFn();
+
+  //       setIsChecked(false);
+  //       console.log("result", result);
+  //       reset();
+  //     } catch (error) {
+  //       return { error: error.message };
+  //     }
+  //   }
+
+  //   if (namePage === "reserve") {
+  //     try {
+  //       const requestData = {
+  //         ...formattedData,
+  //         customerName: data.name,
+  //         phoneNumber: data.phone,
+  //         date: data.date,
+  //         time: data.time.value,
+  //         numberOfPeople: data.quantity.value,
+  //         tableNumber: 1,
+  //         consentToProcessPersonalData: isChecked,
+  //       };
+
+  //       sendReserve(requestData);
+  //       setCurrentDate(new Date());
+  //       setIsModalOpen(true);
+  //       setIsChecked(false);
+  //       reset();
+  //     } catch (error) {
+  //       return { error: error.message };
+  //     }
+  //   }
+
+  //   if (namePage === "service") {
+  //     try {
+  //       const requestData = {
+  //         ...formattedData,
+  //         message: prefix + data.message,
+  //         total_cost: orderStore.order.total,
+  //       };
+
+  //       delete data.quantity;
+  //       delete data.date;
+
+  //       sendFeedback(requestData);
+
+  //       setIsModalOpen(true);
+
+  //       setIsChecked(false);
+  //       reset(defaultValues);
+
+  //       return;
+  //     } catch (error) {
+  //       return { error: error.message };
+  //     }
+  //   }
+  // };
+
   const onSubmit = async data => {
-    // console.log("onSubmit", data);
     const formattedData = {
       ...data,
       time: data.time?.value,
     };
 
-    if (namePage === "contacts") {
+    const actions = {
+      contacts: () => sendFeedbackAndReset(data),
+      order: () => createOrderAndReset(formattedData),
+      reserve: () => sendReserveAndReset(data),
+      service: () => sendServiceFeedbackAndReset(formattedData),
+    };
+
+    const action = actions[namePage];
+    if (action) {
       try {
-        delete data.quantity;
-        delete data.date;
-
-        const result = await axios.post(`${baseServerURL}feedback`, data);
-
-        console.log("result", result.data);
-
+        await action();
         setIsModalOpen(true);
-
         setIsChecked(false);
         reset(defaultValues);
-
-        return;
       } catch (error) {
         return { error: error.message };
       }
     }
+  };
 
-    if (namePage === "order") {
-      const formatData = toJS(orderStore.order.items);
-      delete formattedData.quantity;
+  const sendFeedbackAndReset = async data => {
+    delete data.quantity;
+    delete data.date;
+    await sendFeedback(data);
+  };
 
-      const requestData = {
-        ...formattedData,
-        products: formatData,
-        delivery_type: orderStore.order.delivery_type,
-        total_cost: orderStore.order.total,
-      };
+  const sendServiceFeedbackAndReset = async data => {
+    delete data.quantity;
+    delete data.date;
+    const requestData = {
+      ...data,
+      message: prefix + data.message,
+      total_cost: orderStore.order.total,
+    };
+    await sendFeedback(requestData);
+  };
 
-      try {
-        console.log("requestData", requestData);
-        // const result = await axios.post(`${baseServerURL}order`, requestData);
-        const result = createOrder(requestData);
-        console.log("result", result);
+  const createOrderAndReset = async formattedData => {
+    const orderProducts = toJS(orderStore.order.items).map(product => ({
+      product: product._id,
+      quantity: product.quantity,
+    }));
 
-        clickFn();
-        orderStore.clearOrderedProductList();
-        setIsChecked(false);
-        reset();
-        return result;
-      } catch (error) {
-        return { error: error.message };
-      }
-    }
+    const requestData = {
+      ...formattedData,
+      products: orderProducts,
+      delivery_type: orderStore.order.delivery_type,
+      total_cost: orderStore.order.total,
+    };
+    await createOrder(requestData);
+    clickFn();
+  };
 
-    if (namePage === "reserve") {
-      try {
-        const requestData = {
-          ...formattedData,
-          customerName: data.name,
-          phoneNumber: data.phone,
-          date: data.date,
-          time: data.time.value,
-          numberOfPeople: data.quantity.value,
-          tableNumber: 1,
-          consentToProcessPersonalData: isChecked,
-        };
-
-        const result = await axios.post(`${baseServerURL}reservations`, requestData);
-        setCurrentDate(new Date());
-        setIsModalOpen(true);
-        setIsChecked(false);
-        reset();
-        return result;
-      } catch (error) {
-        return { error: error.message };
-      }
-    }
-
-    if (namePage === "service") {
-      try {
-        const requestData = {
-          ...formattedData,
-          message: prefix + data.message,
-          total_cost: orderStore.order.total,
-        };
-
-        delete data.quantity;
-        delete data.date;
-
-        const result = await axios.post(`${baseServerURL}feedback`, requestData);
-
-        console.log("result", result.data);
-
-        setIsModalOpen(true);
-
-        setIsChecked(false);
-        reset(defaultValues);
-
-        return;
-      } catch (error) {
-        return { error: error.message };
-      }
-    }
+  const sendReserveAndReset = async data => {
+    const requestData = {
+      ...data,
+      customerName: data.name,
+      phoneNumber: data.phone,
+      date: data.date,
+      time: data.time.value,
+      numberOfPeople: data.quantity.value,
+      tableNumber: 1,
+      consentToProcessPersonalData: isChecked,
+    };
+    await sendReserve(requestData);
+    setCurrentDate(new Date());
   };
 
   const handleReset = fieldName => {
@@ -212,11 +282,11 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
   // стилі для форми в залежності від її розташування
   const formStyle =
     namePage === "reserve"
-      ? "w-[312px] xl:w-[597px] h-fit xl:px-[22px] flex flex-col gap-y-4 mb-16 mx-auto"
+      ? "w-[312px] md:w-[597px] h-fit md:px-[22px] flex flex-col gap-y-4 mb-16 mx-auto"
       : namePage === "contacts" || namePage === "service"
-      ? "w-[312px] xl:w-[546px] xl:px-6 flex flex-col gap-y-4 mt-8 mx-auto"
+      ? "w-[312px] md:w-[546px] md:px-6 flex flex-col gap-y-4 mt-8 mx-auto"
       : namePage === "order"
-      ? "w-full xl:w-[578px] h-fit flex flex-col gap-y-4 mx-auto"
+      ? "w-full md:w-[578px] h-fit flex flex-col gap-y-4 mx-auto"
       : "";
 
   return (
@@ -243,7 +313,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
             control={control}
             name="address"
             placeholder="Введіть Вашу адресу"
-            label="Вашa адреса"
+            label="Ваша адреса"
             onReset={() => handleReset(name)}
             type="input"
             style="order-4"
@@ -251,7 +321,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
         )}
 
         {namePage !== "contacts" && namePage !== "service" && (
-          <div className="w-full grid grid-cols-2 gap-y-4 xl:pag-y-0 xl:flex justify-between order-5">
+          <div className="w-full grid grid-cols-2 gap-y-4 md:pag-y-0 md:flex justify-between order-5">
             {/* ------------------ persons --------------- */}
             {namePage === "reserve" && (
               <Controller
@@ -266,7 +336,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
                       name="quantity"
                       isSearchable={true}
                       placeholder="Кількість осіб"
-                      style={"w-[312px] xl:w-[166px] order-7"}
+                      style={"w-[312px] md:w-[166px] order-7"}
                       label="Кількість людей"
                     />
                   </>
@@ -314,7 +384,7 @@ const Form = observer(({ namePage, clickFn, delivery }) => {
             : namePage === "contacts"
             ? "Відправити"
             : namePage === "order"
-            ? "Підтвердити замолення"
+            ? "Підтвердити замовлення"
             : "Відправити"}
         </Button>
       </form>

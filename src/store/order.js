@@ -8,6 +8,7 @@ class Order {
     total: 0,
     delivery_type: "У ресторані",
   };
+  isError = false;
 
   constructor() {
     makeObservable(this, {
@@ -23,7 +24,7 @@ class Order {
 
     makePersistable(this, {
       name: "order",
-      properties: ["order"],
+      properties: ["order", "isError"],
       storage: window.localStorage,
     });
   }

@@ -19,7 +19,6 @@ const CategoryFilter = observer(({ page }) => {
   }
 
   function swiperClick(type) {
-    console.log(type);
     if (type === "plus") {
       setCurrentId(currentId + 1);
     }
@@ -53,8 +52,8 @@ const CategoryFilter = observer(({ page }) => {
         </li>
         <li
           className={`${
-            page !== "admin" ? "w-[320px] xl:w-[736px] border_custom pb-10" : "w-[851px] pb-3"
-          } flex xl:gap-x-14 mx-auto relative`}
+            page !== "admin" ? "w-[320px] md:w-[736px] border_custom pb-10" : "w-[851px] pb-3"
+          } flex md:gap-x-14 mx-auto relative`}
         >
           {isMobile ? (
             <CategorySwiper onClick={swiperClick} currentId={currentId} />
@@ -90,7 +89,7 @@ const CategoryFilter = observer(({ page }) => {
         {page === "admin" && <li className="border_admin_menu w-[916px] mx-auto" />}
       </ul>
       {page !== "admin" && (
-        <h3 className="w-full text-center text-2xl md:text-[27px] text-beige uppercase mt-10 mb-8">
+        <h3 className="hidden md:inline-block md:w-full text-center text-2xl md:text-[27px] text-beige uppercase mt-10 mb-8">
           {currentTopTitle}
         </h3>
       )}

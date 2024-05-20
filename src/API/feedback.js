@@ -6,8 +6,6 @@ import { toastOptions } from "../helpers/styles";
 export const sendFeedback = async data => {
   try {
     const result = await axios.post(`${baseServerURL}feedback`, data);
-    console.log("result", result);
-
     return result;
   } catch (error) {
     return { error: error.message };

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const PopUp = ({ children, clickFn }) => {
   return (
-    <div className="xl:w-[572px] h-[319px] p-10 text-16 text-beige relative">
+    <div className="md:w-[572px] h-[319px] p-10 text-16 text-beige relative">
       <button onClick={clickFn} className="absolute top-2 right-2 bg-slate-600">
         Close
       </button>

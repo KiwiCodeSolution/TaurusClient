@@ -27,13 +27,13 @@ const Contacts = () => {
           className="absolute left-0"
         ></iframe>
         <div className="w-full min-h-[578px] py-16 mx-auto">
-          <div className="xl:w-[1116px] flex gap-x-6 mx-auto">
+          <div className="md:w-[1116px] flex gap-x-6 mx-auto">
             <img
               src="/images/contacts/form.png"
               alt=""
-              className="hidden xl:block w-[546px] h-[552px] object-cover"
+              className="hidden md:block w-[546px] h-[552px] object-cover"
             />
-            <div className="w-[312px] mt-[370px] xl:w-[546px]">
+            <div className="w-[312px] mt-[370px] md:w-[546px]">
               <h3 className="w-full text-[27px] uppercase text-center text-beige">
                 Зв’яжіться з нами
               </h3>

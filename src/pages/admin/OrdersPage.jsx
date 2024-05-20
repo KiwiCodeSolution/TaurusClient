@@ -18,6 +18,7 @@ const OrdersPage = observer(() => {
 
   const orders = adminOrders.orders;
 
+
   const toggleStateArchive = () => {
     setIsArchive(!isArchive);
   };

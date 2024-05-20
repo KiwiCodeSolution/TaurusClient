@@ -9,7 +9,7 @@ import { Cross } from "../../../icons/iconComponent";
 
 const modalRoot = document.querySelector("#confirm-modal-root");
 
-const ConfirmOverlay = observer(({ children, stylesPopUp, stylesOverlay, clickFn }) => {
+const NotificationsOverlay = observer(({ children, stylesPopUp, stylesOverlay, clickFn }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
 
   function closeModal() {
@@ -62,7 +62,7 @@ const ConfirmOverlay = observer(({ children, stylesPopUp, stylesOverlay, clickFn
   );
 });
 
-ConfirmOverlay.propTypes = {
+NotificationsOverlay.propTypes = {
   children: PropTypes.node.isRequired,
   clickFn: PropTypes.func.isRequired,
   stylesOverlay: PropTypes.string,
@@ -72,4 +72,4 @@ ConfirmOverlay.propTypes = {
   type: PropTypes.string,
 };
 
-export default ConfirmOverlay;
+export default NotificationsOverlay;

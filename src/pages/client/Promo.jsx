@@ -53,10 +53,10 @@ const Promo = observer(() => {
       <div className="h-[198px] md:h-[416px]">
         <PromoSwiper />
       </div>
-      <section className="relative wrapper w-full section-wrapper py-8 xl:py-16 mx-auto">
+      <section className="relative wrapper w-full section-wrapper py-8 md:py-16 mx-auto">
         <TitlePage>Акції</TitlePage>
 
-        <div className="w-full xl:w-[1116px] grid grid-cols-1 xl:grid-cols-3 gap-y-12 gap-x-6 mx-auto">
+        <div className="w-full md:w-[1116px] grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-6 mx-auto">
           {promo.map(el => (
             <PromoItem key={el._id} item={el} />
           ))}

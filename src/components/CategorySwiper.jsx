@@ -63,7 +63,7 @@ class CategorySwiper extends Component {
 
     return (
       <>
-        <Slider ref={this.sliderRef} {...settings} className="w-full">
+        <Slider ref={this.sliderRef} {...settings} className="w-full mt-8">
           {ITEM_TOP_CATEGORY.map(({ id, IconHover, title }) => (
             <div className="w-full flex flex-col items-center justify-center" key={id}>
               <div className="w-[80px] h-[80px] mb-4 mx-auto">
