@@ -23,7 +23,7 @@ class Order {
     });
 
     makePersistable(this, {
-      name: "order",
+      name: "order_taurus_restaurant",
       properties: ["order", "isError"],
       storage: window.localStorage,
     });
@@ -43,9 +43,10 @@ class Order {
   };
 
   currentDish(dishId) {
-    const foundDish = this.order.items.find(item => item._id === dishId);
-
-    return foundDish;
+    if (this.order.items) {
+      const foundDish = this.order.items.find(item => item._id === dishId);
+      return foundDish;
+    } else return 0;
   }
 
   removeDish(dishId) {

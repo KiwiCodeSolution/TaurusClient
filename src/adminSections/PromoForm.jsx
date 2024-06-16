@@ -7,8 +7,8 @@ import axios from "axios";
 import { baseServerURL } from "../API/config";
 import { Archive, Show, Trash } from "../icons/iconComponent";
 import { useState } from "react";
-import { toastOptions } from "../API/dishes";
 import { createPromotion, updatePromotion } from "../API/promotions";
+import { toastOptions } from "../helpers/styles";
 
 const FIELDS = [
   {
