@@ -7,7 +7,7 @@ import { Archive, Show, Trash } from "../icons/iconComponent";
 import { useState } from "react";
 import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
 import dishesStore from "../store/dishes";
-// import { createDish, updateDish } from "../API/dishes";
+import { createDish, deleteDish, updateDish, updateDishAvailable } from "../API/dishes";
 import CheckboxField from "../components/UI/form/CheckboxField";
 
 const topOptions = [
@@ -143,6 +143,7 @@ const promoFields = [
 ];
 
 const DishForm = observer(({ item, type }) => {
+  console.log(item._id);
   const itemTopCategory = topOptions.find(option => option.label === item?.topCategory);
   const itemTopCategoryValue = itemTopCategory?.value;
   const itemCategory = options[itemTopCategoryValue]?.find(
@@ -184,7 +185,40 @@ const DishForm = observer(({ item, type }) => {
   const topValue = watch("top", "");
   const currentOptions = topValue?.value || itemTopCategory?.value || topOptions[0].value;
 
-  const onSubmit = data => {
+  const handleAction = (actionType, data) => {
+    switch (actionType) {
+      case "create":
+        console.log("create action", item._id);
+        createDish(data);
+        break;
+      case "save":
+        console.log("Save action", data.top.label);
+        updateDish({ ...item, ...data, category: data.top.label });
+        break;
+      case "archive":
+        console.log("Archive action", item._id);
+        updateDish({ ...item, archive: true });
+        break;
+      case "hide":
+        console.log("Hide action", item._id);
+        updateDishAvailable({ ...item, available: !data.available });
+        break;
+      case "delete":
+        console.log("Delete action", item._id);
+        setIsOpenModalConfirm(true);
+        deleteDish(item);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onSubmit = (data, event) => {
+    const actionType = event.nativeEvent.submitter.name;
+    handleAction(actionType, data);
+  };
+
+  const onSubmitе = data => {
     // if (type === "create") {
     //   createDish(data);
     // }
@@ -375,19 +409,20 @@ const DishForm = observer(({ item, type }) => {
 
         {type === "create" ? (
           <div className="w-fit flex items-center gap-x-5 mx-auto">
-            <Button type="submit" style={"orange"}>
+            <Button type="submit" style={"orange"} name="create">
               Створити
             </Button>
           </div>
         ) : (
           <div className="w-fit flex flex-col items-center gap-y-4 mx-auto absolute top-0 -right-[200px]">
-            <Button type="submit" style={"orange"}>
+            <Button type="submit" style={"orange"} name="save">
               Зберігти
             </Button>
             <Button
               type="submit"
               style={"beige"}
               btnClass="flex items-center justify-center gap-x-[6px] btn-archive"
+              name="archive"
             >
               <Archive className={"fill-beige"} />
               Архівувати
@@ -396,6 +431,7 @@ const DishForm = observer(({ item, type }) => {
               type="submit"
               style={"beige"}
               btnClass="flex items-center justify-center gap-x-[6px] btn-show"
+              name="hide"
             >
               <Show className={"fill-beige"} />
               Приховати
@@ -404,6 +440,7 @@ const DishForm = observer(({ item, type }) => {
               style={"beige"}
               btnClass="flex items-center justify-center gap-x-[6px] trash"
               clickFn={() => setIsOpenModalConfirm(true)}
+              name="delete"
             >
               <Trash className={"fill-beige w-4 h-4 trash-icon"} /> Видалити
             </Button>

@@ -28,6 +28,7 @@ export const createDish = async dish => {
 };
 
 export const updateDish = async dish => {
+  console.log(dish);
   try {
     const result = await axios.put(`${baseServerURL}product/${dish._id}`, { ...dish });
     toast.success("Інформацію оновлено!", toastOptions);
@@ -38,7 +39,7 @@ export const updateDish = async dish => {
   }
 };
 
-export const updateDishAvialable = async dish => {
+export const updateDishAvailable = async dish => {
   try {
     const updatedDish = { available: dish.available }; // Створюємо об'єкт тільки з полем available
     const result = await axios.put(`${baseServerURL}product/${dish._id}`, updatedDish);
