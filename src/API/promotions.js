@@ -3,9 +3,13 @@ import { toast } from "react-toastify";
 import { baseServerURL } from "./config";
 import { toastOptions } from "../helpers/styles";
 
-export const getAllPromotions = async () => {
+export const getAllPromotions = async token => {
   try {
-    const result = await axios.get(`${baseServerURL}promotions`);
+    const result = await axios.get(`${baseServerURL}promotions`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return result;
   } catch (error) {
@@ -13,9 +17,13 @@ export const getAllPromotions = async () => {
   }
 };
 
-export const createPromotion = async promo => {
+export const createPromotion = async (promo, token) => {
   try {
-    const result = await axios.post(`${baseServerURL}promotions`, promo);
+    const result = await axios.post(`${baseServerURL}promotions`, promo, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     toast.success("Нову акцію додано!", toastOptions);
     return result;
@@ -27,9 +35,17 @@ export const createPromotion = async promo => {
   }
 };
 
-export const updatePromotion = async promo => {
+export const updatePromotion = async (promo, token) => {
   try {
-    const result = await axios.put(`${baseServerURL}promotions/${promo._id}`, { ...promo });
+    const result = await axios.put(
+      `${baseServerURL}promotions/${promo._id}`,
+      { ...promo },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {
@@ -38,9 +54,13 @@ export const updatePromotion = async promo => {
   }
 };
 
-export const deletePromotion = async promo => {
+export const deletePromotion = async (promo, token) => {
   try {
-    const result = await axios.delete(`${baseServerURL}promotions/${promo._id}`);
+    const result = await axios.delete(`${baseServerURL}promotions/${promo._id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     toast.success("Акцію видалено!", toastOptions);
     return result;
   } catch (error) {

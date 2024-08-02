@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { getDishes, createDish, updateDish, deleteDish } from "../API/dishes";
+import authStore from "./auth";
 
 class Dishes {
   dishes = [];
@@ -26,7 +27,7 @@ class Dishes {
   };
 
   createDishesAction = async dish => {
-    const result = await createDish(dish);
+    const result = await createDish(dish, authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -39,7 +40,8 @@ class Dishes {
   };
 
   updateDishesAction = async dish => {
-    const result = await updateDish(dish);
+    console.log(authStore.token);
+    const result = await updateDish(dish, authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -52,7 +54,7 @@ class Dishes {
   };
 
   deleteDishesAction = async dish => {
-    const result = await deleteDish(dish);
+    const result = await deleteDish(dish, authStore.token);
 
     runInAction(() => {
       if (result.error) {

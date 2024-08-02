@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { deleteReserve, getAllReserves, sendReserve, updateReserve } from "../API/reservations";
+import authStore from "./auth";
 
 class Reservations {
   reserves = [];
@@ -15,7 +16,7 @@ class Reservations {
   }
 
   getReserveAction = async () => {
-    const result = await getAllReserves();
+    const result = await getAllReserves(authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -39,7 +40,7 @@ class Reservations {
   };
 
   updateReserveAction = async data => {
-    const result = await updateReserve(data);
+    const result = await updateReserve(data, authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -52,7 +53,7 @@ class Reservations {
   };
 
   deleteReserveAction = async data => {
-    const result = await deleteReserve(data);
+    const result = await deleteReserve(data, authStore.token);
 
     runInAction(() => {
       if (result.error) {

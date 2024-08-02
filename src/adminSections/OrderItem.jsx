@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
+import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { parseISO, format } from "date-fns";
 import { Archive, ArrowDown, Minus, Plus, Trash } from "../icons/iconComponent";
 import adminOrdersStore from "../store/adminOrders";
+import authStore from "../store/auth";
 
-const OrderItem = ({ item }) => {
+const OrderItem = observer(({ item }) => {
   const {
     name,
     email,
@@ -192,18 +194,20 @@ const OrderItem = ({ item }) => {
             >
               <Archive className={"fill-white w-4 h-4"} />
             </button>
-            <button
-              className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center"
-              onClick={deleteOrderItems}
-            >
-              <Trash className={"fill-white w-4 h-4"} />
-            </button>
+            {authStore.user.role === "admin" && (
+              <button
+                className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center"
+                onClick={deleteOrderItems}
+              >
+                <Trash className={"fill-white w-4 h-4"} />
+              </button>
+            )}
           </div>
         </div>
       )}
     </article>
   );
-};
+});
 
 OrderItem.propTypes = {
   item: PropTypes.shape({

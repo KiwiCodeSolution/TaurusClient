@@ -7,8 +7,9 @@ import { Archive, Show, Trash } from "../icons/iconComponent";
 import { useState } from "react";
 import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
 import dishesStore from "../store/dishes";
-import { createDish, deleteDish, updateDish, updateDishAvailable } from "../API/dishes";
+import { updateDishAvailable } from "../API/dishes";
 import CheckboxField from "../components/UI/form/CheckboxField";
+import authStore from "../store/auth";
 
 const topOptions = [
   { value: "dishes", label: "основне меню" },
@@ -143,7 +144,7 @@ const promoFields = [
 ];
 
 const DishForm = observer(({ item, type }) => {
-  console.log(item._id);
+  console.log(authStore.token);
   const itemTopCategory = topOptions.find(option => option.label === item?.topCategory);
   const itemTopCategoryValue = itemTopCategory?.value;
   const itemCategory = options[itemTopCategoryValue]?.find(
@@ -189,24 +190,24 @@ const DishForm = observer(({ item, type }) => {
     switch (actionType) {
       case "create":
         console.log("create action", item._id);
-        createDish(data);
+        dishesStore.createDishesAction(data);
         break;
       case "save":
         console.log("Save action", data.top.label);
-        updateDish({ ...item, ...data, category: data.top.label });
+        dishesStore.updateDishesAction({ ...item, ...data, category: data.top.label });
         break;
       case "archive":
         console.log("Archive action", item._id);
-        updateDish({ ...item, archive: true });
+        dishesStore.updateDishesAction({ ...item, archive: true });
         break;
       case "hide":
         console.log("Hide action", item._id);
-        updateDishAvailable({ ...item, available: !data.available });
+        updateDishAvailable({ ...item, available: !data.available }, authStore.token);
         break;
       case "delete":
         console.log("Delete action", item._id);
         setIsOpenModalConfirm(true);
-        deleteDish(item);
+        dishesStore.deleteDishesAction(item);
         break;
       default:
         break;
@@ -436,14 +437,16 @@ const DishForm = observer(({ item, type }) => {
               <Show className={"fill-beige"} />
               Приховати
             </Button>
-            <Button
-              style={"beige"}
-              btnClass="flex items-center justify-center gap-x-[6px] trash"
-              clickFn={() => setIsOpenModalConfirm(true)}
-              name="delete"
-            >
-              <Trash className={"fill-beige w-4 h-4 trash-icon"} /> Видалити
-            </Button>
+            {authStore.user.role === "admin" && (
+              <Button
+                style={"beige"}
+                btnClass="flex items-center justify-center gap-x-[6px] trash"
+                clickFn={() => setIsOpenModalConfirm(true)}
+                name="delete"
+              >
+                <Trash className={"fill-beige w-4 h-4 trash-icon"} /> Видалити
+              </Button>
+            )}
           </div>
         )}
       </form>

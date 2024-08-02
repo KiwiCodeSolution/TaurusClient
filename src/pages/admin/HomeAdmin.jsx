@@ -9,6 +9,8 @@ const HomeAdmin = () => {
   const location = useLocation();
 
   const currentStyle = location.pathname === "/admin/access" ? "bg-[#565350]" : "bg-base-black";
+  const role = authStore.user.role;
+  console.log(role);
 
   return (
     <>
@@ -24,29 +26,38 @@ const HomeAdmin = () => {
             </h1>
 
             <div className="flex flex-col gap-y-4 text-18">
-              <NavLink
-                to={"/admin/access/restaurant/orders"}
-                className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
-              >
-                Управління рестораном
-              </NavLink>
-              <NavLink
-                to={"/admin/access/site/menu"}
-                className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
-              >
-                Управління сайтом
-              </NavLink>
-              <NavLink
-                to={"/admin/access/users"}
-                className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
-              >
-                Управління доступами
-              </NavLink>
+              {(role === "admin" || role === "restaurant_staff") && (
+                <NavLink
+                  to={"/admin/access/restaurant/orders"}
+                  className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
+                >
+                  Управління рестораном
+                </NavLink>
+              )}
+
+              {(role === "admin" || role === "user") && (
+                <NavLink
+                  to={"/admin/access/site/menu"}
+                  className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
+                >
+                  Управління сайтом
+                </NavLink>
+              )}
+
+              {role === "admin" && (
+                <NavLink
+                  to={"/admin/access/users"}
+                  className="w-[340px] h-[75px] py-6 px-8 border border-base-brown text-beige uppercase hover:text-base-black hover:bg-base-brown text-center"
+                >
+                  Управління доступами
+                </NavLink>
+              )}
+
               <Button
                 style={"orange"}
                 btnClass="mt-6 text-center text-18 font-medium"
                 type="button"
-                clickFn={() => authStore.setIsAuth(false)}
+                clickFn={() => authStore.logoutAction()}
               >
                 Вийти
               </Button>

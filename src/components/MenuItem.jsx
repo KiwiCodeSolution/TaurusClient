@@ -2,6 +2,8 @@ import { observer } from "mobx-react-lite";
 import { Trash, Edit, Hide, Archive } from "../icons/iconComponent";
 import { Link, useLocation } from "react-router-dom";
 import dishesStore from "../store/dishes";
+import authStore from "../store/auth";
+
 import { useState } from "react";
 import ConfirmModalAdmin from "../adminSections/modal/ConfirmModalAdmin";
 
@@ -85,11 +87,13 @@ const MenuItem = observer(({ item, section, archive }) => {
                 <Edit className={"fill-beige hover:fill-base-orange"} />
               </Link>
             </li>
-            <li className="w-[73px] flex items-center justify-center">
-              <button className="cursor-pointer" onClick={() => openModal("delete")}>
-                <Trash className={"fill-beige hover:fill-base-orange"} />
-              </button>
-            </li>
+            {authStore.user.role === "admin" && (
+              <li className="w-[73px] flex items-center justify-center">
+                <button className="cursor-pointer" onClick={() => openModal("delete")}>
+                  <Trash className={"fill-beige hover:fill-base-orange"} />
+                </button>
+              </li>
+            )}
           </ul>
         )}
       </article>

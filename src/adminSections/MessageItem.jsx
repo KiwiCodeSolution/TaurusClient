@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Archive, ArrowDown, Minus, Plus, Trash } from "../icons/iconComponent";
 import feedbackStore from "../store/feedback";
 import { prefix } from "../helpers/styles";
+import { observer } from "mobx-react";
+import authStore from "../store/auth";
 
-const MessageItem = ({ item }) => {
+const MessageItem = observer(({ item }) => {
   const { status, name, email, phone, message, createdAt, archive } = item;
   const parsedDate = parseISO(createdAt);
   const formattedDate = format(parsedDate, "dd-MM-yyyy");
@@ -146,18 +148,20 @@ const MessageItem = ({ item }) => {
             >
               <Archive className={"fill-white w-4 h-4"} />
             </button>
-            <button
-              className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center"
-              onClick={deleteMessage}
-            >
-              <Trash className={"fill-white w-4 h-4"} />
-            </button>
+            {authStore.user.role === "admin" && (
+              <button
+                className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center"
+                onClick={deleteMessage}
+              >
+                <Trash className={"fill-white w-4 h-4"} />
+              </button>
+            )}
           </div>
         </div>
       )}
     </article>
   );
-};
+});
 
 MessageItem.propTypes = {
   item: PropTypes.shape({

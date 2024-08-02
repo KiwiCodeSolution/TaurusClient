@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { deleteFeedback, getAllFeedbacks, sendFeedback, updateFeedback } from "../API/feedback";
+import authStore from "./auth";
 
 class Messages {
   messages = [];
@@ -15,7 +16,7 @@ class Messages {
   }
 
   getMessages = async () => {
-    const result = await getAllFeedbacks();
+    const result = await getAllFeedbacks(authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -39,7 +40,7 @@ class Messages {
   };
 
   updateFeedbackAction = async data => {
-    const result = await updateFeedback(data);
+    const result = await updateFeedback(data, authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -52,7 +53,7 @@ class Messages {
   };
 
   deleteMessageAction = async data => {
-    const result = await deleteFeedback(data);
+    const result = await deleteFeedback(data, authStore.token);
 
     runInAction(() => {
       if (result.error) {

@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
 import { deleteOrder, getAllOrders, updateOrder } from "../API/orders";
+import authStore from "./auth";
 
 class AdminOrders {
   orders = [];
@@ -15,7 +16,7 @@ class AdminOrders {
   }
 
   getOrders = async () => {
-    const result = await getAllOrders();
+    const result = await getAllOrders(authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -26,7 +27,7 @@ class AdminOrders {
   };
 
   updateOrder = async data => {
-    const result = await updateOrder(data);
+    const result = await updateOrder(data, authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -39,7 +40,7 @@ class AdminOrders {
   };
 
   deleteOrder = async data => {
-    const result = await deleteOrder(data);
+    const result = await deleteOrder(data, authStore.token);
 
     runInAction(() => {
       if (result.error) {

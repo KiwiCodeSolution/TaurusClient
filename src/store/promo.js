@@ -1,7 +1,12 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { makePersistable } from "mobx-persist-store";
-
-import { getAllPromotions } from "../API/promotions";
+import authStore from "./auth";
+import {
+  createPromotion,
+  deletePromotion,
+  getAllPromotions,
+  updatePromotion,
+} from "../API/promotions";
 
 class Promo {
   promo = [];
@@ -16,7 +21,7 @@ class Promo {
   }
 
   getAllPromo = async () => {
-    const result = await getAllPromotions();
+    const result = await getAllPromotions(authStore.token);
 
     runInAction(() => {
       if (result.error) {
@@ -26,43 +31,43 @@ class Promo {
     });
   };
 
-  // createDishesAction = async dish => {
-  //   const result = await createDish(dish);
+  createPromo = async promo => {
+    const result = await createPromotion(promo, authStore.token);
 
-  //   runInAction(() => {
-  //     if (result.error) {
-  //       return;
-  //     }
-  //   });
-  //   this.getDishesAction();
+    runInAction(() => {
+      if (result.error) {
+        return;
+      }
+    });
+    this.getAllPromo();
 
-  //   return true;
-  // };
+    return true;
+  };
 
-  // updateDishesAction = async dish => {
-  //   const result = await updateDish(dish);
+  updatePromo = async promo => {
+    const result = await updatePromotion(promo, authStore.token);
 
-  //   runInAction(() => {
-  //     if (result.error) {
-  //       return;
-  //     }
-  //   });
-  //   this.getDishesAction();
+    runInAction(() => {
+      if (result.error) {
+        return;
+      }
+    });
+    this.getAllPromo();
 
-  //   return true;
-  // };
+    return true;
+  };
 
-  // deleteDishesAction = async dish => {
-  //   const result = await deleteDish(dish);
+  deletePromo = async promo => {
+    const result = await deletePromotion(promo, authStore.token);
 
-  //   runInAction(() => {
-  //     if (result.error) {
-  //       return;
-  //     }
-  //   });
-  //   this.getDishesAction();
+    runInAction(() => {
+      if (result.error) {
+        return;
+      }
+    });
+    this.getAllPromo();
 
-  //   return true;
-  // };
+    return true;
+  };
 }
 export default new Promo();

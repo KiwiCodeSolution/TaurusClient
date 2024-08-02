@@ -28,7 +28,6 @@ const MenuAdmin = observer(() => {
     ({ topCategory, available }) => topCategory === categoryStore.topCategory && available
   );
 
-  console.log("menuAdmin", menuAdmin);
   return (
     <>
       <MetaData>Перелік страв</MetaData>

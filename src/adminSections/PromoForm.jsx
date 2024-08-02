@@ -7,8 +7,9 @@ import axios from "axios";
 import { baseServerURL } from "../API/config";
 import { Archive, Show, Trash } from "../icons/iconComponent";
 import { useState } from "react";
-import { createPromotion, updatePromotion } from "../API/promotions";
 import { toastOptions } from "../helpers/styles";
+import authStore from "../store/auth";
+import promoStore from "../store/promo";
 
 const FIELDS = [
   {
@@ -108,7 +109,7 @@ const PromoForm = observer(({ item, type }) => {
           ...data,
           image: result.data.img_url,
         };
-        createPromotion(createData);
+        promoStore.createPromo(createData);
         reset();
 
         window.location.href = "/admin/access/site/promo";
@@ -130,7 +131,7 @@ const PromoForm = observer(({ item, type }) => {
             image: result.data.img_url,
             _id: item._id,
           };
-          updatePromotion(updateData);
+          promoStore.updatePromo(updateData);
           reset();
 
           window.location.href = "/admin/access/site/promo";
@@ -147,7 +148,7 @@ const PromoForm = observer(({ item, type }) => {
           _id: item._id,
         };
 
-        updatePromotion(updateData);
+        promoStore.updatePromo(updateData);
         reset();
 
         window.location.href = "/admin/access/site/promo";
@@ -268,13 +269,15 @@ const PromoForm = observer(({ item, type }) => {
               <Show className={"fill-beige"} />
               Приховати
             </Button>
-            <Button
-              style={"beige"}
-              btnClass="flex items-center justify-center gap-x-[6px] trash"
-              // clickFn={() => setIsOpenModalConfirm(true)}
-            >
-              <Trash className={"fill-beige w-4 h-4 trash-icon"} /> Видалити
-            </Button>
+            {authStore.user.role === "admin" && (
+              <Button
+                style={"beige"}
+                btnClass="flex items-center justify-center gap-x-[6px] trash"
+                // clickFn={() => setIsOpenModalConfirm(true)}
+              >
+                <Trash className={"fill-beige w-4 h-4 trash-icon"} /> Видалити
+              </Button>
+            )}
           </div>
         )}
       </form>

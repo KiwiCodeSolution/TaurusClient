@@ -13,9 +13,13 @@ export const getDishes = async () => {
   }
 };
 
-export const createDish = async dish => {
+export const createDish = async (dish, token) => {
   try {
-    const result = await axios.post(`${baseServerURL}product`, dish);
+    const result = await axios.post(`${baseServerURL}product`, dish, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     toast.success("Нову страву додано!", toastOptions);
     return result;
@@ -27,11 +31,20 @@ export const createDish = async dish => {
   }
 };
 
-export const updateDish = async dish => {
-  console.log(dish);
+export const updateDish = async (dish, token) => {
+  console.log(token);
   try {
-    const result = await axios.put(`${baseServerURL}product/${dish._id}`, { ...dish });
+    const result = await axios.put(
+      `${baseServerURL}product/${dish._id}`,
+      { ...dish },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     toast.success("Інформацію оновлено!", toastOptions);
+    console.log(result.data);
     return result;
   } catch (error) {
     toast.error("Такої страви не існує!", toastOptions);
@@ -39,10 +52,14 @@ export const updateDish = async dish => {
   }
 };
 
-export const updateDishAvailable = async dish => {
+export const updateDishAvailable = async (dish, token) => {
   try {
     const updatedDish = { available: dish.available }; // Створюємо об'єкт тільки з полем available
-    const result = await axios.put(`${baseServerURL}product/${dish._id}`, updatedDish);
+    const result = await axios.put(`${baseServerURL}product/${dish._id}`, updatedDish, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {
@@ -51,9 +68,13 @@ export const updateDishAvailable = async dish => {
   }
 };
 
-export const deleteDish = async dish => {
+export const deleteDish = async (dish, token) => {
   try {
-    const result = await axios.delete(`${baseServerURL}product/${dish._id}`);
+    const result = await axios.delete(`${baseServerURL}product/${dish._id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     toast.success("Страву видалено!", toastOptions);
     return result;
   } catch (error) {

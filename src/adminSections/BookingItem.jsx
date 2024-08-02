@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
+import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { parseISO, format } from "date-fns";
 import { Archive, ArrowDown, Minus, Plus, Trash } from "../icons/iconComponent";
 import reservationsStore from "../store/reservations";
+import authStore from "../store/auth";
 
-const BookingItem = ({ item }) => {
+const BookingItem = observer(({ item }) => {
   const { customerName, phoneNumber, email, date, time, numberOfPeople, message, archive, status } =
     item;
   const [isOpenItem, setIsOpenItem] = useState(false);
@@ -140,18 +142,20 @@ const BookingItem = ({ item }) => {
             >
               <Archive className={"fill-white w-4 h-4"} />
             </button>
-            <button
-              className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center"
-              onClick={deleteItem}
-            >
-              <Trash className={"fill-white w-4 h-4"} />
-            </button>
+            {authStore.user.role === "admin" && (
+              <button
+                className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center"
+                onClick={deleteItem}
+              >
+                <Trash className={"fill-white w-4 h-4"} />
+              </button>
+            )}
           </div>
         </div>
       )}
     </article>
   );
-};
+});
 
 BookingItem.propTypes = {
   item: PropTypes.shape({

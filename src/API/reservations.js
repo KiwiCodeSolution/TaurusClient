@@ -13,9 +13,13 @@ export const sendReserve = async data => {
   }
 };
 
-export const getAllReserves = async () => {
+export const getAllReserves = async token => {
   try {
-    const result = await axios.get(`${baseServerURL}reservations`);
+    const result = await axios.get(`${baseServerURL}reservations`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return result;
   } catch (error) {
@@ -24,9 +28,17 @@ export const getAllReserves = async () => {
   }
 };
 
-export const updateReserve = async data => {
+export const updateReserve = async (data, token) => {
   try {
-    const result = await axios.put(`${baseServerURL}reservations/${data._id}`, { ...data });
+    const result = await axios.put(
+      `${baseServerURL}reservations/${data._id}`,
+      { ...data },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {
@@ -35,9 +47,13 @@ export const updateReserve = async data => {
   }
 };
 
-export const deleteReserve = async data => {
+export const deleteReserve = async (data, token) => {
   try {
-    const result = await axios.delete(`${baseServerURL}reservations/${data._id}`);
+    const result = await axios.delete(`${baseServerURL}reservations/${data._id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     toast.success("Звернення видалено!", toastOptions);
     return result;
   } catch (error) {

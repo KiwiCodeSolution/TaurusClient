@@ -29,9 +29,10 @@ const LoginForm = observer(() => {
   // const navigate = useNavigate();
 
   const onSubmit = data => {
-    console.log(data);
-    authState.setIsAuth(true);
-    console.log(authState.isAuth);
+    // console.log(data);
+    authState.loginAction(data);
+    // authState.setIsAuth(true);
+
     reset();
   };
 
@@ -57,14 +58,14 @@ const LoginForm = observer(() => {
           <span className="text-14 text-beige">Логін:</span>
           <input
             type="text"
-            {...register("text", { required: true })}
+            {...register("username", { required: true })}
             placeholder="Введіть Ваш логін"
             className={`${
               errors.email && "border-b border-base-orange"
             } h-9 p-2 bg-dark-btn-bg text-beige placeholder:text-beige placeholder:text-opacity-50 placeholder:text-16 outline-none`}
             autoComplete={rememberMe ? "name" : "off"}
           />
-          {errors.text && (
+          {errors.username && (
             <span className="absolute -bottom-4 left-0 text-14 text-base-orange italic">
               Це поле обов&apos;язкове
             </span>
@@ -88,7 +89,7 @@ const LoginForm = observer(() => {
             onClick={togglePasswordVisibility}
             className="absolute top-1/2 right-2 password-btn h-6 w-6"
           >
-            {passwordVisible ? <Hide /> : <Show className={"fill-beige"}/>}
+            {passwordVisible ? <Hide /> : <Show className={"fill-beige"} />}
           </button>
 
           {errors.password && (
