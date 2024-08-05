@@ -80,6 +80,26 @@ class Dishes {
     return true;
   };
 
+  updateAvailableDishesAction = async dish => {
+    this.isProcessing = true;
+    const result = await updateDish(dish, authStore.token);
+
+    runInAction(() => {
+      if (result.data) {
+        this.isProcessing = false;
+
+        this.getDishesAction();
+      }
+      if (result.error) {
+        this.isProcessing = false;
+        this.isError = true;
+        return;
+      }
+    });
+
+    return true;
+  };
+
   deleteDishesAction = async dish => {
     this.isProcessing = true;
     const result = await deleteDish(dish, authStore.token);

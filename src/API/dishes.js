@@ -32,7 +32,6 @@ export const createDish = async (dish, token) => {
 };
 
 export const updateDish = async (dish, token) => {
-  console.log(dish);
   try {
     const result = await axios.put(
       `${baseServerURL}product/${dish._id}`,
@@ -44,7 +43,7 @@ export const updateDish = async (dish, token) => {
       }
     );
     toast.success("Інформацію оновлено!", toastOptions);
-    console.log(result.data);
+
     return result;
   } catch (error) {
     toast.error("Такої страви не існує!", toastOptions);
@@ -61,6 +60,7 @@ export const updateDishAvailable = async (dish, token) => {
       },
     });
     toast.success("Інформацію оновлено!", toastOptions);
+
     return result;
   } catch (error) {
     toast.error("Такої страви не існує!", toastOptions);

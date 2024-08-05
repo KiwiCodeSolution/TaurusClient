@@ -29,8 +29,6 @@ const MenuAdmin = observer(() => {
       topCategory === categoryStore.topCategory && available && !archive
   );
 
-  console.log(dishesStore.isProcessing);
-
   return (
     <>
       <MetaData>Перелік страв</MetaData>

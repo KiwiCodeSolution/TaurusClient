@@ -20,7 +20,7 @@ const MenuItem = observer(({ item, section, archive }) => {
 
   const handleAvailableChange = async () => {
     const updatedItem = { ...item, available: !item.available };
-    await dishesStore.updateDishesAction(updatedItem);
+    await dishesStore.updateAvailableDishesAction(updatedItem);
   };
 
   const handleArchiveChange = async () => {
