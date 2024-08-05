@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import promoStore from "../../store/promo";
 
 const buttonsPromo = [
-  { label: "Додати Акцію", link: "/admin/access/site/promo/create" },
-  { label: "Архів Акцій", link: "/admin/access/site/promo/archive" },
+  { label: "Додати Новину", link: "/admin/access/site/promo/create" },
+  { label: "Архів Новин", link: "/admin/access/site/promo/archive" },
   { label: "Переглянути приховані", link: "/admin/access/site/promo/hide" },
 ];
 
@@ -43,14 +43,14 @@ const PromoAdmin = observer(() => {
     <>
       <MetaData>Акції</MetaData>
       <section className="w-[980px] mx-auto h-screen admin relative">
-        <TitlePage style={"mt-[103px]"}>Акції</TitlePage>
+        <TitlePage style={"mt-[103px]"}>Новини</TitlePage>
 
         <div className="w-[980px] flex gap-x-[70px] items-center justify-center mx-auto absolute top-[111px] left-1/2 -translate-x-1/2">
-          <ButtonSection text={"Акційні пропозиції"} />
+          <ButtonSection text={"Поточні новини"} />
           <ButtonSection text={"Банери"} />
         </div>
 
-        {currentSection === "Акційні пропозиції" ? (
+        {currentSection === "Поточні новини" ? (
           <>
             <PageButtons buttons={buttonsPromo} />
             <div className="w-[980px] h-[calc(100%-400px)] mt-[52px] mx-auto overflow-y-auto">

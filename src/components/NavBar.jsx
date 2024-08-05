@@ -5,9 +5,9 @@ import { NavLink } from "react-router-dom";
 export const MENU_ITEMS = [
   { id: "1", name: "Меню", link: "/menu" },
   { id: "2", name: "Послуги", link: "/services" },
-  { id: "3", name: "Акції", link: "/promo" },
+  { id: "3", name: "Новини", link: "/promo" },
   { id: "4", name: "Забронювати", link: "/reserve" },
-  { id: "5", name: "Замовити", link: "/order" },
+  // { id: "5", name: "Замовити", link: "/order" },
   { id: "56", name: "Контакти", link: "/contacts" },
 ];
 

@@ -25,11 +25,11 @@ export const createPromotion = async (promo, token) => {
       },
     });
 
-    toast.success("Нову акцію додано!", toastOptions);
+    toast.success("Нову новину додано!", toastOptions);
     return result;
   } catch (error) {
     if (error.request.statusText === "Conflict") {
-      toast.error("Така акція вже існує!", toastOptions);
+      toast.error("Така новина вже існує!", toastOptions);
     }
     return { error: error.message };
   }
@@ -49,7 +49,7 @@ export const updatePromotion = async (promo, token) => {
     toast.success("Інформацію оновлено!", toastOptions);
     return result;
   } catch (error) {
-    toast.error("Такої акції не існує!", toastOptions);
+    toast.error("Такої новини не існує!", toastOptions);
     return { error: error.message };
   }
 };
@@ -61,10 +61,10 @@ export const deletePromotion = async (promo, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    toast.success("Акцію видалено!", toastOptions);
+    toast.success("Новину видалено!", toastOptions);
     return result;
   } catch (error) {
-    toast.error("Такої акції не існує!", toastOptions);
+    toast.error("Такої новини не існує!", toastOptions);
     return { error: error.message };
   }
 };

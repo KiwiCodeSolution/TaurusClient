@@ -7,40 +7,6 @@ import PromoSwiper from "../../components/PromoSwiper";
 import TitlePage from "../../components/TitlePage";
 import promoStore from "../../store/promo";
 
-export const PROMO_ITEMS = [
-  {
-    _id: "1",
-    src: "/images/promo/chocolate-fondue.png",
-    sale: "50%",
-    title: "Акція До дня закоханих!",
-    text: "Замовляй Французький шоколадний фондан з морозивом та отримай другий зі знижкою",
-    icon: "heart",
-    oldPrice: "157 грн.",
-    currentPrice: "210 грн.",
-    proposal: "1+1",
-  },
-  {
-    _id: "2",
-    src: "/images/promo/sushi-set.png",
-    sale: "30%",
-    title: "Акція До дня закоханих!",
-    text: "Замовляй Суші сет “Perfect match” зі знижкою",
-    icon: "heart",
-    oldPrice: "260 грн.",
-    currentPrice: "200 грн.",
-    proposal: "-30%",
-  },
-  {
-    _id: "3",
-    src: "/images/promo/fwine-cheese.png",
-    sale: "10%",
-    title: "Акція До дня закоханих!",
-    text: "Проведи День закоханих в романтичній атмосфері “Taurus Soul”. Замовляй  будь-який другий бокал червоного або білого вина зі  знижкою",
-    icon: "heart",
-    proposal: "10%",
-  },
-];
-
 const Promo = observer(() => {
   useEffect(() => {
     promoStore.getAllPromo();
@@ -54,7 +20,7 @@ const Promo = observer(() => {
         <PromoSwiper />
       </div>
       <section className="relative wrapper w-full section-wrapper py-8 md:py-16 mx-auto">
-        <TitlePage>Акції</TitlePage>
+        <TitlePage>Новини</TitlePage>
 
         <div className="w-full md:w-[1116px] grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-6 mx-auto">
           {promo.map(el => (

@@ -54,9 +54,9 @@ const SharedLayout = observer(() => {
           <Button style={"contacts"} clickFn={openModal}>
             {number}
           </Button>
-          <button onClick={() => setIsOpenCart(true)} className="cart-btn" disabled={!isCartEmpty}>
+          {/* <button onClick={() => setIsOpenCart(true)} className="cart-btn" disabled={!isCartEmpty}>
             <Cart className={isCartEmpty ? "cart-not-empty" : "cart"} />
-          </button>
+          </button> */}
         </div>
 
         <div className="md:hidden flex gap-x-2">
@@ -67,13 +67,13 @@ const SharedLayout = observer(() => {
             <Call />
           </button>
 
-          <button
+          {/* <button
             onClick={() => setIsOpenCart(true)}
             className="cart-btn w-10 h-10 flex items-center justify-center"
             disabled={!isCartEmpty}
           >
             <Cart className={isCartEmpty ? "cart-not-empty" : "cart"} />
-          </button>
+          </button> */}
           <button
             onClick={() => setIsOpenMenu(true)}
             className="cart-btn w-10 h-10 flex items-center justify-center"

@@ -13,7 +13,7 @@ const PromoItem = ({ item, type }) => {
       <div className="w-[304px] h-[235px] border border-base-brown overflow-hidden relative">
         <img src={image ? `http://localhost:5000/${image}` : NoImage} alt="Promo" />
         <div className="w-[82px] h-8 px-1 py-3 text-18 font-medium text-base-black bg-base-orange flex items-center justify-center absolute top-3 left-0">
-          Акція
+          Новина
         </div>
       </div>
       {label && (
