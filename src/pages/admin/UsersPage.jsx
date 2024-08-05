@@ -7,6 +7,7 @@ import usersStore from "../../store/users";
 
 // import users from "../../data/usersTest.json";
 import { useEffect } from "react";
+import Loader from "../../components/Loader";
 
 const buttons = [
   // { label: "Додати користувача", link: "/admin/access/users/create" },
@@ -19,7 +20,11 @@ const UsersPage = observer(() => {
   }, []);
 
   const users = usersStore.users;
-  return (
+  console.log(users);
+
+  return usersStore.isProcessing ? (
+    <Loader />
+  ) : (
     <>
       <MetaData>Адміністрування</MetaData>
       <section className="w-[980px] mx-auto h-screen admin relative">
@@ -38,7 +43,7 @@ const UsersPage = observer(() => {
         </div>
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
           {users.map(user => (
-            <UserItem user={user} key={user.id} />
+            <UserItem user={user} key={user._id} />
           ))}
         </div>
       </section>

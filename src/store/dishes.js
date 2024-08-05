@@ -5,6 +5,9 @@ import authStore from "./auth";
 
 class Dishes {
   dishes = [];
+  isProcessing = false;
+  navigate = null;
+  isError = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -14,54 +17,83 @@ class Dishes {
       storage: window.localStorage,
     });
   }
+  setNavigate(navigateFunction) {
+    this.navigate = navigateFunction; // Метод для встановлення функції navigate
+  }
+
+  fulfilled() {
+    this.isProcessing = false;
+    this.navigate("/admin/access/site/menu");
+    this.getDishesAction();
+  }
 
   getDishesAction = async () => {
+    this.isProcessing = true;
     const result = await getDishes();
 
     runInAction(() => {
+      if (result.data) {
+        this.isProcessing = false;
+        this.dishes = result.data;
+      }
       if (result.error) {
+        this.isProcessing = false;
         return;
       }
-      this.dishes = result.data;
     });
   };
 
   createDishesAction = async dish => {
+    this.isProcessing = true;
     const result = await createDish(dish, authStore.token);
 
     runInAction(() => {
+      if (result.data) {
+        this.fulfilled();
+      }
       if (result.error) {
+        this.isProcessing = false;
+        this.isError = true;
+
         return;
       }
     });
-    this.getDishesAction();
 
     return true;
   };
 
   updateDishesAction = async dish => {
-    console.log(authStore.token);
+    this.isProcessing = true;
     const result = await updateDish(dish, authStore.token);
 
     runInAction(() => {
+      if (result.data) {
+        this.fulfilled();
+      }
       if (result.error) {
+        this.isProcessing = false;
+        this.isError = true;
         return;
       }
     });
-    this.getDishesAction();
 
     return true;
   };
 
   deleteDishesAction = async dish => {
+    this.isProcessing = true;
     const result = await deleteDish(dish, authStore.token);
 
     runInAction(() => {
+      if (result.data) {
+        this.fulfilled();
+      }
       if (result.error) {
+        this.isProcessing = false;
+        this.getDishesAction();
         return;
       }
     });
-    this.getDishesAction();
 
     return true;
   };

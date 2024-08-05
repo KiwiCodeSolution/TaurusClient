@@ -10,6 +10,9 @@ import { useState } from "react";
 import { toastOptions } from "../helpers/styles";
 import authStore from "../store/auth";
 import promoStore from "../store/promo";
+import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
+import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
 
 const FIELDS = [
   {
@@ -55,6 +58,8 @@ const FIELDS_PRICE = [
 ];
 
 const PromoForm = observer(({ item, type }) => {
+  const navigate = useNavigate();
+  promoStore.setNavigate(navigate);
   const defaultValues = {
     _id: item?._id || "",
     title: item?.title || "",
@@ -72,7 +77,7 @@ const PromoForm = observer(({ item, type }) => {
   });
 
   const imagePreview = item?.image && `http://localhost:5000/${item?.image}`;
-
+  const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
   const [previewImage, setPreviewImage] = useState(imagePreview || null);
   const [isImageChange, setIsImageChange] = useState(false); // відслідковуємо, чи змінювалось зображення
 
@@ -134,7 +139,6 @@ const PromoForm = observer(({ item, type }) => {
           promoStore.updatePromo(updateData);
           reset();
 
-          window.location.href = "/admin/access/site/promo";
           return;
         } catch (error) {
           console.log(error.message);
@@ -151,7 +155,6 @@ const PromoForm = observer(({ item, type }) => {
         promoStore.updatePromo(updateData);
         reset();
 
-        window.location.href = "/admin/access/site/promo";
         return;
       } catch (error) {
         console.log(error.message);
@@ -164,7 +167,9 @@ const PromoForm = observer(({ item, type }) => {
     resetField(fieldName);
   };
 
-  return (
+  return promoStore.isProcessing ? (
+    <Loader />
+  ) : (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -281,6 +286,19 @@ const PromoForm = observer(({ item, type }) => {
           </div>
         )}
       </form>
+      {isOpenModalConfirm && (
+        <ConfirmModalAdmin
+          clickFn={() => setIsOpenModalConfirm(false)}
+          confirmFn={() => promoStore.deletePromo(item)}
+        >
+          <p className="w-[218px] text-xl uppercase text-beige text-center mx-auto mb-8">
+            Підтвердження видалення
+          </p>
+          <p className="w-full text-18 text-beige text-center mb-12">
+            Ви впевнені, що хочете видалити позицію?
+          </p>
+        </ConfirmModalAdmin>
+      )}
     </>
   );
 });

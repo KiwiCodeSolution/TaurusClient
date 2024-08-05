@@ -18,6 +18,11 @@ const ConfirmModalAdmin = observer(
       allowScroll();
     }
 
+    function confirmCloseModal() {
+      confirmFn();
+      closeModal();
+    }
+
     useEffect(() => {
       blockScroll();
       function keyDown(e) {
@@ -53,7 +58,7 @@ const ConfirmModalAdmin = observer(
           {children}
 
           <div className="w-fit flex gap-x-5 mx-auto">
-            <Button style={"orange"} clickFn={confirmFn}>
+            <Button style={"orange"} clickFn={() => confirmCloseModal()}>
               Підтвердити
             </Button>
             <Button style={"transparent"} clickFn={closeModal}>

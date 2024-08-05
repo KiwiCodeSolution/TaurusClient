@@ -10,6 +10,8 @@ import dishesStore from "../store/dishes";
 import { updateDishAvailable } from "../API/dishes";
 import CheckboxField from "../components/UI/form/CheckboxField";
 import authStore from "../store/auth";
+import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
 
 const topOptions = [
   { value: "dishes", label: "основне меню" },
@@ -144,7 +146,9 @@ const promoFields = [
 ];
 
 const DishForm = observer(({ item, type }) => {
-  console.log(authStore.token);
+  const navigate = useNavigate();
+  dishesStore.setNavigate(navigate);
+
   const itemTopCategory = topOptions.find(option => option.label === item?.topCategory);
   const itemTopCategoryValue = itemTopCategory?.value;
   const itemCategory = options[itemTopCategoryValue]?.find(
@@ -175,9 +179,8 @@ const DishForm = observer(({ item, type }) => {
     control,
     watch,
     handleSubmit,
-    // reset,
+
     resetField,
-    // setError,
   } = useForm({
     mode: "onChange",
     defaultValues: defaultValues,
@@ -198,7 +201,7 @@ const DishForm = observer(({ item, type }) => {
         break;
       case "archive":
         console.log("Archive action", item._id);
-        dishesStore.updateDishesAction({ ...item, archive: true });
+        dishesStore.updateDishesAction({ ...item, archive: !item.archive });
         break;
       case "hide":
         console.log("Hide action", item._id);
@@ -246,7 +249,9 @@ const DishForm = observer(({ item, type }) => {
     resetField(fieldName);
   };
 
-  return (
+  return dishesStore.isProcessing ? (
+    <Loader />
+  ) : (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -426,7 +431,7 @@ const DishForm = observer(({ item, type }) => {
               name="archive"
             >
               <Archive className={"fill-beige"} />
-              Архівувати
+              {item.archive ? "Деархівувати" : "Архівувати "}
             </Button>
             <Button
               type="submit"

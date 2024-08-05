@@ -5,6 +5,8 @@ import { getAllUsers } from "../API/users";
 
 class Users {
   users = [];
+  isProcessing = false;
+  isError = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -16,14 +18,18 @@ class Users {
   }
 
   getUsers = async () => {
+    this.isProcessing = true;
     const result = await getAllUsers(authStore.token);
-    console.log(result.data);
 
     runInAction(() => {
+      if (result.data) {
+        this.isProcessing = false;
+        this.users = result.data;
+      }
       if (result.error) {
+        this.isProcessing = false;
         return;
       }
-      this.users = result.data;
     });
   };
 }

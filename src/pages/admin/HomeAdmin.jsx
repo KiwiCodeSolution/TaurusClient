@@ -10,7 +10,6 @@ const HomeAdmin = () => {
 
   const currentStyle = location.pathname === "/admin/access" ? "bg-[#565350]" : "bg-base-black";
   const role = authStore.user.role;
-  console.log(role);
 
   return (
     <>

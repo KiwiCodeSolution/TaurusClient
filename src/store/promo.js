@@ -10,6 +10,9 @@ import {
 
 class Promo {
   promo = [];
+  isProcessing = false;
+  navigate = null;
+  isError = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -20,52 +23,82 @@ class Promo {
     });
   }
 
+  setNavigate(navigateFunction) {
+    this.navigate = navigateFunction; // Метод для встановлення функції navigate
+  }
+
+  fulfilled() {
+    this.isProcessing = false;
+    this.navigate("/admin/access/site/promo");
+    this.getAllPromo();
+  }
+
   getAllPromo = async () => {
+    this.isProcessing = true;
     const result = await getAllPromotions(authStore.token);
 
     runInAction(() => {
+      if (result.data) {
+        this.isProcessing = false;
+        this.promo = result.data;
+      }
       if (result.error) {
+        this.isProcessing = false;
         return;
       }
-      this.promo = result.data;
     });
   };
 
   createPromo = async promo => {
+    this.isProcessing = true;
     const result = await createPromotion(promo, authStore.token);
 
     runInAction(() => {
+      if (result.data) {
+        this.fulfilled();
+      }
       if (result.error) {
+        this.isProcessing = false;
+        this.isError = true;
         return;
       }
     });
-    this.getAllPromo();
 
     return true;
   };
 
   updatePromo = async promo => {
+    this.isProcessing = true;
     const result = await updatePromotion(promo, authStore.token);
 
     runInAction(() => {
+      if (result.data) {
+        this.fulfilled();
+      }
       if (result.error) {
+        this.isProcessing = false;
+        this.isError = true;
         return;
       }
     });
-    this.getAllPromo();
 
     return true;
   };
 
   deletePromo = async promo => {
+    this.isProcessing = true;
     const result = await deletePromotion(promo, authStore.token);
 
     runInAction(() => {
+      if (result.data) {
+        this.fulfilled();
+      }
       if (result.error) {
+        this.isProcessing = false;
+        this.getDishesAction();
         return;
       }
     });
-    this.getAllPromo();
 
     return true;
   };

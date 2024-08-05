@@ -25,8 +25,11 @@ const MenuAdmin = observer(() => {
   const dishes = dishesStore.dishes;
 
   const menuAdmin = dishes.filter(
-    ({ topCategory, available }) => topCategory === categoryStore.topCategory && available
+    ({ topCategory, available, archive }) =>
+      topCategory === categoryStore.topCategory && available && !archive
   );
+
+  console.log(dishesStore.isProcessing);
 
   return (
     <>

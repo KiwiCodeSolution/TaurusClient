@@ -26,10 +26,15 @@ const InvisibleDishPage = ({ type }) => {
     ({ topCategory, available }) => topCategory === openCategoryName && !available
   );
 
+  const menuArchive = dishes.filter(
+    ({ topCategory, archive }) => topCategory === openCategoryName && archive
+  );
+
   function openMenu(name) {
     setOpenCategoryName(name);
     setIsCategoryOpen(!isCategoryOpen);
   }
+
   return (
     <>
       <MetaData>{type === "hide" ? "Приховані страви" : "Архів страв"}</MetaData>
@@ -57,10 +62,19 @@ const InvisibleDishPage = ({ type }) => {
                   {openCategoryName === el ? <Minus /> : <Plus />}
                 </div>
 
-                {openCategoryName === el &&
-                  menuAvailable.map(element => (
-                    <MenuItem key={element._id} item={element} section={"admin"} archive />
-                  ))}
+                {
+                  openCategoryName === el &&
+                    (type === "hide"
+                      ? menuAvailable.map(element => (
+                          <MenuItem key={element._id} item={element} section={"admin"} archive />
+                        ))
+                      : menuArchive.map(element => (
+                          <MenuItem key={element._id} item={element} section={"admin"} archive />
+                        )))
+                  // menuAvailable.map(element => (
+                  //   <MenuItem key={element._id} item={element} section={"admin"} archive />
+                  // ))
+                }
               </div>
             ))}
           </div>

@@ -19,6 +19,7 @@ const CategoriesList = observer(({ page }) => {
   const { isMobile } = useMediaQuery();
 
   const dishes = dishesStore.dishes;
+  console.log(dishes);
 
   const categories = isMobile ? ["Показати все"] : []; //бічне меню
   const subCategories = []; //суб меню у напоях
@@ -33,7 +34,7 @@ const CategoriesList = observer(({ page }) => {
       }
     });
 
-  const [currentCategory, setCurrentCategory] = useState(categories[0]);
+  const [currentCategory, setCurrentCategory] = useState(categories["Показати все"]);
   const [currentSubCategory, setCurrentSubCategory] = useState("");
   const [isOpenCategoryFilter, setIsOpenCategoryFilter] = useState(false);
 
