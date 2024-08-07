@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import MetaData from "../../components/MetaData";
 import TitlePage from "../../adminSections/TitlePage";
-import { PROMO_ITEMS } from "../client/Promo";
+// import { PROMO_ITEMS } from "../client/Promo";
 import PromoItem from "../../components/PromoItem";
 import ButtonBack from "../../adminSections/ButtonBack";
 
@@ -21,9 +21,9 @@ const InvisiblePromoPage = ({ type }) => {
                 type === "hide" ? "opacity-50 " : ""
               }`}
             >
-              {PROMO_ITEMS.map(el => (
+              {/* {PROMO_ITEMS.map(el => (
                 <PromoItem key={el._id} item={el} type={"admin"} />
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
