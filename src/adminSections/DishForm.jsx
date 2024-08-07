@@ -186,14 +186,21 @@ const DishForm = observer(({ item, type }) => {
     defaultValues: defaultValues,
   });
 
-  const topValue = watch("top", "");
+  const topValue = watch("topCategory", "");
   const currentOptions = topValue?.value || itemTopCategory?.value || topOptions[0].value;
 
   const handleAction = (actionType, data) => {
     switch (actionType) {
       case "create":
-        console.log("create action", item._id);
-        dishesStore.createDishesAction(data);
+        // console.log("create action", item._id);
+
+        dishesStore.createDishesAction({
+          ...data,
+          topCategory: data.top.label,
+          subCategory: data.sub.label,
+          category: data.category.label,
+          displayInDeliveryMenu: data.delivery,
+        });
         break;
       case "save":
         console.log("Save action", data.top.label);
@@ -217,33 +224,54 @@ const DishForm = observer(({ item, type }) => {
     }
   };
 
+  const createDish = data => {
+    const requestData = {
+      ...data,
+      topCategory: data.top.label,
+      subCategory: data.sub.label,
+      category: data.category.label,
+      displayInDeliveryMenu: data.delivery,
+    };
+    delete requestData.top;
+    delete requestData.sub;
+    delete requestData.delivery;
+    dishesStore.createDishesAction(requestData);
+    console.log("requestData--------", requestData);
+  };
+
   const onSubmit = (data, event) => {
     const actionType = event.nativeEvent.submitter.name;
-    handleAction(actionType, data);
-  };
 
-  const onSubmitе = data => {
-    // if (type === "create") {
-    //   createDish(data);
-    // }
-
-    // updateDish(data);
-
-    if (topValue.label !== "напої") {
-      try {
-        delete data.sub;
-        console.log("не напої", data);
-        return;
-      } catch (error) {
-        return { error: error.message };
-      }
+    if (actionType === "create") {
+      createDish(data);
+      // console.log("create------>", data);
     }
 
-    console.log(data);
-    // reset();
-
-    // window.location.href = "/admin/access/site/menu";
+    // handleAction(actionType, data);
   };
+
+  // const onSubmitе = data => {
+  //   // if (type === "create") {
+  //   //   createDish(data);
+  //   // }
+
+  //   // updateDish(data);
+
+  //   if (topValue.label !== "напої") {
+  //     try {
+  //       delete data.sub;
+  //       console.log("не напої", data);
+  //       return;
+  //     } catch (error) {
+  //       return { error: error.message };
+  //     }
+  //   }
+
+  //   console.log(data);
+  //   // reset();
+
+  //   // window.location.href = "/admin/access/site/menu";
+  // };
 
   const handleReset = fieldName => {
     resetField(fieldName);

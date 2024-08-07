@@ -19,7 +19,6 @@ const CategoriesList = observer(({ page }) => {
   const { isMobile } = useMediaQuery();
 
   const dishes = dishesStore.dishes;
-  console.log(dishes);
 
   const categories = isMobile ? ["Показати все"] : []; //бічне меню
   const subCategories = []; //суб меню у напоях
@@ -175,7 +174,7 @@ const CategoriesList = observer(({ page }) => {
               <div className="">
                 <div
                   className={`${
-                    page === "order" ? "w-[546px]" : "w-{831px]"
+                    page === "order" ? "w-[546px]" : "w-[831px]"
                   } flex justify-between mr-auto items-center pb-[14px]`}
                 >
                   <p className="text-14 text-beige">Назва</p>

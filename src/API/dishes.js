@@ -14,6 +14,7 @@ export const getDishes = async () => {
 };
 
 export const createDish = async (dish, token) => {
+  console.log(dish, token);
   try {
     const result = await axios.post(`${baseServerURL}product`, dish, {
       headers: {
@@ -22,6 +23,7 @@ export const createDish = async (dish, token) => {
     });
 
     toast.success("Нову страву додано!", toastOptions);
+    console.log(result.data);
     return result;
   } catch (error) {
     if (error.request.statusText === "Conflict") {
