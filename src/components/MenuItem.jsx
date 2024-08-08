@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { Trash, Edit, Hide, Archive } from "../icons/iconComponent";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import dishesStore from "../store/dishes";
 import authStore from "../store/auth";
 
@@ -8,6 +8,8 @@ import { useState } from "react";
 import ConfirmModalAdmin from "../adminSections/modal/ConfirmModalAdmin";
 
 const MenuItem = observer(({ item, section, archive }) => {
+  const navigate = useNavigate();
+  dishesStore.setNavigate(navigate);
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [operationType, setOperationType] = useState("");
@@ -50,7 +52,7 @@ const MenuItem = observer(({ item, section, archive }) => {
           <li className="text-sm md:text-lg uppercase">{name}</li>
           <li className="text-sm flex gap-x-2 justify-between">
             <p className="w-fit relative">
-              {description} ({weight}, г)
+              {description} ({weight}г)
               <span className="hidden md:block w-[90%] absolute top-0 left-[100%] z-0">
                 ....................................................................................................................................................................................................................................................................................................................................................................................................
               </span>
@@ -65,9 +67,15 @@ const MenuItem = observer(({ item, section, archive }) => {
               {price}грн.
             </li>
             <li className="w-[77px] flex items-center justify-center">
-              <button className="cursor-pointer" onClick={() => openModal("hide")}>
-                <Hide className={"fill-beige hover:fill-base-orange"} />
-              </button>
+              {!item.available ? (
+                <button className="cursor-pointer" onClick={() => openModal("show")}>
+                  <Hide className={"fill-beige hover:fill-base-orange"} />
+                </button>
+              ) : (
+                <button className="cursor-pointer" onClick={() => openModal("hide")}>
+                  <Hide className={"fill-beige hover:fill-base-orange"} />
+                </button>
+              )}
             </li>
 
             {!archive && (
@@ -104,6 +112,8 @@ const MenuItem = observer(({ item, section, archive }) => {
           confirmFn={
             operationType === "hide"
               ? () => handleAvailableChange()
+              : operationType === "show"
+              ? () => handleAvailableChange()
               : operationType === "archive"
               ? () => handleArchiveChange()
               : () => dishesStore.deleteDishesAction(item)
@@ -112,6 +122,8 @@ const MenuItem = observer(({ item, section, archive }) => {
           <p className="w-[218px] text-lg uppercase text-beige mb-8 text-center">
             {operationType === "hide"
               ? "Приховати"
+              : operationType === "show"
+              ? "Показати"
               : operationType === "archive"
               ? "Підтвердження Aрхівування"
               : "Підтвердження видалення"}
@@ -120,6 +132,8 @@ const MenuItem = observer(({ item, section, archive }) => {
             Ви впевнені, що хочете{" "}
             {operationType === "hide"
               ? "приховати"
+              : operationType === "show"
+              ? "показати"
               : operationType === "archive"
               ? "архівувати"
               : "видалити"}

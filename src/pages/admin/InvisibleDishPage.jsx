@@ -6,8 +6,9 @@ import { Minus, Plus } from "../../icons/iconComponent";
 import MenuItem from "../../components/MenuItem";
 import { useState } from "react";
 import ButtonBack from "../../adminSections/ButtonBack";
+import { observer } from "mobx-react";
 
-const InvisibleDishPage = ({ type }) => {
+const InvisibleDishPage = observer(({ type }) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const dishes = dishesStore.dishes;
@@ -82,7 +83,7 @@ const InvisibleDishPage = ({ type }) => {
       </section>
     </>
   );
-};
+});
 
 InvisibleDishPage.propTypes = {
   type: PropTypes.string,

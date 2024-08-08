@@ -83,7 +83,7 @@ class Dishes {
   updateAvailableDishesAction = async dish => {
     this.isProcessing = true;
     const result = await updateDish(dish, authStore.token);
-
+    console.log(result.data);
     runInAction(() => {
       if (result.data) {
         this.isProcessing = false;

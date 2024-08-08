@@ -18,7 +18,7 @@ const CategoriesList = observer(({ page }) => {
 
   const { isMobile } = useMediaQuery();
 
-  const dishes = dishesStore.dishes;
+  const dishes = dishesStore.dishes.filter(el => el.available && !el.archive);
 
   const categories = isMobile ? ["Показати все"] : []; //бічне меню
   const subCategories = []; //суб меню у напоях

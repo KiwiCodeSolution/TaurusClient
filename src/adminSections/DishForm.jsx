@@ -161,7 +161,7 @@ const DishForm = observer(({ item, type }) => {
 
   const defaultValues = {
     top: itemTopCategory || topOptions[0],
-    category: itemCategory || options[0],
+    category: itemCategory || options.dishes[0],
     sub: itemSubCategory || subOptions[0],
     name: item?.name || "",
     description: item?.description || "",
