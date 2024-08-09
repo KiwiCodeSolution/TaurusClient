@@ -20,7 +20,7 @@ const PromoAdmin = observer(() => {
 
   const promo = promoStore.promo;
 
-  const [currentSection, setCurrentSection] = useState("Акційні пропозиції");
+  const [currentSection, setCurrentSection] = useState("Поточні новини");
 
   const ButtonSection = ({ text }) => {
     return (

@@ -63,8 +63,10 @@ class Dishes {
   };
 
   updateDishesAction = async dish => {
+    console.log(dish);
     this.isProcessing = true;
     const result = await updateDish(dish, authStore.token);
+    console.log("result", result.data);
 
     runInAction(() => {
       if (result.data) {
@@ -83,7 +85,7 @@ class Dishes {
   updateAvailableDishesAction = async dish => {
     this.isProcessing = true;
     const result = await updateDish(dish, authStore.token);
-    console.log(result.data);
+
     runInAction(() => {
       if (result.data) {
         this.isProcessing = false;
@@ -106,7 +108,8 @@ class Dishes {
 
     runInAction(() => {
       if (result.data) {
-        this.fulfilled();
+        this.isProcessing = false;
+        this.getDishesAction();
       }
       if (result.error) {
         this.isProcessing = false;

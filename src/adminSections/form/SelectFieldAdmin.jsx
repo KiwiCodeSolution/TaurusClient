@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { ArrowDown } from "../../icons/iconComponent";
 
 const SelectFieldAdmin = forwardRef(
-  ({ control, options, value, onChange, name, style, label, isRequired }, ref) => {
+  ({ control, options, value, onChange, name, style, label, isRequired, placeholder }, ref) => {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const inputId = `${name}-input`;
 
@@ -86,7 +86,8 @@ const SelectFieldAdmin = forwardRef(
           components={{ DropdownIndicator }}
           ref={ref}
           options={options}
-          value={value || options[0]}
+          value={value}
+          placeholder={placeholder}
           onChange={onChange}
           isSearchable={true}
           onMenuOpen={() => setMenuIsOpen(true)}
@@ -114,6 +115,7 @@ SelectFieldAdmin.propTypes = {
   value: PropTypes.object,
   onChange: PropTypes.func,
   name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   style: PropTypes.string,
   isRequired: PropTypes.bool,

@@ -20,6 +20,7 @@ const USERSLINKS = [{ id: "1", name: "Всі користувачі", link: "/ad
 const MenuSideBar = () => {
   const [currentItem, setCurrentItem] = useState(localStorage.getItem("currentId") || "1");
   const { pathname } = useLocation();
+  console.log(pathname);
 
   // Перевіряємо, чи адреса містить "/admin/access/site"
   const isSitePage = pathname.includes("/admin/access/site");
@@ -46,7 +47,7 @@ const MenuSideBar = () => {
           <NavLink
             to={el.link}
             className={`w-full h-[55px] cursor-pointer uppercase text-18 flex justify-center items-center ${
-              currentItem === el.id
+              pathname === el.link
                 ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
                 : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
@@ -61,7 +62,7 @@ const MenuSideBar = () => {
           <NavLink
             to={el.link}
             className={`w-full h-[55px] cursor-pointer uppercase text-18 flex justify-center items-center ${
-              currentItem === el.id
+              pathname === el.link
                 ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
                 : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}
@@ -76,7 +77,7 @@ const MenuSideBar = () => {
           <NavLink
             to={el.link}
             className={`w-full h-[55px] cursor-pointer uppercase text-18 flex justify-center items-center ${
-              currentItem === el.id
+              pathname === el.link
                 ? "text-base-orange bg-dark-btn-bg hover:underline hover:underline-offset-4"
                 : "hover:text-base-yellow hover:underline hover:underline-offset-4 text-beige"
             }`}

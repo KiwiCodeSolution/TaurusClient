@@ -15,9 +15,7 @@ const buttons = [
 
 const MenuAdmin = observer(() => {
   useEffect(() => {
-    // Перевірка наявності страв у сторі
     if (!dishesStore.dishes.length) {
-      // Якщо страв немає, тоді викликаємо функцію для їх отримання
       dishesStore.getDishesAction();
     }
   }, []);

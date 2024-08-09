@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { observer } from "mobx-react-lite";
 import { useForm, Controller } from "react-hook-form";
 import SelectFieldAdmin from "./form/SelectFieldAdmin";
 import TextFieldAdmin from "./form/TextFieldAdmin";
 import Button from "../components/UI/Button";
 import { Archive, Show, Trash } from "../icons/iconComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
 import dishesStore from "../store/dishes";
 import { updateDishAvailable } from "../API/dishes";
@@ -12,6 +13,7 @@ import CheckboxField from "../components/UI/form/CheckboxField";
 import authStore from "../store/auth";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
+import { toJS } from "mobx";
 
 const topOptions = [
   { value: "dishes", label: "основне меню" },
@@ -30,13 +32,18 @@ const options = {
     { value: "paste", label: "паста" },
     { value: "main_dishes", label: "основні страви" },
     { value: "bbq_menu", label: "bbq-меню" },
+    { value: "sets", label: "сети" },
     { value: "side_dishes", label: "гарніри" },
     { value: "sauces", label: "соуси" },
+    { value: "pizza", label: "піца" },
   ],
 
   desserts: [
     { value: "cakes", label: "тістечка" },
     { value: "ice", label: "морозиво" },
+    { value: "pie", label: "пиріг" },
+    { value: "cheesecake", label: "чизкейк" },
+    { value: "waffles", label: "вафлі" },
   ],
 
   drinks: [
@@ -83,6 +90,14 @@ const fieldsDescription = [
 const fieldPrice = [
   {
     id: "4",
+    name: "weight",
+    label: "Вага",
+    style: "w-[30%] text-14 text-beige",
+    isRequired: false,
+    type: "input",
+  },
+  {
+    id: "5",
     name: "price",
     label: "Ціна",
     style: "w-[30%] text-14 text-base-yellow font-semibold",
@@ -90,17 +105,9 @@ const fieldPrice = [
     type: "input",
   },
   {
-    id: "5",
+    id: "6",
     name: "discount_price",
     label: "Знижка",
-    style: "w-[30%] text-14 text-beige",
-    isRequired: false,
-    type: "input",
-  },
-  {
-    id: "6",
-    name: "weight",
-    label: "Вага",
     style: "w-[30%] text-14 text-beige",
     isRequired: false,
     type: "input",
@@ -156,52 +163,43 @@ const DishForm = observer(({ item, type }) => {
   );
   const itemSubCategory = subOptions.find(option => option.label === item?.subCategory);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
-  const [isChecked, setIsChecked] = useState({ new: false, delivery: false });
-  const [isCheckedPromo, setIsCheckedPromo] = useState({ promo: false, salary: false });
 
   const defaultValues = {
     top: itemTopCategory || topOptions[0],
-    category: itemCategory || options.dishes[0],
+    category: itemCategory || "",
     sub: itemSubCategory || subOptions[0],
     name: item?.name || "",
     description: item?.description || "",
     englishName: item?.englishName || "",
     price: item?.price || "",
-    discount_price: item?.discount_price || "",
+    // discount_price: item?.discount || "",
     weight: item?.weight || "",
-    salary: item?.salary || false,
-    promo: item?.promo || false,
+    salary: item?.discount || false,
+    promo: item?.action || false,
     new: item?.new || false,
-    delivery: item?.delivery || false,
+    delivery: item?.displayInDeliveryMenu || false,
   };
 
-  const {
-    control,
-    watch,
-    handleSubmit,
+  const [isCheckedPromo, setIsCheckedPromo] = useState({
+    promo: item?.action || false,
+    salary: item?.discount || false,
+  });
 
-    resetField,
-  } = useForm({
+  const [isChecked, setIsChecked] = useState({
+    new: item?.new || false,
+    delivery: item?.displayInDeliveryMenu || false,
+  });
+
+  const { control, watch, handleSubmit, resetField } = useForm({
     mode: "onChange",
     defaultValues: defaultValues,
   });
 
-  const topValue = watch("topCategory", "");
+  const topValue = watch("top", "");
   const currentOptions = topValue?.value || itemTopCategory?.value || topOptions[0].value;
 
   const handleAction = (actionType, data) => {
     switch (actionType) {
-      case "create":
-        // console.log("create action", item._id);
-
-        dishesStore.createDishesAction({
-          ...data,
-          topCategory: data.top.label,
-          subCategory: data.sub.label,
-          category: data.category.label,
-          displayInDeliveryMenu: data.delivery,
-        });
-        break;
       case "save":
         console.log("Save action", data.top.label);
         dishesStore.updateDishesAction({ ...item, ...data, category: data.top.label });
@@ -231,12 +229,36 @@ const DishForm = observer(({ item, type }) => {
       subCategory: data.sub.label,
       category: data.category.label,
       displayInDeliveryMenu: data.delivery,
+      action: data.promo,
     };
     delete requestData.top;
     delete requestData.sub;
     delete requestData.delivery;
+    if (requestData.topCategory !== " напої") {
+      delete requestData.subCategory;
+    }
+    // console.log(requestData);
     dishesStore.createDishesAction(requestData);
-    console.log("requestData--------", requestData);
+  };
+
+  const updateDish = data => {
+    // console.log(data);
+    const requestData = {
+      ...data,
+      category: data.category.label,
+      action: data.promo,
+      discount: data.salary,
+      displayInDeliveryMenu: data.delivery,
+    };
+    delete requestData.top;
+    delete requestData.sub;
+    delete requestData.delivery;
+    if ((item.topCategory || data.topCategory) !== " напої") {
+      delete requestData.subCategory;
+      delete item.subCategory;
+    }
+    console.log("requestData", { ...item, ...requestData });
+    dishesStore.updateDishesAction({ ...item, ...requestData });
   };
 
   const onSubmit = (data, event) => {
@@ -244,34 +266,22 @@ const DishForm = observer(({ item, type }) => {
 
     if (actionType === "create") {
       createDish(data);
-      // console.log("create------>", data);
     }
 
-    // handleAction(actionType, data);
+    if (actionType === "save") {
+      updateDish(data);
+    }
+    if (actionType === "archive") {
+      dishesStore.updateDishesAction({ ...item, archive: !item.archive });
+    }
+    if (actionType === "hide") {
+      updateDishAvailable({ ...item, available: !data.available }, authStore.token);
+    }
+    if (actionType === "delete") {
+      setIsOpenModalConfirm(true);
+      dishesStore.deleteDishesAction(item);
+    }
   };
-
-  // const onSubmitе = data => {
-  //   // if (type === "create") {
-  //   //   createDish(data);
-  //   // }
-
-  //   // updateDish(data);
-
-  //   if (topValue.label !== "напої") {
-  //     try {
-  //       delete data.sub;
-  //       console.log("не напої", data);
-  //       return;
-  //     } catch (error) {
-  //       return { error: error.message };
-  //     }
-  //   }
-
-  //   console.log(data);
-  //   // reset();
-
-  //   // window.location.href = "/admin/access/site/menu";
-  // };
 
   const handleReset = fieldName => {
     resetField(fieldName);
@@ -316,10 +326,13 @@ const DishForm = observer(({ item, type }) => {
                   {...field}
                   control={control}
                   options={options[currentOptions]}
+                  placeholder="оберіть категорію"
                   name="category"
                   isSearchable={true}
                   label="Категорія меню"
-                  style={itemSubCategory || topValue.label === "напої" ? "w-[241px]" : "w-[502px]"}
+                  style={
+                    (itemSubCategory || topValue.label) === "напої" ? "w-[241px]" : "w-[502px]"
+                  }
                   isRequired
                 />
               </>
@@ -327,7 +340,7 @@ const DishForm = observer(({ item, type }) => {
           />
 
           {/* ------------------ sub category --------------- */}
-          {(itemSubCategory || topValue.label === "напої") && (
+          {(itemSubCategory || topValue.label) === "напої" && (
             <Controller
               name="sub"
               control={control}
@@ -450,7 +463,7 @@ const DishForm = observer(({ item, type }) => {
         ) : (
           <div className="w-fit flex flex-col items-center gap-y-4 mx-auto absolute top-0 -right-[200px]">
             <Button type="submit" style={"orange"} name="save">
-              Зберігти
+              Зберегти
             </Button>
             <Button
               type="submit"

@@ -29,11 +29,11 @@ const CategoriesList = observer(({ page }) => {
     .filter(el => el.topCategory === categoryStore.topCategory)
     .forEach(el => {
       if (!categories.includes(el.category)) {
-        categories.push(el.category);
+        categories.unshift(el.category);
       }
     });
 
-  const [currentCategory, setCurrentCategory] = useState(categories["Показати все"]);
+  const [currentCategory, setCurrentCategory] = useState(categories[0]);
   const [currentSubCategory, setCurrentSubCategory] = useState("");
   const [isOpenCategoryFilter, setIsOpenCategoryFilter] = useState(false);
 
@@ -44,10 +44,14 @@ const CategoriesList = observer(({ page }) => {
   // виводимо страви в залежності від топ та бічного меню
   const menu =
     currentCategory === "Показати все"
-      ? dishes.filter(el => el.topCategory === categoryStore.topCategory)
-      : dishes.filter(
-          el => el.topCategory === categoryStore.topCategory && el.category === currentCategory
-        );
+      ? dishes
+          .filter(el => el.topCategory === categoryStore.topCategory)
+          .sort((a, b) => a.name.localeCompare(b.name))
+      : dishes
+          .filter(
+            el => el.topCategory === categoryStore.topCategory && el.category === currentCategory
+          )
+          .sort((a, b) => a.name.localeCompare(b.name));
 
   // всі елементи у розділі напоїв
   const subMenuItemsDrinks = dishes.filter(
@@ -61,7 +65,7 @@ const CategoriesList = observer(({ page }) => {
     )
     .forEach(el => {
       if (!subCategories.includes(el.subCategory)) {
-        subCategories.push(el.subCategory);
+        subCategories.unshift(el.subCategory);
       }
     });
 

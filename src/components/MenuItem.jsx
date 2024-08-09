@@ -3,7 +3,7 @@ import { Trash, Edit, Hide, Archive } from "../icons/iconComponent";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import dishesStore from "../store/dishes";
 import authStore from "../store/auth";
-
+import PromoImg from "/images/promo_menu.png";
 import { useState } from "react";
 import ConfirmModalAdmin from "../adminSections/modal/ConfirmModalAdmin";
 
@@ -49,7 +49,25 @@ const MenuItem = observer(({ item, section, archive }) => {
             section === "order" ? "w-[546px]" : section === "admin" ? "w-[488px]" : "w-full"
           }`}
         >
-          <li className="text-sm md:text-lg uppercase">{name}</li>
+          <li className="text-sm md:text-lg uppercase flex items-center">
+            {item.new && (
+              <div className="w-fit h-[19px] bg-base-yellow px-2.5 rounded-[3px] uppercase flex items-center justify-center text-xs font-medium text-base-black mr-2">
+                new
+              </div>
+            )}
+            {item.action && (
+              <div className="w-fir h-[19px] bg-base-orange px-2.5 rounded-[3px] underline underline-offset-1 flex items-center justify-center text-xs font-medium text-base-black mr-2 gap-x-1">
+                <img src={PromoImg} alt="" className="" />
+                Акція
+              </div>
+            )}
+            {item.discount && (
+              <div className="w-fit h-[19px] bg-base-yellow px-2.5 rounded-[3px] uppercase flex items-center justify-center text-xs font-medium text-base-black mr-2">
+                Знижка
+              </div>
+            )}
+            <p>{name}</p>
+          </li>
           <li className="text-sm flex gap-x-2 justify-between">
             <p className="w-fit relative">
               {description} ({weight}г)
