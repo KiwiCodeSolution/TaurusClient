@@ -22,10 +22,12 @@ const MenuAdmin = observer(() => {
 
   const dishes = dishesStore.dishes;
 
-  const menuAdmin = dishes.filter(
-    ({ topCategory, available, archive }) =>
-      topCategory === categoryStore.topCategory && available && !archive
-  );
+  const menuAdmin = dishes
+    .filter(
+      ({ topCategory, available, archive }) =>
+        topCategory === categoryStore.topCategory && available && !archive
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <>

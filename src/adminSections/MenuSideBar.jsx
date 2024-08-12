@@ -5,7 +5,7 @@ import { NavLink, useLocation } from "react-router-dom";
 const MENULINKS = [
   { id: "1", name: "Меню", link: "/admin/access/site/menu" },
   { id: "2", name: "Меню доставки", link: "/admin/access/site/delivery" },
-  { id: "3", name: "Акції", link: "/admin/access/site/promo" },
+  { id: "3", name: "Новини", link: "/admin/access/site/promo" },
 ];
 
 const RESTAURANTLINKS = [
@@ -26,14 +26,6 @@ const MenuSideBar = () => {
   const isSitePage = pathname.includes("/admin/access/site");
   const isRestaurantPage = pathname.includes("/admin/access/restaurant");
   const isUserPage = pathname.includes("/admin/access/users");
-
-  // const currentLocation = useLocation()?.state?.from.pathname;
-
-  // const path =
-  //   currentLocation === "/admin/access/site/menu" ||
-  //   location === "/admin/access/site/menu" ||
-  //   location === "/admin/access/site/promo" ||
-  //   location === "/admin/access/site/delivery";
 
   function handleMenuItem(id) {
     localStorage.setItem("currentId", id);

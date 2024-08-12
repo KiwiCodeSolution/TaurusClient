@@ -13,6 +13,7 @@ import promoStore from "../store/promo";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
+import { toJS } from "mobx";
 
 const FIELDS = [
   {
@@ -58,6 +59,7 @@ const FIELDS_PRICE = [
 ];
 
 const PromoForm = observer(({ item, type }) => {
+  console.log(toJS(item));
   const navigate = useNavigate();
   promoStore.setNavigate(navigate);
   const defaultValues = {
@@ -113,11 +115,14 @@ const PromoForm = observer(({ item, type }) => {
         const createData = {
           ...data,
           image: result.data.img_url,
+          archive: false,
+          available: true,
         };
+        console.log(createData);
         promoStore.createPromo(createData);
         reset();
 
-        window.location.href = "/admin/access/site/promo";
+        // window.location.href = "/admin/access/site/promo";
         return;
       } catch (error) {
         console.log(error.message);
@@ -256,7 +261,7 @@ const PromoForm = observer(({ item, type }) => {
         ) : (
           <div className="w-fit flex flex-col items-center gap-y-4 mx-auto absolute top-0 -right-[200px]">
             <Button type="submit" style={"orange"}>
-              Зберігти
+              Зберегти
             </Button>
             <Button
               type="submit"

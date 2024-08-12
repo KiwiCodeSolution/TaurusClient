@@ -70,7 +70,7 @@ const PromoItem = ({ item, type }) => {
 PromoItem.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     sale: PropTypes.string,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

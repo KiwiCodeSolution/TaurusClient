@@ -4,7 +4,7 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import categoryStore from "../store/filter";
 import dishesStore from "../store/dishes";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MenuItem from "./MenuItem";
 import TotalPrice from "./TotalPrice";
 import MenuDeliveryItem from "./MenuDeliveryItem";
@@ -18,32 +18,49 @@ const CategoriesList = observer(({ page }) => {
 
   const { isMobile } = useMediaQuery();
 
-  const dishes = dishesStore.dishes.filter(el => el.available && !el.archive);
+  const dishes = useMemo(
+    () => dishesStore.dishes.filter(el => el.available && !el.archive),
+    [dishesStore.dishes]
+  );
 
-  const categories = isMobile ? ["Показати все"] : []; //бічне меню
-  const subCategories = []; //суб меню у напоях
+  const categories = useMemo(() => {
+    const result = isMobile ? ["Показати все"] : [];
+    dishes
+      .filter(el => el.topCategory === categoryStore.topCategory)
+      .forEach(el => {
+        if (!result.includes(el.category)) {
+          result.unshift(el.category);
+        }
+      });
+    return result;
+  }, [dishes, isMobile, categoryStore.topCategory]);
 
-  //формуємо бічне меню
-
-  dishes
-    .filter(el => el.topCategory === categoryStore.topCategory)
-    .forEach(el => {
-      if (!categories.includes(el.category)) {
-        categories.unshift(el.category);
-      }
-    });
-
-  const [currentCategory, setCurrentCategory] = useState(categories[0]);
-  const [currentSubCategory, setCurrentSubCategory] = useState("");
+  const [currentCategory, setCurrentCategory] = useState(categories[0] || "");
   const [isOpenCategoryFilter, setIsOpenCategoryFilter] = useState(false);
+  const [subCategories, setSubCategories] = useState([]);
+  const [currentSubCategory, setCurrentSubCategory] = useState("");
 
   useEffect(() => {
-    setCurrentCategory(categories[0]);
-  }, [categoryStore.topCategory]);
+    const filteredSubCategories = dishes
+      .filter(
+        el => el.topCategory === "напої" && el.subCategory !== "" && el.category === currentCategory
+      )
+      .map(el => el.subCategory)
+      .filter((sub, index, self) => self.indexOf(sub) === index);
 
-  // виводимо страви в залежності від топ та бічного меню
-  const menu =
-    currentCategory === "Показати все"
+    setSubCategories(filteredSubCategories);
+
+    if (!filteredSubCategories.includes(currentSubCategory)) {
+      setCurrentSubCategory(filteredSubCategories[0] || "");
+    }
+  }, [dishes, currentCategory]);
+
+  useEffect(() => {
+    setCurrentCategory(categories[0] || "");
+  }, [categories]);
+
+  const menu = useMemo(() => {
+    return currentCategory === "Показати все"
       ? dishes
           .filter(el => el.topCategory === categoryStore.topCategory)
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -52,26 +69,20 @@ const CategoriesList = observer(({ page }) => {
             el => el.topCategory === categoryStore.topCategory && el.category === currentCategory
           )
           .sort((a, b) => a.name.localeCompare(b.name));
+  }, [dishes, currentCategory, categoryStore.topCategory]);
 
-  // всі елементи у розділі напоїв
-  const subMenuItemsDrinks = dishes.filter(
-    el => el.topCategory === "напої" && el.subCategory !== ""
+  const subMenuItemsDrinks = useMemo(
+    () => dishes.filter(el => el.topCategory === "напої" && el.subCategory !== ""),
+    [dishes]
   );
 
-  // формуємо суб меню: топ = напої, суб не пусто та поточна категорія
-  dishes
-    .filter(
-      el => el.topCategory === "напої" && el.subCategory !== "" && el.category === currentCategory
-    )
-    .forEach(el => {
-      if (!subCategories.includes(el.subCategory)) {
-        subCategories.unshift(el.subCategory);
-      }
-    });
-
-  //формуємо переік напоїв, які вібповідають активному бічному меню та меню зверху.
-  const menuDrinks = dishes.filter(
-    el => el.topCategory === "напої" && el.subCategory === (currentSubCategory || subCategories[0])
+  const menuDrinks = useMemo(
+    () =>
+      dishes.filter(
+        el =>
+          el.topCategory === "напої" && el.subCategory === (currentSubCategory || subCategories[0])
+      ),
+    [dishes, currentSubCategory, subCategories]
   );
 
   function changeCategory(category) {
@@ -79,7 +90,6 @@ const CategoriesList = observer(({ page }) => {
       setIsOpenCategoryFilter(false);
     }
     setCurrentCategory(category);
-    setCurrentSubCategory("");
   }
 
   function changeSubCategory(sub) {

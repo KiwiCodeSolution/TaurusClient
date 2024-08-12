@@ -2,16 +2,17 @@ import { observer } from "mobx-react-lite";
 import MenuItem from "../components/MenuItem";
 import { useEffect } from "react";
 import dishesStore from "../store/dishes";
+import { toJS } from "mobx";
 
 const MenuAdminItem = observer(() => {
   useEffect(() => {
-    // Перевірка наявності страв у сторі
     if (!dishesStore.dishes.length) {
-      // Якщо страв немає, тоді викликаємо функцію для їх отримання
       dishesStore.getDishesAction();
     }
   }, []);
   const dishes = dishesStore.dishes.filter(el => el.available);
+  const menu = dishes.sort((a, b) => a.name.localeCompare(b.name));
+  console.log(toJS(menu));
 
   return (
     <section className="flex flex-col gp-y-1">
@@ -25,7 +26,7 @@ const MenuAdminItem = observer(() => {
           <span>Видалити</span>
         </div>
       </div>
-      {dishes.map(item => (
+      {menu.map(item => (
         <MenuItem key={item._id} item={item} section={"admin"} />
       ))}
     </section>

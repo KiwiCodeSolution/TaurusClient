@@ -5,7 +5,7 @@ import SelectFieldAdmin from "./form/SelectFieldAdmin";
 import TextFieldAdmin from "./form/TextFieldAdmin";
 import Button from "../components/UI/Button";
 import { Archive, Show, Trash } from "../icons/iconComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
 import dishesStore from "../store/dishes";
 import { updateDishAvailable } from "../API/dishes";
@@ -13,7 +13,6 @@ import CheckboxField from "../components/UI/form/CheckboxField";
 import authStore from "../store/auth";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
-import { toJS } from "mobx";
 
 const topOptions = [
   { value: "dishes", label: "основне меню" },
@@ -23,43 +22,86 @@ const topOptions = [
 
 const options = {
   dishes: [
-    { value: "cold_dishes", label: "холодні страви" },
-    { value: "bruschetta", label: "брускети" },
-    { value: "salads", label: "салати" },
-    { value: "hot_appetizers", label: "гарячі закуски" },
-    { value: "burgers", label: "бургери" },
-    { value: "soups", label: "супи" },
-    { value: "paste", label: "паста" },
-    { value: "main_dishes", label: "основні страви" },
     { value: "bbq_menu", label: "bbq-меню" },
-    { value: "sets", label: "сети" },
+    { value: "bruschetta", label: "брускети" },
+    { value: "burgers", label: "бургери" },
     { value: "side_dishes", label: "гарніри" },
-    { value: "sauces", label: "соуси" },
+    { value: "hot_appetizers", label: "гарячі закуски" },
+    { value: "main_dishes", label: "основні страви" },
+    { value: "paste", label: "паста" },
     { value: "pizza", label: "піца" },
+    { value: "salads", label: "салати" },
+    { value: "sets", label: "сети" },
+    { value: "sauces", label: "соуси" },
+    { value: "soups", label: "супи" },
+    { value: "cold_dishes", label: "холодні страви" },
   ],
 
   desserts: [
-    { value: "cakes", label: "тістечка" },
+    { value: "waffles", label: "вафлі" },
     { value: "ice", label: "морозиво" },
     { value: "pie", label: "пиріг" },
+    { value: "cakes", label: "тістечка" },
     { value: "cheesecake", label: "чизкейк" },
-    { value: "waffles", label: "вафлі" },
   ],
 
   drinks: [
-    { value: "beer", label: "пиво" },
+    { value: "bitters", label: "біттери" },
+    { value: "whiskey", label: "віскі" },
+    { value: "soft_drinks", label: "вермути" },
     { value: "wine", label: "вино" },
-    { value: "strong_drinks", label: "міцні напої" },
+    { value: "vodka", label: "горілка" },
+    { value: "gin", label: "джин" },
+    { value: "coffee_cocoa", label: "кава та какао" },
     { value: "cocktails", label: "коктейлі" },
-    { value: "soft_drinks", label: "безалкогольні напої" },
-    { value: "hot_drinks", label: "гарячі напої" },
+    { value: "cognac_brandy", label: "коньяк та бренді" },
+    { value: "liqueurs", label: "лікери" },
+    { value: "lemonade", label: "лимонад" },
+    { value: "milkshakes", label: "молочні коктейлі" },
+    { value: "drinks", label: "напої" },
+    { value: "tinctures", label: "настоянки" },
+    { value: "beer", label: "пиво" },
+    { value: "port_wine", label: "портвейн" },
+    { value: "rum", label: "ром" },
+    { value: "tequila_mezcal", label: "текіла та мескаль" },
+    { value: "fresh", label: "фреші" },
+    { value: "tea", label: "чай" },
+    { value: "shot", label: "шот" },
   ],
 };
 
 const subOptions = [
+  { value: "american_whiskey", label: "американський віскі " },
+  { value: "bitters", label: "біттери" },
+  { value: "brandy", label: "бренді" },
+  { value: "soft_drinks", label: "вермути" },
+  { value: "whiskey_Scottish_Islands", label: "віскі шотландських островів" },
+  { value: "vodka", label: "горілка" },
+  { value: "gin", label: "джин" },
   { value: "snacks_beer", label: "закуски до пива" },
-  { value: "craft_beer", label: "крафтове пиво" },
-  { value: "rose_wine", label: "рожеве вино" },
+  { value: "sparkling_wine", label: "ігристе вино" },
+  { value: "irish_whiskey", label: "ірландський віскі" },
+  { value: "coffee_cocoa", label: "кава та какао" },
+  { value: "craft_beer", label: "кегове пиво" },
+  { value: "cocktails", label: "коктейлі" },
+  { value: "cognac", label: "коньяк" },
+  { value: "lemonade", label: "лимонад" },
+  { value: "liqueurs", label: "лікери" },
+  { value: "mezcal", label: "мескаль" },
+  { value: "milkshakes", label: "молочні коктейлі" },
+  { value: "drinks", label: "напої" },
+  { value: "tinctures", label: "настоянки" },
+  { value: "port_wine", label: "портвейн" },
+  { value: "rum", label: "ром" },
+  { value: "tequila", label: "текіла" },
+  { value: "quiet_white_wine", label: "тихе біле вино" },
+  { value: "quiet_pink_wine", label: "тихе рожеве вино" },
+  { value: "quiet_red_wine", label: "тихе червоне вино" },
+  { value: "fresh", label: "фреші" },
+  { value: "tea", label: "чай" },
+  { value: "branded_tea", label: "чай фірмовий" },
+  { value: "shot", label: "шот" },
+  { value: "scotch_whiskey", label: "шотландський віскі" },
 ];
 
 const fieldsDescription = [
@@ -231,12 +273,13 @@ const DishForm = observer(({ item, type }) => {
       displayInDeliveryMenu: data.delivery,
       action: data.promo,
     };
+    if (data.top.label !== "напої") {
+      delete requestData.subCategory;
+    }
     delete requestData.top;
     delete requestData.sub;
     delete requestData.delivery;
-    if (requestData.topCategory !== " напої") {
-      delete requestData.subCategory;
-    }
+
     // console.log(requestData);
     dishesStore.createDishesAction(requestData);
   };
