@@ -1,21 +1,22 @@
 import { observer } from "mobx-react-lite";
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/UI/Button";
 import SearchBar from "../../adminSections/SearchBar";
 import { Archive, ArrowBack } from "../../icons/iconComponent";
 import MessageItem from "../../adminSections/MessageItem";
 import feedbackStore from "../../store/feedback";
 import { prefix } from "../../helpers/styles";
+import useAuthPage from "../../hooks/isAuthPage";
 
 const ServicesPage = observer(() => {
   const [filter, setFilter] = useState("");
   const [isArchive, setIsArchive] = useState(false);
 
-  useEffect(() => {
+  useAuthPage(() => {
     feedbackStore.getMessages();
-  }, []);
+  });
 
   const messages = feedbackStore.messages;
 

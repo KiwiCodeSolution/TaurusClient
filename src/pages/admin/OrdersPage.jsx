@@ -5,16 +5,17 @@ import OrderItem from "../../adminSections/OrderItem";
 import Button from "../../components/UI/Button";
 import { Archive, ArrowBack } from "../../icons/iconComponent";
 import SearchBar from "../../adminSections/SearchBar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import adminOrdersStore from "../../store/adminOrders";
+import useAuthPage from "../../hooks/isAuthPage";
 
 const OrdersPage = observer(() => {
   const [filter, setFilter] = useState("");
   const [isArchive, setIsArchive] = useState(false);
 
-  useEffect(() => {
+  useAuthPage(() => {
     adminOrdersStore.getOrders();
-  }, []);
+  });
 
   const filteredOrdersByArchive = adminOrdersStore.orders.filter(order =>
     isArchive ? order.archive : !order.archive
@@ -68,9 +69,7 @@ const OrdersPage = observer(() => {
         </div>
 
         <div className="w-full h-[calc(100%-400px)] mx-auto overflow-y-auto pt-[18px] px-8">
-          {filteredOrders.map(item => (
-            <OrderItem key={item._id} item={item} />
-          ))}
+          {filteredOrders && filteredOrders.map(item => <OrderItem key={item._id} item={item} />)}
         </div>
       </section>
     </>

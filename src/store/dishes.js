@@ -63,10 +63,8 @@ class Dishes {
   };
 
   updateDishesAction = async dish => {
-    console.log(dish);
     this.isProcessing = true;
     const result = await updateDish(dish, authStore.token);
-    console.log("result", result.data);
 
     runInAction(() => {
       if (result.data) {

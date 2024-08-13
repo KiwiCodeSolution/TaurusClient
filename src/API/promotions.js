@@ -20,8 +20,7 @@ export const getAllPromotions = async token => {
 export const getImage = async fileName => {
   try {
     const result = await axios.get(`${baseServerURL}uploads/${fileName}`);
-    console.log(`${baseServerURL}uploads/${fileName}`);
-    console.log(result);
+
     return result;
   } catch (error) {
     return { error: error.message };

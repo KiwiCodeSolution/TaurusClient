@@ -5,7 +5,7 @@ import SelectFieldAdmin from "./form/SelectFieldAdmin";
 import TextFieldAdmin from "./form/TextFieldAdmin";
 import Button from "../components/UI/Button";
 import { Archive, Show, Trash } from "../icons/iconComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmModalAdmin from "./modal/ConfirmModalAdmin";
 import dishesStore from "../store/dishes";
 import { updateDishAvailable } from "../API/dishes";
@@ -330,6 +330,10 @@ const DishForm = observer(({ item, type }) => {
     resetField(fieldName);
   };
 
+  useEffect(() => {
+    resetField("category");
+  }, [topValue, resetField]);
+
   return dishesStore.isProcessing ? (
     <Loader />
   ) : (
@@ -348,7 +352,7 @@ const DishForm = observer(({ item, type }) => {
                 {...field}
                 control={control}
                 options={topOptions}
-                 placeholder="Оберіть головний розділ меню"
+                placeholder="Оберіть головний розділ меню"
                 name="top"
                 isSearchable={true}
                 label="Головний розділ меню"
@@ -370,7 +374,7 @@ const DishForm = observer(({ item, type }) => {
                   {...field}
                   control={control}
                   options={options[currentOptions]}
-                  value={options[currentOptions].find(option => option.value === field.value)}
+                  // value={options[currentOptions].find(option => option.value === field.value)}
                   placeholder="оберіть категорію"
                   name="category"
                   isSearchable={true}

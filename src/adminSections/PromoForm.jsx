@@ -83,35 +83,36 @@ const PromoForm = observer(({ item, type }) => {
   const [previewImage, setPreviewImage] = useState(imagePreview || null);
   const [isImageChange, setIsImageChange] = useState(false); // відслідковуємо, чи змінювалось зображення
 
-
-
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
-        try {
-            const maxSizeInBytes = 8388608;
-            if (selectedFile.size > maxSizeInBytes) {
-                toast.error("Зображення занадто велике. Оберіть файл меншого розміру.", toastOptions);
-                return;
-            }
-
-            if (!selectedFile.type.includes("image")) {
-                toast.error("Будь ласка, виберіть зображення у форматах .png, jpg або jpeg", toastOptions);
-                return;
-            }
-
-            const imgUrl = URL.createObjectURL(selectedFile);
-            setPreviewImage(imgUrl);
-            setIsImageChange(true);
-        } catch (error) {
-            console.error("Помилка при обробці файлу:", error);
-            // Додаткова обробка помилок, наприклад, відображення повідомлення користувачеві
+      try {
+        const maxSizeInBytes = 8388608;
+        if (selectedFile.size > maxSizeInBytes) {
+          toast.error("Зображення занадто велике. Оберіть файл меншого розміру.", toastOptions);
+          return;
         }
+
+        if (!selectedFile.type.includes("image")) {
+          toast.error(
+            "Будь ласка, виберіть зображення у форматах .png, jpg або jpeg",
+            toastOptions
+          );
+          return;
+        }
+
+        const imgUrl = URL.createObjectURL(selectedFile);
+        setPreviewImage(imgUrl);
+        setIsImageChange(true);
+      } catch (error) {
+        console.error("Помилка при обробці файлу:", error);
+        // Додаткова обробка помилок, наприклад, відображення повідомлення користувачеві
+      }
     } else {
-        console.error("Файл не обрано");
+      console.error("Файл не обрано");
     }
-};
+  };
 
   const onSubmit = async data => {
     const file = data.image;

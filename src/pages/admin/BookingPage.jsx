@@ -7,14 +7,21 @@ import SearchBar from "../../adminSections/SearchBar";
 import { Archive, ArrowBack } from "../../icons/iconComponent";
 import BookingItem from "../../adminSections/BookingItem";
 import reservationsStore from "../../store/reservations";
+import authStore from "../../store/auth";
 
 const BookingPage = observer(() => {
+  useEffect(() => {
+    const auth = localStorage.getItem("auth");
+    if (auth) {
+      reservationsStore.getReserveAction();
+    } else {
+      authStore.setIsAuth(false);
+      authStore.setToken("");
+    }
+  }, []);
+
   const [filter, setFilter] = useState("");
   const [isArchive, setIsArchive] = useState(false);
-
-  useEffect(() => {
-    reservationsStore.getReserveAction();
-  }, []);
 
   const filteredItemsByArchive = reservationsStore.reserves.filter(item =>
     isArchive ? item.archive : !item.archive

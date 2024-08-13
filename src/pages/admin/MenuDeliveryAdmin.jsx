@@ -1,10 +1,11 @@
 import { observer } from "mobx-react-lite";
 import MetaData from "../../components/MetaData";
 import CategoryFilter from "../../components/CategoryFilter";
-import { useEffect } from "react";
+
 import dishesStore from "../../store/dishes";
 import MenuItem from "../../components/MenuItem";
 import PageButtons from "../../adminSections/PageButtons";
+import useAuthPage from "../../hooks/isAuthPage";
 
 const buttons = [
   { label: "Додати позицію", link: "/admin/access/site/menu/create" },
@@ -13,11 +14,9 @@ const buttons = [
 ];
 
 const MenuDeliveryAdmin = observer(() => {
-  useEffect(() => {
-    if (!dishesStore.dishes.length) {
-      dishesStore.getDishesAction();
-    }
-  }, []);
+  useAuthPage(() => {
+    dishesStore.getDishesAction();
+  });
 
   const dishes = dishesStore.dishes.filter(el => el.displayInDeliveryMenu);
 

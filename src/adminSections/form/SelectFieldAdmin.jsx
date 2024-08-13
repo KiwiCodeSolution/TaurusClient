@@ -112,10 +112,10 @@ SelectFieldAdmin.displayName = { name };
 SelectFieldAdmin.propTypes = {
   control: PropTypes.object.isRequired,
   options: PropTypes.array.isRequired,
-  value: PropTypes.object,
+  value: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   label: PropTypes.string.isRequired,
   style: PropTypes.string,
   isRequired: PropTypes.bool,

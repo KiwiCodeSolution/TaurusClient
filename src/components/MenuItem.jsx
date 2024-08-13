@@ -151,7 +151,7 @@ const MenuItem = observer(({ item, section, archive }) => {
               : operationType === "show"
               ? "Показати"
               : operationType === "archive"
-              ? "Підтвердження Aрхівування"
+              ? "Підтвердження Архівування"
               : "Підтвердження видалення"}
           </p>
           <p className="text-beige text-base mb-12 text-center">

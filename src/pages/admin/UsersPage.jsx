@@ -1,26 +1,22 @@
 import { observer } from "mobx-react-lite";
 import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
-import PageButtons from "../../adminSections/PageButtons";
 import UserItem from "../../adminSections/UserItem";
 import usersStore from "../../store/users";
-
-// import users from "../../data/usersTest.json";
-import { useEffect } from "react";
 import Loader from "../../components/Loader";
+import useAuthPage from "../../hooks/isAuthPage";
 
-const buttons = [
-  // { label: "Додати користувача", link: "/admin/access/users/create" },
-  { label: "Архів", link: "/admin/access/users/archive" },
-];
+// const buttons = [
+//   { label: "Додати користувача", link: "/admin/access/users/create" },
+//   { label: "Архів", link: "/admin/access/users/archive" },
+// ];
 
 const UsersPage = observer(() => {
-  useEffect(() => {
+  useAuthPage(() => {
     usersStore.getUsers();
-  }, []);
+  });
 
   const users = usersStore.users;
-  console.log(users);
 
   return usersStore.isProcessing ? (
     <Loader />

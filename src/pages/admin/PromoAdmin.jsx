@@ -4,8 +4,9 @@ import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
 import PageButtons from "../../adminSections/PageButtons";
 import PromoItem from "../../components/PromoItem";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import promoStore from "../../store/promo";
+import useAuthPage from "../../hooks/isAuthPage";
 
 const buttonsPromo = [
   { label: "Додати Новину", link: "/admin/access/site/promo/create" },
@@ -14,9 +15,9 @@ const buttonsPromo = [
 ];
 
 const PromoAdmin = observer(() => {
-  useEffect(() => {
+  useAuthPage(() => {
     promoStore.getAllPromo();
-  }, []);
+  });
 
   const promo = promoStore.promo;
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -20,7 +21,6 @@ const USERSLINKS = [{ id: "1", name: "Всі користувачі", link: "/ad
 const MenuSideBar = () => {
   const [currentItem, setCurrentItem] = useState(localStorage.getItem("currentId") || "1");
   const { pathname } = useLocation();
-  console.log(pathname);
 
   // Перевіряємо, чи адреса містить "/admin/access/site"
   const isSitePage = pathname.includes("/admin/access/site");
