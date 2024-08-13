@@ -348,6 +348,7 @@ const DishForm = observer(({ item, type }) => {
                 {...field}
                 control={control}
                 options={topOptions}
+                 placeholder="Оберіть головний розділ меню"
                 name="top"
                 isSearchable={true}
                 label="Головний розділ меню"
@@ -369,6 +370,7 @@ const DishForm = observer(({ item, type }) => {
                   {...field}
                   control={control}
                   options={options[currentOptions]}
+                  value={options[currentOptions].find(option => option.value === field.value)}
                   placeholder="оберіть категорію"
                   name="category"
                   isSearchable={true}
