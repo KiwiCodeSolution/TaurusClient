@@ -17,7 +17,7 @@ const Promo = observer(() => {
     <>
       <MetaData>Акції ресторану</MetaData>
       <div className="h-[198px] md:h-[416px]">
-        <PromoSwiper />
+      {promo.length > 0 && <PromoSwiper items={promo} />}
       </div>
       <section className="relative wrapper w-full section-wrapper py-8 md:py-16 mx-auto">
         <TitlePage>Новини</TitlePage>
