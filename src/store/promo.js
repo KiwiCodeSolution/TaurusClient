@@ -41,6 +41,7 @@ class Promo {
       if (result.data) {
         this.isProcessing = false;
         this.promo = result.data;
+        console.log(this.promo);
       }
       if (result.error) {
         this.isProcessing = false;
@@ -95,7 +96,7 @@ class Promo {
       }
       if (result.error) {
         this.isProcessing = false;
-        this.getDishesAction();
+        this.isError = true;
         return;
       }
     });

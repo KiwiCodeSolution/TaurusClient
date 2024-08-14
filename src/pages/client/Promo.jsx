@@ -12,12 +12,12 @@ const Promo = observer(() => {
     promoStore.getAllPromo();
   }, []);
 
-  const promo = promoStore.promo;
+  const promo = promoStore.promo.filter(el => el.available && !el.archive);
   return (
     <>
-      <MetaData>Акції ресторану</MetaData>
+      <MetaData>Новини ресторану</MetaData>
       <div className="h-[198px] md:h-[416px]">
-      {promo.length > 0 && <PromoSwiper items={promo} />}
+        {promo.length > 0 && <PromoSwiper items={promo} />}
       </div>
       <section className="relative wrapper w-full section-wrapper py-8 md:py-16 mx-auto">
         <TitlePage>Новини</TitlePage>

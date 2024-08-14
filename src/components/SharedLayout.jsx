@@ -29,7 +29,7 @@ const SharedLayout = observer(() => {
   // номер всюди задано через цю константу. достатньо змінити тільки тут
   const number = "+38 099 101 81 81";
 
-  const isCartEmpty = orderStore.order.items?.length > 0;
+  // const isCartEmpty = orderStore.order.items?.length > 0;
 
   function openModal() {
     setIsOpen(true);
@@ -46,7 +46,7 @@ const SharedLayout = observer(() => {
 
   return (
     <div className="relative" id="header">
-      <header className="w-full xl:w-[1280px] flex px-3 md:px-[82px] items-center justify-between text-base absolute top-0 left-1/2 -translate-x-1/2 h-[104px] z-10 mx-auto">
+      <header className="w-full flex px-3 md:px-[82px] xl:px-[120px] items-center justify-between text-base absolute top-0 left-1/2 -translate-x-1/2 h-[104px] z-10 mx-auto">
         <Logo />
         {!isMobile && <NavBar />}
 

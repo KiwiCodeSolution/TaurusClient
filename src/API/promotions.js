@@ -65,6 +65,7 @@ export const updatePromotion = async (promo, token) => {
 };
 
 export const deletePromotion = async (promo, token) => {
+  console.log(promo);
   try {
     const result = await axios.delete(`${baseServerURL}promotions/${promo._id}`, {
       headers: {
@@ -72,6 +73,7 @@ export const deletePromotion = async (promo, token) => {
       },
     });
     toast.success("Новину видалено!", toastOptions);
+    console.log("deletePromotion", result.data);
     return result;
   } catch (error) {
     toast.error("Такої новини не існує!", toastOptions);

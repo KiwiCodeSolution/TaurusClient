@@ -33,8 +33,15 @@ const Order = observer(() => {
     <>
       <MetaData>Замовлення</MetaData>
 
-      <main className="relative w-full">
-        <div className="h-[198px] md:h-[416px]">
+      <main className="relative w-full h-screen">
+        <div className="w-full h-full flex items-center justify-center">
+          <h1 className="text-center text-6xl text-beige uppercase mx-auto">
+            Шановні клієнти! <br />
+            Наразі, розділ не доступний. Вже зовсім скоро завершиться тестування та ми зможемо
+            радувати Вас найсмачнішою та найшвидшою доставкою! Чекаємо на Вас!
+          </h1>
+        </div>
+        {/* <div className="h-[198px] md:h-[416px]">
           <img
             src={
               filterStore.topCategory === "основне меню"
@@ -64,7 +71,7 @@ const Order = observer(() => {
         {isOpenNotification && (
           <ConfirmPopup type={"cart"} clickFn={() => setIsOpenNotification(false)} />
         )}
-        {isModalOpen && <CartPopup clickFn={() => setIsModalOpen(false)} formFn={handleModals} />}
+        {isModalOpen && <CartPopup clickFn={() => setIsModalOpen(false)} formFn={handleModals} />} */}
       </main>
     </>
   );

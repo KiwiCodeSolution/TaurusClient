@@ -40,7 +40,7 @@ const Home = () => {
     <>
       <MetaData>TaurusSoul Ресторан</MetaData>
 
-      <div className="relative">
+      <div className="relative overflow-hidden">
         {isMobile ? (
           <HomeMobile />
         ) : (
@@ -85,8 +85,8 @@ const Home = () => {
             </div>
 
             {/* іконки та адреса */}
-            <div className="wrapper h-full w-[1280px] absolute top-0 left-1/2 -translate-x-1/2">
-              <div className="flex flex-col h-[70%] items-center justify-between absolute top-[225px] right-[-48px] z-50">
+            <div className="wrapper h-full w-full absolute top-0 left-1/2 -translate-x-1/2">
+              <div className="flex flex-col h-[70%] items-center justify-between absolute top-[225px] right-0 z-50">
                 <Location section="home" />
                 <SocIcons section="home" />
               </div>

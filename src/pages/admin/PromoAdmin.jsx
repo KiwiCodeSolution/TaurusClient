@@ -4,7 +4,7 @@ import TitlePage from "../../adminSections/TitlePage";
 import MetaData from "../../components/MetaData";
 import PageButtons from "../../adminSections/PageButtons";
 import PromoItem from "../../components/PromoItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import promoStore from "../../store/promo";
 import useAuthPage from "../../hooks/isAuthPage";
 
@@ -19,7 +19,11 @@ const PromoAdmin = observer(() => {
     promoStore.getAllPromo();
   });
 
-  const promo = promoStore.promo;
+  useEffect(() => {
+    console.log("Updated Promo List:", promo);
+  }, [promoStore.promo]);
+
+  const promo = promoStore.promo.filter(el => el.available && !el.archive);
 
   const [currentSection, setCurrentSection] = useState("Поточні новини");
 
@@ -42,7 +46,7 @@ const PromoAdmin = observer(() => {
   };
   return (
     <>
-      <MetaData>Акції</MetaData>
+      <MetaData>Новини</MetaData>
       <section className="w-[980px] mx-auto h-screen admin relative">
         <TitlePage style={"mt-[103px]"}>Новини</TitlePage>
 

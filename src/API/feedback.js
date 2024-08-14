@@ -27,6 +27,7 @@ export const getAllFeedbacks = async token => {
 };
 
 export const updateFeedback = async (data, token) => {
+  console.log(data);
   try {
     const result = await axios.put(
       `${baseServerURL}feedback/${data._id}`,
@@ -53,7 +54,7 @@ export const deleteFeedback = async (data, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    toast.success("Звернення архівовано!", toastOptions);
+    toast.success("Звернення видалено!", toastOptions);
     return result;
   } catch (error) {
     toast.error("Такого звернення не існує!", toastOptions);

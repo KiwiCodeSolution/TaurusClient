@@ -176,6 +176,10 @@ button:hover .cross {
   stroke: #ffd698;
 }
 
+/* .location:hover span {
+  color: #ffd698;
+} */
+
 .nav_link:hover .line::before,
 .nav_link:hover .line::after {
   transform: translateX(0);

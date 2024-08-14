@@ -1,14 +1,17 @@
 import PropTypes from "prop-types";
 import Button from "./UI/Button";
 import * as icons from "../icons/iconComponent";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NoImage from "/images/no_image.png";
 import promoStore from "../store/promo";
 import authStore from "../store/auth";
 import { useState } from "react";
 import ConfirmModalAdmin from "../adminSections/modal/ConfirmModalAdmin";
+import { baseServerURL } from "../API/config";
 
 const PromoItem = ({ item, type }) => {
+  const navigate = useNavigate();
+  promoStore.setNavigate(navigate);
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [operationType, setOperationType] = useState("");
@@ -20,14 +23,13 @@ const PromoItem = ({ item, type }) => {
 
   const handleAvailableChange = async () => {
     const updatedItem = { ...item, available: !item.available };
-    console.log(updatedItem);
-    // await promoStore.updatePromo(updatedItem);
+    await promoStore.updatePromo(updatedItem);
   };
 
   const handleArchiveChange = async () => {
-    const updatedItem = { ...item, archive: !item.archive };
-    console.log(updatedItem);
-    // await promoStore.updatePromo(updatedItem);
+    const updateData = item.archive ? !item.archive : true;
+    const updatedItem = { ...item, archive: updateData };
+    await promoStore.updatePromo(updatedItem);
   };
 
   function openModal(type) {
@@ -39,7 +41,7 @@ const PromoItem = ({ item, type }) => {
     <>
       <article className="w-[336px] md:w-[356px] h-[546px] md:h-[568px] py-6 px-4 md:py-8 md:px-6 border border-base-brown flex flex-col gap-y-6 justify-between relative mx-auto">
         <div className="w-[304px] h-[235px] border border-base-brown overflow-hidden relative">
-          <img src={image ? `http://localhost:5000/${image}` : NoImage} alt="Promo" />
+          <img src={image ? `${baseServerURL}${image}` : NoImage} alt="Promo" />
           <div className="w-[82px] h-8 px-1 py-3 text-18 font-medium text-base-black bg-base-orange flex items-center justify-center absolute top-3 left-0">
             Новина
           </div>
@@ -99,7 +101,10 @@ const PromoItem = ({ item, type }) => {
               <icons.Archive className={"fill-white w-4 h-4"} />
             </button>
             {authStore.user.role === "admin" && (
-              <button className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center">
+              <button
+                className="w-[60px] h-[30px] bg-dark-btn-bg hover:bg-transparent hover:border hover:border-1 hover:border-beige cursor-pointer flex items-center justify-center"
+                onClick={() => openModal("delete")}
+              >
                 <icons.Trash className={"fill-white w-4 h-4"} />
               </button>
             )}
@@ -129,7 +134,7 @@ const PromoItem = ({ item, type }) => {
               : operationType === "show"
               ? "Показати"
               : operationType === "archive"
-              ? "Підтвердження Архівування"
+              ? "Підтвердження зміни архівування"
               : "Підтвердження видалення"}
           </p>
           <p className="text-beige text-base mb-12 text-center">
@@ -139,7 +144,7 @@ const PromoItem = ({ item, type }) => {
               : operationType === "show"
               ? "показати"
               : operationType === "archive"
-              ? "архівувати"
+              ? "змінити стан архівування"
               : "видалити"}
             ?
           </p>

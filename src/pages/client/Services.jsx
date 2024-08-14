@@ -14,13 +14,13 @@ const Services = () => {
 
   const blocAnimation = {
     hidden: {
-      scale: 0,
+      scale: 0.5,
       opacity: 0,
     },
     visible: custom => ({
       scale: 1,
       opacity: 1,
-      transition: { delay: custom * 0.1, duration: 0.2 },
+      transition: { delay: custom * 0.05, duration: 0.7 },
     }),
   };
 

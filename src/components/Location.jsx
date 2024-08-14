@@ -10,7 +10,7 @@ const Location = ({ section, className }) => {
         target="_blank"
         className={`${
           section === "home"
-            ? "rotate-90 hover:underline gap-x-3"
+            ? "rotate-90 hover:underline hover:text-base-yellow gap-x-3"
             : section === "contacts"
             ? "gap-x-[6px] items-center justify-center w-full md:w-[200px]"
             : section === "home_mobile"

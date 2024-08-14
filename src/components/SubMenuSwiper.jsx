@@ -40,7 +40,7 @@ class SubMenuSwiper extends Component {
     super(props);
 
     this.state = {
-      active: "",
+      active: props.items.length > 0 ? props.items[0] : "", // Встановлюємо перший елемент активним за замовчуванням
     };
 
     this.sliderRef = React.createRef();
@@ -62,6 +62,8 @@ class SubMenuSwiper extends Component {
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
     };
+
+    console.log(active);
 
     return (
       <Slider
