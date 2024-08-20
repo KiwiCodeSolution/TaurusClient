@@ -35,10 +35,15 @@ const Order = observer(() => {
 
       <main className="relative w-full h-screen">
         <div className="w-full h-full flex items-center justify-center">
-          <h1 className="text-center text-6xl text-beige uppercase mx-auto">
-            Шановні клієнти! <br />
-            Наразі, розділ не доступний. Вже зовсім скоро завершиться тестування та ми зможемо
-            радувати Вас найсмачнішою та найшвидшою доставкою! Чекаємо на Вас!
+          <h1 className="w-full md:w-9/12 text-center text-[40px] text-beige mx-auto flex flex-col gap-y-10">
+            <p>Шановні клієнти! </p>
+            <p>
+              Наразі, розділ не доступний. Вже зовсім скоро завершиться тестування та ми зможемо
+              радувати Вас найсмачнішою та найшвидшою доставкою!
+            </p>
+            <p>
+              <span className="text-base-orange font-bold">Чекаємо на Вас!</span>
+            </p>
           </h1>
         </div>
         {/* <div className="h-[198px] md:h-[416px]">

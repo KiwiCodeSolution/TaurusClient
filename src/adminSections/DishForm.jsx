@@ -118,14 +118,14 @@ const fieldsDescription = [
     name: "description",
     label: "Додаткова інформація",
     style: "text-14 text-beige",
-    isRequired: true,
+    isRequired: false,
   },
   {
     id: "3",
     name: "englishName",
     label: "Опис англійською",
     style: "text-xs font-medium text-base-brown",
-    isRequired: true,
+    isRequired: false,
   },
 ];
 

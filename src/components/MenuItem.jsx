@@ -49,7 +49,7 @@ const MenuItem = observer(({ item, section, archive }) => {
             section === "order" ? "w-[546px]" : section === "admin" ? "w-[488px]" : "w-full"
           }`}
         >
-          <li className="text-sm md:text-lg uppercase flex items-center">
+          <li className="text-sm md:text-lg uppercase flex gap-x-2 justify-between items-center">
             {item.new && (
               <div className="w-fit h-[19px] bg-base-yellow px-2.5 rounded-[3px] uppercase flex items-center justify-center text-xs font-medium text-base-black mr-2">
                 new
@@ -66,11 +66,8 @@ const MenuItem = observer(({ item, section, archive }) => {
                 Знижка
               </div>
             )}
-            <p>{name}</p>
-          </li>
-          <li className="text-sm flex gap-x-2 justify-between">
             <p className="w-fit relative">
-              {description} ({weight}
+              {name} ({weight}
               {!item.subCategory
                 ? "г"
                 : item.subCategory === "кегове пиво"
@@ -85,7 +82,14 @@ const MenuItem = observer(({ item, section, archive }) => {
             </p>
             {section !== "admin" && <p className="w-fit h-full bg-base-black z-10">{price}грн</p>}
           </li>
-          <li className="text-sm md:text-xs font-medium text-base-brown">{englishName}</li>
+          <li className="text-sm flex gap-x-2 justify-between">
+            <p className="w-fit relative">
+              {description && description !== "-" && <> {description}</>}
+            </p>
+          </li>
+          {englishName && englishName !== "-" && (
+            <li className="text-sm md:text-xs font-medium text-base-brown">{englishName}</li>
+          )}
         </ul>
         {section === "admin" && (
           <ul className="w-[426px] flex justify-between items-center gap-x-5">
