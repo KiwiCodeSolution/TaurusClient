@@ -50,36 +50,39 @@ const MenuItem = observer(({ item, section, archive }) => {
           }`}
         >
           <li className="text-sm md:text-lg uppercase flex gap-x-2 justify-between items-center">
-            {item.new && (
-              <div className="w-fit h-[19px] bg-base-yellow px-2.5 rounded-[3px] uppercase flex items-center justify-center text-xs font-medium text-base-black mr-2">
-                new
-              </div>
-            )}
-            {item.action && (
-              <div className="w-fir h-[19px] bg-base-orange px-2.5 rounded-[3px] underline underline-offset-1 flex items-center justify-center text-xs font-medium text-base-black mr-2 gap-x-1">
-                <img src={PromoImg} alt="" className="" />
-                Акція
-              </div>
-            )}
-            {item.discount && (
-              <div className="w-fit h-[19px] bg-base-yellow px-2.5 rounded-[3px] uppercase flex items-center justify-center text-xs font-medium text-base-black mr-2">
-                Знижка
-              </div>
-            )}
-            <p className="w-fit relative">
-              {name} ({weight}
-              {!item.subCategory
-                ? "г"
-                : item.subCategory === "кегове пиво"
-                ? "л"
-                : item.subCategory === "закуски до пива"
-                ? "г"
-                : "мл"}
-              )
-              <span className="hidden md:block w-[90%] absolute top-0 left-[100%] z-0">
-                ....................................................................................................................................................................................................................................................................................................................................................................................................
-              </span>
-            </p>
+            <div className="w-fit flex items-center justify-center gap-x-2">
+              {item.new && (
+                <div className="w-fit h-[19px] bg-base-yellow px-2.5 rounded-[3px] uppercase flex items-center justify-center text-xs font-medium text-base-black mr-2">
+                  new
+                </div>
+              )}
+              {item.action && (
+                <div className="w-fir h-[19px] bg-base-orange px-2.5 rounded-[3px] underline underline-offset-1 flex items-center justify-center text-xs font-medium text-base-black mr-2 gap-x-1">
+                  <img src={PromoImg} alt="" className="" />
+                  Акція
+                </div>
+              )}
+              {item.discount && (
+                <div className="w-fit h-[19px] bg-base-yellow px-2.5 rounded-[3px] uppercase flex items-center justify-center text-xs font-medium text-base-black mr-2">
+                  Знижка
+                </div>
+              )}{" "}
+              <p className="w-fit relative">
+                {name} ({weight}
+                {!item.subCategory
+                  ? "г"
+                  : item.subCategory === "кегове пиво"
+                  ? "л"
+                  : item.subCategory === "закуски до пива"
+                  ? "г"
+                  : "мл"}
+                )
+                <span className="hidden md:block w-[90%] absolute top-0 left-[100%] z-0">
+                  ....................................................................................................................................................................................................................................................................................................................................................................................................
+                </span>
+              </p>
+            </div>
+
             {section !== "admin" && <p className="w-fit h-full bg-base-black z-10">{price}грн</p>}
           </li>
           <li className="text-sm flex gap-x-2 justify-between">
