@@ -9,8 +9,17 @@
     background-color: #0c0c09;
   }
 
-  label {
-    cursor: pointer;
+  body,
+  html {
+    @media screen and (max-width: 767px) {
+      overflow-x: hidden;
+    }
+    min-height: 100vh;
+    height: auto;
+  }
+
+  input {
+    cursor: text;
   }
 
   p,
@@ -36,10 +45,10 @@
   }
 
   button {
-    display: inline-block;
+    display: block;
 
     padding: 0;
-    border: 0;
+
     outline: none;
     margin: 0;
 
@@ -70,6 +79,30 @@
   }
 }
 
+.body-scroll-lock {
+  overflow: hidden;
+}
+
+.logo {
+  width: 126px;
+  height: 54px;
+
+  @media screen and (min-width: 768px) {
+    width: 159px;
+    height: 72px;
+  }
+}
+
+.devices {
+  width: 20px;
+  height: 28px;
+
+  @media screen and (min-width: 768px) {
+    width: 28px;
+    height: 51px;
+  }
+}
+
 .logo:hover svg,
 .logo:hover path {
   fill: #ffd698;
@@ -79,13 +112,376 @@
 }
 
 .wrapper {
-  padding-left: 82px;
-  padding-right: 82px;
+  min-height: 100vh;
+  height: auto;
+  padding-left: 24px;
+  padding-right: 24px;
   margin: 0 auto;
+
+  @media screen and (min-width: 768px) {
+    padding-left: 82px;
+    padding-right: 82px;
+  }
 }
 
-.footer {
+.section-wrapper {
+  min-height: calc(100vh - 416px - 374px);
+  height: auto;
+}
+
+.border_custom {
   border-top: 1px;
   border-style: solid;
   border-image: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%) 1;
+}
+
+.border_admin_menu {
+  border-bottom: 1px;
+  border-style: solid;
+
+  border-image: linear-gradient(
+      270deg,
+      #e4b88b 0%,
+      #e4b88b 0%,
+      #7e664d 100%,
+      #7e664d 100%,
+      #e4b88b 0%
+    )
+    1;
+}
+
+.line {
+  background: linear-gradient(90deg, #ddbc82 0%, #9b7860 31%, #ddbc82 65%, #9b7860 100%);
+}
+
+.icon {
+  stroke: #fff;
+}
+
+.phoneContactList_link .icon {
+  stroke: #ffd698;
+}
+
+.cross {
+  stroke: #ecddc6;
+}
+
+.form_button:hover .cross,
+button:hover .cross {
+  stroke: #ffd698;
+}
+
+.social_link:hover .icon,
+.location:hover .location_icon {
+  stroke: #ffd698;
+}
+
+/* .location:hover span {
+  color: #ffd698;
+} */
+
+.nav_link:hover .line::before,
+.nav_link:hover .line::after {
+  transform: translateX(0);
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.icon-up {
+  fill: #ecddc6;
+}
+
+.icon_down {
+  stroke: #7e664d;
+}
+
+.select_persons:hover .icon_down {
+  stroke: #ffd698;
+}
+
+button:hover .icon-up {
+  fill: #f7a033;
+  stroke: #f7a033;
+  transform: fill;
+  transform: stroke;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.contact_item:hover .contact_icon {
+  fill: #ffd698;
+}
+
+.select_persons span {
+  width: 0;
+  height: 0;
+}
+
+.react-datepicker-wrapper:hover + .icon_down,
+.calendar_button:hover .icon_down {
+  stroke: #ffd698;
+}
+/* стилі для календаря */
+.react-datepicker__header.react-datepicker__header--time.react-datepicker__header--time--only,
+.react-datepicker-time__header {
+  display: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -100%;
+}
+
+.date-picker .react-datepicker {
+  font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+
+  color: #f7a033;
+  border: 1px solid #ffd698;
+  border-radius: 0.3rem;
+}
+
+.date-picker .react-datepicker__month-container,
+.date-picker .react-datepicker__header {
+  background-color: #0c0c09;
+}
+
+.date-picker .react-datepicker__header {
+  border-bottom: 1px solid #f7a033;
+}
+
+.date-picker .react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  color: #f7a033;
+}
+
+.date-picker .react-datepicker__day,
+.react-datepicker__month-text,
+.react-datepicker__quarter-text,
+.react-datepicker__year-text {
+  color: #ffd698;
+}
+
+.date-picker .react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow,
+.react-datepicker__navigation-icon::before {
+  border-color: #f7a033;
+  border-style: solid;
+  border-width: 3px 3px 0 0;
+  content: "";
+  display: block;
+  height: 9px;
+  position: absolute;
+  top: 6px;
+  width: 9px;
+}
+
+.date-picker .react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: #ffd698;
+}
+
+.date-picker .react-datepicker__day:hover,
+.react-datepicker__month-text:hover,
+.react-datepicker__quarter-text:hover,
+.react-datepicker__year-text:hover {
+  border-radius: 0.3rem;
+  background-color: #ecddc6;
+  color: #0c0c09;
+}
+
+.date-picker .react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  border-radius: 0.3rem;
+  background-color: #f7a033;
+  color: #0c0c09;
+}
+
+.trash:hover svg {
+  fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.text-not_found {
+  width: 100%;
+  text-align: center;
+  font-size: 94px;
+  font-weight: 700;
+  line-height: 1.5;
+  background: url("/images/text_not_found.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @media screen and (min-width: 768px) {
+    font-size: 166px;
+  }
+}
+
+.cart {
+  stroke: #fff;
+}
+
+.cart-btn:hover svg {
+  stroke: #ffd698;
+  transform: stroke;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.cart-not-empty {
+  stroke: #f7a033;
+}
+
+.password-btn:hover .show,
+.password-btn:hover .hide {
+  fill: #ffd698;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.btn-archive:hover .archive,
+button:hover .archive,
+.btn-show:hover .show {
+  fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+::-webkit-scrollbar {
+  width: 12px; /* Ширина самого скроллбара */
+}
+
+::-webkit-scrollbar-track {
+  background: #ecddc6; /* Фон скроллбару */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffd698; /* Колір thumb */
+  border-radius: 4px; /* Радіус кутів для thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f7a033; /* Колір thumb при наведенні */
+}
+
+.admin ::-webkit-scrollbar,
+.client-section ::-webkit-scrollbar {
+  width: 3px; /* Ширина самого скроллбара */
+}
+
+.admin ::-webkit-scrollbar-track,
+.client-section ::-webkit-scrollbar-track {
+  background: #ffd698; /* Фон скроллбару */
+  border-radius: 8px; /* Радіус кутів для track */
+}
+
+.admin ::-webkit-scrollbar-thumb,
+.client-section ::-webkit-scrollbar-thumb {
+  background: #f7a033; /* Колір thumb */
+  border-radius: 8px; /* Радіус кутів для thumb */
+}
+
+.admin ::-webkit-scrollbar-thumb:hover,
+.client-section ::-webkit-scrollbar-thumb:hover {
+  background: #ecddc6; /* Колір thumb при наведенні */
+}
+
+.trash:hover svg {
+  fill: #f7a033;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.back:hover svg {
+  fill: #ffd698;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.btn_gray:hover svg {
+  fill: #f7a033;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.categories .slick-slider {
+  position: relative;
+}
+
+.button-navigate svg {
+  fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.btn-admin:hover svg {
+  fill: #f7a033;
+  transform: fill;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+.btn-admin:hover span {
+  color: #f7a033;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+label:hover svg {
+  fill: #f7a033;
+}
+
+.minus,
+.plus {
+  stroke: #7e664d;
+}
+
+.call {
+  stroke: #fff;
+}
+
+.burger {
+  fill: #fff;
+}
+
+button:hover .call {
+  stroke: #f7a033;
+}
+
+button:hover .burger {
+  fill: #f7a033;
+  stroke: #f7a033;
+}
+
+.category-list .slick-arrow,
+.category-list .slick-next {
+  width: 0;
+  height: 0;
+  top: -100%;
+  left: -150%;
+  z-index: -100;
+}
+
+.custom-search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }

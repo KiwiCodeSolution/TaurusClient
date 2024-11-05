@@ -1,0 +1,32 @@
+[
+  { "id": "1", "topCategory": "dishes", "category": "холодні страви" },
+  { "id": "2", "topCategory": "dishes", "category": "брускети" },
+  { "id": "3", "topCategory": "dishes", "category": "салати" },
+  { "id": "4", "topCategory": "dishes", "category": "гарячі закуски" },
+  { "id": "5", "topCategory": "dishes", "category": "бургери" },
+  { "id": "6", "topCategory": "dishes", "category": "супи" },
+  { "id": "7", "topCategory": "dishes", "category": "паста" },
+  { "id": "8", "topCategory": "dishes", "category": "основні страви" },
+  { "id": "9", "topCategory": "dishes", "category": "bbq-меню" },
+  { "id": "10", "topCategory": "dishes", "category": "гарніри" },
+  { "id": "11", "topCategory": "dishes", "category": "соуси" },
+  { "id": "12", "topCategory": "drinks", "category": "пиво", "subCategory": ["світле", "темне", "крафтове"] },
+  {
+    "id": "13",
+    "topCategory": "drinks",
+    "category": "вино",
+    "subCategory": ["біле", "рожеве", "червоне", "безалкогольне вино"]
+  },
+  {
+    "id": "14",
+    "topCategory": "drinks",
+    "category": "міцні напої",
+    "subCategory": ["горілка", "коньяк", "віскі", "ром", ""]
+  },
+  { "id": "15", "topCategory": "drinks", "category": "коктейлі", "subCategory": ["Кривава мері"] },
+  { "id": "16", "topCategory": "drinks", "category": "безалкогольні напої", "subCategory": ["Сік", "Вода"] },
+  { "id": "17", "topCategory": "drinks", "category": "гарячі напої", "subCategory": ["Чай", "Кава"] },
+  { "id": "18", "topCategory": "desserts", "category": "тістечка" },
+  { "id": "19", "topCategory": "desserts", "category": "морозиво" },
+  { "id": "20", "topCategory": "desserts", "category": "торти" }
+]

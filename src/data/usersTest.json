@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "name": "Іванов Іван Іванович",
+    "login": "ivan123",
+    "access_type": "розширений",
+    "role": "admin",
+    "password": "aBcD1234"
+  },
+  {
+    "id": "2",
+    "name": "Петров Петро Петрович",
+    "login": "petro456",
+    "access_type": "обмежений",
+    "role": "user",
+    "password": "eFgH5678"
+  },
+  {
+    "id": "3",
+    "name": "Сидоров Сидір Сидорович",
+    "login": "sidr789",
+    "access_type": "повний",
+    "role": "guest",
+    "password": "iJkL9101"
+  },
+  {
+    "id": "4",
+    "name": "Коваленко Олексій Олексійович",
+    "login": "olexiy234",
+    "access_type": "розширений",
+    "role": "admin",
+    "password": "mNoP1123"
+  },
+  {
+    "id": "5",
+    "name": "Мельник Микола Миколайович",
+    "login": "mykola567",
+    "access_type": "обмежений",
+    "role": "user",
+    "password": "qRsT1456"
+  },
+  {
+    "id": "6",
+    "name": "Кузьменко Андрій Андрійович",
+    "login": "andriy890",
+    "access_type": "повний",
+    "role": "guest",
+    "password": "uVwX1789"
+  },
+  {
+    "id": "7",
+    "name": "Ткаченко Дмитро Дмитрович",
+    "login": "dmytro234",
+    "access_type": "розширений",
+    "role": "admin",
+    "password": "yZaB2134"
+  },
+  {
+    "id": "8",
+    "name": "Гончаренко Олег Олегович",
+    "login": "oleg567",
+    "access_type": "обмежений",
+    "role": "user",
+    "password": "cDeF2456"
+  },
+  {
+    "id": "9",
+    "name": "Лисенко Павло Павлович",
+    "login": "pavlo890",
+    "access_type": "повний",
+    "role": "guest",
+    "password": "gHiJ2789"
+  },
+  {
+    "id": "10",
+    "name": "Шевченко Віктор Вікторович",
+    "login": "victor123",
+    "access_type": "розширений",
+    "role": "admin",
+    "password": "kLmN3123"
+  }
+]

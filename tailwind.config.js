@@ -8,7 +8,17 @@ export default {
         "base-yellow": "#FFD698",
         "base-orange": "#F7A033",
         "base-brown": "#7E664D",
-        "base-back": "#0C0C09",
+        "base-black": "#0C0C09",
+        beige: "#ECDDC6",
+        "dark-bg": "#181817",
+        "dark-btn-bg": "#33302D",
+        grey: "#565350",
+      },
+      fontSize: {
+        14: ["14px", "20px"],
+        16: ["16px", "24px"],
+        18: ["18px", "20px"],
+        24: ["24px", "23.5px"],
       },
       fontFamily: {},
       backgroundImage: {

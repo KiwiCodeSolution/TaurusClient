@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "src": "/images/promo/banner_1.png",
+    "alt": "баннер акції 1"
+  },
+  {
+    "id": 2,
+    "src": "/images/promo/banner_2.png",
+    "alt": "баннер акції 2"
+  },
+  {
+    "id": 3,
+    "src": "/images/promo/banner_3.png",
+    "alt": "баннер акції 3"
+  }
+]
